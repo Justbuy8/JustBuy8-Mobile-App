@@ -32,7 +32,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   bool? isObscure;
   @override
   void initState() {
-    isObscure = widget.obscureText ?? false;
+    isObscure = widget.obscureText;
     super.initState();
   }
 
