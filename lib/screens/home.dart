@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:justbuyeight/widgets/components/otp/otp_widget.dart';
 import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.dart';
+import 'package:otp_text_field/otp_text_field.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -10,6 +12,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final controller = TextEditingController();
+  final otpController = OtpFieldController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +30,11 @@ class _HomeState extends State<Home> {
               prefixIcon: Icons.email,
               suffixIcon: Icons.visibility,
               obscureText: true,
+            ),
+            const SizedBox(height: 10),
+            OtpWidget(
+              controller: otpController,
+              length: 4,
             ),
           ],
         ),

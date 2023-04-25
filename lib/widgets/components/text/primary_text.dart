@@ -18,7 +18,7 @@ class PrimaryText extends StatelessWidget {
       text,
       style: TextStyle(
         fontSize: fontSize ?? 20,
-        fontWeight: FontWeight.w300,
+        fontWeight: FontWeight.w400,
         fontFamily: fontFamily ?? AppFonts.openSansLight,
       ),
     );

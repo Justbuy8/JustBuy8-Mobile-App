@@ -52,7 +52,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
       child: TextFormField(
         controller: widget.controller,
         focusNode: widget.focusNode ?? FocusNode(),
-        obscureText: isObscure!,
+        obscureText: isObscure ?? false,
         textInputAction: widget.textInputAction ?? TextInputAction.done,
         keyboardType: widget.keyboardType ?? TextInputType.text,
         validator: widget.validator ?? (value) => null,
