@@ -16,12 +16,6 @@ class MobileNumberTextField extends StatefulWidget {
 
 class _MobileNumberTextFieldState extends State<MobileNumberTextField> {
   @override
-  void dispose() {
-    super.dispose();
-    widget.controller.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -31,18 +25,19 @@ class _MobileNumberTextFieldState extends State<MobileNumberTextField> {
       alignment: Alignment.center,
       child: TextFormField(
         controller: widget.controller,
+        style: const TextStyle(fontSize: 18),
+        keyboardType: TextInputType.number,
         decoration: InputDecoration(
           hintText: "Enter Mobile Number",
           border: InputBorder.none,
           prefixIcon: CountryCodePicker(
             initialSelection: 'HK',
             showCountryOnly: true,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             showOnlyCountryWhenClosed: true,
             alignLeft: false,
             hideMainText: true,
-            onInit: (value) {
-              widget.controller.text = value!.dialCode.toString();
-            },
+            onInit: (value) {},
             onChanged: (value) =>
                 widget.controller.text = value.dialCode.toString(),
           ),
