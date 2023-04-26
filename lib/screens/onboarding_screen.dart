@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_string_interpolations
+
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:justbuyeight/constants/app_theme.dart';
@@ -39,6 +41,7 @@ class OnBoardingScreen extends StatelessWidget {
         ),
       ],
       showSkipButton: false,
+      onDone: (){},
       next: const Icon(
         Icons.arrow_forward,
         color: Colors.white,
