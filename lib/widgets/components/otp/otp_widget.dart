@@ -32,66 +32,65 @@ class _OtpWidgetState extends State<OtpWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final defaultPinTheme = PinTheme(
+      height: context.width() / 8,
+      width: context.width() / 8,
+      textStyle: const TextStyle(
+        fontSize: 22,
+        color: Color.fromRGBO(30, 60, 87, 1),
+      ),
+      decoration: BoxDecoration(
+        color: const Color.fromRGBO(222, 231, 240, .57),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.transparent),
+      ),
+    );
     return Column(
       children: [
         Pinput(
-          controller: widget.controller,
-          pinContentAlignment: Alignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsRetrieverApi,
-          animationDuration: const Duration(milliseconds: 300),
-          closeKeyboardWhenCompleted: true,
-          keyboardType: TextInputType.number,
-          length: widget.length,
-          focusedPinTheme: PinTheme(
-            height: context.height() / 9,
-            width: context.width() / 8,
-            decoration: BoxDecoration(
-              border: Border.all(color: AppColors.primaryColor),
-            ),
-            textStyle: TextStyle(
-              color: AppColors.primaryColor,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          defaultPinTheme: PinTheme(
-            height: context.height() / 9,
-            width: context.width() / 8,
-            textStyle: TextStyle(
-              color: AppColors.appBlackColor,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: AppColors.appBlackColor,
+            controller: widget.controller,
+            pinContentAlignment: Alignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsRetrieverApi,
+            animationDuration: const Duration(milliseconds: 300),
+            closeKeyboardWhenCompleted: true,
+            keyboardType: TextInputType.number,
+            length: widget.length,
+            focusedPinTheme: defaultPinTheme.copyWith(
+              height: context.width() / 8,
+              width: context.width() / 8,
+              decoration: defaultPinTheme.decoration!.copyWith(
+                border: Border.all(color: AppColors.primaryColor),
               ),
-              shape: BoxShape.rectangle,
             ),
-          ),
-        ),
-        Row(
+            errorPinTheme: defaultPinTheme.copyWith(
+              height: context.width() / 8,
+              width: context.width() / 8,
+              decoration: BoxDecoration(
+                color: AppColors.dangerColor,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            defaultPinTheme: defaultPinTheme),
+        10.height,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox.shrink(),
-            Row(
-              children: [
-                const SecondaryTextWidget(
-                  text: "Didn't receive OTP?",
-                  fontSize: 13,
-                ),
-                TextButton(
-                  onPressed: widget.onResend ?? () {},
-                  child: const PrimaryTextWidget(
-                    text: "Resend OTP",
-                    fontSize: 15,
-                  ),
-                ),
-              ],
-            )
+            const SecondaryTextWidget(
+              text: "Didn't receive OTP?",
+              fontSize: 13,
+            ),
+            TextButton(
+              onPressed: widget.onResend ?? () {},
+              child: const PrimaryTextWidget(
+                text: "Resend OTP",
+                fontSize: 15,
+              ),
+            ),
           ],
-        ),
+        )
       ],
     );
   }

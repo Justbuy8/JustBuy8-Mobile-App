@@ -52,10 +52,10 @@ class _HomeState extends State<Home> {
               const SizedBox(height: 10),
               OtpWidget(
                 controller: controller3,
-                length: 4,
+                length: 6,
               ),
               const SizedBox(height: 10),
-              MobileNumberTextField(controller: controller4),
+              MobileNumberTextField(controller: controller4)
             ],
           ),
         ),

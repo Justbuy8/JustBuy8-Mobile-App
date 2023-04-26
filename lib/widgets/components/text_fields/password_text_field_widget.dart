@@ -48,6 +48,7 @@ class _PasswordTextFieldWidgetState extends State<PasswordTextFieldWidget> {
       child: TextFormField(
         controller: widget.controller,
         focusNode: widget.focusNode ?? FocusNode(),
+        style: const TextStyle(fontSize: 18),
         obscureText: obscureText,
         onFieldSubmitted: (value) => widget.focusNode?.nextFocus(),
         textInputAction: widget.textInputAction ?? TextInputAction.done,
@@ -55,7 +56,7 @@ class _PasswordTextFieldWidgetState extends State<PasswordTextFieldWidget> {
         validator: widget.validator ?? (value) => null,
         decoration: InputDecoration(
           hintText: widget.label ?? "",
-          prefixIcon: Icon(widget.prefixIcon),
+          prefixIcon: Icon(widget.prefixIcon,size: 28),
           suffixIcon: IconButton(
             icon: Icon(obscureText ? Icons.visibility : Icons.visibility_off),
             onPressed: () {

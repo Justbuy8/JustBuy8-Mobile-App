@@ -45,6 +45,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
       alignment: Alignment.center,
       child: TextFormField(
         controller: widget.controller,
+        style: const TextStyle(fontSize: 18),
         focusNode: widget.focusNode ?? FocusNode(),
         onFieldSubmitted: (value) => widget.focusNode?.nextFocus(),
         textInputAction: widget.textInputAction ?? TextInputAction.done,
@@ -52,8 +53,8 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         validator: widget.validator ?? (value) => null,
         decoration: InputDecoration(
           hintText: widget.label ?? "",
-          prefixIcon: Icon(widget.prefixIcon),
-          suffixIcon: Icon(widget.suffixIcon),
+          prefixIcon: Icon(widget.prefixIcon,size: 28,),
+          suffixIcon: Icon(widget.suffixIcon,size:  28,),
           border: InputBorder.none,
         ),
       ),
