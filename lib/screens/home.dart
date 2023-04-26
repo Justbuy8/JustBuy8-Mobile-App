@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:justbuyeight/widgets/components/buttons/primary_button.dart';
 import 'package:justbuyeight/widgets/components/otp/otp_widget.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text.dart';
@@ -27,6 +28,8 @@ class _HomeState extends State<Home> {
         child: SingleChildScrollView(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            PrimaryButton(caption: "Sign in with Password", onPressed: () {}),
+            const SizedBox(height: 10),
             const PrimaryText(text: "Primary Text"),
             const SizedBox(height: 10),
             const SecondaryText(text: 'Secondary Text'),
