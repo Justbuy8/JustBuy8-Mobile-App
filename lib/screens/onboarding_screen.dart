@@ -1,21 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_theme.dart';
 
-class IntroScreen extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _IntroScreen();
-  }
-}
-
-class _IntroScreen extends State<IntroScreen> {
+// ignore: use_key_in_widget_constructors
+class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PageDecoration pageDecoration = PageDecoration(
-        titlePadding: EdgeInsets.only(top: 50),
+        titlePadding: const EdgeInsets.only(top: 50),
         bodyAlignment: Alignment.topCenter,
         imageAlignment: Alignment.topCenter,
         safeArea: 0,
@@ -46,7 +38,6 @@ class _IntroScreen extends State<IntroScreen> {
           decoration: pageDecoration,
         ),
       ],
-      onDone: () => IntroScreen(),
       showSkipButton: false,
       next: const Icon(
         Icons.arrow_forward,

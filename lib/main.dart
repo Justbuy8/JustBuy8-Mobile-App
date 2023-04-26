@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'JustBuy8',
-      home: IntroScreen(),
+      home: OnBoardingScreen(),
     );
   }
 }
