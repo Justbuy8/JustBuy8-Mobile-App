@@ -16,6 +16,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final controller = TextEditingController();
+  final controller2 = TextEditingController();
+  final controller3 = TextEditingController();
   final otpController = OtpFieldController();
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class _HomeState extends State<Home> {
             ),
             const SizedBox(height: 10),
             TextFieldWidget(
-              controller: controller,
+              controller: controller2,
               label: "Email",
               prefixIcon: Icons.email,
             ),
