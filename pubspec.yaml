@@ -40,6 +40,7 @@ dependencies:
   country_code_picker: ^3.0.0
   nb_utils: ^5.0.8
   pinput: ^2.2.31
+  introduction_screen: ^3.1.8
 
 dev_dependencies:
   flutter_test:
