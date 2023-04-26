@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 
-class PrimaryText extends StatelessWidget {
-  const PrimaryText({
+class PrimaryTextWidget extends StatelessWidget {
+  const PrimaryTextWidget({
     Key? key,
     required this.text,
     this.fontSize,
@@ -17,8 +17,8 @@ class PrimaryText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        fontSize: fontSize ?? 20,
-        fontWeight: FontWeight.w400,
+        fontSize: fontSize ?? 16,
+        fontWeight: FontWeight.bold,
         fontFamily: fontFamily ?? AppFonts.openSansLight,
       ),
     );
