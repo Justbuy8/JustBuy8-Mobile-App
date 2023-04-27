@@ -6,7 +6,10 @@ import 'package:justbuyeight/screens/onboarding_screen.dart';
 
 void main() {
   runApp(
-    MaterialApp(debugShowCheckedModeBanner: false, home: new MyApp()),
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: new MyApp(),
+    ),
   );
 }
 
