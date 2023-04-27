@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:justbuyeight/constants/app_texts.dart';
+import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/models/onboarding_model.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button.dart';
 
@@ -72,7 +72,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           children: [
                             Text(contents[i].title,
                                 textAlign: TextAlign.center,
-                                style: AppText.onboardingTitleTextStyle),
+                                style: AppTextStyle.onboardingTitleTextStyle),
                           ],
                         ),
                       );
