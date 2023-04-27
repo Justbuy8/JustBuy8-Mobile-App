@@ -5,7 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/screens/onboarding_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MaterialApp(debugShowCheckedModeBanner: false, home: new MyApp()),
+  );
 }
 
 class MyApp extends StatefulWidget {
