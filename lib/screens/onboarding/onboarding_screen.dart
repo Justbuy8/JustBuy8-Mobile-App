@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/models/onboarding_model.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button.dart';
@@ -32,7 +33,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         borderRadius: BorderRadius.all(
           Radius.circular(50.r),
         ),
-        color: _currentPage == index ? Colors.white : Colors.grey.shade600,
+        color: _currentPage == index
+            ? AppColors.primaryColor
+            : Colors.grey.shade600,
       ),
       margin: EdgeInsets.only(right: 5.w),
       height: 10,
@@ -52,7 +55,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           fit: BoxFit.fitHeight,
         ),
         Scaffold(
-          backgroundColor: Colors.transparent,
+          backgroundColor: transparentColor,
           body: SafeArea(
             child: Column(
               children: [
@@ -99,6 +102,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               padding: EdgeInsets.all(20.w),
                               child: PrimaryButtonWidget(
                                   width: context.width(),
+                                  height: 50,
                                   caption: 'Getting Started',
                                   onPressed: () {}),
                             )
@@ -106,6 +110,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               padding: EdgeInsets.all(20.w),
                               child: PrimaryButtonWidget(
                                   width: context.width(),
+                                  height: 50,
                                   caption: 'Next',
                                   onPressed: () {
                                     _controller.nextPage(

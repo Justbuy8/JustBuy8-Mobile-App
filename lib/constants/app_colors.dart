@@ -8,6 +8,7 @@ class AppColors {
   static var backgroundColor = Colors.grey[50];
   static var dangerColor = Color(0xFFA52A2A);
   static var successColor = Color(0xFF155724);
+  static var transparentColor = Colors.transparent;
 
   static var appTextColorPrimary = Color(0xFF212121);
   static var appTextColorSecondary = Color(0xFF5A5C5E);
