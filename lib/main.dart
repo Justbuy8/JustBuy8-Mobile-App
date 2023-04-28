@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:justbuyeight/screens/onboarding_screen.dart';
+import 'package:justbuyeight/screens/onboarding/onboarding_screen.dart';
 
 void main() {
   runApp(

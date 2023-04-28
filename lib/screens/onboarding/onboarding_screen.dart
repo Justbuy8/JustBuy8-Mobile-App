@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/models/onboarding_model.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -46,8 +47,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       children: [
         Image.asset(
           contents[_currentPage].image,
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: context.height(),
+          width: context.width(),
           fit: BoxFit.fitHeight,
         ),
         Scaffold(
@@ -97,14 +98,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ? Padding(
                               padding: EdgeInsets.all(20.w),
                               child: PrimaryButtonWidget(
-                                  width: MediaQuery.of(context).size.width,
+                                  width: context.width(),
                                   caption: 'Getting Started',
                                   onPressed: () {}),
                             )
                           : Padding(
                               padding: EdgeInsets.all(20.w),
                               child: PrimaryButtonWidget(
-                                  width: MediaQuery.of(context).size.width,
+                                  width: context.width(),
                                   caption: 'Next',
                                   onPressed: () {
                                     _controller.nextPage(
