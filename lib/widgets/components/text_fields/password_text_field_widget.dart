@@ -55,8 +55,11 @@ class _PasswordTextFieldWidgetState extends State<PasswordTextFieldWidget> {
         keyboardType: widget.keyboardType ?? TextInputType.visiblePassword,
         validator: widget.validator ?? (value) => null,
         decoration: InputDecoration(
-          hintText: widget.label ?? "",
-          prefixIcon: Icon(widget.prefixIcon,size: 28),
+          hintText: widget.label ?? "Password",
+          prefixIcon: Icon(
+            widget.prefixIcon ?? Icons.lock_outline,
+            size: 28,
+          ),
           suffixIcon: IconButton(
             icon: Icon(obscureText ? Icons.visibility : Icons.visibility_off),
             onPressed: () {
