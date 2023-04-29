@@ -110,7 +110,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               padding: EdgeInsets.all(20.w),
                               child: PrimaryButtonWidget(
                                   width: context.width(),
-                                  height: 50,
+                                  height: 50.h,
                                   caption: 'Next',
                                   onPressed: () {
                                     _controller.nextPage(
