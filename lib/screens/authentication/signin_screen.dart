@@ -33,7 +33,7 @@ class _SignInScreenState extends State<SignInScreen> {
               width: context.width(),
               child: Stack(children: <Widget>[
                 Image.asset(
-                  ImageAssets.signInCovert,
+                  ImageAssets.signInCover,
                   height: 200.h,
                   width: context.width(),
                   fit: BoxFit.cover,
