@@ -74,7 +74,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   TextFieldWidget(
                     controller: _firstNameController,
-                    prefixIcon: Ionicons.person,
+                    prefixIcon: Ionicons.person_outline,
                     label: AppText.firstName,
                   ),
                   SizedBox(
@@ -82,7 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   TextFieldWidget(
                     controller: _lastNameController,
-                    prefixIcon: Ionicons.person,
+                    prefixIcon: Ionicons.person_outline,
                     label: AppText.lastName,
                   ),
                   SizedBox(
