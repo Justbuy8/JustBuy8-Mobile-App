@@ -28,8 +28,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: ListView(
+      body:  ListView(
           children: [
             SizedBox(
               height: 180.h,
@@ -209,7 +208,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ],
         ),
-      ),
     );
   }
 }

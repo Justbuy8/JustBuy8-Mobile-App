@@ -25,16 +25,13 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    var width = context.width();
-    var height = context.height();
-
     return ScreenUtilInit(
-        designSize: Size(width, height),
+        designSize: Size(context.width(), context.height()),
         builder: (context, child) {
           return const MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'JustBuy8',
-            home: SignInScreen(),
+            home: SignUpScreen(),
           );
         });
   }
