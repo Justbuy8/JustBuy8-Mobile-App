@@ -28,10 +28,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const SecondaryAppbarWidget(
+      appBar: const BasicAppbarWidget(
         title: "JustBuy8",
-        leadingIcon: Ionicons.settings_outline,
-        trailingIcon: Ionicons.notifications_outline,
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),

@@ -30,7 +30,7 @@ class BasicAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {
             finish(context);
           },
-          icon: const Icon(Ionicons.arrow_back),
+          icon: const Icon(Icons.arrow_back_ios),
         ));
   }
 
