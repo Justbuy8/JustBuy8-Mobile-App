@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/screens/authentication/signin_screen.dart';
 import 'package:justbuyeight/screens/authentication/signup_screen.dart';
+import 'package:justbuyeight/screens/home.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 void main() {
@@ -31,7 +32,7 @@ class _MyAppState extends State<MyApp> {
           return const MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'JustBuy8',
-            home: SignUpScreen(),
+            home: Home(),
           );
         });
   }
