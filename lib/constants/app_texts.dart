@@ -11,4 +11,10 @@ class AppText {
   static const String alreadyHaveAnAccount = "Already have an account?";
 
   static const String signUp = "Sign Up";
+
+  static const String forgetPasswordTitle =
+      "Enter the email associated with your account and we\'ll send an email with instructions to reset your password.";
+  static const String forgetPasswordAppBarTitle = "Forget Password";
+  static const String sendInstruction = "Send Instructions";
+  static const String verifyText = "Verify";
 }
