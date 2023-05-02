@@ -17,4 +17,6 @@ class AppText {
   static const String forgetPasswordAppBarTitle = "Forget Password";
   static const String sendInstruction = "Send Instructions";
   static const String verifyText = "Verify";
+  static const String resetPasswordText =
+      'Please enter the verification code we sent to your mobile ';
 }

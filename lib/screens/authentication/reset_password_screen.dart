@@ -41,8 +41,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 height: 20.h,
               ),
               const SecondaryTextWidget(
-                  text:
-                      'Please enter the verification code we sent to your mobile 123123123'),
+                  text: "${AppText.resetPasswordText}033000000000"),
               SizedBox(
                 height: 20.h,
               ),
