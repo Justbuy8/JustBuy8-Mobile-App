@@ -9,6 +9,9 @@ import 'package:justbuyeight/screens/authentication/signup_screen.dart';
 import 'package:justbuyeight/screens/home.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import 'screens/authentication/account_created_screen.dart';
+import 'screens/authentication/notificaiton_permission_screen.dart';
+
 void main() {
   runApp(
     const MaterialApp(
@@ -34,7 +37,7 @@ class _MyAppState extends State<MyApp> {
           return const MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'JustBuy8',
-            home: ResetPasswordScreen(),
+            home: AccountCreatedScreen(),
           );
         });
   }
