@@ -11,9 +11,11 @@ class ImageWidget extends StatelessWidget {
     this.boxFit,
     this.height,
     this.width,
+    this.border,
   }) : super(key: key);
   final String imageUrl;
   final BorderRadiusGeometry? borderRadius;
+  final BoxBorder? border;
   final BoxFit? boxFit;
   final double? height;
   final double? width;
@@ -23,12 +25,10 @@ class ImageWidget extends StatelessWidget {
     return Container(
       height: height ?? context.height() * 0.3,
       width: width ?? context.width(),
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
-        border: Border.all(
-          color: AppColors.primaryColor,
-          width: 2,
-        ),
+        color: AppColors.appGreyColor.withOpacity(0.2),
+        border: border,
       ),
       child: CachedNetworkImage(
         imageUrl: imageUrl,
@@ -42,7 +42,7 @@ class ImageWidget extends StatelessWidget {
                 BlendMode.colorBurn,
               ),
             ),
-            borderRadius: borderRadius ?? BorderRadius.circular(10),
+            borderRadius: borderRadius ?? BorderRadius.circular(20),
           ),
         ),
         placeholder: (context, url) => const Center(
