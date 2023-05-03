@@ -13,6 +13,7 @@ class AppText {
   static const String signUp = "Sign Up";
   static const String allow = "Allow";
   static const String shopNow = "Shop Now";
+  static const String skip = "Skip";
 
   static const String forgetPasswordTitle =
       "Enter the email associated with your account and we\'ll send an email with instructions to reset your password.";

@@ -38,7 +38,7 @@ class _NotificationPermissionScreenState
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: const [
-                    SecondaryTextWidget(text: 'Skip'),
+                    SecondaryTextWidget(text: AppText.skip),
                   ],
                 ),
               ),
