@@ -21,7 +21,7 @@ class ImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height ?? context.height(),
+      height: height ?? context.height() * 0.3,
       width: width ?? context.width(),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
