@@ -11,6 +11,8 @@ class AppText {
   static const String alreadyHaveAnAccount = "Already have an account?";
 
   static const String signUp = "Sign Up";
+  static const String allow = "Allow";
+  static const String shopNow = "Shop Now";
 
   static const String forgetPasswordTitle =
       "Enter the email associated with your account and we\'ll send an email with instructions to reset your password.";
@@ -19,4 +21,9 @@ class AppText {
   static const String verifyText = "Verify";
   static const String resetPasswordText =
       'Please enter the verification code we sent to your mobile ';
+  static const String notificationPermissionSubTitle =
+      'Stay notified about new course update,\n scoreboard status and other updates';
+  static const String notification = "Notifications";
+  static const String accountCreated = "Account Created";
+  static const String accountCreatedSubtitle = "Your account has been created";
 }

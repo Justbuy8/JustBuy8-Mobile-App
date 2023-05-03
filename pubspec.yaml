@@ -43,6 +43,7 @@ dependencies:
   nb_utils: ^4.6.16
   ionicons: ^0.2.2
   cached_network_image: ^3.2.3
+  lottie: ^2.3.2
 
 dev_dependencies:
   flutter_test:
