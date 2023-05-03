@@ -27,6 +27,7 @@ class ImageWidget extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(
           color: AppColors.primaryColor,
+          width: 2,
         ),
       ),
       child: CachedNetworkImage(
@@ -35,13 +36,13 @@ class ImageWidget extends StatelessWidget {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: imageProvider,
-              fit: BoxFit.contain,
+              fit: boxFit ?? BoxFit.contain,
               colorFilter: ColorFilter.mode(
                 AppColors.primaryColor,
                 BlendMode.colorBurn,
               ),
             ),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: borderRadius ?? BorderRadius.circular(10),
           ),
         ),
         placeholder: (context, url) => const Center(
