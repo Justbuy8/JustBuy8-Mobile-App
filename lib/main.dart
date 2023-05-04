@@ -1,8 +1,9 @@
 // ignore_for_file: use_key_in_widget_constructors
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:justbuyeight/screens/authentication/account_created_screen.dart';
+import 'package:justbuyeight/screens/authentication/notificaiton_permission_screen.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'screens/authentication/reset_password_screen.dart';
 
 void main() {
   runApp(
@@ -29,7 +30,7 @@ class _MyAppState extends State<MyApp> {
           return const MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'JustBuy8',
-            home: ResetPasswordScreen(),
+            home: AccountCreatedScreen(),
           );
         });
   }
