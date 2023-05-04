@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class ImageWidget extends StatelessWidget {
-  const ImageWidget({
+class NetworkImageWidget extends StatelessWidget {
+  const NetworkImageWidget({
     Key? key,
     required this.imageUrl,
     this.borderRadius,

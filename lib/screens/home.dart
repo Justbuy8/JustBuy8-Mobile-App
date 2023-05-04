@@ -5,7 +5,7 @@ import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button.dart';
-import 'package:justbuyeight/widgets/components/images/image_widget.dart';
+import 'package:justbuyeight/widgets/components/images/avatar_image_widget.dart';
 import 'package:justbuyeight/widgets/components/otp/otp_widget.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
@@ -38,11 +38,9 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ImageWidget(
+              AvatarImageWidget(
                 imageUrl:
                     "https://globalcomputers.pk/wp-content/uploads/2021/07/DualSense-Wireless-Controller-EEZEPC-1.jpg",
-                height: 200,
-                width: 200,
               ),
             ],
           ),
