@@ -7,7 +7,6 @@ import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart
 import 'package:justbuyeight/widgets/components/buttons/primary_button.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text_fields/password_text_field_widget.dart';
-import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
