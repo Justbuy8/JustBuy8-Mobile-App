@@ -53,7 +53,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               PrimaryButtonWidget(
                   width: context.width(),
                   height: 50.h,
-                  caption: AppText.sendInstruction,
+                  caption: AppText.verifyText,
                   onPressed: () {}),
             ],
           ),
