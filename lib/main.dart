@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/screens/authentication/account_created_screen.dart';
-import 'package:justbuyeight/screens/authentication/notificaiton_permission_screen.dart';
+import 'package:justbuyeight/screens/authentication/otp_verification_screen.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 void main() {
@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
           return const MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'JustBuy8',
-            home: AccountCreatedScreen(),
+            home: OtpVerificationScreen(),
           );
         });
   }

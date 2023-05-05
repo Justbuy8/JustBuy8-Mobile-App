@@ -46,14 +46,14 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
       child: TextFormField(
         controller: widget.controller,
         style: const TextStyle(fontSize: 18),
-        focusNode: widget.focusNode ?? FocusNode(),
-        onFieldSubmitted: (value) => widget.focusNode?.nextFocus(),
+        //focusNode: widget.focusNode ?? FocusNode(),
+        //onFieldSubmitted: (value) => widget.focusNode?.nextFocus(),
         textInputAction: widget.textInputAction ?? TextInputAction.done,
         keyboardType: widget.keyboardType ?? TextInputType.text,
         validator: widget.validator ?? (value) => null,
         decoration: InputDecoration(
           hintText: widget.label ?? "",
-          prefixIcon: Icon(widget.prefixIcon,size: 28,),
+          prefixIcon: Icon(widget.prefixIcon,size: 28,color: AppColors.primaryColor,),
           suffixIcon: Icon(widget.suffixIcon,size:  28,),
           border: InputBorder.none,
         ),

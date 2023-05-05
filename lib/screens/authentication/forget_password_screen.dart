@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button.dart';
@@ -27,8 +28,12 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar:
-            const BasicAppbarWidget(title: AppText.forgetPasswordAppBarTitle),
+        appBar: BasicAppbarWidget(
+          title: AppText.forgetPasswordAppBarTitle,
+          backgroundColor: AppColors.primaryColor,
+          IconColor: AppColors.appWhiteColor,
+          titleColor: AppColors.appWhiteColor,
+        ),
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 20.h),

@@ -39,7 +39,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 height: 20.h,
               ),
               const SecondaryTextWidget(
-                  text: "${AppText.resetPasswordText}033000000000"),
+                  text: "${AppText.resetPasswordText} 033000000000"),
               SizedBox(
                 height: 20.h,
               ),
