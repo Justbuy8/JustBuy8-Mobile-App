@@ -28,7 +28,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: const BasicAppbarWidget(
-        title: 'Verify Phone Number',
+        title: AppText.verifyPhoneNumber,
       ),
       body: SafeArea(
         child: Padding(
