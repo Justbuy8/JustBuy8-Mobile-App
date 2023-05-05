@@ -28,11 +28,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: BasicAppbarWidget(
+        appBar: const BasicAppbarWidget(
           title: AppText.forgetPasswordAppBarTitle,
-          backgroundColor: AppColors.primaryColor,
-          IconColor: AppColors.appWhiteColor,
-          titleColor: AppColors.appWhiteColor,
         ),
         body: SafeArea(
           child: Padding(
