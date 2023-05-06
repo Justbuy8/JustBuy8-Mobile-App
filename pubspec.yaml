@@ -44,6 +44,7 @@ dependencies:
   ionicons: ^0.2.2
   cached_network_image: ^3.2.3
   lottie: ^2.3.2
+  persistent_bottom_nav_bar: ^5.0.2
 
 dev_dependencies:
   flutter_test:
