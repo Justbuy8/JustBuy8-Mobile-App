@@ -6,21 +6,20 @@ import 'package:nb_utils/nb_utils.dart';
 class BasicAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final Color? backgroundColor;
-  final Color? IconColor;
+  final Color? iconColor;
   final Color? titleColor;
-  const BasicAppbarWidget({
-    Key? key,
-    required this.title,
-    this.backgroundColor,
-    this.IconColor,
-    this.titleColor
-  }) : super(key: key);
-  
+  const BasicAppbarWidget(
+      {Key? key,
+      required this.title,
+      this.backgroundColor,
+      this.iconColor,
+      this.titleColor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        backgroundColor:backgroundColor ?? AppColors.appWhiteColor,
+        backgroundColor: backgroundColor ?? AppColors.appWhiteColor,
         foregroundColor: AppColors.appBlackColor,
         elevation: 0.0,
         automaticallyImplyLeading: true,
@@ -28,16 +27,15 @@ class BasicAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
         title: Text(
           title,
           style: TextStyle(
-            // fontWeight: FontWeight.bold,
-            fontFamily: AppFonts.robotoMonoBold,
-            color: titleColor
-          ),
+              // fontWeight: FontWeight.bold,
+              fontFamily: AppFonts.robotoMonoBold,
+              color: titleColor),
         ),
         leading: IconButton(
           onPressed: () {
             finish(context);
           },
-          icon:  Icon(Icons.arrow_back_ios ,color: IconColor),
+          icon: Icon(Icons.arrow_back_ios, color: iconColor),
         ));
   }
 

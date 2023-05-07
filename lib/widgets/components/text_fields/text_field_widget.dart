@@ -29,12 +29,6 @@ class TextFieldWidget extends StatefulWidget {
 
 class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
-  void dispose() {
-    widget.controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       height: context.height() / 15,
@@ -53,8 +47,15 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         validator: widget.validator ?? (value) => null,
         decoration: InputDecoration(
           hintText: widget.label ?? "",
-          prefixIcon: Icon(widget.prefixIcon,size: 28,color: AppColors.primaryColor,),
-          suffixIcon: Icon(widget.suffixIcon,size:  28,),
+          prefixIcon: Icon(
+            widget.prefixIcon,
+            size: 28,
+            color: AppColors.primaryColor,
+          ),
+          suffixIcon: Icon(
+            widget.suffixIcon,
+            size: 28,
+          ),
           border: InputBorder.none,
         ),
       ),

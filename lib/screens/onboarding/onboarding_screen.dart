@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/models/onboarding_model.dart';
-import 'package:justbuyeight/widgets/components/buttons/primary_button.dart';
+import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class OnboardingScreen extends StatefulWidget {

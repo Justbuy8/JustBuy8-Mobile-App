@@ -14,7 +14,7 @@ class AppText {
   static const String shopNow = "Shop Now";
   static const String skip = "Skip";
   static const String forgetPasswordTitle =
-      "Enter the email associated with your account and we\'ll send an email with instructions to reset your password.";
+      "Enter the email associated with your account and we'll send an email with instructions to reset your password.";
   static const String forgetPasswordAppBarTitle = "Forget Password";
   static const String resetPasswordAppBarTitle = "Reset Password";
   static const String sendInstruction = "Send Instructions";

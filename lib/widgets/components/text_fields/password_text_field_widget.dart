@@ -31,12 +31,6 @@ class _PasswordTextFieldWidgetState extends State<PasswordTextFieldWidget> {
   bool obscureText = true;
 
   @override
-  void dispose() {
-    widget.controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       height: context.height() / 15,
@@ -47,7 +41,7 @@ class _PasswordTextFieldWidgetState extends State<PasswordTextFieldWidget> {
       alignment: Alignment.center,
       child: TextFormField(
         controller: widget.controller,
-       // focusNode: widget.focusNode ?? FocusNode(),
+        // focusNode: widget.focusNode ?? FocusNode(),
         style: const TextStyle(fontSize: 18),
         obscureText: obscureText,
         //onFieldSubmitted: (value) => widget.focusNode?.nextFocus(),
@@ -62,7 +56,8 @@ class _PasswordTextFieldWidgetState extends State<PasswordTextFieldWidget> {
             size: 28,
           ),
           suffixIcon: IconButton(
-            icon: Icon(obscureText ? Icons.visibility : Icons.visibility_off ,color: AppColors.primaryColor),
+            icon: Icon(obscureText ? Icons.visibility : Icons.visibility_off,
+                color: AppColors.primaryColor),
             onPressed: () {
               setState(() {
                 obscureText = !obscureText;

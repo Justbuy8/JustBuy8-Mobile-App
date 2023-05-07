@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
-import 'package:justbuyeight/widgets/components/buttons/primary_button.dart';
+import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/otp/otp_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
 import 'package:nb_utils/nb_utils.dart';

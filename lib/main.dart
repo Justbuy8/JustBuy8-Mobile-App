@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/main_tabs_screen.dart';
 import 'package:justbuyeight/screens/authentication/account_created_screen.dart';
 import 'package:justbuyeight/screens/authentication/otp_verification_screen.dart';
+import 'package:justbuyeight/screens/home.dart';
+import 'package:justbuyeight/screens/onboarding/onboarding_screen.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 void main() {
@@ -31,7 +33,7 @@ class _MyAppState extends State<MyApp> {
         return const MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'JustBuy8',
-          home: MainTabsScreen(),
+          home: Home(),
         );
       },
     );

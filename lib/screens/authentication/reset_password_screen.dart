@@ -4,7 +4,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
-import 'package:justbuyeight/widgets/components/buttons/primary_button.dart';
+import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text_fields/password_text_field_widget.dart';
 import 'package:nb_utils/nb_utils.dart';

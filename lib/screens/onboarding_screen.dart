@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/models/onboarding_model.dart';
-import 'package:justbuyeight/widgets/components/buttons/primary_button.dart';
+import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);

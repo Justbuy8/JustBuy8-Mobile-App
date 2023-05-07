@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
-import 'package:justbuyeight/widgets/components/buttons/primary_button.dart';
+import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
 import 'package:lottie/lottie.dart';
