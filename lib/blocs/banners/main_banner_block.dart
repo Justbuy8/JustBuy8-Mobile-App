@@ -45,7 +45,6 @@ class MainBannerBloc extends Bloc<MainBannerEvent, MainBannerState> {
         }
         emit(MainBannerDataState(model));
       } catch (error) {
-        print("error: $error");
         emit(MainBannerErrorState(error.toString()));
       }
     });
