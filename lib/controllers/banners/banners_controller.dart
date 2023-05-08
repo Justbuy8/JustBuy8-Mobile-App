@@ -1,31 +1,35 @@
 import 'dart:convert';
 
-import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/constants/app_url.dart';
 import 'package:justbuyeight/models/banners/main_banner.dart';
+import 'package:http/http.dart' as http;
 
-class BannerController {
-  static final ApiManager _apiManager = ApiManager();
-  static Future<List<MainBanner>> getMainBanners() async {
+class MainBannerController {
+  List<MainBanner> getMainBanners() {
     List<MainBanner> banners = [];
 
     try {
-      var response = await _apiManager
-          .getRequest("${AppUrl.liveBaseUrl}/banners/get-main-banners");
-      if (response != null && response.statusCode == 200) {
-        final responseBody = json.decode(response.body) as Map<String, dynamic>;
-        if (responseBody['Success'] == true) {
-          response = responseBody['data'];
-          for (var item in response) {
-            banners.add(MainBanner.fromJson(item));
+      http
+          .get(
+        Uri.parse("${AppUrl.liveBaseUrl}${BannerUrl.getMainBanners}"),
+      )
+          .then((response) {
+        if (response.statusCode == 200) {
+          var data = jsonDecode(response.body) as Map<String, dynamic>;
+          if (data['Success'] == true) {
+            var bannerData = data['Data'] as List<dynamic>;
+            for (var element in bannerData) {
+              banners.add(MainBanner.fromJson(element));
+            }
           }
         } else {
-          throw Exception(responseBody['message']);
+          banners = [];
         }
-      }
-    } catch (error) {
+      });
+    } catch (e) {
       rethrow;
     }
+
     return banners;
   }
 }
