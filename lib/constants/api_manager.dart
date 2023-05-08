@@ -1,52 +1,26 @@
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 class ApiManager {
-  getRequest(var url) async {
-    var response = await http.get(
+ static Future<Response> getRequest(var url ,{dynamic headers}) async {
+    return await get(
       Uri.parse(url),
-      headers: {
-        'Authorization': '',
-      },
+      headers: headers,
     );
-
-    if (response.statusCode == 200 ||
-        response.statusCode == 400 ||
-        response.statusCode == 401) {
-      return response;
-    } else {
-      return null;
-    }
   }
 
-  putRequest(var body, var url) async {
-    var response = await http.put(
+  static Future<Response> putRequest(var body, var url,{dynamic headers}) async {
+    return await put(
       Uri.parse(url),
       body: body,
-      headers: {
-        'Authorization': '',
-      },
+      headers:headers
     );
-
-    if (response.statusCode == 200 || response.statusCode == 401) {
-      return response;
-    } else {
-      return null;
-    }
   }
 
-  postRequest(var body, var url) async {
-    var response = await http.post(
+ static Future<Response> postRequest(var body, var url,{dynamic headers}) async {
+    return await post(
       Uri.parse(url),
       body: body,
-      headers: {
-        'Authorization': '',
-      },
+      headers: headers,
     );
-
-    if (response.statusCode == 200 || response.statusCode == 401) {
-      return response;
-    } else {
-      return null;
-    }
   }
 }

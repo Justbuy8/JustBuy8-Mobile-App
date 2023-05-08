@@ -1,13 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:justbuyeight/blocs/banners/main_banner_block.dart';
-import 'package:justbuyeight/main_tabs_screen.dart';
-import 'package:justbuyeight/screens/authentication/account_created_screen.dart';
-import 'package:justbuyeight/screens/authentication/otp_verification_screen.dart';
 import 'package:justbuyeight/screens/home.dart';
-import 'package:justbuyeight/screens/onboarding/onboarding_screen.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 void main() {
