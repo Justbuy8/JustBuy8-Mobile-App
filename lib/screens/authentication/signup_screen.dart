@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:justbuyeight/blocs/authentication/validate_email/validate_email_cubit.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
@@ -22,6 +24,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  late ValidateEmailCubit validateEmailCubit;
+
+  initCubit() {
+    validateEmailCubit = context.read<ValidateEmailCubit>();
+  }
+
+  @override
+  void initState() {
+    initCubit();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +123,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 width: context.width(),
                 height: 50.h,
                 caption: AppText.signUp,
-                onPressed: () {}),
+                onPressed: () async {
+                  await validateEmailCubit
+                      .validateEmail(_emailController.text.trim());
+                }),
           ),
           SizedBox(
             height: 20.h,

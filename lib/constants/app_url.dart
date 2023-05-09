@@ -8,3 +8,8 @@ class BannerUrl {
   static const String getMainBanners =
       "${AppUrl.baseUrl}/banners/get-main-banners";
 }
+
+class AuthUrl {
+  static const String validateEmail =
+      "${AppUrl.baseUrl}/authentication/validate-email";
+}
