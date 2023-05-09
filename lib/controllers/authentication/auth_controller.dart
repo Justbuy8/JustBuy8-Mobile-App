@@ -7,26 +7,17 @@ import 'package:justbuyeight/constants/app_url.dart';
 class AuthenticationController {
   static getEmailVerification(email) async {
     Response response = await ApiManager.postRequest(
-      email,
+      {"email": "$email"},
       AuthUrl.validateEmail,
+      {
+        "content-type": "application/json; charset=utf-8",
+      },
     );
-    print(response.body);
+
     if (response.statusCode == 200) {
-      print("status code ${response.statusCode}");
-
       var result = jsonDecode(response.body);
-      print(result);
-      return result;
-      //   if (result['Success']) {
 
-      //   } else {
-      //     bannerList = [];
-      //   }
-      // } else {
-      //   bannerList = [];
-      // }
-      // return bannerList;
-      // return null;
+      return result;
     }
   }
 }
