@@ -10,8 +10,6 @@ class BannerController {
     List<BannerModel> bannerList = [];
     Response response = await ApiManager.getRequest(BannerUrl.getMainBanners);
     if (response.statusCode == 200) {
-      print("status code ${response.statusCode}");
-
       var result = jsonDecode(response.body);
       if (result['Success']) {
         bannerList = bannerModelFromJson(jsonEncode(result['Data']));
