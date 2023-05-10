@@ -13,7 +13,7 @@ class FeaturedProductsListview extends StatelessWidget {
     return BlocProvider<FeaturedProductsBloc>(
       create: (context) =>
           FeaturedProductsBloc()..add(FeaturedProductsLoadEvent()),
-      child: BlocConsumer<FeaturedProductsBloc, FeaturedProductsState>(
+      child: BlocBuilder<FeaturedProductsBloc, FeaturedProductsState>(
         builder: (context, state) {
           if (state is FeaturedProductsInitState) {
             return SizedBox(
@@ -30,6 +30,8 @@ class FeaturedProductsListview extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Container(
                     margin: const EdgeInsets.symmetric(horizontal: 5),
+                    //  create a list of featured products with
+                    //  their name and image
                     child: FeaturedProductWidget(
                       text: state.products[index].name.toString(),
                       imageUrl: state.products[index].thumbnail.toString(),
@@ -42,7 +44,6 @@ class FeaturedProductsListview extends StatelessWidget {
             return const Center(child: Text("Error"));
           }
         },
-        listener: (context, state) {},
       ),
     );
   }
