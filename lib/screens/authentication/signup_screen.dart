@@ -13,6 +13,7 @@ import 'package:justbuyeight/screens/authentication/otp_verification_screen.dart
 import 'package:justbuyeight/utils/SnackBars.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
+import 'package:justbuyeight/widgets/components/text_fields/mobile_number_text_field.dart';
 import 'package:justbuyeight/widgets/components/text_fields/password_text_field_widget.dart';
 import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -31,6 +32,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+
   late ValidateEmailCubit validateEmailCubit;
   BuildContext? dialogueContext;
 
@@ -82,7 +85,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           SnackBars.Danger(context, "Email verification failed");
           Navigator.of(dialogueContext!).pop();
         } else if (state is ValidateEmailTimeOut) {
-          SnackBars.Danger(context, "Timeout");
+          SnackBars.Danger(context, "Request timeout");
           Navigator.of(dialogueContext!).pop();
         }
       },
@@ -180,6 +183,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   .hasMatch(val) ==
                               false) {
                             return "Please enter valid email address";
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      MobileNumberTextField(
+                        controller: _phoneNumberController,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return "Please enter phone number";
                           }
                           return null;
                         },

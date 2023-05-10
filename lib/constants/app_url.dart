@@ -16,6 +16,8 @@ class AuthUrl {
       "${AppUrl.baseUrl}/authentication/validate-email";
 
   static const String sendOtp = "${AppUrl.baseUrl}/authentication/request-otp";
+  static const String registration =
+      "${AppUrl.baseUrl}/authentication/register";
 }
 
 class ProductsUrl {

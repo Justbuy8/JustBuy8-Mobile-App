@@ -6,9 +6,11 @@ class MobileNumberTextField extends StatefulWidget {
   const MobileNumberTextField({
     Key? key,
     required this.controller,
+    required this.validator,
   }) : super(key: key);
 
   final TextEditingController controller;
+  final String? Function(String?)? validator;
 
   @override
   State<MobileNumberTextField> createState() => _MobileNumberTextFieldState();
@@ -17,30 +19,38 @@ class MobileNumberTextField extends StatefulWidget {
 class _MobileNumberTextFieldState extends State<MobileNumberTextField> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.appGreyColor,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      alignment: Alignment.center,
-      child: TextFormField(
-        controller: widget.controller,
-        style: const TextStyle(fontSize: 18),
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-          hintText: "Enter Mobile Number",
-          border: InputBorder.none,
-          prefixIcon: CountryCodePicker(
-            initialSelection: 'HK',
-            showCountryOnly: true,
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            showOnlyCountryWhenClosed: true,
-            alignLeft: false,
-            hideMainText: true,
-            onInit: (value) {},
-            onChanged: (value) =>
-                widget.controller.text = value.dialCode.toString(),
-          ),
+    return TextFormField(
+      controller: widget.controller,
+      style: const TextStyle(fontSize: 18),
+      keyboardType: TextInputType.number,
+      validator: widget.validator ?? (value) => null,
+      decoration: InputDecoration(
+        errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none),
+        focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none),
+        fillColor: AppColors.appGreyColor,
+        filled: true,
+        hintText: "Enter Mobile Number",
+        border: InputBorder.none,
+        prefixIcon: CountryCodePicker(
+          initialSelection: 'HK',
+          showCountryOnly: true,
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          showOnlyCountryWhenClosed: true,
+          alignLeft: false,
+          hideMainText: true,
+          onInit: (value) {},
+          onChanged: (value) =>
+              widget.controller.text = value.dialCode.toString(),
         ),
       ),
     );

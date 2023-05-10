@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
           return const MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'JustBuy8',
-            home: MainTabsScreen(),
+            home: SignUpScreen(),
           );
         },
       ),

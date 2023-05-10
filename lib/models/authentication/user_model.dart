@@ -3,6 +3,15 @@ class UserModel {
   late String? lastName;
   late String? email;
   late String? password;
+  late String? phoneNumber;
+
+  String get getPhoneNumber {
+    return phoneNumber!;
+  }
+
+  set setPhoneNumber(String setterPhoneNumber) {
+    phoneNumber = setterPhoneNumber;
+  }
 
   String get getFirstName {
     return firstName!;
