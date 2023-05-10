@@ -8,6 +8,7 @@ import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/constants/bloc_provider.dart';
+import 'package:justbuyeight/models/authentication/user_model.dart';
 import 'package:justbuyeight/screens/authentication/otp_verification_screen.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
@@ -59,10 +60,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
       listener: (context, state) {
         if (state is ValidateEmailSuccessfuly) {
           SnackBars.Success(context, "Email verified successfully");
+          UserModel userModel = UserModel();
+
+          userModel.setFirstName = _firstNameController.text.trim();
+          userModel.setLastName = _lastNameController.text.trim();
+          userModel.setEmail = _emailController.text.trim();
+          userModel.setPassword = _passwordController.text.trim();
+
           Navigator.of(dialogueContext!).pop();
 
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (builder) => const OtpVerificationScreen()));
+              builder: (builder) =>
+                  OtpVerificationScreen(userModel: userModel)));
         } else if (state is ValidateEmailInternetError) {
           SnackBars.Danger(context, "Internet connection failed");
           Navigator.of(dialogueContext!).pop();
@@ -70,7 +79,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           SnackBars.Danger(context, "Email already exist");
           Navigator.of(dialogueContext!).pop();
         } else if (state is ValidateEmailFailed) {
-          SnackBars.Danger(context, "Email verified failed");
+          SnackBars.Danger(context, "Email verification failed");
           Navigator.of(dialogueContext!).pop();
         } else if (state is ValidateEmailTimeOut) {
           SnackBars.Danger(context, "Timeout");
