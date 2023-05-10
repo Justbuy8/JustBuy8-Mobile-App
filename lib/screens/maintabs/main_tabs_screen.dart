@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_textstyle.dart';
-import 'package:justbuyeight/screens/maintabs/home_screen.dart';
+import 'package:justbuyeight/screens/maintabs/home/home_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class MainTabsScreen extends StatefulWidget {

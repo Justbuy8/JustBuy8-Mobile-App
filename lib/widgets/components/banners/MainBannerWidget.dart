@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,9 +63,14 @@ class _MainBannerWidgetState extends State<MainBannerWidget> {
                               height: context.height() * 0.4,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
-                                image: DecorationImage(
-                                  image: NetworkImage(url),
-                                  fit: BoxFit.fill,
+                              ),
+                              child: CachedNetworkImage(
+                                imageUrl: url,
+                                fit: BoxFit.fill,
+                                colorBlendMode: BlendMode.exclusion,
+                                errorWidget: (context, url, error) => Icon(
+                                  Icons.error,
+                                  color: AppColors.appWhiteColor,
                                 ),
                               ),
                             ),

@@ -25,7 +25,7 @@ class AuthenticationController {
     Response response = await ApiManager.postRequest(
       {"email": "$email"},
       AuthUrl.sendOtp,
-      {
+      headers: {
         "content-type": "application/json; charset=utf-8",
       },
     );
