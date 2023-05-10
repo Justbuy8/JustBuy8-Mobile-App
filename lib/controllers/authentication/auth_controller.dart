@@ -9,7 +9,7 @@ class AuthenticationController {
     Response response = await ApiManager.postRequest(
       {"email": "$email"},
       AuthUrl.validateEmail,
-      {
+      headers: {
         "content-type": "application/json; charset=utf-8",
       },
     );

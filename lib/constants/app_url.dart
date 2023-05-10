@@ -15,3 +15,8 @@ class AuthUrl {
   static const String validateEmail =
       "${AppUrl.baseUrl}/authentication/validate-email";
 }
+
+class ProductsUrl {
+  static const String featuredProducts =
+      "${AppUrl.baseUrl}/product/get-featured-products";
+}

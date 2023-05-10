@@ -15,8 +15,8 @@ class ApiManager {
     return await put(Uri.parse(url), body: body, headers: headers);
   }
 
-  static Future<Response> postRequest(
-      var body, var url, dynamic headers) async {
+  static Future<Response> postRequest(var body, var url,
+      {dynamic headers}) async {
     return await post(Uri.parse(url), body: jsonEncode(body), headers: headers);
   }
 }
