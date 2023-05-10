@@ -19,10 +19,11 @@ class PrimaryTextWidget extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-          fontSize: fontSize ?? 16,
-          fontWeight: FontWeight.bold,
-          fontFamily: fontFamily ?? AppFonts.openSansLight,
-          color: fontColor ?? Colors.black),
+        fontSize: fontSize ?? 16,
+        fontWeight: FontWeight.bold,
+        fontFamily: fontFamily ?? AppFonts.openSansLight,
+        color: fontColor ?? Colors.black,
+      ),
     );
   }
 }

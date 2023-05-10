@@ -3,6 +3,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:justbuyeight/blocs/banners/footer_banner_bloc.dart';
 import 'package:justbuyeight/blocs/banners/main_banner_block.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/models/banners/BannerModel.dart';
@@ -10,26 +11,26 @@ import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.da
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class MainBannerWidget extends StatefulWidget {
-  const MainBannerWidget({Key? key}) : super(key: key);
+class FooterBannerWidget extends StatefulWidget {
+  const FooterBannerWidget({Key? key}) : super(key: key);
 
   @override
-  _MainBannerWidgetState createState() => _MainBannerWidgetState();
+  _FooterBannerWidgetState createState() => _FooterBannerWidgetState();
 }
 
-class _MainBannerWidgetState extends State<MainBannerWidget> {
+class _FooterBannerWidgetState extends State<FooterBannerWidget> {
   int _currentIndex = 0;
-  MainBannerBloc bloc = MainBannerBloc();
+  FooterBannerBloc bloc = FooterBannerBloc();
   List<String> imageUrls = [];
   List<BannerModel> bannerList = [];
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<MainBannerBloc>(
-      create: (context) => bloc..add(MainBannerLoadingEvent()),
-      child: BlocConsumer<MainBannerBloc, MainBannerState>(
+    return BlocProvider<FooterBannerBloc>(
+      create: (context) => bloc..add(FooterBannerLoadingEvent()),
+      child: BlocConsumer<FooterBannerBloc, FooterBannerState>(
         listener: (context, state) {
-          if (state is MainBannerDataState) {
+          if (state is FooterBannerDataState) {
             bannerList = state.bannerModel;
             for (var element in bannerList) {
               imageUrls.add(element.imageLink.toString());
@@ -37,12 +38,12 @@ class _MainBannerWidgetState extends State<MainBannerWidget> {
           }
         },
         builder: (context, state) {
-          if (state is MainBannerLoadingState) {
+          if (state is FooterBannerLoadingState) {
             return SizedBox(
               height: context.height() * 0.4,
               child: const AppCircularSpinner(),
             );
-          } else if (state is MainBannerDataState) {
+          } else if (state is FooterBannerDataState) {
             return Stack(
               children: [
                 CarouselSlider(
@@ -115,7 +116,7 @@ class _MainBannerWidgetState extends State<MainBannerWidget> {
                 ),
               ],
             );
-          } else if (state is MainBannerErrorState) {
+          } else if (state is FooterBannerErrorState) {
             return SizedBox(
               height: context.height() * 0.4,
               child: Center(

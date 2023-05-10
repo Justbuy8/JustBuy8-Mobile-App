@@ -39,7 +39,7 @@ class MainBannerBloc extends Bloc<MainBannerEvent, MainBannerState> {
       emit(MainBannerLoadingState());
       // call the api
       try {
-        model = await BannerController.getMainBanners();
+        model = await BannerController.getBanners(isMainBanner: true);
         if (model.isEmpty) {
           emit(MainBannerNoDataState(model));
         }

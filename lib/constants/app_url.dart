@@ -7,6 +7,8 @@ class AppUrl {
 class BannerUrl {
   static const String getMainBanners =
       "${AppUrl.baseUrl}/banners/get-main-banners";
+  static const String getFooterBanners =
+      "${AppUrl.baseUrl}/banners/get-footer-banners";
 }
 
 class AuthUrl {
