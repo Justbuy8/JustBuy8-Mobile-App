@@ -43,7 +43,7 @@ class _MainBannerWidgetState extends State<MainBannerWidget> {
               child: const AppCircularSpinner(),
             );
           } else if (state is MainBannerDataState) {
-            return Column(
+            return Stack(
               children: [
                 CarouselSlider(
                   items: imageUrls
@@ -81,22 +81,26 @@ class _MainBannerWidgetState extends State<MainBannerWidget> {
                     },
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: imageUrls.map((url) {
-                    int index = imageUrls.indexOf(url);
-                    return Container(
-                      width: 8,
-                      height: 8,
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: _currentIndex == index
-                            ? AppColors.primaryColor
-                            : Colors.grey,
-                      ),
-                    );
-                  }).toList(),
+                Positioned(
+                  right: 10,
+                  bottom: 30,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: imageUrls.map((url) {
+                      int index = imageUrls.indexOf(url);
+                      return Container(
+                        width: 8,
+                        height: 8,
+                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: _currentIndex == index
+                              ? AppColors.appWhiteColor
+                              : AppColors.appGreyColor,
+                        ),
+                      );
+                    }).toList(),
+                  ),
                 ),
               ],
             );
