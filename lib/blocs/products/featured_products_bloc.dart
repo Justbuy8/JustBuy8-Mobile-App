@@ -5,15 +5,13 @@ import 'package:justbuyeight/controllers/products/featured_products_controller.d
 class FeaturedProductsBloc
     extends Bloc<FeaturedProductsEvent, FeaturedProductsState> {
   FeaturedProductsBloc() : super(FeaturedProductsInitState()) {
-    on<FeaturedProductsEvent>((event, emit) async {
-      if (event is FeaturedProductsLoadEvent) {
-        try {
-          final products =
-              await FeaturedProductsController.getFeaturedProducts();
-          emit(FeaturedProductsGetState(products));
-        } catch (error) {
-          emit(FeaturedProductsErrorState(error.toString()));
-        }
+    on<FeaturedProductsLoadEvent>((event, emit) async {
+      emit(FeaturedProductsInitState());
+      try {
+        final products = await FeaturedProductsController.getFeaturedProducts();
+        emit(FeaturedProductsGetState(products));
+      } catch (error) {
+        emit(FeaturedProductsErrorState(error.toString()));
       }
     });
   }
