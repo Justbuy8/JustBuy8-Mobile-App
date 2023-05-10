@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:justbuyeight/screens/maintabs/widgets/buttons/view_all_button.dart';
-import 'package:justbuyeight/screens/maintabs/widgets/text/title_text_widget.dart';
+import 'package:justbuyeight/screens/maintabs/home/widgets/buttons/view_all_button.dart';
+import 'package:justbuyeight/screens/maintabs/home/widgets/products/featured_products_listview.dart';
+import 'package:justbuyeight/screens/maintabs/home/widgets/text/title_text_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/banners/FooterBannerWidget.dart';
 import 'package:justbuyeight/widgets/components/banners/MainBannerWidget.dart';
@@ -36,6 +37,8 @@ class HomeScreen extends StatelessWidget {
                       ViewAllButton(),
                     ],
                   ),
+                  const SizedBox(height: 20),
+                  const FeaturedProductsListview(),
 
                   /// top categories
                   Row(

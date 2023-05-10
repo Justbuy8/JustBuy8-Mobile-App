@@ -11,7 +11,7 @@ class AppCircularSpinner extends StatelessWidget {
         color: AppColors.primaryColor,
         secondRingColor: AppColors.secondaryColor,
         thirdRingColor: AppColors.successColor,
-        size: 50,
+        size: 40,
       ),
     );
   }
