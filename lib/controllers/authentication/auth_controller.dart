@@ -30,8 +30,21 @@ class AuthenticationController {
       },
     );
 
-    print(response.body);
-    print(response.statusCode);
+    if (response.statusCode == 200) {
+      var result = jsonDecode(response.body);
+
+      return result;
+    }
+  }
+
+  static registration(body) async {
+    Response response = await ApiManager.postRequest(
+      body,
+      AuthUrl.registration,
+      headers: {
+        "content-type": "application/json; charset=utf-8",
+      },
+    );
 
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:justbuyeight/blocs/authentication/registration/registration_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/send_otp/send_otp_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/timer_cubit/timer_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/authentication/user_model.dart';
+import 'package:justbuyeight/screens/authentication/account_created_screen.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
@@ -25,10 +27,14 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   final TextEditingController otpController = TextEditingController();
   late SendOtpCubit sendOtpCubit;
   late OtpTimerCubit otpTimerCubit;
+  late RegistrationCubit registrationCubit;
+  BuildContext? dialogueContext;
 
   initCubit() {
     sendOtpCubit = context.read<SendOtpCubit>();
     otpTimerCubit = context.read<OtpTimerCubit>();
+    registrationCubit = context.read<RegistrationCubit>();
+
     otpTimerCubit.startOtpIntervals();
   }
 
@@ -47,18 +53,44 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SendOtpCubit, SendOtpState>(
-      listener: (context, state) {
-        if (state is SendOtpSuccessfuly) {
-          SnackBars.Success(context, "Otp Sent successfully");
-        } else if (state is SendOtpInternetError) {
-          SnackBars.Danger(context, "Internet connection failed");
-        } else if (state is SendOtpFailed) {
-          SnackBars.Danger(context, "Otp sent failed");
-        } else if (state is SendOtpTimeOut) {
-          SnackBars.Danger(context, "Timeout");
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<SendOtpCubit, SendOtpState>(
+          listener: (context, state) {
+            if (state is SendOtpSuccessfuly) {
+              SnackBars.Success(context, "Otp Sent successfully");
+            } else if (state is SendOtpInternetError) {
+              SnackBars.Danger(context, "Internet connection failed");
+            } else if (state is SendOtpFailed) {
+              SnackBars.Danger(context, "Otp sent failed");
+            } else if (state is SendOtpTimeOut) {
+              SnackBars.Danger(context, "Request timeout");
+            }
+          },
+        ),
+        BlocListener<RegistrationCubit, RegistrationState>(
+          listener: (context, state) {
+            if (state is RegistrationSuccessfull) {
+              SnackBars.Success(context, "User account created successfully");
+              Navigator.of(dialogueContext!).pop();
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (builder) => const AccountCreatedScreen()));
+            } else if (state is RegistrationAlreadyExist) {
+              SnackBars.Success(context, "User account already exist");
+              Navigator.of(dialogueContext!).pop();
+            } else if (state is RegistrationInternetError) {
+              SnackBars.Danger(context, "Internet connection failed");
+              Navigator.of(dialogueContext!).pop();
+            } else if (state is RegistrationFailed) {
+              SnackBars.Danger(context, "User account creation failed");
+              Navigator.of(dialogueContext!).pop();
+            } else if (state is RegistrationTimeout) {
+              SnackBars.Danger(context, "Request timeout");
+              Navigator.of(dialogueContext!).pop();
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         backgroundColor: AppColors.backgroundColor,
         appBar: const BasicAppbarWidget(
@@ -74,7 +106,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 ),
                 SecondaryTextWidget(
                     text:
-                        "${AppText.resetPasswordText} ${widget.userModel.getEmail}"),
+                        "//${AppText.resetPasswordText} ${widget.userModel.getEmail}"),
                 SizedBox(
                   height: 20.h,
                 ),
@@ -144,7 +176,44 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     width: context.width(),
                     height: 50.h,
                     caption: AppText.verifyText,
-                    onPressed: () {}),
+                    onPressed: () async {
+                      if (otpController.text.trim() == sendOtpCubit.otpCode) {
+                        showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (_ctx) {
+                              dialogueContext = _ctx;
+                              return Dialog(
+                                backgroundColor: Colors.white,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 20),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      CircularProgressIndicator(
+                                        color: AppColors.primaryColor,
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      const Text('Loading...')
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
+                        var registrationMap = {
+                          "f_name": "${widget.userModel.firstName}",
+                          "l_name": "${widget.userModel.lastName}",
+                          "phone": "${widget.userModel.phoneNumber}",
+                          "email": "${widget.userModel.email}",
+                          "password": "${widget.userModel.password}",
+                        };
+                        await registrationCubit
+                            .userRegistration(registrationMap);
+                      }
+                    }),
               ],
             ),
           ),
