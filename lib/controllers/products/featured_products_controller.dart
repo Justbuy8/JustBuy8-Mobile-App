@@ -19,16 +19,13 @@ class FeaturedProductsController {
       },
     );
     if (response.statusCode == 200) {
-      print("status code: ${response.statusCode}");
       var result = jsonDecode(response.body);
-      print("result: $result");
       if (result['Success']) {
         products = featuredProductsModelFromJson(jsonEncode(result['Data']));
       } else {
         products = [];
       }
     } else {
-      print("status code: ${response.statusCode}");
       products = [];
     }
     return products;

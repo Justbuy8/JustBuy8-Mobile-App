@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/screens/authentication/signup_screen.dart';
 import 'package:justbuyeight/screens/maintabs/main_tabs_screen.dart';
@@ -31,10 +32,16 @@ class _MyAppState extends State<MyApp> {
       child: ScreenUtilInit(
         designSize: Size(context.width(), context.height()),
         builder: (context, child) {
-          return const MaterialApp(
+          return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'JustBuy8',
-            home: MainTabsScreen(),
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSwatch().copyWith(
+                secondary: AppColors.secondaryColor,
+                primary: AppColors.primaryColor,
+              ),
+            ),
+            home: const MainTabsScreen(),
           );
         },
       ),
