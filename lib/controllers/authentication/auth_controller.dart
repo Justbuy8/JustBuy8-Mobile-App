@@ -20,4 +20,23 @@ class AuthenticationController {
       return result;
     }
   }
+
+  static sendOtpCode(email) async {
+    Response response = await ApiManager.postRequest(
+      {"email": "$email"},
+      AuthUrl.sendOtp,
+      {
+        "content-type": "application/json; charset=utf-8",
+      },
+    );
+
+    print(response.body);
+    print(response.statusCode);
+
+    if (response.statusCode == 200) {
+      var result = jsonDecode(response.body);
+
+      return result;
+    }
+  }
 }

@@ -73,24 +73,6 @@ class _OtpWidgetState extends State<OtpWidget> {
             ),
             defaultPinTheme: defaultPinTheme),
         10.height,
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SecondaryTextWidget(
-              text: "Didn't receive OTP?",
-              fontSize: 13,
-            ),
-            TextButton(
-              onPressed: widget.onResend ?? () {},
-              child: const PrimaryTextWidget(
-                text: "Resend OTP",
-                fontSize: 15,
-              ),
-            ),
-          ],
-        )
       ],
     );
   }

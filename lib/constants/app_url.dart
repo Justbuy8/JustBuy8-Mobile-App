@@ -12,4 +12,6 @@ class BannerUrl {
 class AuthUrl {
   static const String validateEmail =
       "${AppUrl.baseUrl}/authentication/validate-email";
+
+  static const String sendOtp = "${AppUrl.baseUrl}/authentication/request-otp";
 }

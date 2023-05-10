@@ -28,5 +28,5 @@ class AppText {
   static const String accountCreated = "Account Created";
   static const String accountCreatedSubtitle = "Your account has been created";
   static const String enterNewPassword = "Enter new password and confirm.";
-  static const String verifyPhoneNumber = "Verify Phone Number";
+  static const String verifyEmailAddress = "Verify Email Address";
 }
