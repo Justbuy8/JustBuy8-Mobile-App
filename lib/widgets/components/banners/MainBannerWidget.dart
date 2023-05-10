@@ -7,6 +7,7 @@ import 'package:justbuyeight/blocs/banners/main_banner_block.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/controllers/banners/BannerController.dart';
 import 'package:justbuyeight/models/banners/BannerModel.dart';
+import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -82,24 +83,35 @@ class _MainBannerWidgetState extends State<MainBannerWidget> {
                   ),
                 ),
                 Positioned(
-                  right: 10,
                   bottom: 30,
+                  left: 10,
+                  right: 10,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: imageUrls.map((url) {
-                      int index = imageUrls.indexOf(url);
-                      return Container(
-                        width: 8,
-                        height: 8,
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: _currentIndex == index
-                              ? AppColors.appWhiteColor
-                              : AppColors.appGreyColor,
-                        ),
-                      );
-                    }).toList(),
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      PrimaryButtonWidget(
+                        caption: "Shop Now",
+                        onPressed: () {},
+                        width: context.width() * 0.3,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: imageUrls.map((url) {
+                          int index = imageUrls.indexOf(url);
+                          return Container(
+                            width: 8,
+                            height: 8,
+                            margin: const EdgeInsets.symmetric(horizontal: 4),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _currentIndex == index
+                                  ? AppColors.appWhiteColor
+                                  : AppColors.appGreyColor,
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ],
                   ),
                 ),
               ],
