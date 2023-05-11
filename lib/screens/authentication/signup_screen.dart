@@ -69,6 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           userModel.setLastName = _lastNameController.text.trim();
           userModel.setEmail = _emailController.text.trim();
           userModel.setPassword = _passwordController.text.trim();
+          userModel.setPhoneNumber = _phoneNumberController.text.trim();
 
           Navigator.of(dialogueContext!).pop();
 

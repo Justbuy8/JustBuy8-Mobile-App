@@ -106,7 +106,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 ),
                 SecondaryTextWidget(
                     text:
-                        "//${AppText.resetPasswordText} ${widget.userModel.getEmail}"),
+                        "${AppText.resetPasswordText} ${widget.userModel.getEmail}"),
                 SizedBox(
                   height: 20.h,
                 ),
