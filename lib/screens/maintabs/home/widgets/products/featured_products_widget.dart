@@ -13,9 +13,12 @@ class FeaturedProductWidget extends StatelessWidget {
     Key? key,
     required this.text,
     required this.imageUrl,
+    required this.price,
+    required this.rating,
   }) : super(key: key);
   final String text;
   final String imageUrl;
+  final String price, rating;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -65,6 +68,35 @@ class FeaturedProductWidget extends StatelessWidget {
             ),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        SizedBox(
+          width: context.width() * 0.4,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "\$$price",
+                style: TextStyle(
+                  fontFamily: AppFonts.robotoBold,
+                  fontSize: 16,
+                  decoration: TextDecoration.lineThrough,
+                ),
+              ),
+              Row(
+                children: [
+                  Icon(Ionicons.star, color: AppColors.primaryColor, size: 16),
+                  const SizedBox(width: 5),
+                  Text(
+                    rating,
+                    style: TextStyle(
+                      fontFamily: AppFonts.robotoBold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ],

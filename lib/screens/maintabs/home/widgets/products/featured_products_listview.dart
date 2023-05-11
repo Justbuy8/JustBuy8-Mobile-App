@@ -12,7 +12,7 @@ class FeaturedProductsListview extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<FeaturedProductsBloc>(
       create: (context) =>
-          FeaturedProductsBloc()..add(FeaturedProductsLoadEvent("1","2")),
+          FeaturedProductsBloc()..add(FeaturedProductsLoadEvent("1", "2")),
       child: BlocBuilder<FeaturedProductsBloc, FeaturedProductsState>(
         builder: (context, state) {
           if (state is FeaturedProductsInitState) {
@@ -35,6 +35,8 @@ class FeaturedProductsListview extends StatelessWidget {
                     child: FeaturedProductWidget(
                       text: state.products[index].name.toString(),
                       imageUrl: state.products[index].thumbnail.toString(),
+                      price: state.products[index].unitPrice.toString(),
+                      rating: state.products[index].totalRating.toString(),
                     ),
                   );
                 },
