@@ -5,13 +5,13 @@ import 'package:justbuyeight/constants/app_url.dart';
 import 'package:justbuyeight/models/products/featured_products_model.dart';
 
 class FeaturedProductsController {
-  static Future<List<FeaturedProductsModel>> getFeaturedProducts() async {
+  static Future<List<FeaturedProductsModel>> getFeaturedProducts(page,paginate_by) async {
     List<FeaturedProductsModel> products = [];
 
     final response = await ApiManager.postRequest(
       {
-        "page": "1",
-        "paginate_by": "5",
+        "page": page,
+        "paginate_by": paginate_by,
       },
       ProductsUrl.featuredProducts,
       headers: {

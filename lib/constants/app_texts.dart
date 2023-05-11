@@ -29,4 +29,7 @@ class AppText {
   static const String accountCreatedSubtitle = "Your account has been created";
   static const String enterNewPassword = "Enter new password and confirm.";
   static const String verifyEmailAddress = "Verify Email Address";
+
+  //Home Page
+  static String FeaturedProductsText= "Featured Products";
 }

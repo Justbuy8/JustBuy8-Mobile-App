@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
 
 class ViewAllButton extends StatelessWidget {
@@ -13,9 +14,10 @@ class ViewAllButton extends StatelessWidget {
             print("Clicked");
           },
       child: Row(
-        children: const [
-          SecondaryTextWidget(text: "View All"),
-          Icon(Icons.arrow_forward_ios_rounded),
+        children: [
+          SecondaryTextWidget(
+              text: "View All", fontFamily: AppFonts.robotoMonoMedium),
+          Icon(Icons.arrow_forward_ios_rounded, size: 20),
         ],
       ),
     );

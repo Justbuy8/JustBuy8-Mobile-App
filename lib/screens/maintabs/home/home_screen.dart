@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/buttons/view_all_button.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/featured_products_listview.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/text/title_text_widget.dart';
@@ -30,13 +31,7 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// featured products
-                  Row(
-                    children: const [
-                      TitleTextWidget(text: "Featured Products"),
-                      Spacer(),
-                      ViewAllButton(),
-                    ],
-                  ),
+                  TitleTextWidget(text: AppText.FeaturedProductsText),
                   const SizedBox(height: 20),
                   const FeaturedProductsListview(),
 
