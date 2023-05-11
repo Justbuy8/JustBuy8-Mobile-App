@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
                 primary: AppColors.primaryColor,
               ),
             ),
-            home: const SignUpScreen(),
+            home: const MainTabsScreen(),
           );
         },
       ),
