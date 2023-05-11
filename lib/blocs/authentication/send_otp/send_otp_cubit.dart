@@ -18,6 +18,7 @@ class SendOtpCubit extends Cubit<SendOtpState> {
   sendOtp(email) async {
     try {
       response = await AuthenticationController.sendOtpCode(email);
+      print(response);
 
       if (response['Message'] == 'Code Sent' && response['Success'] == true) {
         otpCode = response["Data"]["Code"].toString();
