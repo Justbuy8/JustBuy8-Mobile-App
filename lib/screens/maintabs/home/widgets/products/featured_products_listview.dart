@@ -11,18 +11,20 @@ class FeaturedProductsListview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<FeaturedProductsBloc>(
-      create: (context) =>
-          FeaturedProductsBloc()..add(FeaturedProductsLoadEvent("1", "2")),
+      create: (context) => FeaturedProductsBloc()
+        ..add(
+          FeaturedProductsLoadEvent("1", "5"),
+        ),
       child: BlocBuilder<FeaturedProductsBloc, FeaturedProductsState>(
         builder: (context, state) {
           if (state is FeaturedProductsInitState) {
             return SizedBox(
-              height: context.height() * 0.3,
+              height: context.height() * 0.35,
               child: const AppCircularSpinner(),
             );
           } else if (state is FeaturedProductsGetState) {
             return SizedBox(
-              height: context.height() * 0.3,
+              height: context.height() * 0.35,
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: state.products.length,

@@ -1,8 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:justbuyeight/blocs/products/featured_products_bloc.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -23,76 +22,92 @@ class FeaturedProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Stack(
-          children: [
-            Container(
-              height: context.height() * 0.2,
-              width: context.width() * 0.4,
-              padding: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                color: AppColors.appGreyColor,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: CachedNetworkImage(
-                imageUrl: imageUrl,
-                fit: BoxFit.contain,
-                height: context.height() * 0.2,
-                width: context.width() * 0.4,
-              ),
+        Expanded(
+          child: Container(
+            width: context.width() * 0.4,
+            // padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              shape: BoxShape.rectangle,
+              color: AppColors.appGreyColor,
             ),
-            Positioned(
-              right: 0,
-              top: 0,
-              child: IconButton(
-                onPressed: () {},
-                icon: CircleAvatar(
-                  radius: 15,
-                  backgroundColor: AppColors.appGreyColor,
-                  child: Icon(
-                    Ionicons.heart_outline,
-                    color: AppColors.appBlackColor,
+            child: GridTile(
+              header: GridTileBar(
+                leading: const SizedBox.shrink(),
+                title: const SizedBox.shrink(),
+                trailing: IconButton(
+                  onPressed: () {},
+                  icon: CircleAvatar(
+                    backgroundColor: AppColors.appWhiteColor,
+                    radius: 15,
+                    child: Icon(
+                      Ionicons.heart_outline,
+                      color: AppColors.appBlackColor,
+                      size: 20,
+                      shadows: [
+                        Shadow(
+                          color: AppColors.appBlackColor,
+                          blurRadius: 1,
+                          offset: const Offset(0, 0),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                fit: BoxFit.cover,
+              ),
             ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        SizedBox(
-          width: context.width() * 0.4,
-          height: context.height() * 0.05,
-          child: AutoSizeText(
-            text,
-            style: TextStyle(
-              fontFamily: AppFonts.robotoBold,
-            ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
           ),
         ),
-        SizedBox(
+        const SizedBox(height: 5),
+        Container(
           width: context.width() * 0.4,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "\$$price",
+              AutoSizeText(
+                text,
                 style: TextStyle(
-                  fontFamily: AppFonts.robotoBold,
-                  fontSize: 16,
-                  decoration: TextDecoration.lineThrough,
+                  fontFamily: AppFonts.openSansBold,
                 ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
+              const SizedBox(height: 5),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(Ionicons.star, color: AppColors.primaryColor, size: 16),
-                  const SizedBox(width: 5),
-                  Text(
-                    rating,
+                  AutoSizeText(
+                    "\$$price",
                     style: TextStyle(
-                      fontFamily: AppFonts.robotoBold,
-                      fontSize: 16,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
                     ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Ionicons.star,
+                        color: AppColors.primaryColor,
+                        size: 14,
+                      ),
+                      const SizedBox(width: 5),
+                      AutoSizeText(
+                        rating,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ),
                 ],
               ),
