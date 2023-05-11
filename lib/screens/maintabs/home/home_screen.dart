@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const SecondaryAppbarWidget(
-        title: "Zoop Store",
+        title: "JustBuy8",
         leadingIcon: Ionicons.settings_outline,
         trailingIcon: Ionicons.notifications_outline,
       ),
@@ -29,11 +29,12 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: const [
                   /// featured products
                   TitleAndButtonWidget(text: AppText.featuredProductsText),
-                  const SizedBox(height: 20),
-                  const FeaturedProductsListview(),
+                  SizedBox(height: 20),
+                  FeaturedProductsListview(),
+                  SizedBox(height: 20),
 
                   /// top categories
                   TitleAndButtonWidget(text: AppText.topCategoriesText),
@@ -47,7 +48,7 @@ class HomeScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
-                children: [
+                children: const [
                   /// choose brands
                   TitleAndButtonWidget(text: AppText.chooseBrandsText),
 
