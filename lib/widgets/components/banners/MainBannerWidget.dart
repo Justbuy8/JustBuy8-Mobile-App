@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,15 +29,7 @@ class _MainBannerWidgetState extends State<MainBannerWidget> {
   Widget build(BuildContext context) {
     return BlocProvider<MainBannerBloc>(
       create: (context) => bloc..add(MainBannerLoadingEvent()),
-      child: BlocConsumer<MainBannerBloc, MainBannerState>(
-        listener: (context, state) {
-          if (state is MainBannerDataState) {
-            bannerList = state.bannerModel;
-            for (var element in bannerList) {
-              imageUrls.add(element.imageLink.toString());
-            }
-          }
-        },
+      child: BlocBuilder<MainBannerBloc, MainBannerState>(
         builder: (context, state) {
           if (state is MainBannerLoadingState) {
             return SizedBox(
@@ -46,49 +39,43 @@ class _MainBannerWidgetState extends State<MainBannerWidget> {
           } else if (state is MainBannerDataState) {
             return Stack(
               children: [
-                CarouselSlider(
-                  items: imageUrls
-                      .map((url) => GestureDetector(
-                            onTap: () {
-                              if (bannerList[_currentIndex].resourceType ==
-                                  "product") {
-                                // navigate to product page
-                              }
-                              if (bannerList[_currentIndex].resourceType ==
-                                  "category") {
-                                // navigate to category page
-                              }
-                            },
-                            child: Container(
-                              height: context.height() * 0.4,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: CachedNetworkImage(
-                                imageUrl: url,
-                                fit: BoxFit.fill,
-                                colorBlendMode: BlendMode.exclusion,
-                                errorWidget: (context, url, error) => Icon(
-                                  Icons.error,
-                                  color: AppColors.appWhiteColor,
-                                ),
-                              ),
-                            ),
-                          ))
-                      .toList(),
-                  options: CarouselOptions(
-                    height: context.height() / 3,
-                    aspectRatio: 16 / 9,
-                    viewportFraction: 1.0,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        _currentIndex = index;
-                      });
-                    },
-                  ),
-                ),
+                CarouselSlider.builder(
+                    itemCount: state.bannerModel.length,
+                    options: CarouselOptions(
+                      aspectRatio: 16 / 9,
+                      viewportFraction: 1.0,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _currentIndex = index;
+                        });
+                      },
+                    ),
+                    itemBuilder:
+                        (BuildContext context, int index, int realIndex) {
+                      return GestureDetector(
+                        onTap: () {
+                          if (bannerList[_currentIndex].resourceType ==
+                              "product") {
+                            // navigate to product page
+                          }
+                          if (bannerList[_currentIndex].resourceType ==
+                              "category") {
+                            // navigate to category page
+                          }
+                        },
+                        child: CachedNetworkImage(
+                          imageUrl: state.bannerModel[index].imageLink,
+                          fit: BoxFit.fill,
+                          colorBlendMode: BlendMode.exclusion,
+                          errorWidget: (context, url, error) => Icon(
+                            Icons.error,
+                            color: AppColors.appWhiteColor,
+                          ),
+                        ),
+                      );
+                    }),
                 Positioned(
-                  bottom: 20,
+                  bottom: 10,
                   left: 10,
                   right: 10,
                   child: Row(
@@ -99,22 +86,11 @@ class _MainBannerWidgetState extends State<MainBannerWidget> {
                         onPressed: () {},
                         width: context.width() * 0.3,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: imageUrls.map((url) {
-                          int index = imageUrls.indexOf(url);
-                          return Container(
-                            width: 8,
-                            height: 8,
-                            margin: const EdgeInsets.symmetric(horizontal: 4),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: _currentIndex == index
-                                  ? AppColors.appWhiteColor
-                                  : AppColors.appGreyColor,
-                            ),
-                          );
-                        }).toList(),
+                      CarouselIndicator(
+                        width: 10,
+                        height: 10,
+                        count: state.bannerModel.length,
+                        index: _currentIndex,
                       ),
                     ],
                   ),
