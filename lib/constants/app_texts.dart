@@ -31,5 +31,8 @@ class AppText {
   static const String verifyEmailAddress = "Verify Email Address";
 
   //Home Page
-  static String FeaturedProductsText= "Featured Products";
+  static const String featuredProductsText = "Featured Products";
+  static const String topCategoriesText = "Top Categories";
+  static const String chooseBrandsText = "Choose Brands";
+  static const String newArrivalsText = "New Arrivals";
 }

@@ -3,9 +3,9 @@ import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
 
-class TitleTextWidget extends StatelessWidget {
+class TitleAndButtonWidget extends StatelessWidget {
   final VoidCallback? onPressed;
-  const TitleTextWidget({Key? key, required this.text, this.onPressed})
+  const TitleAndButtonWidget({Key? key, required this.text, this.onPressed})
       : super(key: key);
   final String text;
   @override
@@ -24,9 +24,12 @@ class TitleTextWidget extends StatelessWidget {
                 print("Clicked");
               },
           child: Row(
-            children: const [
-              SecondaryTextWidget(text: "View All"),
-               Icon(Icons.arrow_forward_ios_rounded, size: 20),
+            children: [
+              SecondaryTextWidget(
+                text: "View All",
+                fontFamily: AppFonts.openSansMedium,
+              ),
+              const Icon(Icons.arrow_forward_ios_rounded, size: 20),
             ],
           ),
         )

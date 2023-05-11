@@ -3,7 +3,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/buttons/view_all_button.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/featured_products_listview.dart';
-import 'package:justbuyeight/screens/maintabs/home/widgets/text/title_text_widget.dart';
+import 'package:justbuyeight/screens/maintabs/home/widgets/text/title_and_button_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/banners/FooterBannerWidget.dart';
 import 'package:justbuyeight/widgets/components/banners/MainBannerWidget.dart';
@@ -31,18 +31,12 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// featured products
-                  TitleTextWidget(text: AppText.FeaturedProductsText),
+                  TitleAndButtonWidget(text: AppText.featuredProductsText),
                   const SizedBox(height: 20),
                   const FeaturedProductsListview(),
 
                   /// top categories
-                  Row(
-                    children: const [
-                      TitleTextWidget(text: "Top Categories"),
-                      Spacer(),
-                      ViewAllButton(),
-                    ],
-                  ),
+                  TitleAndButtonWidget(text: AppText.topCategoriesText),
                 ],
               ),
             ),
@@ -55,22 +49,10 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   /// choose brands
-                  Row(
-                    children: const [
-                      TitleTextWidget(text: "Choose Brands"),
-                      Spacer(),
-                      ViewAllButton(),
-                    ],
-                  ),
+                  TitleAndButtonWidget(text: AppText.chooseBrandsText),
 
                   /// new arrivals
-                  Row(
-                    children: const [
-                      TitleTextWidget(text: "New Arrivals"),
-                      Spacer(),
-                      ViewAllButton(),
-                    ],
-                  ),
+                  TitleAndButtonWidget(text: AppText.newArrivalsText),
                 ],
               ),
             ),
