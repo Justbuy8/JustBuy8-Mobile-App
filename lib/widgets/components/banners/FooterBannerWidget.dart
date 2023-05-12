@@ -6,7 +6,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/banners/footer_banner_bloc.dart';
-import 'package:justbuyeight/blocs/banners/main_banner_block.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/models/banners/BannerModel.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';

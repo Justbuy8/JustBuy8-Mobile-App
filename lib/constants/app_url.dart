@@ -24,3 +24,11 @@ class ProductsUrl {
   static const String featuredProducts =
       "${AppUrl.baseUrl}/product/get-featured-products";
 }
+
+class CategoriesUrl {
+  static const String topCategories =
+      "${AppUrl.baseUrl}/category/get-top-main-cat";
+  static const String subCategories = "${AppUrl.baseUrl}/category/get-sub-cat";
+  static const String mainCategories =
+      "${AppUrl.baseUrl}/category/get-main-cat";
+}
