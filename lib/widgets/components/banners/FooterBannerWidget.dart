@@ -51,6 +51,8 @@ class _FooterBannerWidgetState extends State<FooterBannerWidget> {
                 CarouselSlider.builder(
                   itemCount: state.bannerModel.length,
                   options: CarouselOptions(
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 5),
                     aspectRatio: 16 / 9,
                     viewportFraction: 1.0,
                     onPageChanged: (index, reason) {

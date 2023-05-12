@@ -42,6 +42,8 @@ class _MainBannerWidgetState extends State<MainBannerWidget> {
                 CarouselSlider.builder(
                     itemCount: state.bannerModel.length,
                     options: CarouselOptions(
+                      autoPlay: true,
+                      autoPlayInterval: const Duration(seconds: 3),
                       aspectRatio: 16 / 9,
                       viewportFraction: 1.0,
                       onPageChanged: (index, reason) {
