@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
-import 'package:justbuyeight/screens/maintabs/home/widgets/buttons/view_all_button.dart';
-import 'package:justbuyeight/screens/maintabs/home/widgets/products/featured_products_listview.dart';
-import 'package:justbuyeight/screens/maintabs/home/widgets/text/title_and_button_widget.dart';
+import 'package:justbuyeight/screens/maintabs/home/widgets/products/featured/featured_products_listview.dart';
+import 'package:justbuyeight/screens/maintabs/home/widgets/products/top/top_categories_widgets.dart';
+import 'package:justbuyeight/screens/maintabs/home/widgets/title-button/title_and_button_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/banners/FooterBannerWidget.dart';
 import 'package:justbuyeight/widgets/components/banners/MainBannerWidget.dart';
@@ -38,6 +38,8 @@ class HomeScreen extends StatelessWidget {
 
                   /// top categories
                   TitleAndButtonWidget(text: AppText.topCategoriesText),
+                  TopCategoriesWidget(),
+                  SizedBox(height: 20),
                 ],
               ),
             ),
