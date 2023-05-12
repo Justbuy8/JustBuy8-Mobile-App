@@ -33,6 +33,8 @@ class TopCategoriesWidget extends StatelessWidget {
       height: context.height() * 0.3,
       child: GridView.builder(
         itemCount: topCategoriesIcons.length,
+        // disable scrolling
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return TopCategoryWidget(
             icon: topCategoriesIcons[index],

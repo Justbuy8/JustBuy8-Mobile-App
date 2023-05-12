@@ -38,8 +38,8 @@ class HomeScreen extends StatelessWidget {
 
                   /// top categories
                   TitleAndButtonWidget(text: AppText.topCategoriesText),
-                  TopCategoriesWidget(),
                   SizedBox(height: 20),
+                  TopCategoriesWidget(),
                 ],
               ),
             ),
