@@ -61,7 +61,6 @@ class AuthenticationController {
         "content-type": "application/json; charset=utf-8",
       },
     );
-    print(response.body);
 
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
