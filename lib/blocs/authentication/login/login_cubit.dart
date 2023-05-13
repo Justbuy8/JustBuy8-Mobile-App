@@ -18,7 +18,8 @@ class LoginCubit extends Cubit<LoginState> {
     try {
       response = await AuthenticationController.login(loginBody);
 
-      if (response['Success'] == true) {
+      if (response['Message'] == 'Login Success' &&
+          response['Success'] == true) {
         await UserSecureStorage.setUserId(
             response["Data"]["UserId"].toString());
         await UserSecureStorage.setToken(response["Data"]["Token"].toString());
