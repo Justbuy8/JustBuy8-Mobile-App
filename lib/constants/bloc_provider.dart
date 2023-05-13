@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:justbuyeight/blocs/authentication/login/login_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/registration/registration_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/send_otp/send_otp_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/timer_cubit/timer_cubit.dart';
@@ -10,5 +11,6 @@ class BlocProviders {
     BlocProvider<SendOtpCubit>(create: (context) => SendOtpCubit()),
     BlocProvider<OtpTimerCubit>(create: (context) => OtpTimerCubit()),
     BlocProvider<RegistrationCubit>(create: (context) => RegistrationCubit()),
+    BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
   ];
 }

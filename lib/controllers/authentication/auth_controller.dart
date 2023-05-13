@@ -52,4 +52,21 @@ class AuthenticationController {
       return result;
     }
   }
+
+  static login(body) async {
+    Response response = await ApiManager.postRequest(
+      body,
+      AuthUrl.login,
+      headers: {
+        "content-type": "application/json; charset=utf-8",
+      },
+    );
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var result = jsonDecode(response.body);
+
+      return result;
+    }
+  }
 }
