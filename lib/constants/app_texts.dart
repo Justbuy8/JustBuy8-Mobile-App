@@ -30,6 +30,14 @@ class AppText {
   static const String enterNewPassword = "Enter new password and confirm.";
   static const String verifyEmailAddress = "Verify Email Address";
 
+  static const String internetError = "Internet connection failed";
+  static const String timeOut = "Request timeout";
+  static const String loggedIn = "User loggedin successfully";
+  static const String loggedInFailed = "Invalid email or password";
+  static const String registered = "Email verified successfully";
+  static const String registrationFailed = "Email verification failed";
+  static const String emailExist = "Email already exist";
+
   //Home Page
   static const String featuredProductsText = "Featured Products";
   static const String topCategoriesText = "Top Categories";

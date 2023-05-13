@@ -45,20 +45,20 @@ class _SignInScreenState extends State<SignInScreen> {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccessfull) {
-          SnackBars.Success(context, "User loggedin successfully");
+          SnackBars.Success(context, AppText.loggedIn);
 
           Navigator.of(dialogueContext!).pop();
 
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (builder) => MainTabsScreen()));
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (builder) => const MainTabsScreen()));
         } else if (state is LoginInternetError) {
-          SnackBars.Danger(context, "Internet connection failed");
+          SnackBars.Danger(context, AppText.internetError);
           Navigator.of(dialogueContext!).pop();
         } else if (state is LoginFailed) {
-          SnackBars.Danger(context, "Invalid email or password");
+          SnackBars.Danger(context, AppText.loggedInFailed);
           Navigator.of(dialogueContext!).pop();
         } else if (state is LoginTimeout) {
-          SnackBars.Danger(context, "Request timeout");
+          SnackBars.Danger(context, AppText.timeOut);
           Navigator.of(dialogueContext!).pop();
         }
       },

@@ -62,7 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return BlocListener<ValidateEmailCubit, ValidateEmailState>(
       listener: (context, state) {
         if (state is ValidateEmailSuccessfuly) {
-          SnackBars.Success(context, "Email verified successfully");
+          SnackBars.Success(context, AppText.registered);
           UserModel userModel = UserModel();
 
           userModel.setFirstName = _firstNameController.text.trim();
@@ -77,16 +77,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
               builder: (builder) =>
                   OtpVerificationScreen(userModel: userModel)));
         } else if (state is ValidateEmailInternetError) {
-          SnackBars.Danger(context, "Internet connection failed");
+          SnackBars.Danger(context, AppText.internetError);
           Navigator.of(dialogueContext!).pop();
         } else if (state is ValidateEmailAlreadyExist) {
-          SnackBars.Danger(context, "Email already exist");
+          SnackBars.Danger(context, AppText.emailExist);
           Navigator.of(dialogueContext!).pop();
         } else if (state is ValidateEmailFailed) {
-          SnackBars.Danger(context, "Email verification failed");
+          SnackBars.Danger(context, AppText.registrationFailed);
           Navigator.of(dialogueContext!).pop();
         } else if (state is ValidateEmailTimeOut) {
-          SnackBars.Danger(context, "Request timeout");
+          SnackBars.Danger(context, AppText.timeOut);
           Navigator.of(dialogueContext!).pop();
         }
       },
