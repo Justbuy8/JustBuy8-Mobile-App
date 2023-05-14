@@ -10,6 +10,8 @@ import 'package:justbuyeight/screens/maintabs/home/home_screen.dart';
 import 'package:justbuyeight/screens/maintabs/main_tabs_screen.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import 'screens/splash_screen.dart';
+
 void main() {
   runApp(
     const MaterialApp(
@@ -43,7 +45,7 @@ class _MyAppState extends State<MyApp> {
                 primary: AppColors.primaryColor,
               ),
             ),
-            home: const SignInScreen(),
+            home: const SplashScreen(),
           );
         },
       ),
