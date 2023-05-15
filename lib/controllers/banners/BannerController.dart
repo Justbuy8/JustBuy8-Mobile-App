@@ -14,6 +14,7 @@ class BannerController {
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
       if (result['Success']) {
+        print("banner list: ${result['Data']}");
         bannerList = bannerModelFromJson(jsonEncode(result['Data']));
       } else {
         bannerList = [];

@@ -12,8 +12,8 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const SecondaryAppbarWidget(
+    return const Scaffold(
+      appBar: SecondaryAppbarWidget(
         title: "JustBuy8",
         leadingIcon: Ionicons.settings_outline,
         trailingIcon: Ionicons.notifications_outline,
@@ -23,13 +23,13 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /// main banner
-            const MainBannerWidget(),
-            const SizedBox(height: 20),
+            MainBannerWidget(),
+            SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: EdgeInsets.all(15.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   /// featured products
                   TitleAndButtonWidget(text: AppText.featuredProductsText),
                   SizedBox(height: 20),
@@ -45,12 +45,12 @@ class HomeScreen extends StatelessWidget {
             ),
 
             /// footer banner
-            const FooterBannerWidget(),
+            FooterBannerWidget(),
 
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: EdgeInsets.all(15.0),
               child: Column(
-                children: const [
+                children: [
                   /// choose brands
                   TitleAndButtonWidget(text: AppText.chooseBrandsText),
 
