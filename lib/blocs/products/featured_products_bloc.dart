@@ -8,7 +8,8 @@ class FeaturedProductsBloc
     on<FeaturedProductsLoadEvent>((event, emit) async {
       emit(FeaturedProductsInitState());
       try {
-        final products = await FeaturedProductsController.getFeaturedProducts(event.page,event.paginate_by);
+        final products = await FeaturedProductsController.getFeaturedProducts(
+            event.page, event.paginateBy);
         emit(FeaturedProductsGetState(products));
       } catch (error) {
         emit(FeaturedProductsErrorState(error.toString()));

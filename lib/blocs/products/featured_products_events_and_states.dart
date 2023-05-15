@@ -4,10 +4,10 @@ import 'package:justbuyeight/models/products/featured_products_model.dart';
 abstract class FeaturedProductsEvent {}
 
 class FeaturedProductsLoadEvent extends FeaturedProductsEvent {
- final String page;
- final String paginate_by;
+  final String page;
+  final String paginateBy;
 
-  FeaturedProductsLoadEvent(this.page, this.paginate_by);
+  FeaturedProductsLoadEvent(this.page, this.paginateBy);
 }
 
 //states

@@ -34,3 +34,7 @@ class CategoriesUrl {
   static const String mainCategories =
       "${AppUrl.baseUrl}/category/get-main-cat";
 }
+
+class BrandsUrl {
+  static const String brands = "${AppUrl.baseUrl}/brands/get-brands";
+}
