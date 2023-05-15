@@ -80,14 +80,18 @@ class TopCategoryWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CircleAvatar(
-                backgroundColor: AppColors.appWhiteColor,
-                radius: 30,
-                child: CachedNetworkImage(
-                  imageUrl: icon,
-                  fit: BoxFit.cover,
-                  height: 30,
-                  width: 30,
-                )),
+              backgroundColor: AppColors.appWhiteColor,
+              radius: 30,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  image: DecorationImage(
+                    image: CachedNetworkImageProvider(icon),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
             const SizedBox(height: 5),
             AutoSizeText(
               text,
