@@ -341,11 +341,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     SizedBox(
                       width: 5.w,
                     ),
-                    PrimaryTextWidget(
-                      text: AppText.signInText,
-                      fontSize: 14.sp,
-                      fontColor: Colors.black,
-                      fontFamily: AppFonts.robotoBold,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: PrimaryTextWidget(
+                        text: AppText.signInText,
+                        fontSize: 14.sp,
+                        fontColor: Colors.black,
+                        fontFamily: AppFonts.robotoBold,
+                      ),
                     ),
                   ],
                 ),

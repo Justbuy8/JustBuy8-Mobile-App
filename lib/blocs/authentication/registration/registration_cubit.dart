@@ -15,6 +15,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
   dynamic response;
 
   userRegistration(body) async {
+    emit(RegistrationLoading());
     try {
       response = await AuthenticationController.registration(body);
 

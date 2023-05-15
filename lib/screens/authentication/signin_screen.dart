@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/blocs/authentication/login/login_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
-import 'package:justbuyeight/models/authentication/user_model.dart';
+import 'package:justbuyeight/screens/authentication/signup_screen.dart';
 import 'package:justbuyeight/screens/maintabs/main_tabs_screen.dart';
+import 'package:justbuyeight/utils/AlertDialog.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
@@ -44,22 +46,36 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
-        if (state is LoginSuccessfull) {
-          SnackBars.Success(context, AppText.loggedIn);
-
-          Navigator.of(dialogueContext!).pop();
+        if (state is LoginLoading) {
+          showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (ctx) {
+                dialogueContext = ctx;
+                return Container(
+                  color: Colors.transparent,
+                  child: Center(
+                    child: SpinKitThreeBounce(
+                      color: AppColors.primaryColor,
+                      size: 30.0,
+                    ),
+                  ),
+                );
+              });
+        } else if (state is LoginSuccessfull) {
+          DismissLoadingDialog(dialogueContext);
 
           Navigator.of(context).push(
               MaterialPageRoute(builder: (builder) => const MainTabsScreen()));
         } else if (state is LoginInternetError) {
           SnackBars.Danger(context, AppText.internetError);
-          Navigator.of(dialogueContext!).pop();
+          DismissLoadingDialog(dialogueContext);
         } else if (state is LoginFailed) {
           SnackBars.Danger(context, AppText.loggedInFailed);
-          Navigator.of(dialogueContext!).pop();
+          DismissLoadingDialog(dialogueContext);
         } else if (state is LoginTimeout) {
           SnackBars.Danger(context, AppText.timeOut);
-          Navigator.of(dialogueContext!).pop();
+          DismissLoadingDialog(dialogueContext);
         }
       },
       child: Scaffold(
@@ -82,12 +98,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
-                          Ionicons.chevron_back,
-                          color: Colors.white,
-                        ),
                         SizedBox(
-                          height: 50.h,
+                          height: 80.h,
                         ),
                         PrimaryTextWidget(
                           text: AppText.signInText,
@@ -169,31 +181,6 @@ class _SignInScreenState extends State<SignInScreen> {
                     caption: AppText.signInText,
                     onPressed: () async {
                       if (formGlobalKey.currentState!.validate()) {
-                        showDialog(
-                            barrierDismissible: false,
-                            context: context,
-                            builder: (_ctx) {
-                              dialogueContext = _ctx;
-                              return Dialog(
-                                backgroundColor: Colors.white,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 20),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      CircularProgressIndicator(
-                                        color: AppColors.primaryColor,
-                                      ),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      const Text('Loading...')
-                                    ],
-                                  ),
-                                ),
-                              );
-                            });
                         var loginMap = {
                           "email": "${_emailController.text.trim()}",
                           "password": "${_passwordController.text.trim()}"
@@ -282,11 +269,17 @@ class _SignInScreenState extends State<SignInScreen> {
                     SizedBox(
                       width: 5.w,
                     ),
-                    PrimaryTextWidget(
-                      text: AppText.signUp,
-                      fontSize: 14.sp,
-                      fontColor: Colors.black,
-                      fontFamily: AppFonts.robotoBold,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (builder) => SignUpScreen()));
+                      },
+                      child: PrimaryTextWidget(
+                        text: AppText.signUp,
+                        fontSize: 14.sp,
+                        fontColor: Colors.black,
+                        fontFamily: AppFonts.robotoBold,
+                      ),
                     ),
                   ],
                 ),

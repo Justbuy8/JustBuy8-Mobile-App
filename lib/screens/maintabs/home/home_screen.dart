@@ -19,53 +19,53 @@ class HomeScreen extends StatelessWidget {
         leadingIcon: Ionicons.settings_outline,
         trailingIcon: Ionicons.notifications_outline,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            /// main banner
-            MainBannerWidget(),
-            SizedBox(height: 20),
-            Padding(
-              padding: EdgeInsets.all(15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  /// featured products
-                  TitleAndButtonWidget(text: AppText.featuredProductsText),
-                  SizedBox(height: 20),
-                  FeaturedProductsListview(),
-                  SizedBox(height: 20),
+      // body: SingleChildScrollView(
+      //   child: Column(
+      //     crossAxisAlignment: CrossAxisAlignment.start,
+      //     children: [
+      //       /// main banner
+      //       MainBannerWidget(),
+      //       SizedBox(height: 20),
+      //       Padding(
+      //         padding: EdgeInsets.all(15.0),
+      //         child: Column(
+      //           crossAxisAlignment: CrossAxisAlignment.start,
+      //           children: [
+      //             /// featured products
+      //             TitleAndButtonWidget(text: AppText.featuredProductsText),
+      //             SizedBox(height: 20),
+      //             FeaturedProductsListview(),
+      //             SizedBox(height: 20),
 
-                  /// top categories
-                  TitleAndButtonWidget(text: AppText.topCategoriesText),
-                  SizedBox(height: 20),
-                  TopCategoriesWidget(),
-                ],
-              ),
-            ),
+      //             /// top categories
+      //             TitleAndButtonWidget(text: AppText.topCategoriesText),
+      //             SizedBox(height: 20),
+      //             TopCategoriesWidget(),
+      //           ],
+      //         ),
+      //       ),
 
-            /// footer banner
-            FooterBannerWidget(),
+      //       /// footer banner
+      //       FooterBannerWidget(),
 
-            Padding(
-              padding: EdgeInsets.all(15.0),
-              child: Column(
-                children: [
-                  /// choose brands
-                  TitleAndButtonWidget(text: AppText.chooseBrandsText),
-                  SizedBox(height: 20),
-                  BrandsWidget(),
-                  SizedBox(height: 60),
+      //       Padding(
+      //         padding: EdgeInsets.all(15.0),
+      //         child: Column(
+      //           children: [
+      //             /// choose brands
+      //             TitleAndButtonWidget(text: AppText.chooseBrandsText),
+      //             SizedBox(height: 20),
+      //             BrandsWidget(),
+      //             SizedBox(height: 60),
 
-                  /// new arrivals
-                  TitleAndButtonWidget(text: AppText.newArrivalsText),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      //             /// new arrivals
+      //             TitleAndButtonWidget(text: AppText.newArrivalsText),
+      //           ],
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 }

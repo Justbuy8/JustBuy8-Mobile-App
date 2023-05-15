@@ -16,6 +16,7 @@ class SendOtpCubit extends Cubit<SendOtpState> {
   String? otpCode;
 
   sendOtp(email) async {
+    emit(SendOtpLoading());
     try {
       response = await AuthenticationController.sendOtpCode(email);
       print(response);

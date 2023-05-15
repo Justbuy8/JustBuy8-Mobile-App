@@ -25,14 +25,15 @@ AlertDialog confirmAlertDialog(context, String title, String content,
         onPressed: YesPressed,
       ),
       TextButton(
-        child: Text(no ?? "No", style: primaryTextStyle(color: AppColors.primaryColor)),
+        child: Text(no ?? "No",
+            style: primaryTextStyle(color: AppColors.primaryColor)),
         onPressed: NoPressed,
       ),
     ],
   );
 }
 
-void ShowLoadingDialog(BuildContext context, {Color? back, Color? spinner}) {
+void ShowLoadingDialog(context, {Color? back, Color? spinner}) {
   showDialog(
     context: context,
     barrierDismissible: false,
@@ -55,7 +56,8 @@ void ShowErrorDialog(BuildContext context, String title, content,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            title: Text(title, style: boldTextStyle(color: AppColors.primaryColor)),
+            title: Text(title,
+                style: boldTextStyle(color: AppColors.primaryColor)),
             content: Text(
               content,
               style: secondaryTextStyle(
@@ -96,6 +98,6 @@ Future ShowDialogAutoDismiss(BuildContext context, Timer? _timer,
   });
 }
 
-void DismissLoadingDialog(BuildContext context) {
+void DismissLoadingDialog(context) {
   Navigator.of(context).pop();
 }

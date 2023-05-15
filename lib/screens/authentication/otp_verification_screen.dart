@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/blocs/authentication/registration/registration_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/send_otp/send_otp_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/timer_cubit/timer_cubit.dart';
+import 'package:justbuyeight/blocs/authentication/verify_email_cubit/verify_email_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/authentication/user_model.dart';
@@ -28,20 +29,17 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   late SendOtpCubit sendOtpCubit;
   late OtpTimerCubit otpTimerCubit;
   late RegistrationCubit registrationCubit;
+  late VerifyEmailCubit verifyEmailCubit;
+
   BuildContext? dialogueContext;
 
   initCubit() {
     sendOtpCubit = context.read<SendOtpCubit>();
     otpTimerCubit = context.read<OtpTimerCubit>();
     registrationCubit = context.read<RegistrationCubit>();
+    verifyEmailCubit = context.read<VerifyEmailCubit>();
 
     otpTimerCubit.startOtpIntervals();
-  }
-
-  @override
-  void dispose() {
-    otpController.dispose();
-    super.dispose();
   }
 
   @override
@@ -73,6 +71,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             if (state is RegistrationSuccessfull) {
               SnackBars.Success(context, "User account created successfully");
               Navigator.of(dialogueContext!).pop();
+
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (builder) => const AccountCreatedScreen()));
             } else if (state is RegistrationAlreadyExist) {
@@ -85,6 +84,54 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               SnackBars.Danger(context, "User account creation failed");
               Navigator.of(dialogueContext!).pop();
             } else if (state is RegistrationTimeout) {
+              SnackBars.Danger(context, "Request timeout");
+              Navigator.of(dialogueContext!).pop();
+            }
+          },
+        ),
+        BlocListener<VerifyEmailCubit, VerifyEmailState>(
+          listener: (context, state) async {
+            if (state is VerifyEmailLoading) {
+              showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (_ctx) {
+                    dialogueContext = _ctx;
+                    return Dialog(
+                      backgroundColor: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CircularProgressIndicator(
+                              color: AppColors.primaryColor,
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            const Text('Loading...')
+                          ],
+                        ),
+                      ),
+                    );
+                  });
+            } else if (state is VerifyEmailSuccessfuly) {
+              var registrationMap = {
+                "f_name": "${widget.userModel.firstName}",
+                "l_name": "${widget.userModel.lastName}",
+                "phone": "${widget.userModel.phoneNumber}",
+                "email": "${widget.userModel.email}",
+                "password": "${widget.userModel.password}",
+              };
+              await registrationCubit.userRegistration(registrationMap);
+            } else if (state is VerifyEmailFailed) {
+              SnackBars.Success(context, "Invalid Verification Code");
+              Navigator.of(dialogueContext!).pop();
+            } else if (state is VerifyEmailInternetError) {
+              SnackBars.Danger(context, "Internet connection failed");
+              Navigator.of(dialogueContext!).pop();
+            } else if (state is VerifyEmailTimeOut) {
               SnackBars.Danger(context, "Request timeout");
               Navigator.of(dialogueContext!).pop();
             }
@@ -177,42 +224,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     height: 50.h,
                     caption: AppText.verifyText,
                     onPressed: () async {
-                      if (otpController.text.trim() == sendOtpCubit.otpCode) {
-                        showDialog(
-                            barrierDismissible: false,
-                            context: context,
-                            builder: (_ctx) {
-                              dialogueContext = _ctx;
-                              return Dialog(
-                                backgroundColor: Colors.white,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 20),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      CircularProgressIndicator(
-                                        color: AppColors.primaryColor,
-                                      ),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      const Text('Loading...')
-                                    ],
-                                  ),
-                                ),
-                              );
-                            });
-                        var registrationMap = {
-                          "f_name": "${widget.userModel.firstName}",
-                          "l_name": "${widget.userModel.lastName}",
-                          "phone": "${widget.userModel.phoneNumber}",
-                          "email": "${widget.userModel.email}",
-                          "password": "${widget.userModel.password}",
-                        };
-                        await registrationCubit
-                            .userRegistration(registrationMap);
-                      }
+                      await verifyEmailCubit.verifyEmail(
+                          widget.userModel.email, otpController.text.trim());
                     }),
               ],
             ),

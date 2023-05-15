@@ -4,6 +4,7 @@ import 'package:justbuyeight/blocs/authentication/registration/registration_cubi
 import 'package:justbuyeight/blocs/authentication/send_otp/send_otp_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/timer_cubit/timer_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/validate_email/validate_email_cubit.dart';
+import 'package:justbuyeight/blocs/authentication/verify_email_cubit/verify_email_cubit.dart';
 
 class BlocProviders {
   static final List<BlocProvider> providers = [
@@ -12,5 +13,6 @@ class BlocProviders {
     BlocProvider<OtpTimerCubit>(create: (context) => OtpTimerCubit()),
     BlocProvider<RegistrationCubit>(create: (context) => RegistrationCubit()),
     BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
+    BlocProvider<VerifyEmailCubit>(create: (context) => VerifyEmailCubit()),
   ];
 }

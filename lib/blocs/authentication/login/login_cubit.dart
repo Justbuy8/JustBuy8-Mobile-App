@@ -16,6 +16,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   userLogin(loginBody) async {
     try {
+      emit(LoginLoading());
       response = await AuthenticationController.login(loginBody);
 
       if (response['Message'] == 'Login Success' &&
