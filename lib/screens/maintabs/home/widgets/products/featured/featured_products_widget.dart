@@ -48,7 +48,7 @@ class FeaturedProductWidget extends StatelessWidget {
                         Shadow(
                           color: AppColors.appBlackColor,
                           blurRadius: 1,
-                          offset: const Offset(0, 0),
+                          offset: const Offset(0, 1),
                         ),
                       ],
                     ),
@@ -57,14 +57,13 @@ class FeaturedProductWidget extends StatelessWidget {
               ),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(10.0),
                   shape: BoxShape.rectangle,
                   color: AppColors.appGreyColor,
-                ),
-                padding: const EdgeInsets.all(8.0),
-                child: CachedNetworkImage(
-                  imageUrl: imageUrl,
-                  fit: BoxFit.cover,
+                  image: DecorationImage(
+                    image: CachedNetworkImageProvider(imageUrl),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
