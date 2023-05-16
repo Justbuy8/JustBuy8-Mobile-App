@@ -11,7 +11,7 @@ class AuthenticationController {
         "email": "$email",
         "password": "$password",
       },
-      AuthUrl.verifyEmail,
+      AuthUrl.resetPassword,
       headers: {
         "content-type": "application/json; charset=utf-8",
       },
