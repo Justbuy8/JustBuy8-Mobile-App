@@ -1,33 +1,34 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/controllers/authentication/auth_controller.dart';
 import 'package:meta/meta.dart';
 
-part 'verify_email_state.dart';
+part 'reset_password_state.dart';
 
-class VerifyEmailCubit extends Cubit<VerifyEmailState> {
-  VerifyEmailCubit() : super(VerifyEmailInitial());
+class ResetPasswordCubit extends Cubit<ResetPasswordState> {
+  ResetPasswordCubit() : super(ResetPasswordInitial());
 
   ApiManager apiManager = ApiManager();
   dynamic response;
 
-  verifyEmail(email, token) async {
-    emit(VerifyEmailLoading());
+  resetPassword(email, password) async {
+    emit(ResetPasswordLoading());
     try {
-      response = await AuthenticationController.verifyEmailOtp(email, token);
+      response = await AuthenticationController.resetEmail(email, password);
       if (response['Success'] == true) {
-        emit(VerifyEmailSuccessfuly());
+        emit(ResetPasswordSuccessfuly());
       } else if (response['Success'] == false) {
-        emit(VerifyEmailFailed());
+        emit(ResetPasswordFailed());
       }
     } on SocketException {
-      emit(VerifyEmailInternetError());
+      emit(ResetPasswordInternetError());
     } on TimeoutException {
-      emit(VerifyEmailTimeOut());
+      emit(ResetPasswordTimeOut());
     } catch (e) {
-      emit(VerifyEmailFailed());
+      emit(ResetPasswordFailed());
     }
   }
 }

@@ -8,6 +8,7 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
+import 'package:justbuyeight/screens/authentication/forget_password_screen.dart';
 import 'package:justbuyeight/screens/authentication/signup_screen.dart';
 import 'package:justbuyeight/screens/maintabs/main_tabs_screen.dart';
 import 'package:justbuyeight/utils/AlertDialog.dart';
@@ -161,11 +162,17 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    PrimaryTextWidget(
-                      text: AppText.forgetPassword,
-                      fontSize: 14.sp,
-                      fontColor: Colors.black,
-                      fontFamily: AppFonts.openSansLight,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (builder) => ForgetPasswordScreen()));
+                      },
+                      child: PrimaryTextWidget(
+                        text: AppText.forgetPassword,
+                        fontSize: 14.sp,
+                        fontColor: Colors.black,
+                        fontFamily: AppFonts.openSansLight,
+                      ),
                     ),
                   ],
                 ),

@@ -9,6 +9,7 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/authentication/user_model.dart';
 import 'package:justbuyeight/screens/authentication/account_created_screen.dart';
+import 'package:justbuyeight/screens/authentication/reset_password_screen.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
@@ -18,8 +19,10 @@ import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart'
 import 'package:nb_utils/nb_utils.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
-  UserModel userModel;
-  OtpVerificationScreen({Key? key, required this.userModel}) : super(key: key);
+  final String email;
+  final String tapFrom;
+
+  OtpVerificationScreen({required this.email, required this.tapFrom});
   @override
   State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
 }
@@ -45,7 +48,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   @override
   void initState() {
     initCubit();
-    sendOtpCubit.sendOtp(widget.userModel.getEmail);
+    sendOtpCubit.sendOtp(widget.email);
     super.initState();
   }
 
@@ -63,29 +66,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               SnackBars.Danger(context, "Otp sent failed");
             } else if (state is SendOtpTimeOut) {
               SnackBars.Danger(context, "Request timeout");
-            }
-          },
-        ),
-        BlocListener<RegistrationCubit, RegistrationState>(
-          listener: (context, state) {
-            if (state is RegistrationSuccessfull) {
-              SnackBars.Success(context, "User account created successfully");
-              Navigator.of(dialogueContext!).pop();
-
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (builder) => const AccountCreatedScreen()));
-            } else if (state is RegistrationAlreadyExist) {
-              SnackBars.Success(context, "User account already exist");
-              Navigator.of(dialogueContext!).pop();
-            } else if (state is RegistrationInternetError) {
-              SnackBars.Danger(context, "Internet connection failed");
-              Navigator.of(dialogueContext!).pop();
-            } else if (state is RegistrationFailed) {
-              SnackBars.Danger(context, "User account creation failed");
-              Navigator.of(dialogueContext!).pop();
-            } else if (state is RegistrationTimeout) {
-              SnackBars.Danger(context, "Request timeout");
-              Navigator.of(dialogueContext!).pop();
             }
           },
         ),
@@ -117,16 +97,17 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     );
                   });
             } else if (state is VerifyEmailSuccessfuly) {
-              var registrationMap = {
-                "f_name": "${widget.userModel.firstName}",
-                "l_name": "${widget.userModel.lastName}",
-                "phone": "${widget.userModel.phoneNumber}",
-                "email": "${widget.userModel.email}",
-                "password": "${widget.userModel.password}",
-              };
-              await registrationCubit.userRegistration(registrationMap);
+              Navigator.of(dialogueContext!).pop();
+              if (widget.tapFrom == "signupScreen") {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (builder) => AccountCreatedScreen()));
+              } else {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (builder) =>
+                        ResetPasswordScreen(email: widget.email)));
+              }
             } else if (state is VerifyEmailFailed) {
-              SnackBars.Success(context, "Invalid Verification Code");
+              SnackBars.Danger(context, "Invalid Email");
               Navigator.of(dialogueContext!).pop();
             } else if (state is VerifyEmailInternetError) {
               SnackBars.Danger(context, "Internet connection failed");
@@ -152,8 +133,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   height: 20.h,
                 ),
                 SecondaryTextWidget(
-                    text:
-                        "${AppText.resetPasswordText} ${widget.userModel.getEmail}"),
+                    text: "${AppText.resetPasswordText} ${widget.email}"),
                 SizedBox(
                   height: 20.h,
                 ),
@@ -192,7 +172,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                             onTap: () {
                               otpTimerCubit.startOtpIntervals();
 
-                              sendOtpCubit.sendOtp(widget.userModel.getEmail);
+                              sendOtpCubit.sendOtp(widget.email);
                             },
                             child: Container(
                               padding: EdgeInsets.only(
@@ -225,7 +205,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     caption: AppText.verifyText,
                     onPressed: () async {
                       await verifyEmailCubit.verifyEmail(
-                          widget.userModel.email, otpController.text.trim());
+                          widget.email, otpController.text.trim());
                     }),
               ],
             ),
