@@ -1,5 +1,6 @@
 // events
-import 'package:justbuyeight/models/products/featured_products_model.dart';
+
+import 'package:justbuyeight/models/products/ProductModel.dart';
 
 abstract class FeaturedProductsEvent {}
 
@@ -16,7 +17,7 @@ abstract class FeaturedProductsState {}
 class FeaturedProductsInitState extends FeaturedProductsState {}
 
 class FeaturedProductsGetState extends FeaturedProductsState {
-  final List<FeaturedProductsModel> products;
+  final List<ProductModel> products;
   FeaturedProductsGetState(this.products);
 }
 

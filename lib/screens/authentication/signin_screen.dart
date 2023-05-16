@@ -182,8 +182,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     onPressed: () async {
                       if (formGlobalKey.currentState!.validate()) {
                         var loginMap = {
-                          "email": "${_emailController.text.trim()}",
-                          "password": "${_passwordController.text.trim()}"
+                          "email": _emailController.text.trim(),
+                          "password": _passwordController.text.trim()
                         };
                         await loginCubit.userLogin(loginMap);
                       }
@@ -272,7 +272,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (builder) => SignUpScreen()));
+                            builder: (builder) => const SignUpScreen()));
                       },
                       child: PrimaryTextWidget(
                         text: AppText.signUp,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 class TextFieldWidget extends StatefulWidget {
   const TextFieldWidget({

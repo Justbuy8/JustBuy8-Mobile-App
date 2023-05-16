@@ -2,11 +2,12 @@ import 'dart:convert';
 
 import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/constants/app_url.dart';
-import 'package:justbuyeight/models/products/featured_products_model.dart';
+import 'package:justbuyeight/models/products/ProductModel.dart';
 
 class FeaturedProductsController {
-  static Future<List<FeaturedProductsModel>> getFeaturedProducts(page,paginate_by) async {
-    List<FeaturedProductsModel> products = [];
+  static Future<List<ProductModel>> getFeaturedProducts(
+      page, paginate_by) async {
+    List<ProductModel> products = [];
 
     final response = await ApiManager.postRequest(
       {

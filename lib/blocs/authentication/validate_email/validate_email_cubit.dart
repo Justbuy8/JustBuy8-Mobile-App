@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:justbuyeight/blocs/authentication/verify_email_cubit/verify_email_cubit.dart';
 import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/controllers/authentication/auth_controller.dart';
 import 'package:meta/meta.dart';

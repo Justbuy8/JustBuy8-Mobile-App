@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
-import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
-import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:pinput/pinput.dart';
 

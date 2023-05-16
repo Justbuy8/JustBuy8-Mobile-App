@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
+import "package:flutter_bloc/flutter_bloc.dart";
 import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/constants/secure_storage.dart';
 import 'package:justbuyeight/controllers/authentication/auth_controller.dart';
