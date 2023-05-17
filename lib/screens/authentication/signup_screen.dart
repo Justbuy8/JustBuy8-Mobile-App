@@ -157,9 +157,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
-                          Ionicons.chevron_back,
-                          color: Colors.white,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Icon(
+                            Ionicons.chevron_back,
+                            color: Colors.white,
+                          ),
                         ),
                         SizedBox(
                           height: 50.h,
