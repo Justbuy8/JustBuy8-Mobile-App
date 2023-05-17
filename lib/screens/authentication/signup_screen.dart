@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/blocs/authentication/registration/registration_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/validate_email/validate_email_cubit.dart';
@@ -56,7 +57,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
       listeners: [
         BlocListener<ValidateEmailCubit, ValidateEmailState>(
           listener: (context, state) async {
-            if (state is ValidateEmailSuccessfuly) {
+            if (state is ValidateEmailLoading) {
+              showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (ctx) {
+                    dialogueContext = ctx;
+                    return Container(
+                      color: Colors.transparent,
+                      child: Center(
+                        child: SpinKitThreeBounce(
+                          color: AppColors.primaryColor,
+                          size: 30.0,
+                        ),
+                      ),
+                    );
+                  });
+            } else if (state is ValidateEmailSuccessfuly) {
               var registrationMap = {
                 "f_name": "${_firstNameController.text.trim()}",
                 "l_name": "${_lastNameController.text.trim()}",
@@ -250,31 +267,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     caption: AppText.signUp,
                     onPressed: () async {
                       if (formGlobalKey.currentState!.validate()) {
-                        showDialog(
-                            barrierDismissible: false,
-                            context: context,
-                            builder: (ctx) {
-                              dialogueContext = ctx;
-                              return Dialog(
-                                backgroundColor: Colors.white,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 20),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      CircularProgressIndicator(
-                                        color: AppColors.primaryColor,
-                                      ),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      const Text('Loading...')
-                                    ],
-                                  ),
-                                ),
-                              );
-                            });
                         await validateEmailCubit
                             .validateEmail(_emailController.text.trim());
                       }
