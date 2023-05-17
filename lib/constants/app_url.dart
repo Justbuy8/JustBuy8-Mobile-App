@@ -18,6 +18,9 @@ class AuthUrl {
   static const String verifyEmail =
       "${AppUrl.baseUrl}/authentication/verify-email";
 
+  static const String resetPassword =
+      "${AppUrl.baseUrl}/authentication/reset-pass";
+
   static const String sendOtp = "${AppUrl.baseUrl}/authentication/request-otp";
   static const String registration =
       "${AppUrl.baseUrl}/authentication/register";
