@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
@@ -14,7 +16,7 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       appBar: SecondaryAppbarWidget(
         title: "JustBuy8",
         leadingIcon: Ionicons.settings_outline,
@@ -37,7 +39,6 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: 20),
                   FeaturedProductsListview(),
                   SizedBox(height: 20),
-
                   /// top categories
                   TitleAndButtonWidget(text: AppText.topCategoriesText),
                   SizedBox(height: 20),
@@ -50,7 +51,7 @@ class HomeScreen extends StatelessWidget {
             FooterBannerWidget(),
 
             Padding(
-              padding: EdgeInsets.all(15.0),
+              padding: EdgeInsets.all(12.0),
               child: Column(
                 children: [
                   /// choose brands
@@ -58,11 +59,12 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: 20),
                   BrandsWidget(),
                   SizedBox(height: 20),
-                  NewArrivalGrid(),
-                  SizedBox(height: 60),
 
                   /// new arrivals
                   TitleAndButtonWidget(text: AppText.newArrivalsText),
+                  SizedBox(height: 20),
+                  NewArrivalGrid(),
+                  SizedBox(height: 100),
                 ],
               ),
             ),
