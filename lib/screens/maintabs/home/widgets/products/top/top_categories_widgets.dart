@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/blocs/categories/top_catogeries/top_categories_model.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
+import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -98,13 +99,9 @@ class TopCategoryWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               maxLines: 2,
               group: AutoSizeGroup(),
-              minFontSize: 8.sp,
               maxFontSize: 12.sp,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 12.sp,
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppTextStyle.topCategoriesStyle,
             ),
           ],
         ),

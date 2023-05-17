@@ -29,6 +29,11 @@ class _NewArrivalGridState extends State<NewArrivalGrid> {
         listener: (context, state) {
           if (state is NewArrivalGetAllState) {
             categoryMap["all"] = true;
+            // make all false
+            categoryMap["clothes"] = false;
+            categoryMap["electronics"] = false;
+            categoryMap["cosmetics"] = false;
+            categoryMap["fitness"] = false;
           }
         },
         builder: (context, state) {

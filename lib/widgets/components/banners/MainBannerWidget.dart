@@ -56,13 +56,25 @@ class _MainBannerWidgetState extends State<MainBannerWidget> {
                         (BuildContext context, int index, int realIndex) {
                       return GestureDetector(
                         onTap: () {
-                          if (bannerList[_currentIndex].resourceType ==
+                          if (state.bannerModel[index].resourceType
+                                  .toLowerCase() ==
                               "product") {
-                            // navigate to product page
+                            print("product");
                           }
-                          if (bannerList[_currentIndex].resourceType ==
+                          if (state.bannerModel[index].resourceType
+                                  .toLowerCase() ==
                               "category") {
-                            // navigate to category page
+                            print("category");
+                          }
+                          if (state.bannerModel[index].resourceType
+                                  .toLowerCase() ==
+                              "brand") {
+                            print("brand");
+                          }
+                          if (state.bannerModel[index].resourceType
+                                  .toLowerCase() ==
+                              "shop") {
+                            print("shop");
                           }
                         },
                         child: CachedNetworkImage(

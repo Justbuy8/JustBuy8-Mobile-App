@@ -14,4 +14,9 @@ class AppTextStyle {
     fontWeight: FontWeight.bold,
     fontFamily: AppFonts.robotoBold,
   );
+
+  static var topCategoriesStyle = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontFamily: AppFonts.robotoBold,
+  );
 }
