@@ -2,11 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:justbuyeight/blocs/session_handling/splash_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/screens/authentication/signin_screen.dart';
 import 'package:justbuyeight/screens/maintabs/main_tabs_screen.dart';
 import 'package:nb_utils/nb_utils.dart';
+
+import 'screens/authentication/error_screen.dart';
 
 void main() {
   runApp(
@@ -41,7 +44,19 @@ class _MyAppState extends State<MyApp> {
                 primary: AppColors.primaryColor,
               ),
             ),
-            home: const SignInScreen(),
+            home: BlocBuilder<SessionHandlingCubit, SessionHandlingState>(
+              builder: (context, state) {
+                if (state is SessionHandlingHasData) {
+                  return MainTabsScreen();
+                } else if (state is SessionHandlingEmpty) {
+                  return SignInScreen();
+                } else if (state is SessionHandlingFailed) {
+                  return ErrorScreen();
+                } else {
+                  return SizedBox();
+                }
+              },
+            ),
           );
         },
       ),

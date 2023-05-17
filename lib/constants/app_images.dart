@@ -12,4 +12,5 @@ class ImageAssets {
 class LottieAssets {
   static const String accountCreated = 'assets/lotties/account_created.json';
   static const String notification = 'assets/lotties/notifcation.json';
+  static const String error = 'assets/lotties/error.json';
 }

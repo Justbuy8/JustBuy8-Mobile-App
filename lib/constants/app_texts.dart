@@ -12,6 +12,8 @@ class AppText {
   static const String signUp = "Sign Up";
   static const String allow = "Allow";
   static const String shopNow = "Shop Now";
+  static const String tryAgain = "Try again";
+
   static const String skip = "Skip";
   static const String forgetPasswordTitle =
       "Enter the email associated with your account and we'll send an email with instructions to reset your password.";
@@ -26,6 +28,8 @@ class AppText {
       'Stay notified about new course update,\n scoreboard status and other updates';
   static const String notification = "Notifications";
   static const String accountCreated = "Account Created";
+  static const String errorMessage = "Internet connection failed, Try again";
+
   static const String accountCreatedSubtitle = "Your account has been created";
   static const String enterNewPassword = "Enter new password and confirm.";
   static const String verifyEmailAddress = "Verify Email Address";
