@@ -3,6 +3,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/brands/brands_widget.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/featured/featured_products_listview.dart';
+import 'package:justbuyeight/screens/maintabs/home/widgets/products/new_arrival/new_arrival_grid.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/top/top_categories_widgets.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/title-button/title_and_button_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
@@ -56,6 +57,8 @@ class HomeScreen extends StatelessWidget {
                   TitleAndButtonWidget(text: AppText.chooseBrandsText),
                   SizedBox(height: 20),
                   BrandsWidget(),
+                  SizedBox(height: 20),
+                  NewArrivalGrid(),
                   SizedBox(height: 60),
 
                   /// new arrivals

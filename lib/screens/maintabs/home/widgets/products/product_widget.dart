@@ -7,8 +7,8 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class FeaturedProductWidget extends StatelessWidget {
-  const FeaturedProductWidget({
+class ProductWidget extends StatelessWidget {
+  const ProductWidget({
     Key? key,
     required this.text,
     required this.imageUrl,

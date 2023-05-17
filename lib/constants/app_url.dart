@@ -31,6 +31,8 @@ class AuthUrl {
 class ProductsUrl {
   static const String featuredProducts =
       "${AppUrl.baseUrl}/product/get-featured-products";
+  static const String newArrivals =
+      "${AppUrl.baseUrl}/product/get-new-arrivals";
 }
 
 class CategoriesUrl {

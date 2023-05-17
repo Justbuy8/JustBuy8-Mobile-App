@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/products/featured_products_bloc.dart';
 import 'package:justbuyeight/blocs/products/featured_products_events_and_states.dart';
-import 'package:justbuyeight/screens/maintabs/home/widgets/products/featured/featured_products_widget.dart';
+import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -34,7 +34,7 @@ class FeaturedProductsListview extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(horizontal: 5),
                     //  create a list of featured products with
                     //  their name and image
-                    child: FeaturedProductWidget(
+                    child: ProductWidget(
                       text: state.products[index].name.toString(),
                       imageUrl: state.products[index].thumbnail.toString(),
                       price: state.products[index].unitPrice.toString(),

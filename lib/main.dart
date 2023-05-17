@@ -4,9 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/bloc_provider.dart';
+import 'package:justbuyeight/screens/maintabs/main_tabs_screen.dart';
 import 'package:nb_utils/nb_utils.dart';
-
-import 'screens/splash_screen.dart';
 
 void main() {
   runApp(
@@ -41,7 +40,7 @@ class _MyAppState extends State<MyApp> {
                 primary: AppColors.primaryColor,
               ),
             ),
-            home: const SignInScreen(),
+            home: const MainTabsScreen(),
           );
         },
       ),
