@@ -36,14 +36,8 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
         builder: (context, state) {
           if (state is MainCategoryDataState) {
             return SizedBox(
-              height: 45.h,
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  childAspectRatio: 0.6,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
+              height: 40.h,
+              child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: state.mainCategory.length,
                 itemBuilder: (context, index) {
