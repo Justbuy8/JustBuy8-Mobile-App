@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
+import 'package:justbuyeight/screens/authentication/otp_verification_screen.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
@@ -57,7 +58,12 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     width: context.width(),
                     height: 50.h,
                     caption: AppText.sendInstruction,
-                    onPressed: () {}),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (builder) => OtpVerificationScreen(
+                              email: emailController.text.trim(),
+                              tapFrom: 'signInScreen')));
+                    }),
               ],
             ),
           ),

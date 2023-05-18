@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/blocs/authentication/reset_password_cubit/reset_password_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
@@ -41,25 +42,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       listener: (context, state) async {
         if (state is ResetPasswordLoading) {
           showDialog(
-              barrierDismissible: false,
               context: context,
-              builder: (_ctx) {
-                dialogueContext = _ctx;
-                return Dialog(
-                  backgroundColor: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        CircularProgressIndicator(
-                          color: AppColors.primaryColor,
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        const Text('Loading...')
-                      ],
+              barrierDismissible: false,
+              builder: (ctx) {
+                dialogueContext = ctx;
+                return Container(
+                  color: Colors.transparent,
+                  child: Center(
+                    child: SpinKitThreeBounce(
+                      color: AppColors.primaryColor,
+                      size: 30.0,
                     ),
                   ),
                 );

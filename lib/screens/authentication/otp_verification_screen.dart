@@ -3,13 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:justbuyeight/blocs/authentication/registration/registration_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/send_otp/send_otp_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/timer_cubit/timer_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/verify_email_cubit/verify_email_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
-import 'package:justbuyeight/models/authentication/user_model.dart';
 import 'package:justbuyeight/screens/authentication/account_created_screen.dart';
 import 'package:justbuyeight/screens/authentication/reset_password_screen.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
@@ -30,7 +30,7 @@ class OtpVerificationScreen extends StatefulWidget {
 }
 
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
-  final TextEditingController otpController = TextEditingController();
+  TextEditingController otpController = TextEditingController();
   late SendOtpCubit sendOtpCubit;
   late OtpTimerCubit otpTimerCubit;
   late RegistrationCubit registrationCubit;
@@ -75,25 +75,16 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           listener: (context, state) async {
             if (state is VerifyEmailLoading) {
               showDialog(
-                  barrierDismissible: false,
                   context: context,
-                  builder: (_ctx) {
-                    dialogueContext = _ctx;
-                    return Dialog(
-                      backgroundColor: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            CircularProgressIndicator(
-                              color: AppColors.primaryColor,
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            const Text('Loading...')
-                          ],
+                  barrierDismissible: false,
+                  builder: (ctx) {
+                    dialogueContext = ctx;
+                    return Container(
+                      color: Colors.transparent,
+                      child: Center(
+                        child: SpinKitThreeBounce(
+                          color: AppColors.primaryColor,
+                          size: 30.0,
                         ),
                       ),
                     );
