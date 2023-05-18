@@ -42,7 +42,7 @@ class BorderTextButton extends StatelessWidget {
               fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
-            maxLines: 2,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
             maxFontSize: 14.sp,
           ),

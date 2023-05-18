@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/blocs/categories/main_categories/main_category_bloc.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_bloc.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_state_and_events.dart';
@@ -35,8 +36,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
         builder: (context, state) {
           if (state is MainCategoryDataState) {
             return SizedBox(
-              // height: context.height() * 0.07,
-              height: 45,
+              height: 45.h,
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
@@ -46,26 +46,28 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                 ),
                 scrollDirection: Axis.horizontal,
                 itemCount: state.mainCategory.length,
-                itemBuilder: (context, index) => BorderTextButton(
-                  text: state.mainCategory[index].catName.toString(),
-                  onPressed: () {
-                    BlocProvider.of<NewArrivalBloc>(context).add(
-                      NewArrivalGetAllEvent(
-                        "1",
-                        "10",
-                        state.mainCategory[index].catId.toString(),
-                      ),
-                    );
-                    // make map true for this category and false for others
-                    categoryMap.updateAll((key, value) => false);
-                    categoryMap.update(
-                      state.mainCategory[index].catName.toString(),
-                      (value) => true,
-                    );
-                    setState(() {});
-                  },
-                  isClicked: categoryMap[state.mainCategory[index].catName]!,
-                ),
+                itemBuilder: (context, index) {
+                  return BorderTextButton(
+                    text: state.mainCategory[index].catName.toString(),
+                    onPressed: () {
+                      BlocProvider.of<NewArrivalBloc>(context).add(
+                        NewArrivalGetAllEvent(
+                          "1",
+                          "10",
+                          state.mainCategory[index].catId.toString(),
+                        ),
+                      );
+                      // make map true for this category and false for others
+                      categoryMap.updateAll((key, value) => false);
+                      categoryMap.update(
+                        state.mainCategory[index].catName.toString(),
+                        (value) => true,
+                      );
+                      setState(() {});
+                    },
+                    isClicked: categoryMap[state.mainCategory[index].catName]!,
+                  );
+                },
               ),
             );
           }
