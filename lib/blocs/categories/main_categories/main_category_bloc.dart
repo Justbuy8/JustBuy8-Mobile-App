@@ -26,14 +26,16 @@ class MainCategoryErrorState extends MainCategoryState {}
 // BLOC
 class MainCategoryBloc extends Bloc<MainCategoryEvent, MainCategoryState> {
   MainCategoryBloc() : super(MainCategoryLoadingState()) {
+    List<CategoriesModel> categories = [];
+
     on<MainCategoryLoadingEvent>((event, emit) async {
       try {
-        emit(MainCategoryDataState(
-          await CategoryController.getMainCategories(
-            event.page,
-            event.paginateBy,
-          ),
-        ));
+        categories = await CategoryController.getMainCategories(
+          event.page,
+          event.paginateBy,
+        );
+        categories.insert(0, CategoriesModel(catId: "all", catName: "All"));
+        emit(MainCategoryDataState(categories));
       } catch (error) {
         emit(MainCategoryErrorState());
       }

@@ -5,6 +5,7 @@ import 'package:justbuyeight/blocs/categories/main_categories/main_category_bloc
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_bloc.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_state_and_events.dart';
 import 'package:justbuyeight/widgets/components/buttons/border_text_button.dart';
+import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 
 class CategoriesWidget extends StatefulWidget {
   const CategoriesWidget({Key? key}) : super(key: key);
@@ -31,6 +32,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                 (e) => MapEntry(e.catName.toString(), false),
               ),
             );
+            categoryMap['All'] = true;
           }
         },
         builder: (context, state) {
@@ -65,9 +67,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
               ),
             );
           }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const AppCircularSpinner();
         },
       ),
     );
