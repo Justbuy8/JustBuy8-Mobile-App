@@ -7,6 +7,7 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/screens/authentication/signin_screen.dart';
 import 'package:justbuyeight/screens/maintabs/main_tabs_screen.dart';
+import 'package:justbuyeight/screens/onboarding/onboarding_screen.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import 'screens/authentication/error_screen.dart';
@@ -50,11 +51,9 @@ class _MyAppState extends State<MyApp> {
                   return MainTabsScreen();
                 } else if (state is SessionHandlingLoginScreen) {
                   return SignInScreen();
-                }
-                // else if (state is SessionHandlingOnBoardingScreen) {
-                //   return OnboardingScreen();
-                // }
-                else if (state is SessionHandlingFailed) {
+                } else if (state is SessionHandlingOnBoarding) {
+                  return OnboardingScreen();
+                } else if (state is SessionHandlingFailed) {
                   return ErrorScreen();
                 } else {
                   return SizedBox();
