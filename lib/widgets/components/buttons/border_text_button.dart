@@ -1,4 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 
 class BorderTextButton extends StatelessWidget {
@@ -19,7 +21,6 @@ class BorderTextButton extends StatelessWidget {
       onTap: onPressed ?? () {},
       child: Container(
         height: 40,
-        // width: width ?? context.width() * 0.15,
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           border: Border.all(
@@ -31,7 +32,21 @@ class BorderTextButton extends StatelessWidget {
               : AppColors.transparentColor,
           borderRadius: BorderRadius.circular(20),
         ),
-        child: Center(child: Text(text)),
+        child: Center(
+          child: AutoSizeText(
+            text,
+            style: TextStyle(
+              color: isClicked == true
+                  ? AppColors.appWhiteColor
+                  : AppColors.primaryColor,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            maxFontSize: 14.sp,
+          ),
+        ),
       ),
     );
   }

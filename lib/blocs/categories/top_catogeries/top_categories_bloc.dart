@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:justbuyeight/controllers/categories/top_categories_controller.dart';
+import 'package:justbuyeight/controllers/categories/CategoryController.dart';
 import 'package:justbuyeight/models/categories/CategoryModel.dart';
 
 // EVENTS
@@ -25,7 +25,7 @@ class TopCategoriesBloc extends Bloc<TopCategoriesEvent, TopCategoriesState> {
     on<TopCategoriesLoadingEvent>((event, emit) async {
       try {
         emit(TopCategoriesDataState(
-          await CategoriesController.getTopCategories("1", "8"),
+          await CategoryController.getTopCategories("1", "8"),
         ));
       } catch (error) {
         emit(TopCategoriesErrorState());

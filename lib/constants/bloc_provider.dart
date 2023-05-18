@@ -6,6 +6,8 @@ import 'package:justbuyeight/blocs/authentication/send_otp/send_otp_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/timer_cubit/timer_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/validate_email/validate_email_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/verify_email_cubit/verify_email_cubit.dart';
+import 'package:justbuyeight/blocs/products/arrivals/new_arrival_bloc.dart';
+import 'package:justbuyeight/blocs/products/arrivals/new_arrival_state_and_events.dart';
 import 'package:justbuyeight/blocs/session_handling/splash_cubit.dart';
 
 class BlocProviders {
@@ -19,5 +21,11 @@ class BlocProviders {
     BlocProvider<ResetPasswordCubit>(create: (context) => ResetPasswordCubit()),
     BlocProvider<SessionHandlingCubit>(
         create: (context) => SessionHandlingCubit()..initliazeRoute()),
+    BlocProvider<NewArrivalBloc>(
+      create: (context) => NewArrivalBloc()
+        ..add(
+          NewArrivalGetAllEvent("1", "10", "all"),
+        ),
+    ),
   ];
 }

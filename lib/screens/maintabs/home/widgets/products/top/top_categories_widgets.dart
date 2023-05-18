@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:justbuyeight/blocs/categories/top_catogeries/top_categories_model.dart';
+import 'package:justbuyeight/blocs/categories/top_catogeries/top_categories_bloc.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
@@ -94,14 +94,17 @@ class TopCategoryWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 5),
-            AutoSizeText(
-              text,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              group: AutoSizeGroup(),
-              maxFontSize: 12.sp,
-              overflow: TextOverflow.ellipsis,
-              style: AppTextStyle.topCategoriesStyle,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: AutoSizeText(
+                text,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                group: AutoSizeGroup(),
+                maxFontSize: 12.sp,
+                overflow: TextOverflow.ellipsis,
+                style: AppTextStyle.topCategoriesStyle,
+              ),
             ),
           ],
         ),
