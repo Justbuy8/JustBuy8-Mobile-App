@@ -46,10 +46,18 @@ class _NewArrivalGridState extends State<NewArrivalGrid> {
                     BorderTextButton(
                       text: "All",
                       isClicked: categoryMap['all'],
+                      onPressed: () {
+                        BlocProvider.of<NewArrivalBloc>(context)
+                            .add(NewArrivalGetAllEvent("1", "10", "all"));
+                      },
                     ),
                     BorderTextButton(
                       text: "Clothes",
                       isClicked: categoryMap['clothes'],
+                      onPressed: () {
+                        BlocProvider.of<NewArrivalBloc>(context)
+                            .add(NewArrivalGetAllEvent("1", "10", "11"));
+                      },
                     ),
                     BorderTextButton(
                         text: "Electronics",

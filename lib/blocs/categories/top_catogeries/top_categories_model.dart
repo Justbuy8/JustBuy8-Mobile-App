@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/controllers/categories/top_categories_controller.dart';
-import 'package:justbuyeight/models/categories/top_categories_model.dart';
+import 'package:justbuyeight/models/categories/CategoryModel.dart';
 
 // EVENTS
 abstract class TopCategoriesEvent {}
@@ -13,7 +13,7 @@ abstract class TopCategoriesState {}
 class TopCategoriesLoadingState extends TopCategoriesState {}
 
 class TopCategoriesDataState extends TopCategoriesState {
-  final List<TopCategoriesModel> topCategories;
+  final List<CategoriesModel> topCategories;
   TopCategoriesDataState(this.topCategories);
 }
 
