@@ -53,7 +53,7 @@ class ViewAllButton extends StatelessWidget {
         children: [
           SecondaryTextWidget(
               text: "View All", fontFamily: AppFonts.robotoMonoMedium),
-          const Icon(Icons.arrow_forward_ios_rounded, size: 20),
+          const Icon(Icons.arrow_forward_ios_rounded, size: 16),
         ],
       ),
     );

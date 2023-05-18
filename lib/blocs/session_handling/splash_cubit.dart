@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:justbuyeight/constants/secure_storage.dart';
 import 'package:meta/meta.dart';
@@ -23,7 +21,7 @@ class SessionHandlingCubit extends Cubit<SessionHandlingState> {
         } else if (userToken == null && userId == null && newUser == null) {
           emit(SessionHandlingHomeScreen());
         } else {
-          emit(SessionHandlingOnBoardingScreen());
+          emit(SessionHandlingOnBoarding());
         }
       } else {
         emit(SessionHandlingFailed());

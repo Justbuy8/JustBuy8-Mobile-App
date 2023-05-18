@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
                   return MainTabsScreen();
                 } else if (state is SessionHandlingLoginScreen) {
                   return SignInScreen();
-                } else if (state is SessionHandlingOnBoardingScreen) {
+                } else if (state is SessionHandlingOnBoarding) {
                   return OnboardingScreen();
                 } else if (state is SessionHandlingFailed) {
                   return ErrorScreen();

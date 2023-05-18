@@ -20,8 +20,9 @@ class BorderTextButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed ?? () {},
       child: Container(
-        height: 40,
-        padding: const EdgeInsets.all(8.0),
+        height: 30,
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        margin: const EdgeInsets.symmetric(horizontal: 5.0),
         decoration: BoxDecoration(
           border: Border.all(
             color: AppColors.primaryColor,
@@ -42,7 +43,7 @@ class BorderTextButton extends StatelessWidget {
               fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
-            maxLines: 2,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
             maxFontSize: 14.sp,
           ),

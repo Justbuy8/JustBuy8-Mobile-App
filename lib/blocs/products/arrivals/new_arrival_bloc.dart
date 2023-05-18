@@ -8,7 +8,10 @@ class NewArrivalBloc extends Bloc<NewArrivalEvent, NewArrivalState> {
       emit(NewArrivalLoadingState());
       try {
         final products = await NewArrivalController.getNewArrivals(
-            event.page, event.paginateBy, event.categoryId);
+          event.page,
+          event.paginateBy,
+          event.categoryId,
+        );
         emit(NewArrivalGetAllState(products));
       } catch (error) {
         emit(NewArrivalErrorState(error.toString()));
