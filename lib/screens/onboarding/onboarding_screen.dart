@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_textstyle.dart';
+import 'package:justbuyeight/constants/secure_storage.dart';
 import 'package:justbuyeight/models/onboarding_model.dart';
+import 'package:justbuyeight/screens/authentication/signin_screen.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -19,7 +21,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   void initState() {
     _controller = PageController();
+    newUser();
     super.initState();
+  }
+
+  newUser() async {
+    await UserSecureStorage.setNewUser('new');
   }
 
   int _currentPage = 0;
@@ -104,7 +111,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   width: context.width(),
                                   height: 50,
                                   caption: 'Getting Started',
-                                  onPressed: () {}),
+                                  onPressed: () {
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(
+                                            builder: (builder) =>
+                                                SignInScreen()),
+                                        (Route<dynamic> route) => false);
+                                  }),
                             )
                           : Padding(
                               padding: EdgeInsets.all(20.w),
