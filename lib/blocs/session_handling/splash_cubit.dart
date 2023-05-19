@@ -18,10 +18,10 @@ class SessionHandlingCubit extends Cubit<SessionHandlingState> {
 
         if (userToken != null && userId != null) {
           emit(SessionHandlingHomeScreen());
-        } else if ((userId == null) && newUser == null) {
-          emit(SessionHandlingOnBoarding());
-        } else {
+        } else if (userId == null && newUser != null) {
           emit(SessionHandlingLoginScreen());
+        } else {
+          emit(SessionHandlingOnBoarding());
         }
       } else {
         emit(SessionHandlingFailed());

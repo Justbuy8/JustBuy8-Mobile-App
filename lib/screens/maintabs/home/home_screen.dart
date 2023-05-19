@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
       appBar: SecondaryAppbarWidget(
         title: "JustBuy8",
         leadingIcon: Ionicons.settings_outline,
-        trailingIcon: Ionicons.notifications_outline,
+        trailingIcon: Ionicons.log_out_outline,
       ),
       body: SingleChildScrollView(
         child: Column(

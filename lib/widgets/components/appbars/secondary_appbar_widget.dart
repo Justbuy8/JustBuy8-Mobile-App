@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
+import 'package:justbuyeight/constants/secure_storage.dart';
+import 'package:justbuyeight/screens/authentication/signin_screen.dart';
 
 class SecondaryAppbarWidget extends StatelessWidget
     implements PreferredSizeWidget {
@@ -39,7 +43,11 @@ class SecondaryAppbarWidget extends StatelessWidget
       ),
       actions: [
         IconButton(
-          onPressed: trailingIconOnPressed ?? () {},
+          onPressed: trailingIconOnPressed ??
+              () async {
+                await UserSecureStorage.deleteSecureStorage();
+                Phoenix.rebirth(context);
+              },
           icon: Icon(trailingIcon),
         ),
       ],
