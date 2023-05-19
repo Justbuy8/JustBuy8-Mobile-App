@@ -47,7 +47,6 @@ class ViewAllButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed ??
           () {
-            print("Clicked");
           },
       child: Row(
         children: [
