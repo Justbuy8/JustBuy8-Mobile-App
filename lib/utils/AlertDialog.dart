@@ -14,7 +14,7 @@ AlertDialog confirmAlertDialog(context, String title, String content,
     title: Text(title, style: boldTextStyle(color: AppColors.primaryColor)),
     content: Text(
       content,
-      style: secondaryTextStyle(color: Theme.of(context).primaryColorLight),
+      style: secondaryTextStyle(color: Colors.black),
     ),
     actions: [
       TextButton(

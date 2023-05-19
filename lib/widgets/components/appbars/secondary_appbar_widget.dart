@@ -5,6 +5,7 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/secure_storage.dart';
 import 'package:justbuyeight/screens/authentication/signin_screen.dart';
+import 'package:justbuyeight/widgets/components/buttons/primary_button.dart';
 
 class SecondaryAppbarWidget extends StatelessWidget
     implements PreferredSizeWidget {
@@ -43,11 +44,7 @@ class SecondaryAppbarWidget extends StatelessWidget
       ),
       actions: [
         IconButton(
-          onPressed: trailingIconOnPressed ??
-              () async {
-                await UserSecureStorage.deleteSecureStorage();
-                Phoenix.rebirth(context);
-              },
+          onPressed: trailingIconOnPressed ?? () {},
           icon: Icon(trailingIcon),
         ),
       ],
