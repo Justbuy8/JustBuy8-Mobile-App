@@ -12,16 +12,16 @@ class SessionHandlingCubit extends Cubit<SessionHandlingState> {
     try {
       bool connectionValue = await isNetworkAvailable();
       if (connectionValue) {
-        var userToken = await UserSecureStorage.fetchToken();
-        var userId = await UserSecureStorage.fetchUserId();
-        var newUser = await UserSecureStorage.fetchNewUser();
+        String? userToken = await UserSecureStorage.fetchToken();
+        String? userId = await UserSecureStorage.fetchUserId();
+        String? newUser = await UserSecureStorage.fetchNewUser();
 
         if (userToken != null && userId != null) {
           emit(SessionHandlingHomeScreen());
-        } else if (userToken == null && userId == null && newUser == null) {
-          emit(SessionHandlingHomeScreen());
-        } else {
+        } else if ((userId == null) && newUser == null) {
           emit(SessionHandlingOnBoarding());
+        } else {
+          emit(SessionHandlingLoginScreen());
         }
       } else {
         emit(SessionHandlingFailed());
