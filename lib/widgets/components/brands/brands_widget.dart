@@ -9,11 +9,28 @@ import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class BrandsWidget extends StatelessWidget {
+class BrandsWidget extends StatefulWidget {
   const BrandsWidget({Key? key}) : super(key: key);
+
+  @override
+  State<BrandsWidget> createState() => _BrandsWidgetState();
+}
+
+class _BrandsWidgetState extends State<BrandsWidget> {
+
+  var BrandBloc = BrandsBloc();
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    BrandBloc = BrandsBloc()..add(BrandsLoadEvent(1.toString(), 10.toString()));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BrandsBloc, BrandsState>(
+    return BlocBuilder(
+      bloc: BrandBloc,
       builder: (context, state) {
         if (state is BrandsLoadingState) {
           return SizedBox(

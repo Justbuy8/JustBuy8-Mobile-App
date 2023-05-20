@@ -29,11 +29,5 @@ class BlocProviders {
           NewArrivalGetAllEvent("1", "10", "all"),
         ),
     ),
-    BlocProvider<BrandsBloc>(
-      create: (context) => BrandsBloc()
-        ..add(
-          BrandsLoadEvent("1", "5"),
-        ),
-    ),
   ];
 }

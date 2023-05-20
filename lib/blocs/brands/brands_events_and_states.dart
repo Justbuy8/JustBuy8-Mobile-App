@@ -22,7 +22,13 @@ class BrandsGetState extends BrandsState {
   BrandsGetState(this.brands);
 }
 
+class BrandsEmptyState extends BrandsState {
+  final String message;
+  BrandsEmptyState(this.message);
+}
+
 class BrandsErrorState extends BrandsState {
   final String message;
   BrandsErrorState(this.message);
 }
+

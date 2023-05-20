@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
