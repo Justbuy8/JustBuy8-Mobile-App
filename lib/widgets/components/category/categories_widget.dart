@@ -20,15 +20,6 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
   final Map<String, bool> categoryMap = {};
 
   @override
-  void initState() {
-    BlocProvider.of<NewArrivalBloc>(context).add(NewArrivalGetAllEvent(
-      "1",
-      "10",
-      'all',
-    ));
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => MainCategoryBloc()
@@ -37,6 +28,11 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
         ),
       child: BlocConsumer<MainCategoryBloc, MainCategoryState>(
         listener: (context, state) {
+          BlocProvider.of<NewArrivalBloc>(context).add(NewArrivalGetAllEvent(
+            "1",
+            "10",
+            'all',
+          ));
           if (state is MainCategoryDataState) {
             categoryMap.addEntries(
               state.mainCategory.map(
