@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_images.dart';
@@ -52,8 +53,7 @@ class _ErrorScreenState extends State<ErrorScreen> {
                     height: 50.h,
                     caption: AppText.tryAgain,
                     onPressed: () {
-                      // Navigator.of(context).push(MaterialPageRoute(
-                      //     builder: (builder) => MainTabsScreen()));
+                      Phoenix.rebirth(context);
                     }),
               ),
             ],

@@ -24,10 +24,15 @@ class UserSecureStorage {
   }
 
   static Future setNewUser(String newUser) async {
-    await _storage.write(key: _keyUserId, value: newUser);
+    await _storage.write(key: _keyNewUser, value: newUser);
   }
 
   static Future<String?> fetchNewUser() async {
-    return await _storage.read(key: _keyUserId);
+    return await _storage.read(key: _keyNewUser);
+  }
+
+  static Future deleteSecureStorage() async {
+    await _storage.delete(key: _keyToken);
+    await _storage.delete(key: _keyUserId);
   }
 }
