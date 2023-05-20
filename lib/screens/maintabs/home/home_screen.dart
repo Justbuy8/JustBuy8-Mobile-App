@@ -14,11 +14,12 @@ import 'package:justbuyeight/screens/maintabs/home/widgets/products/new_arrival/
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/top/top_categories_widgets.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/title-button/title_and_button_widget.dart';
 import 'package:justbuyeight/utils/AlertDialog.dart';
-import 'package:justbuyeight/widgets/category/categories_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/banners/FooterBannerWidget.dart';
 import 'package:justbuyeight/widgets/components/banners/MainBannerWidget.dart';
+import 'package:justbuyeight/widgets/components/brands/brands_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button.dart';
+import 'package:justbuyeight/widgets/components/category/categories_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
