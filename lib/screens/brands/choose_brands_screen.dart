@@ -9,10 +9,6 @@ import 'package:justbuyeight/models/brands/brands_model.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/brands/brands_widget.dart';
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
 
 class ChooseBrandsScreen extends StatefulWidget {

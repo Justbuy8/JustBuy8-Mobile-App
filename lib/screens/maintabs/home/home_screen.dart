@@ -19,10 +19,6 @@ import 'package:justbuyeight/widgets/components/banners/MainBannerWidget.dart';
 import 'package:justbuyeight/widgets/components/brands/brands_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button.dart';
 import 'package:justbuyeight/widgets/components/category/categories_widget.dart';
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

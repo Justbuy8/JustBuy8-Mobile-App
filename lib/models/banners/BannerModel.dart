@@ -39,7 +39,3 @@ class BannerModel {
         "Resource id": resourceId,
       };
 }
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
