@@ -85,10 +85,8 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-
             /// footer banner
             FooterBannerWidget(),
-
             Padding(
               padding: EdgeInsets.all(12.0),
               child: Column(
@@ -101,7 +99,6 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: 20),
                   BrandsWidget(),
                   SizedBox(height: 20),
-
                   /// new arrivals
                   TitleAndButtonWidget(text: AppText.newArrivalsText),
                   SizedBox(height: 20),
