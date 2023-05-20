@@ -12,6 +12,11 @@ class NewArrivalBloc extends Bloc<NewArrivalEvent, NewArrivalState> {
           event.paginateBy,
           event.categoryId,
         );
+
+        if (products.isEmpty) {
+          emit(NewArrivalEmptyState());
+          return;
+        }
         emit(NewArrivalGetAllState(products));
       } catch (error) {
         emit(NewArrivalErrorState(error.toString()));

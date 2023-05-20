@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_bloc.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_state_and_events.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
-import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
 
 class NewArrivalGrid extends StatefulWidget {
   const NewArrivalGrid({Key? key}) : super(key: key);
@@ -17,9 +17,13 @@ class NewArrivalGrid extends StatefulWidget {
 class _NewArrivalGridState extends State<NewArrivalGrid> {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<NewArrivalBloc, NewArrivalState>(
-      listener: (context, state) {},
+    return BlocBuilder<NewArrivalBloc, NewArrivalState>(
       builder: (context, state) {
+        if (state is NewArrivalEmptyState) {
+          return Center(
+            child: Text(state.message),
+          );
+        }
         if (state is NewArrivalGetAllState) {
           return Column(
             children: [
@@ -55,15 +59,7 @@ class _NewArrivalGridState extends State<NewArrivalGrid> {
           itemCount: 10,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) => Shimmer(
-            direction: ShimmerDirection.fromLTRB(),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-          ),
+          itemBuilder: (context, index) => RectangularShimmer(),
         );
       },
     );

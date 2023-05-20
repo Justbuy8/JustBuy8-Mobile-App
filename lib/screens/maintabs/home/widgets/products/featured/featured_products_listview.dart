@@ -4,6 +4,7 @@ import 'package:justbuyeight/blocs/products/featured_products_bloc.dart';
 import 'package:justbuyeight/blocs/products/featured_products_events_and_states.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
+import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class FeaturedProductsListview extends StatelessWidget {
@@ -45,7 +46,7 @@ class FeaturedProductsListview extends StatelessWidget {
               ),
             );
           } else {
-            return const Center(child: Text("Error"));
+            return const RectangularShimmer();
           }
         },
       ),

@@ -15,6 +15,8 @@ abstract class BrandsState {}
 
 class BrandsInitState extends BrandsState {}
 
+class BrandsLoadingState extends BrandsState {}
+
 class BrandsGetState extends BrandsState {
   final List<BrandsModel> brands;
   BrandsGetState(this.brands);

@@ -21,6 +21,11 @@ abstract class NewArrivalState {}
 
 class NewArrivalLoadingState extends NewArrivalState {}
 
+class NewArrivalEmptyState extends NewArrivalState {
+  final String message;
+  NewArrivalEmptyState({this.message = "No products found"});
+}
+
 class NewArrivalGetAllState extends NewArrivalState {
   final List<ProductModel> products;
   NewArrivalGetAllState(this.products);

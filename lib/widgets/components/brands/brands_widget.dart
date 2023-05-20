@@ -20,7 +20,7 @@ class BrandsWidget extends StatelessWidget {
         ),
       child: BlocBuilder<BrandsBloc, BrandsState>(
         builder: (context, state) {
-          if (state is BrandsInitState) {
+          if (state is BrandsLoadingState) {
             return SizedBox(
               height: context.height() * 0.35,
               child: const AppCircularSpinner(),
