@@ -1,3 +1,5 @@
+// ignore_for_file: must_call_super
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,6 +20,15 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
   final Map<String, bool> categoryMap = {};
 
   @override
+  void initState() {
+    BlocProvider.of<NewArrivalBloc>(context).add(NewArrivalGetAllEvent(
+      "1",
+      "10",
+      'all',
+    ));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => MainCategoryBloc()
@@ -35,7 +46,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
             categoryMap['All'] = true;
           }
         },
-        builder: (context, state) {
+        builder: (bloccontext, state) {
           if (state is MainCategoryDataState) {
             return SizedBox(
               height: 40.h,
@@ -46,7 +57,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                   return BorderTextButton(
                     text: state.mainCategory[index].catName.toString(),
                     onPressed: () {
-                      BlocProvider.of<NewArrivalBloc>(context).add(
+                      BlocProvider.of<NewArrivalBloc>(bloccontext).add(
                         NewArrivalGetAllEvent(
                           "1",
                           "10",

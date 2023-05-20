@@ -24,7 +24,6 @@ class _BrandsWidgetState extends State<BrandsWidget> {
 
 @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     BrandBloc = BrandsBloc()..add(BrandsLoadEvent(1.toString(), 10.toString()));
   }

@@ -16,6 +16,12 @@ class NewArrivalGrid extends StatefulWidget {
 
 class _NewArrivalGridState extends State<NewArrivalGrid> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<NewArrivalBloc, NewArrivalState>(
       builder: (context, state) {
