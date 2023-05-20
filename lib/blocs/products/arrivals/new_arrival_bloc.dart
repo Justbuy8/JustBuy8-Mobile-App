@@ -14,7 +14,9 @@ class NewArrivalBloc extends Bloc<NewArrivalEvent, NewArrivalState> {
         );
 
         if (products.isEmpty) {
-          emit(NewArrivalEmptyState());
+          emit(
+            NewArrivalEmptyState(),
+          );
           return;
         }
         emit(NewArrivalGetAllState(products));

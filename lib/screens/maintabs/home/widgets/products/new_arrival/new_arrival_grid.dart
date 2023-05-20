@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_bloc.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_state_and_events.dart';
+import 'package:justbuyeight/constants/app_svgs.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
 import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
 
@@ -17,7 +19,6 @@ class NewArrivalGrid extends StatefulWidget {
 class _NewArrivalGridState extends State<NewArrivalGrid> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -26,8 +27,22 @@ class _NewArrivalGridState extends State<NewArrivalGrid> {
     return BlocBuilder<NewArrivalBloc, NewArrivalState>(
       builder: (context, state) {
         if (state is NewArrivalEmptyState) {
-          return Center(
-            child: Text(state.message),
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                AppSvgs.warning,
+                height: 100,
+                width: 100,
+              ),
+              Text(
+                state.message,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           );
         }
         if (state is NewArrivalGetAllState) {
