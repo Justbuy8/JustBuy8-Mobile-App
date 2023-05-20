@@ -6,8 +6,6 @@ import 'package:justbuyeight/blocs/authentication/send_otp/send_otp_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/timer_cubit/timer_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/validate_email/validate_email_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/verify_email_cubit/verify_email_cubit.dart';
-import 'package:justbuyeight/blocs/brands/brands_bloc.dart';
-import 'package:justbuyeight/blocs/brands/brands_events_and_states.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_bloc.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_state_and_events.dart';
 import 'package:justbuyeight/blocs/session_handling/splash_cubit.dart';
