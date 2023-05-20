@@ -13,45 +13,39 @@ class BrandsWidget extends StatelessWidget {
   const BrandsWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<BrandsBloc>(
-      create: (context) => BrandsBloc()
-        ..add(
-          BrandsLoadEvent("1", "5"),
-        ),
-      child: BlocBuilder<BrandsBloc, BrandsState>(
-        builder: (context, state) {
-          if (state is BrandsLoadingState) {
-            return SizedBox(
-              height: context.height() * 0.35,
-              child: const AppCircularSpinner(),
-            );
-          } else if (state is BrandsGetState) {
-            return SizedBox(
-              height: context.height() * 0.2,
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  mainAxisSpacing: 20,
-                ),
-                shrinkWrap: true,
-                itemCount: state.brands.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 5),
-                    child: BrandWidget(
-                      text: state.brands[index].brandName.toString(),
-                      imageUrl: state.brands[index].brandImage.toString(),
-                    ),
-                  );
-                },
+    return BlocBuilder<BrandsBloc, BrandsState>(
+      builder: (context, state) {
+        if (state is BrandsLoadingState) {
+          return SizedBox(
+            height: context.height() * 0.35,
+            child: const AppCircularSpinner(),
+          );
+        } else if (state is BrandsGetState) {
+          return SizedBox(
+            height: context.height() * 0.2,
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1,
+                mainAxisSpacing: 20,
               ),
-            );
-          } else {
-            return const Center(child: Text("Error"));
-          }
-        },
-      ),
+              shrinkWrap: true,
+              itemCount: state.brands.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
+                  child: BrandWidget(
+                    text: state.brands[index].brandName.toString(),
+                    imageUrl: state.brands[index].brandImage.toString(),
+                  ),
+                );
+              },
+            ),
+          );
+        } else {
+          return const Center(child: Text("Error"));
+        }
+      },
     );
   }
 }

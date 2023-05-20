@@ -20,7 +20,6 @@ class BrandsController {
     );
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
-      print("result: $result");
       if (result['Success']) {
         result['Data'].forEach((brand) {
           brands.add(BrandsModel.fromJson(brand));
