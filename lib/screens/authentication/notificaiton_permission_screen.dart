@@ -31,9 +31,9 @@ class _NotificationPermissionScreenState
               Padding(
                 padding: EdgeInsets.only(
                     left: 15.w, right: 15.w, top: 20.h, bottom: 20.h),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
+                  children: [
                     SecondaryTextWidget(text: AppText.skip),
                   ],
                 ),

@@ -19,19 +19,18 @@ class BrandsWidget extends StatefulWidget {
 }
 
 class _BrandsWidgetState extends State<BrandsWidget> {
+  var brandBloc = BrandsBloc();
 
-  var BrandBloc = BrandsBloc();
-
-@override
+  @override
   void initState() {
     super.initState();
-    BrandBloc = BrandsBloc()..add(BrandsLoadEvent(1.toString(), 10.toString()));
+    brandBloc = BrandsBloc()..add(BrandsLoadEvent(1.toString(), 10.toString()));
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder(
-      bloc: BrandBloc,
+      bloc: brandBloc,
       builder: (context, state) {
         if (state is BrandsLoadingState) {
           return SizedBox(

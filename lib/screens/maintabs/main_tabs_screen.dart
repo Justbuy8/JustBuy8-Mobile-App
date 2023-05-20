@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
+import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/screens/maintabs/home/home_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -47,7 +48,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
       items: [
         PersistentBottomNavBarItem(
           icon: const Icon(Ionicons.home_outline),
-          title: ("Home"),
+          title: (AppText.homeText),
           textStyle: AppTextStyle.tabsTextStyle,
           iconSize: 20,
           activeColorPrimary: AppColors.appWhiteColor,
@@ -56,7 +57,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Ionicons.search_outline),
-          title: ("Search"),
+          title: (AppText.searchText),
           textStyle: AppTextStyle.tabsTextStyle,
           iconSize: 20,
           activeColorPrimary: AppColors.appWhiteColor,
@@ -65,7 +66,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Ionicons.cart_outline),
-          title: ("Cart"),
+          title: (AppText.cartText),
           textStyle: AppTextStyle.tabsTextStyle,
           iconSize: 20,
           activeColorPrimary: AppColors.appWhiteColor,
@@ -74,7 +75,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Ionicons.heart_outline),
-          title: ("Wishlist"),
+          title: (AppText.wishlistText),
           textStyle: AppTextStyle.tabsTextStyle,
           iconSize: 20,
           activeColorPrimary: AppColors.appWhiteColor,
@@ -83,7 +84,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Ionicons.person_outline),
-          title: ("Account"),
+          title: (AppText.accountText),
           textStyle: AppTextStyle.tabsTextStyle,
           iconSize: 20,
           activeColorPrimary: AppColors.appWhiteColor,

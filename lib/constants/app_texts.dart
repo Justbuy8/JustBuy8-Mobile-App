@@ -47,4 +47,11 @@ class AppText {
   static const String topCategoriesText = "Top Categories";
   static const String chooseBrandsText = "Choose Brands";
   static const String newArrivalsText = "New Arrivals";
+
+  // Main Tabs Screen
+  static const String homeText = "Home";
+  static const String searchText = "Search";
+  static const String cartText = "Cart";
+  static const String wishlistText = "Wishlist";
+  static const String accountText = "Account";
 }

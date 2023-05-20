@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/brands/brands_bloc.dart';
 import 'package:justbuyeight/blocs/brands/brands_events_and_states.dart';
+import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/brands/brands_model.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/brands/brands_widget.dart';
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
 
 class ChooseBrandsScreen extends StatefulWidget {
@@ -25,17 +29,17 @@ class _ChooseBrandsScreenState extends State<ChooseBrandsScreen> {
   int page = 1;
 
   List<BrandsModel> brands = [];
-  var BrandBloc = BrandsBloc();
+  var brandBloc = BrandsBloc();
 
   @override
   void initState() {
-    BrandBloc = BrandsBloc()
+    brandBloc = BrandsBloc()
       ..add(BrandsLoadEvent(page.toString(), paginateBy.toString()));
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         page++;
-        BrandBloc..add(BrandsLoadEvent(page.toString(), paginateBy.toString()));
+        brandBloc..add(BrandsLoadEvent(page.toString(), paginateBy.toString()));
       }
     });
     super.initState();
@@ -44,11 +48,11 @@ class _ChooseBrandsScreenState extends State<ChooseBrandsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const BasicAppbarWidget(title: "Choose Brands"),
+      appBar: const BasicAppbarWidget(title: AppText.chooseBrandsText),
       body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: BlocListener(
-            bloc: BrandBloc,
+            bloc: brandBloc,
             listener: (context, state) {
               if (state is BrandsLoadingState) {}
               if (state is BrandsGetState) {
