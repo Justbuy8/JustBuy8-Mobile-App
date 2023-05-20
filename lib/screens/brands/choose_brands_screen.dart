@@ -33,7 +33,7 @@ class _ChooseBrandsScreenState extends State<ChooseBrandsScreen> {
       ..add(BrandsLoadEvent(page.toString(), paginateBy.toString()));
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+          _scrollController.position.maxScrollExtent ) {
         page++;
         brandBloc..add(BrandsLoadEvent(page.toString(), paginateBy.toString()));
       }
@@ -60,36 +60,40 @@ class _ChooseBrandsScreenState extends State<ChooseBrandsScreen> {
                 SnackBars.Danger(context, state.message);
               }
             },
-            child: Expanded(
-                child: brands.isEmpty
-                    ? GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 1.5,
-                          mainAxisSpacing: 10,
-                          crossAxisSpacing: 10,
-                        ),
-                        itemBuilder: (context, index) =>
-                            const RectangularShimmer(),
-                        itemCount: 20,
-                      )
-                    : GridView.builder(
-                        controller: _scrollController,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 1,
-                          mainAxisSpacing: 10,
-                          crossAxisSpacing: 10,
-                        ),
-                        itemBuilder: (context, index) {
-                          return BrandWidget(
-                            text: brands[index].brandName.toString(),
-                            imageUrl: brands[index].brandImage.toString(),
-                          );
-                        },
-                        itemCount: brands.length,
-                      )),
+            child: Column(
+              children: [
+                Expanded(
+                    child: brands.isEmpty
+                        ? GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 1.5,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                            ),
+                            itemBuilder: (context, index) =>
+                                const RectangularShimmer(),
+                            itemCount: 20,
+                          )
+                        : GridView.builder(
+                            controller: _scrollController,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                            ),
+                            itemBuilder: (context, index) {
+                              return BrandWidget(
+                                text: brands[index].brandName.toString(),
+                                imageUrl: brands[index].brandImage.toString(),
+                              );
+                            },
+                            itemCount: brands.length,
+                          )),
+              ],
+            ),
           )),
     );
   }

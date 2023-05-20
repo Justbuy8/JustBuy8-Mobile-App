@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
@@ -31,7 +33,7 @@ class _NotificationPermissionScreenState
               Padding(
                 padding: EdgeInsets.only(
                     left: 15.w, right: 15.w, top: 20.h, bottom: 20.h),
-                child: const Row(
+                child:  Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     SecondaryTextWidget(text: AppText.skip),
