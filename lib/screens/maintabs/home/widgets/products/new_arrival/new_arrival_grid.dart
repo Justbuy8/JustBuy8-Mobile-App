@@ -27,22 +27,9 @@ class _NewArrivalGridState extends State<NewArrivalGrid> {
     return BlocBuilder<NewArrivalBloc, NewArrivalState>(
       builder: (context, state) {
         if (state is NewArrivalEmptyState) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                AppSvgs.warning,
-                height: 100,
-                width: 100,
-              ),
-              Text(
-                state.message,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+          return NoArrivalsWidget(
+            svgImage: AppSvgs.warning,
+            message: state.message,
           );
         }
         if (state is NewArrivalGetAllState) {
@@ -83,6 +70,40 @@ class _NewArrivalGridState extends State<NewArrivalGrid> {
           itemBuilder: (context, index) => RectangularShimmer(),
         );
       },
+    );
+  }
+}
+
+class NoArrivalsWidget extends StatelessWidget {
+  const NoArrivalsWidget({
+    Key? key,
+    required this.message,
+    required this.svgImage,
+    this.width,
+    this.height,
+  }) : super(key: key);
+  final String message;
+  final String svgImage;
+  final double? width, height;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SvgPicture.asset(
+          svgImage,
+          height: height ?? 100,
+          width: width ?? 100,
+        ),
+        Text(
+          message,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }
