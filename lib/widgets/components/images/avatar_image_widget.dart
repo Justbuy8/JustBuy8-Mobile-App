@@ -37,10 +37,6 @@ class AvatarImageWidget extends StatelessWidget {
             image: DecorationImage(
               image: imageProvider,
               fit: BoxFit.contain,
-              colorFilter: ColorFilter.mode(
-                AppColors.primaryColor,
-                BlendMode.colorBurn,
-              ),
             ),
           ),
         ),
