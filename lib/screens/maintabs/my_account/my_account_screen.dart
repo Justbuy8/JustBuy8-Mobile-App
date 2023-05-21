@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/constants/bloc_provider.dart';
@@ -41,7 +40,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                AvatarImageWidget(
+                const AvatarImageWidget(
                   height: 80,
                   width: 80,
                   imageUrl:
@@ -50,7 +49,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                 SizedBox(
                   width: 20.w,
                 ),
-                Container(
+                SizedBox(
                   width: context.width() / 2,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +107,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                               MultiBlocProvider(
                                                   providers:
                                                       BlocProviders.providers,
-                                                  child: SignInScreen())),
+                                                  child: const SignInScreen())),
                                       (route) => false);
                                 }, NoPressed: () {
                                   Navigator.of(context).pop();
@@ -142,7 +141,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               color: Colors.black,
                             ),
                           ),
-                          Divider()
+                          const Divider()
                         ],
                       ),
                     );
