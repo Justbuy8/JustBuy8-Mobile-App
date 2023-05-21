@@ -36,36 +36,6 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: PrimaryButtonWidget(
-                  width: 100.w,
-                  caption: 'Logout',
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return confirmAlertDialog(context, 'Confirm Logout',
-                            'Are you sure you want to logout?',
-                            YesPressed: () async {
-                          await UserSecureStorage.deleteSecureStorage();
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (builder) => MultiBlocProvider(
-                                      providers: BlocProviders.providers,
-                                      child: SignInScreen())),
-                              (route) => false);
-                        }, NoPressed: () {
-                          Navigator.of(context).pop();
-                        });
-                      },
-                    );
-                  },
-                ),
-              ),
-            ),
-
             /// main banner
             MainBannerWidget(),
             SizedBox(height: 20),

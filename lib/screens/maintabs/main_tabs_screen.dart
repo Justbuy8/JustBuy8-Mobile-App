@@ -8,7 +8,7 @@ import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/screens/maintabs/home/home_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import 'user_account/user_account_screen.dart';
+import 'my_account/my_account_screen.dart';
 
 class MainTabsScreen extends StatefulWidget {
   const MainTabsScreen({Key? key}) : super(key: key);
@@ -43,7 +43,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
         Container(
           color: Colors.yellow,
         ),
-        const UserAccountScreen(),
+        const MyAccountScreen(),
       ],
       items: [
         PersistentBottomNavBarItem(

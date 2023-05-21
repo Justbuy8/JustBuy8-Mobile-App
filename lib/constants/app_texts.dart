@@ -1,3 +1,5 @@
+import 'package:ionicons/ionicons.dart';
+
 class AppText {
   static const String signInText = "Sign In";
   static const String forgetPassword = "Forget Password?";
@@ -55,3 +57,20 @@ class AppText {
   static const String wishlistText = "Wishlist";
   static const String accountText = "Account";
 }
+
+const List<IoniconsData> myAccountListIcon = [
+  Ionicons.wallet_outline,
+  Ionicons.dice_outline,
+  Ionicons.cash_outline,
+  Ionicons.location_outline,
+  Ionicons.gift_outline,
+  Ionicons.log_out_outline,
+];
+const List<String> myAccountListTitle = [
+  'My Wallet',
+  'My Orders',
+  'Payment Method',
+  'Delivery Address',
+  'Promocode & Gift Cards',
+  'Logout',
+];
