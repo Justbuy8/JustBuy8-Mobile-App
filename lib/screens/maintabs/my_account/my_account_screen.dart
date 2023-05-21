@@ -1,3 +1,5 @@
+// ignore_for_file: sort_child_properties_last, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -75,7 +77,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     color: AppColors.primaryColor,
                   ),
                   padding: EdgeInsets.all(5.w),
-                  shape: CircleBorder(),
+                  shape: const CircleBorder(),
                 )
               ],
             ),

@@ -1,25 +1,19 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
-import 'package:justbuyeight/constants/bloc_provider.dart';
-import 'package:justbuyeight/constants/secure_storage.dart';
-import 'package:justbuyeight/screens/authentication/signin_screen.dart';
 import 'package:justbuyeight/screens/brands/choose_brands_screen.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/featured/featured_products_listview.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/new_arrival/new_arrival_grid.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/top/top_categories_widgets.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/title-button/title_and_button_widget.dart';
-import 'package:justbuyeight/utils/AlertDialog.dart';
 import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/banners/FooterBannerWidget.dart';
 import 'package:justbuyeight/widgets/components/banners/MainBannerWidget.dart';
 import 'package:justbuyeight/widgets/components/brands/brands_widget.dart';
-import 'package:justbuyeight/widgets/components/buttons/primary_button.dart';
+
 import 'package:justbuyeight/widgets/components/category/categories_widget.dart';
 
 class HomeScreen extends StatelessWidget {

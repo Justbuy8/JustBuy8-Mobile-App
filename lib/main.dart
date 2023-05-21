@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/blocs/session_handling/splash_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/bloc_provider.dart';
-import 'package:justbuyeight/screens/authentication/signin_screen.dart';
+
 import 'package:justbuyeight/screens/maintabs/main_tabs_screen.dart';
 import 'package:justbuyeight/screens/onboarding/onboarding_screen.dart';
 import 'package:nb_utils/nb_utils.dart';
