@@ -53,9 +53,9 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                 ),
                 SizedBox(
                   width: context.width() / 2,
-                  child: Column(
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       PrimaryTextWidget(
                         text: 'Jessica Smith',
                       ),

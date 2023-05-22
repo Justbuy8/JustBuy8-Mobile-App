@@ -33,6 +33,9 @@ class ProductsUrl {
       "${AppUrl.baseUrl}/product/get-featured-products";
   static const String newArrivals =
       "${AppUrl.baseUrl}/product/get-new-arrivals";
+
+  static const String bestProducts =
+      "${AppUrl.baseUrl}/product/get-best-products";
 }
 
 class CategoriesUrl {

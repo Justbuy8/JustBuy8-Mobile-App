@@ -4,10 +4,10 @@ import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/constants/app_url.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
 
-class NewArrivalController {
-  static Future<List<ProductModel>> getNewArrivals(
+class BestProductsController {
+  static Future<List<ProductModel>> getBestProducts(
       page, paginateBy, categoryId) async {
-    List<ProductModel> newArrivals = [];
+    List<ProductModel> bestProducts = [];
 
     final response = await ApiManager.postRequest(
       {
@@ -15,18 +15,19 @@ class NewArrivalController {
         "paginate_by": paginateBy,
         "category_id": categoryId,
       },
-      ProductsUrl.newArrivals,
+      ProductsUrl.bestProducts,
     );
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
       if (result['Success']) {
-        newArrivals = featuredProductsModelFromJson(jsonEncode(result['Data']));
+        bestProducts =
+            featuredProductsModelFromJson(jsonEncode(result['Data']));
       } else {
-        newArrivals = [];
+        bestProducts = [];
       }
     } else {
-      newArrivals = [];
+      bestProducts = [];
     }
-    return newArrivals;
+    return bestProducts;
   }
 }

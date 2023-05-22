@@ -33,7 +33,7 @@ class _ChooseBrandsScreenState extends State<ChooseBrandsScreen> {
       ..add(BrandsLoadEvent(page.toString(), paginateBy.toString()));
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent ) {
+          _scrollController.position.maxScrollExtent) {
         page++;
         brandBloc..add(BrandsLoadEvent(page.toString(), paginateBy.toString()));
       }
@@ -50,7 +50,6 @@ class _ChooseBrandsScreenState extends State<ChooseBrandsScreen> {
           child: BlocListener(
             bloc: brandBloc,
             listener: (context, state) {
-              if (state is BrandsLoadingState) {}
               if (state is BrandsGetState) {
                 setState(() {
                   brands.addAll(state.brands);
