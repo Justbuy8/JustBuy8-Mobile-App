@@ -7,9 +7,8 @@ import 'package:justbuyeight/blocs/products/arrivals/new_arrival_bloc.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_state_and_events.dart';
 import 'package:justbuyeight/constants/app_svgs.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
-import 'package:justbuyeight/utils/product_discount.dart';
 import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
-import 'package:nb_utils/nb_utils.dart';
+
 
 class NewArrivalGrid extends StatefulWidget {
   const NewArrivalGrid({Key? key}) : super(key: key);
@@ -49,25 +48,8 @@ class _NewArrivalGridState extends State<NewArrivalGrid> {
                 ),
                 itemCount: state.products.length,
                 itemBuilder: (context, index) {
-                  if (state.products[index].discountType?.toLowerCase() ==
-                      "flat") {
-                    newPrice = ProductDiscount.getDiscountByFlat(
-                      state.products[index].unitPrice.toDouble(),
-                      state.products[index].discount.toDouble(),
-                    );
-                  } else {
-                    newPrice = ProductDiscount.getDiscountByPercentage(
-                      state.products[index].unitPrice.toDouble(),
-                      state.products[index].discount.toDouble(),
-                    );
-                  }
                   return ProductWidget(
-                    text: state.products[index].name.toString(),
-                    imageUrl: state.products[index].thumbnail.toString(),
-                    oldPrice: state.products[index].unitPrice.toString(),
-                    rating: state.products[index].totalRating.toString(),
-                    newPrice: newPrice,
-                    isFavourite: false,
+                   product: state.products[index],
                   );
                 },
               ),

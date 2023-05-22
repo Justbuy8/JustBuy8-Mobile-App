@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -5,23 +7,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
+import 'package:justbuyeight/models/products/ProductModel.dart';
+import 'package:justbuyeight/utils/Converts.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class ProductWidget extends StatelessWidget {
-  const ProductWidget({
-    Key? key,
-    required this.text,
-    required this.imageUrl,
-    required this.oldPrice,
-    required this.rating,
-    required this.newPrice,
-    required this.isFavourite,
-  }) : super(key: key);
-  final String text;
-  final String imageUrl;
-  final String oldPrice, rating;
-  final double newPrice;
-  final bool isFavourite;
+  final ProductModel product;
+  const ProductWidget({Key? key, required this.product}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,10 +38,8 @@ class ProductWidget extends StatelessWidget {
                     backgroundColor: AppColors.appWhiteColor,
                     radius: 15,
                     child: Icon(
-                      isFavourite ? Ionicons.heart : Ionicons.heart_outline,
-                      color: isFavourite
-                          ? AppColors.appRedColor
-                          : AppColors.appBlackColor,
+                      Ionicons.heart_outline,
+                      color: AppColors.appBlackColor,
                       size: 20,
                       shadows: [
                         Shadow(
@@ -67,7 +58,8 @@ class ProductWidget extends StatelessWidget {
                   shape: BoxShape.rectangle,
                   color: AppColors.appGreyColor,
                   image: DecorationImage(
-                    image: CachedNetworkImageProvider(imageUrl),
+                    image: CachedNetworkImageProvider(
+                        product.thumbnail.toString()),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -83,7 +75,7 @@ class ProductWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AutoSizeText(
-                text,
+                product.name.toString(),
                 style: TextStyle(
                   fontFamily: AppFonts.openSansBold,
                 ),
@@ -94,27 +86,37 @@ class ProductWidget extends StatelessWidget {
               Row(
                 children: [
                   AutoSizeText(
-                    "\$$oldPrice",
+                    "\$" + product.unitPrice.toString(),
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
                       // delete the text
-                      decoration: TextDecoration.lineThrough,
+                      decoration: (product.discount.toDouble() > 0 &&
+                              product.discount != null)
+                          ? TextDecoration.lineThrough
+                          : null,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(width: 5),
                   AutoSizeText(
-                    "\$$newPrice",
+                    "\$" +
+                        Converts.calculateProductPrice(
+                                product.unitPrice.toDouble(),
+                                product.discount.toDouble(),
+                                product.discountType.toString())
+                            .toString(),
                     style: TextStyle(
                       fontSize: 14.sp,
+                      color: AppColors.primaryColor,
                       fontWeight: FontWeight.w500,
                       // delete the text
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                  ),
+                  ).visible(product.discount.toDouble() > 0 &&
+                      product.discount != null),
                   const Spacer(),
                   Row(
                     children: [
@@ -125,7 +127,7 @@ class ProductWidget extends StatelessWidget {
                       ),
                       const SizedBox(width: 5),
                       AutoSizeText(
-                        rating,
+                        product.totalRating.toString(),
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500,

@@ -61,12 +61,7 @@ class _BestProductsState extends State<BestProducts> {
                             100);
                   }
                   return ProductWidget(
-                    imageUrl: state.products[index].thumbnail.toString(),
-                    text: state.products[index].name.toString(),
-                    oldPrice: state.products[index].unitPrice.toString(),
-                    newPrice: newPrice,
-                    rating: state.products[index].totalRating.toString(),
-                    isFavourite: true,
+                      product: state.products[index],
                   );
                 },
               ),

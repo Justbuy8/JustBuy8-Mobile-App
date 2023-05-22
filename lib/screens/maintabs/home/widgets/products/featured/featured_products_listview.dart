@@ -61,12 +61,7 @@ class _FeaturedProductsListviewState extends State<FeaturedProductsListview> {
                     );
                   }
                   return ProductWidget(
-                    text: state.products[index].name.toString(),
-                    imageUrl: state.products[index].thumbnail.toString(),
-                    oldPrice: state.products[index].unitPrice.toString(),
-                    rating: state.products[index].totalRating.toString(),
-                    newPrice: newPrice,
-                    isFavourite: false,
+                   product: state.products[index],
                   );
                 },
               ),
