@@ -53,7 +53,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                 ),
                 SizedBox(
                   width: context.width() / 2,
-                  child: const Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       PrimaryTextWidget(
