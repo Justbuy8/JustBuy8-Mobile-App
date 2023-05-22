@@ -55,8 +55,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     AvatarImageWidget(
                       height: 90.h,
                       width: 90.w,
-                      imageUrl:
-                          'https://lesley.edu/sites/default/files/styles/person_profile_1x_wid/public/Fisiha-Likke-Design-Faculty.png?h=f0d95172&itok=9iIy13RK',
+                      imageUrl: state.accountData.first.data.profileImage,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 
 class AvatarImageWidget extends StatelessWidget {
@@ -43,7 +44,11 @@ class AvatarImageWidget extends StatelessWidget {
         placeholder: (context, url) => const Center(
           child: CircularProgressIndicator(),
         ),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
+        errorWidget: (context, url, error) => Icon(
+          Ionicons.person_outline,
+          size: 40.sp,
+          color: AppColors.primaryColor,
+        ),
       ),
     );
   }
