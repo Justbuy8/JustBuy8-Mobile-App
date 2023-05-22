@@ -8,18 +8,16 @@ import 'package:justbuyeight/models/products/ProductModel.dart';
 
 class FeaturedProductsController {
   static Future<List<ProductModel>> getFeaturedProducts(
-      page, paginate_by) async {
+      page, paginate_by, random) async {
     List<ProductModel> products = [];
 
     final response = await ApiManager.postRequest(
       {
         "page": page,
         "paginate_by": paginate_by,
+        "random": random,
       },
       ProductsUrl.featuredProducts,
-      headers: {
-        "content-type": "application/json; charset=utf-8",
-      },
     );
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);

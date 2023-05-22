@@ -7,8 +7,8 @@ abstract class FeaturedProductsEvent {}
 class FeaturedProductsLoadEvent extends FeaturedProductsEvent {
   final String page;
   final String paginateBy;
-
-  FeaturedProductsLoadEvent(this.page, this.paginateBy);
+  final bool random;
+  FeaturedProductsLoadEvent(this.page, this.paginateBy, this.random);
 }
 
 //states

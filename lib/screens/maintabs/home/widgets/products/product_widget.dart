@@ -12,12 +12,16 @@ class ProductWidget extends StatelessWidget {
     Key? key,
     required this.text,
     required this.imageUrl,
-    required this.price,
+    required this.oldPrice,
     required this.rating,
+    required this.newPrice,
+    required this.isFavourite,
   }) : super(key: key);
   final String text;
   final String imageUrl;
-  final String price, rating;
+  final String oldPrice, rating;
+  final double newPrice;
+  final bool isFavourite;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,8 +45,10 @@ class ProductWidget extends StatelessWidget {
                     backgroundColor: AppColors.appWhiteColor,
                     radius: 15,
                     child: Icon(
-                      Ionicons.heart_outline,
-                      color: AppColors.appBlackColor,
+                      isFavourite ? Ionicons.heart : Ionicons.heart_outline,
+                      color: isFavourite
+                          ? AppColors.appRedColor
+                          : AppColors.appBlackColor,
                       size: 20,
                       shadows: [
                         Shadow(
@@ -86,17 +92,30 @@ class ProductWidget extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   AutoSizeText(
-                    "\$$price",
+                    "\$$oldPrice",
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
+                      // delete the text
+                      decoration: TextDecoration.lineThrough,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
+                  const SizedBox(width: 5),
+                  AutoSizeText(
+                    "\$$newPrice",
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      // delete the text
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const Spacer(),
                   Row(
                     children: [
                       Icon(
