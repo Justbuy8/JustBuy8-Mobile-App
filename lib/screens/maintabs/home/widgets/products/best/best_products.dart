@@ -5,12 +5,20 @@ import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/blocs/products/best/best_products_bloc.dart';
 import 'package:justbuyeight/blocs/products/best/best_products_states_and_events.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
+import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class BestProducts extends StatelessWidget {
+class BestProducts extends StatefulWidget {
   const BestProducts({Key? key}) : super(key: key);
+
+  @override
+  State<BestProducts> createState() => _BestProductsState();
+}
+
+class _BestProductsState extends State<BestProducts> {
+  double newPrice = 0.0;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -38,8 +46,27 @@ class BestProducts extends StatelessWidget {
                 itemCount: state.products.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return BestProduct(
+                  if (state.products[index].discountType?.toLowerCase() ==
+                      "flat") {
+                    newPrice = double.parse(
+                            state.products[index].unitPrice.toString()) -
+                        double.parse(state.products[index].discount.toString());
+                  } else {
+                    newPrice = double.parse(
+                            state.products[index].unitPrice.toString()) -
+                        (double.parse(
+                                state.products[index].unitPrice.toString()) *
+                            double.parse(
+                                state.products[index].discount.toString()) /
+                            100);
+                  }
+                  return ProductWidget(
                     imageUrl: state.products[index].thumbnail.toString(),
+                    text: state.products[index].name.toString(),
+                    oldPrice: state.products[index].unitPrice.toString(),
+                    newPrice: newPrice,
+                    rating: state.products[index].totalRating.toString(),
+                    isFavourite: true,
                   );
                 },
               ),
@@ -54,8 +81,19 @@ class BestProducts extends StatelessWidget {
 }
 
 class BestProduct extends StatelessWidget {
-  const BestProduct({Key? key, required this.imageUrl}) : super(key: key);
+  const BestProduct({
+    Key? key,
+    required this.imageUrl,
+    required this.title,
+    required this.oldPrice,
+    required this.newPrice,
+    required this.rating,
+  }) : super(key: key);
   final String imageUrl;
+  final String title;
+  final String oldPrice;
+  final String newPrice;
+  final String rating;
   @override
   Widget build(BuildContext context) {
     return Container(

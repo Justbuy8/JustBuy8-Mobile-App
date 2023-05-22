@@ -9,7 +9,7 @@ class FeaturedProductsBloc
       emit(FeaturedProductsInitState());
       try {
         final products = await FeaturedProductsController.getFeaturedProducts(
-            event.page, event.paginateBy);
+            event.page, event.paginateBy, event.random);
         emit(FeaturedProductsGetState(products));
       } catch (error) {
         emit(FeaturedProductsErrorState(error.toString()));

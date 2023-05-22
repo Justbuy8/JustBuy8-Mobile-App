@@ -3,18 +3,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/products/featured/featured_products_bloc.dart';
 import 'package:justbuyeight/blocs/products/featured/featured_products_events_and_states.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
+import 'package:justbuyeight/utils/product_discount.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class FeaturedProductsListview extends StatelessWidget {
+class FeaturedProductsListview extends StatefulWidget {
   const FeaturedProductsListview({Key? key}) : super(key: key);
+
+  @override
+  State<FeaturedProductsListview> createState() =>
+      _FeaturedProductsListviewState();
+}
+
+class _FeaturedProductsListviewState extends State<FeaturedProductsListview> {
+  double newPrice = 0.0;
   @override
   Widget build(BuildContext context) {
     return BlocProvider<FeaturedProductsBloc>(
       create: (context) => FeaturedProductsBloc()
         ..add(
-          FeaturedProductsLoadEvent("1", "5"),
+          FeaturedProductsLoadEvent("1", "5", true),
         ),
       child: BlocBuilder<FeaturedProductsBloc, FeaturedProductsState>(
         builder: (context, state) {
@@ -26,21 +35,38 @@ class FeaturedProductsListview extends StatelessWidget {
           } else if (state is FeaturedProductsGetState) {
             return SizedBox(
               height: context.height() * 0.35,
-              child: ListView.builder(
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  childAspectRatio: 1.5,
+                  mainAxisSpacing: 10,
+                ),
                 shrinkWrap: true,
                 itemCount: state.products.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 5),
-                    //  create a list of featured products with
-                    //  their name and image
-                    child: ProductWidget(
-                      text: state.products[index].name.toString(),
-                      imageUrl: state.products[index].thumbnail.toString(),
-                      price: state.products[index].unitPrice.toString(),
-                      rating: state.products[index].totalRating.toString(),
-                    ),
+                  if (state.products[index].discountType?.toLowerCase() ==
+                      "flat") {
+                    newPrice = ProductDiscount.getDiscountByFlat(
+                      state.products[index].unitPrice
+                          .toDouble()
+                          .toStringAsFixed(2)
+                          .toDouble(),
+                      state.products[index].discount.toDouble(),
+                    );
+                  } else {
+                    newPrice = ProductDiscount.getDiscountByPercentage(
+                      state.products[index].unitPrice.toDouble(),
+                      state.products[index].discount.toDouble(),
+                    );
+                  }
+                  return ProductWidget(
+                    text: state.products[index].name.toString(),
+                    imageUrl: state.products[index].thumbnail.toString(),
+                    oldPrice: state.products[index].unitPrice.toString(),
+                    rating: state.products[index].totalRating.toString(),
+                    newPrice: newPrice,
+                    isFavourite: false,
                   );
                 },
               ),
