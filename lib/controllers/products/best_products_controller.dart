@@ -6,22 +6,22 @@ import 'package:justbuyeight/models/products/ProductModel.dart';
 
 class BestProductsController {
   static Future<List<ProductModel>> getBestProducts(
-      page, paginateBy, categoryId) async {
+    page,
+    paginateBy,
+  ) async {
     List<ProductModel> bestProducts = [];
 
     final response = await ApiManager.postRequest(
       {
         "page": page,
         "paginate_by": paginateBy,
-        "category_id": categoryId,
       },
       ProductsUrl.bestProducts,
     );
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
       if (result['Success']) {
-        bestProducts =
-            featuredProductsModelFromJson(jsonEncode(result['Data']));
+        bestProducts = productsModelFromJson(jsonEncode(result['Data']));
       } else {
         bestProducts = [];
       }

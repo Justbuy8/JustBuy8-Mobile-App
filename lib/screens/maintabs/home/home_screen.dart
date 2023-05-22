@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/screens/brands/choose_brands_screen.dart';
-import 'package:justbuyeight/screens/maintabs/home/widgets/products/best/best_products.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/featured/featured_products_listview.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/new_arrival/new_arrival_grid.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/top/top_categories_widgets.dart';
@@ -76,8 +75,6 @@ class HomeScreen extends StatelessWidget {
                   CategoriesWidget(),
                   SizedBox(height: 20),
                   NewArrivalGrid(),
-                  SizedBox(height: 20),
-                  BestProducts(),
                   SizedBox(height: 100),
                 ],
               ),

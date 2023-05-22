@@ -20,7 +20,7 @@ class NewArrivalController {
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
       if (result['Success']) {
-        newArrivals = featuredProductsModelFromJson(jsonEncode(result['Data']));
+        newArrivals = productsModelFromJson(jsonEncode(result['Data']));
       } else {
         newArrivals = [];
       }

@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/products/best/best_products_states_and_events.dart';
+import 'package:justbuyeight/controllers/products/best_products_controller.dart';
 
 class BestProductsBloc extends Bloc<BestProductsEvent, BestProductsState> {
   BestProductsBloc() : super(BestProductsLoadingState()) {
@@ -9,7 +10,6 @@ class BestProductsBloc extends Bloc<BestProductsEvent, BestProductsState> {
         final products = await BestProductsController.getBestProducts(
           event.page,
           event.paginateBy,
-          event.categoryId,
         );
 
         if (products.isEmpty) {

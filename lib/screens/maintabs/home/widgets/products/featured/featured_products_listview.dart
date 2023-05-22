@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:justbuyeight/blocs/products/featured_products_bloc.dart';
-import 'package:justbuyeight/blocs/products/featured_products_events_and_states.dart';
+import 'package:justbuyeight/blocs/products/featured/featured_products_bloc.dart';
+import 'package:justbuyeight/blocs/products/featured/featured_products_events_and_states.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';

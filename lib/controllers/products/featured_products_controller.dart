@@ -24,7 +24,7 @@ class FeaturedProductsController {
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
       if (result['Success']) {
-        products = featuredProductsModelFromJson(jsonEncode(result['Data']));
+        products = productsModelFromJson(jsonEncode(result['Data']));
       } else {
         products = [];
       }
