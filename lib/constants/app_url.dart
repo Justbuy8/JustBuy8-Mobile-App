@@ -49,3 +49,8 @@ class CategoriesUrl {
 class BrandsUrl {
   static const String brands = "${AppUrl.baseUrl}/brands/get-brands";
 }
+
+class MyAccountUrl {
+  static const String myAccountUrl =
+      "${AppUrl.baseUrl}/user-account/get-user-profile";
+}

@@ -10,6 +10,7 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
+import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/screens/authentication/forget_password_screen.dart';
 import 'package:justbuyeight/screens/authentication/signup_screen.dart';
 import 'package:justbuyeight/screens/maintabs/main_tabs_screen.dart';
@@ -68,8 +69,10 @@ class _SignInScreenState extends State<SignInScreen> {
         } else if (state is LoginSuccessfull) {
           DismissLoadingDialog(dialogueContext);
 
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (builder) => const MainTabsScreen()));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (builder) => MultiBlocProvider(
+                  providers: BlocProviders.providers,
+                  child: const MainTabsScreen())));
         } else if (state is LoginInternetError) {
           SnackBars.Danger(context, AppText.internetError);
           DismissLoadingDialog(dialogueContext);
@@ -281,7 +284,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (builder) => const SignUpScreen()));
+                            builder: (builder) => MultiBlocProvider(
+                                providers: BlocProviders.providers,
+                                child: const SignUpScreen())));
                       },
                       child: PrimaryTextWidget(
                         text: AppText.signUp,
