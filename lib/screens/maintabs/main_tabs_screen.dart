@@ -1,10 +1,12 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/constants/app_textstyle.dart';
+import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/screens/maintabs/home/home_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -33,7 +35,10 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
       context,
       controller: tabsController,
       screens: [
-        const HomeScreen(),
+        MultiBlocProvider(
+          providers: BlocProviders.providers,
+          child: HomeScreen(),
+        ),
         Container(
           color: Colors.green,
         ),
@@ -43,7 +48,10 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
         Container(
           color: Colors.yellow,
         ),
-        const MyAccountScreen(),
+        MultiBlocProvider(
+          providers: BlocProviders.providers,
+          child: MyAccountScreen(),
+        ),
       ],
       items: [
         PersistentBottomNavBarItem(

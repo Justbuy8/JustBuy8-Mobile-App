@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
+import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/screens/maintabs/main_tabs_screen.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
@@ -57,7 +59,9 @@ class _AccountCreatedScreenState extends State<AccountCreatedScreen> {
                     caption: AppText.shopNow,
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (builder) => MainTabsScreen()));
+                          builder: (builder) => MultiBlocProvider(
+                              providers: BlocProviders.providers,
+                              child: MainTabsScreen())));
                     }),
               ),
             ],
