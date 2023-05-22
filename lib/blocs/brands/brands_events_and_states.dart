@@ -6,8 +6,9 @@ abstract class BrandsEvent {}
 class BrandsLoadEvent extends BrandsEvent {
   final String page;
   final String paginateBy;
+  final bool random;
 
-  BrandsLoadEvent(this.page, this.paginateBy);
+  BrandsLoadEvent(this.page, this.paginateBy, this.random);
 }
 
 //states
@@ -31,4 +32,3 @@ class BrandsErrorState extends BrandsState {
   final String message;
   BrandsErrorState(this.message);
 }
-

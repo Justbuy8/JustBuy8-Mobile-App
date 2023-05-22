@@ -8,6 +8,7 @@ class BrandsController {
   static Future<List<BrandsModel>> getBrands(
     page,
     paginateBy,
+    random,
   ) async {
     List<BrandsModel> brands = [];
 
@@ -15,6 +16,7 @@ class BrandsController {
       {
         "page": page,
         "paginate_by": paginateBy,
+        "random": random,
       },
       BrandsUrl.brands,
     );

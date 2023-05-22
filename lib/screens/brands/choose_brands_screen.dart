@@ -30,12 +30,13 @@ class _ChooseBrandsScreenState extends State<ChooseBrandsScreen> {
   @override
   void initState() {
     brandBloc = BrandsBloc()
-      ..add(BrandsLoadEvent(page.toString(), paginateBy.toString()));
+      ..add(BrandsLoadEvent(page.toString(), paginateBy.toString(), true));
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         page++;
-        brandBloc..add(BrandsLoadEvent(page.toString(), paginateBy.toString()));
+        brandBloc
+          ..add(BrandsLoadEvent(page.toString(), paginateBy.toString(), false));
       }
     });
     super.initState();

@@ -7,12 +7,12 @@ abstract class BestProductsEvent {}
 class BestProductsGetAllEvent extends BestProductsEvent {
   final String page;
   final String paginateBy;
-  final String categoryId;
+  final bool random;
 
   BestProductsGetAllEvent(
     this.page,
     this.paginateBy,
-    this.categoryId,
+    this.random,
   );
 }
 

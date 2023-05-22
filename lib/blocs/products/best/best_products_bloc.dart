@@ -10,6 +10,7 @@ class BestProductsBloc extends Bloc<BestProductsEvent, BestProductsState> {
         final products = await BestProductsController.getBestProducts(
           event.page,
           event.paginateBy,
+          event.random,
         );
 
         if (products.isEmpty) {

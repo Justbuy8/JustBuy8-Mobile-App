@@ -18,4 +18,5 @@ class AppColors {
   static var appWhiteColor = Colors.white;
   static var appBlackColor = Colors.black;
   static var appGreyColor = Colors.grey.shade300;
+  static var appRedColor = Colors.red;
 }

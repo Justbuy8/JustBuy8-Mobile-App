@@ -8,6 +8,7 @@ class BestProductsController {
   static Future<List<ProductModel>> getBestProducts(
     page,
     paginateBy,
+    random,
   ) async {
     List<ProductModel> bestProducts = [];
 
@@ -15,6 +16,7 @@ class BestProductsController {
       {
         "page": page,
         "paginate_by": paginateBy,
+        "random": random,
       },
       ProductsUrl.bestProducts,
     );
