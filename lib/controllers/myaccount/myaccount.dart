@@ -17,8 +17,6 @@ class MyAccountController {
       },
     );
 
-    print(response.body);
-
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
 

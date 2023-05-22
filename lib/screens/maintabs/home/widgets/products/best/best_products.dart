@@ -60,9 +60,7 @@ class _BestProductsState extends State<BestProducts> {
                                 state.products[index].discount.toString()) /
                             100);
                   }
-                  return ProductWidget(
-                      product: state.products[index],
-                  );
+                  return ProductWidget(product: state.products[index]);
                 },
               ),
             );

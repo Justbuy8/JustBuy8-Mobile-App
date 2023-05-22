@@ -45,7 +45,7 @@ class _FeaturedProductsListviewState extends State<FeaturedProductsListview> {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return ProductWidget(
-                   product: state.products[index],
+                    product: state.products[index],
                   );
                 },
               ),
