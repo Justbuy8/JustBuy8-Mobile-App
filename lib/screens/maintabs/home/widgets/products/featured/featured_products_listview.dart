@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/products/featured/featured_products_bloc.dart';
 import 'package:justbuyeight/blocs/products/featured/featured_products_events_and_states.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
-import 'package:justbuyeight/utils/product_discount.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -45,21 +44,6 @@ class _FeaturedProductsListviewState extends State<FeaturedProductsListview> {
                 itemCount: state.products.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  if (state.products[index].discountType?.toLowerCase() ==
-                      "flat") {
-                    newPrice = ProductDiscount.getDiscountByFlat(
-                      state.products[index].unitPrice
-                          .toDouble()
-                          .toStringAsFixed(2)
-                          .toDouble(),
-                      state.products[index].discount.toDouble(),
-                    );
-                  } else {
-                    newPrice = ProductDiscount.getDiscountByPercentage(
-                      state.products[index].unitPrice.toDouble(),
-                      state.products[index].discount.toDouble(),
-                    );
-                  }
                   return ProductWidget(
                    product: state.products[index],
                   );
