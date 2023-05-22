@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last, use_build_context_synchronously
+// ignore_for_file: sort_child_properties_last, use_build_context_synchronously, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +13,6 @@ import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.
 import 'package:justbuyeight/widgets/components/images/avatar_image_widget.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 class MyAccountScreen extends StatefulWidget {
   const MyAccountScreen({Key? key}) : super(key: key);
@@ -40,32 +39,27 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
           Padding(
             padding: EdgeInsets.all(8.0.w),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const AvatarImageWidget(
-                  height: 80,
-                  width: 80,
+                AvatarImageWidget(
                   imageUrl:
                       'https://lesley.edu/sites/default/files/styles/person_profile_1x_wid/public/Fisiha-Likke-Design-Faculty.png?h=f0d95172&itok=9iIy13RK',
                 ),
-                SizedBox(
-                  width: 20.w,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    PrimaryTextWidget(
+                      text: 'Jessica Smith',
+                    ),
+                    SecondaryTextWidget(
+                      text: 'Freelancer',
+                      fontColor: Colors.grey,
+                      fontSize: 15,
+                    ),
+                  ],
                 ),
                 SizedBox(
-                  width: context.width() / 2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      PrimaryTextWidget(
-                        text: 'Jessica Smith',
-                      ),
-                      SecondaryTextWidget(
-                        text: 'Freelancer',
-                        fontColor: Colors.grey,
-                        fontSize: 15,
-                      ),
-                    ],
-                  ),
+                  width: 20.w,
                 ),
                 MaterialButton(
                   onPressed: () {},
@@ -78,7 +72,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   ),
                   padding: EdgeInsets.all(5.w),
                   shape: const CircleBorder(),
-                )
+                ),
               ],
             ),
           ),

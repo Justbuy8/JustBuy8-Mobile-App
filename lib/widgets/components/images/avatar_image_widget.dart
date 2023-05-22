@@ -20,7 +20,7 @@ class AvatarImageWidget extends StatelessWidget {
       // make it circle
       height: height ?? 100.h,
       width: width ?? 100.w,
-      padding: const EdgeInsets.all(5.0),
+      padding: EdgeInsets.all(5.0.w),
       decoration: BoxDecoration(
         color: AppColors.appGreyColor.withOpacity(0.2),
         shape: BoxShape.circle,
