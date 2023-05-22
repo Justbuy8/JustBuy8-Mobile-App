@@ -28,18 +28,18 @@ class BestProducts extends StatelessWidget {
           } else if (state is BestProductsGetAllState) {
             return SizedBox(
               height: context.height() * 0.35,
-              child: ListView.builder(
+              child: GridView.builder(
                 shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  childAspectRatio: 1.5,
+                  mainAxisSpacing: 20,
+                ),
                 itemCount: state.products.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 5),
-                    //  create a list of featured products with
-                    //  their name and image
-                    child: BestProduct(
-                      imageUrl: state.products[index].thumbnail.toString(),
-                    ),
+                  return BestProduct(
+                    imageUrl: state.products[index].thumbnail.toString(),
                   );
                 },
               ),

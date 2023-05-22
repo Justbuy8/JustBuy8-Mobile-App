@@ -60,6 +60,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   /// Best products
                   TitleAndButtonWidget(text: AppText.bestProductsText),
+                  SizedBox(height: 20),
                   BestProducts(),
                   SizedBox(height: 20),
 
@@ -67,7 +68,9 @@ class HomeScreen extends StatelessWidget {
                   TitleAndButtonWidget(
                     text: AppText.chooseBrandsText,
                     onPressed: () => TabNavigator.withoutTabNavigator(
-                        context: context, screen: ChooseBrandsScreen()),
+                      context: context,
+                      screen: ChooseBrandsScreen(),
+                    ),
                   ),
                   SizedBox(height: 20),
                   BrandsWidget(),
