@@ -75,7 +75,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          childAspectRatio: 1.2,
+                          childAspectRatio: 1,
                           mainAxisSpacing: 10,
                           crossAxisSpacing: 10,
                         ),
@@ -90,7 +90,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                           crossAxisCount: 2,
                           mainAxisSpacing: 10,
                           crossAxisSpacing: 10,
-                          childAspectRatio: 0.7,
+                          childAspectRatio: 1,
                         ),
                         itemBuilder: (context, index) {
                           return CategoriyWidget(category: categories[index]);
