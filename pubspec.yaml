@@ -44,7 +44,7 @@ dependencies:
   ionicons: ^0.2.2
   cached_network_image: ^3.2.3
   lottie: ^2.3.2
-  persistent_bottom_nav_bar: ^5.0.2
+  persistent_bottom_nav_bar_v2: ^4.2.8
   flutter_bloc: ^8.1.2
   carousel_slider: ^4.2.1
   loading_animation_widget: ^1.2.0+4

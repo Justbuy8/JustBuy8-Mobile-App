@@ -8,7 +8,7 @@ import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/screens/maintabs/home/home_screen.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 import 'my_account/my_account_screen.dart';
 
