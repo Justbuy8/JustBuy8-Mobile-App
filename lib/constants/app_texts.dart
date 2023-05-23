@@ -57,6 +57,9 @@ class AppText {
   static const String cartText = "Cart";
   static const String wishlistText = "Wishlist";
   static const String accountText = "Account";
+
+  // other screens
+  static const String allCategoriesText = "Categories";
 }
 
 const List<IoniconsData> myAccountListIcon = [
