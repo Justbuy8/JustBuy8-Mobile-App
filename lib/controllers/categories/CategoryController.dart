@@ -50,9 +50,6 @@ class CategoryController {
         "paginate_by": paginateBy,
       },
       CategoriesUrl.mainCategories,
-      headers: {
-        "content-type": "application/json; charset=utf-8",
-      },
     );
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
