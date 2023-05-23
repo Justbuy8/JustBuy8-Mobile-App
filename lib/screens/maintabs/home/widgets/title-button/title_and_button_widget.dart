@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
+import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
 
@@ -21,14 +22,11 @@ class TitleAndButtonWidget extends StatelessWidget {
           fontFamily: AppFonts.robotoBold,
         ),
         GestureDetector(
-          onTap: onPressed ??
-              () {
-                print("Clicked");
-              },
+          onTap: onPressed ?? () {},
           child: Row(
             children: [
               SecondaryTextWidget(
-                text: "View All",
+                text: AppText.viewAll,
                 fontFamily: AppFonts.openSansMedium,
               ),
               const Icon(Icons.arrow_forward_ios_rounded, size: 20),
@@ -51,7 +49,9 @@ class ViewAllButton extends StatelessWidget {
       child: Row(
         children: [
           SecondaryTextWidget(
-              text: "View All", fontFamily: AppFonts.robotoMonoMedium),
+            text: AppText.viewAll,
+            fontFamily: AppFonts.robotoMonoMedium,
+          ),
           const Icon(Icons.arrow_forward_ios_rounded, size: 16),
         ],
       ),

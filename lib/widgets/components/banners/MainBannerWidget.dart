@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/banners/main_banner_block.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
+import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/banners/BannerModel.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
@@ -96,7 +97,7 @@ class _MainBannerWidgetState extends State<MainBannerWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       PrimaryButtonWidget(
-                        caption: "Shop Now",
+                        caption: AppText.shopNow,
                         onPressed: () {},
                         width: context.width() * 0.3,
                       ),
@@ -121,9 +122,6 @@ class _MainBannerWidgetState extends State<MainBannerWidget> {
           } else {
             return SizedBox(
               height: context.height() * 0.4,
-              child: const Center(
-                child: Text("No Data Found"),
-              ),
             );
           }
         },

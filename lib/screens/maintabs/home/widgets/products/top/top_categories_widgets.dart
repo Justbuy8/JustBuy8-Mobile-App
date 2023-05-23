@@ -1,11 +1,7 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/blocs/categories/top_catogeries/top_categories_bloc.dart';
-import 'package:justbuyeight/constants/app_colors.dart';
-import 'package:justbuyeight/constants/app_textstyle.dart';
+import 'package:justbuyeight/screens/maintabs/home/widgets/products/top/top_category_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -20,14 +16,14 @@ class TopCategoriesWidget extends StatelessWidget {
         builder: (context, state) {
           if (state is TopCategoriesLoadingState) {
             return SizedBox(
-              height: context.height() * 0.35,
+              height: context.height() * 0.4,
               child: const AppCircularSpinner(),
             );
           }
           if (state is TopCategoriesErrorState) {}
           if (state is TopCategoriesDataState) {
             return SizedBox(
-              height: context.height() * 0.35,
+              height: context.height() * 0.4,
               child: GridView.builder(
                 itemCount: state.topCategories.length,
                 // disable scrolling
@@ -49,65 +45,6 @@ class TopCategoriesWidget extends StatelessWidget {
           }
           return const SizedBox();
         },
-      ),
-    );
-  }
-}
-
-class TopCategoryWidget extends StatelessWidget {
-  const TopCategoryWidget({
-    Key? key,
-    required this.icon,
-    required this.text,
-    this.onTap,
-  }) : super(key: key);
-  final String icon;
-  final String text;
-  final VoidCallback? onTap;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap ?? () {},
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 5),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(50),
-            topRight: Radius.circular(50),
-          ),
-          color: AppColors.appGreyColor,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              backgroundColor: AppColors.appWhiteColor,
-              radius: 30,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  image: DecorationImage(
-                    image: CachedNetworkImageProvider(icon),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 5),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: AutoSizeText(
-                text,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                group: AutoSizeGroup(),
-                maxFontSize: 12.sp,
-                overflow: TextOverflow.ellipsis,
-                style: AppTextStyle.topCategoriesStyle,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

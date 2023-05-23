@@ -1,5 +1,6 @@
 // events
 
+import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
 
 abstract class NewArrivalEvent {}
@@ -23,7 +24,7 @@ class NewArrivalLoadingState extends NewArrivalState {}
 
 class NewArrivalEmptyState extends NewArrivalState {
   final String message;
-  NewArrivalEmptyState({this.message = "No arrivals found"});
+  NewArrivalEmptyState({this.message = AppText.noArrivalsFound});
 }
 
 class NewArrivalGetAllState extends NewArrivalState {

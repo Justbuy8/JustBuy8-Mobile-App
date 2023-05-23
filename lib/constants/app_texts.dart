@@ -50,6 +50,7 @@ class AppText {
   static const String chooseBrandsText = "Choose Brands";
   static const String newArrivalsText = "New Arrivals";
   static const String bestProductsText = "Best Products";
+  static const String viewAll = "View All";
 
   // Main Tabs Screen
   static const String homeText = "Home";
@@ -60,6 +61,16 @@ class AppText {
 
   // other screens
   static const String allCategoriesText = "Categories";
+  static const String itemsText = "Items";
+
+  // bloc text
+  static const String noBrandsFountText = "No Brands Found";
+  static const String noArrivalsFound = "No arrivals found";
+  static const String noProductsFound = "No Products found";
+  static const String noCategoriesFoundText = "No Categories Found";
+
+  // Widgets Texts
+  static const String shopNowText = "Shop Now";
 }
 
 const List<IoniconsData> myAccountListIcon = [

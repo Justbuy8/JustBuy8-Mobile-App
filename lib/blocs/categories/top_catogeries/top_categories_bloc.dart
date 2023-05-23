@@ -13,7 +13,7 @@ abstract class TopCategoriesState {}
 class TopCategoriesLoadingState extends TopCategoriesState {}
 
 class TopCategoriesDataState extends TopCategoriesState {
-  final List<CategoriesModel> topCategories;
+  final List<CategoryModel> topCategories;
   TopCategoriesDataState(this.topCategories);
 }
 

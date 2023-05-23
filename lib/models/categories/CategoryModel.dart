@@ -1,23 +1,23 @@
 // ignore_for_file: file_names
 
-class CategoriesModel {
+class CategoryModel {
   String? catId;
   String? catName;
   String? cateImage;
-  int? productCount;
+  String? productCount;
 
-  CategoriesModel({
+  CategoryModel({
     this.catId,
     this.catName,
     this.cateImage,
     this.productCount,
   });
 
-  CategoriesModel.fromJson(Map<String, dynamic> json) {
+  CategoryModel.fromJson(Map<String, dynamic> json) {
     catId = json['CatId'].toString();
     catName = json['CatName'];
     cateImage = json['CateImage'];
-    productCount = json['ProductCount'];
+    productCount = json['productCount'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -25,7 +25,7 @@ class CategoriesModel {
     data['CatId'] = catId;
     data['CatName'] = catName;
     data['CateImage'] = cateImage;
-    data['ProductCount'] = productCount;
+    data['productCount'] = productCount;
     return data;
   }
 }

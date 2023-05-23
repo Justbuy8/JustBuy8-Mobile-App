@@ -7,11 +7,11 @@ import 'package:justbuyeight/constants/app_url.dart';
 import 'package:justbuyeight/models/categories/CategoryModel.dart';
 
 class CategoryController {
-  static Future<List<CategoriesModel>> getTopCategories(
+  static Future<List<CategoryModel>> getTopCategories(
     page,
     paginateBy,
   ) async {
-    List<CategoriesModel> topCategories = [];
+    List<CategoryModel> topCategories = [];
 
     final response = await ApiManager.postRequest(
       {
@@ -19,15 +19,12 @@ class CategoryController {
         "paginate_by": paginateBy,
       },
       CategoriesUrl.topCategories,
-      headers: {
-        "content-type": "application/json; charset=utf-8",
-      },
     );
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
       if (result['Success']) {
         result['Data'].forEach((category) {
-          topCategories.add(CategoriesModel.fromJson(category));
+          topCategories.add(CategoryModel.fromJson(category));
         });
       } else {
         topCategories = [];
@@ -38,11 +35,11 @@ class CategoryController {
     return topCategories;
   }
 
-  static Future<List<CategoriesModel>> getMainCategories(
-    page,
-    paginateBy,
+  static Future<List<CategoryModel>> getMainCategories(
+    String page,
+    String paginateBy,
   ) async {
-    List<CategoriesModel> mainCategories = [];
+    List<CategoryModel> mainCategories = [];
 
     final response = await ApiManager.postRequest(
       {
@@ -52,11 +49,18 @@ class CategoryController {
       CategoriesUrl.mainCategories,
     );
     if (response.statusCode == 200) {
-      var result = jsonDecode(response.body);
-      if (result['Success']) {
-        result['Data'].forEach((category) {
-          mainCategories.add(CategoriesModel.fromJson(category));
+      var data = jsonDecode(response.body) as Map<String, dynamic>;
+      if (data['Success']) {
+        data['Data'].forEach((category) {
+          category["productCount"];
+          mainCategories.add(CategoryModel.fromJson(category));
         });
+
+        // var result = jsonDecode(response.body);
+        // if (result['Success']) {
+        //   result['Data'].forEach((category) {
+        //     mainCategories.add(CategoriesModel.fromJson(category));
+        //   });
       } else {
         mainCategories = [];
       }

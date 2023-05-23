@@ -1,5 +1,6 @@
 // events
 
+import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
 
 abstract class BestProductsEvent {}
@@ -23,7 +24,7 @@ class BestProductsLoadingState extends BestProductsState {}
 
 class BestProductsEmptyState extends BestProductsState {
   final String message;
-  BestProductsEmptyState({this.message = "No Arrivals found"});
+  BestProductsEmptyState({this.message = AppText.noProductsFound});
 }
 
 class BestProductsGetAllState extends BestProductsState {
