@@ -13,4 +13,9 @@ class LottieAssets {
   static const String accountCreated = 'assets/lotties/account_created.json';
   static const String notification = 'assets/lotties/notifcation.json';
   static const String error = 'assets/lotties/error_lottie.json';
+  static const String emptyproducts = "assets/lotties/empty_products.json";
+}
+
+class AppSvgs {
+ 
 }

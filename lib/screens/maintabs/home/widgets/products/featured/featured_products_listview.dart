@@ -22,7 +22,7 @@ class _FeaturedProductsListviewState extends State<FeaturedProductsListview> {
     return BlocProvider<FeaturedProductsBloc>(
       create: (context) => FeaturedProductsBloc()
         ..add(
-          FeaturedProductsLoadEvent("1", "5", true),
+          FeaturedProductsLoadEvent("1", "10", true),
         ),
       child: BlocBuilder<FeaturedProductsBloc, FeaturedProductsState>(
         builder: (context, state) {

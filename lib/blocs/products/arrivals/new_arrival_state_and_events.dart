@@ -23,7 +23,7 @@ class NewArrivalLoadingState extends NewArrivalState {}
 
 class NewArrivalEmptyState extends NewArrivalState {
   final String message;
-  NewArrivalEmptyState({this.message = "No Arrivals found"});
+  NewArrivalEmptyState({this.message = "No arrivals found"});
 }
 
 class NewArrivalGetAllState extends NewArrivalState {

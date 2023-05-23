@@ -2,12 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_bloc.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_state_and_events.dart';
-import 'package:justbuyeight/constants/app_svgs.dart';
+import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
 import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
+import 'package:lottie/lottie.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 
 class NewArrivalGrid extends StatefulWidget {
@@ -30,8 +31,10 @@ class _NewArrivalGridState extends State<NewArrivalGrid> {
       builder: (context, state) {
         if (state is NewArrivalEmptyState) {
           return NoArrivalsWidget(
-            svgImage: AppSvgs.warning,
+            svgImage: LottieAssets.emptyproducts,
             message: state.message,
+              width: context.height() /2 ,
+             height: context.height() /4,
           );
         }
         if (state is NewArrivalGetAllState) {
@@ -90,7 +93,7 @@ class NoArrivalsWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SvgPicture.asset(
+        Lottie.asset(
           svgImage,
           height: height ?? 100,
           width: width ?? 100,
