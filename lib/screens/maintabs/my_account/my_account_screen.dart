@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/blocs/myaccount/myaccount_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
+import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/constants/secure_storage.dart';
@@ -12,8 +13,11 @@ import 'package:justbuyeight/screens/authentication/signin_screen.dart';
 import 'package:justbuyeight/utils/AlertDialog.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/images/avatar_image_widget.dart';
+import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
+import 'package:lottie/lottie.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class MyAccountScreen extends StatefulWidget {
   const MyAccountScreen({Key? key}) : super(key: key);
@@ -41,6 +45,10 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
       body: BlocBuilder<MyaccountCubit, MyaccountState>(
           builder: (context, state) {
         if (state is MyaccountLoading) {
+          return SizedBox(
+            height: context.height() * 0.4,
+            child: const AppCircularSpinner(),
+          );
         } else if (state is MyaccountLoaded) {
           return Column(
             children: [
@@ -61,8 +69,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         PrimaryTextWidget(
-                          text: state.accountData.first.data.firstName,
-                        ),
+                            text:
+                                "${state.accountData.first.data.firstName} ${state.accountData.first.data.lastName}"),
                         SecondaryTextWidget(
                           text: state.accountData.first.data.email,
                           fontColor: Colors.grey,
@@ -159,14 +167,28 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       })),
             ],
           );
-        } else if (state is MyaccountFailed) {
+        } else if (state is MyaccountLoaded) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
+              Lottie.asset(LottieAssets.error, height: 200.h),
               Center(
                 child: PrimaryTextWidget(
-                  text: 'Loading Data Failed',
+                  text: 'Loading data failed',
+                ),
+              )
+            ],
+          );
+        } else if (state is MyaccountInternetError) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Lottie.asset(LottieAssets.error, height: 200.h),
+              Center(
+                child: PrimaryTextWidget(
+                  text: 'Internet connection failed',
                 ),
               )
             ],
