@@ -21,7 +21,7 @@ class ChooseBrandsScreen extends StatefulWidget {
 class _ChooseBrandsScreenState extends State<ChooseBrandsScreen> {
   // scroll controller
   final ScrollController _scrollController = ScrollController();
-  int paginateBy = 5;
+  int paginateBy = 8;
   int page = 1;
 
   List<BrandsModel> brands = [];

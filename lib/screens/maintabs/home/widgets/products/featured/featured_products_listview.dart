@@ -16,6 +16,7 @@ class FeaturedProductsListview extends StatefulWidget {
 }
 
 class _FeaturedProductsListviewState extends State<FeaturedProductsListview> {
+  double newPrice = 0.0;
   @override
   Widget build(BuildContext context) {
     return BlocProvider<FeaturedProductsBloc>(
