@@ -58,20 +58,24 @@ class _AllBestProductsScreenState extends State<AllBestProductsScreen> {
           if (state is BestProductsErrorState) {
             return const ErrorScreen();
           }
-          return SizedBox.expand(
-            child: GridView.builder(
-              controller: _scrollController,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.7,
-                mainAxisSpacing: 10,
+          return Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: SizedBox.expand(
+              child: GridView.builder(
+                controller: _scrollController,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.6,
+                  mainAxisSpacing: 20,
+                  crossAxisSpacing: 10,
+                ),
+                itemBuilder: (context, index) {
+                  return ProductWidget(
+                    product: products[index],
+                  );
+                },
+                itemCount: products.length,
               ),
-              itemBuilder: (context, index) {
-                return ProductWidget(
-                  product: products[index],
-                );
-              },
-              itemCount: products.length,
             ),
           );
         },
