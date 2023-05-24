@@ -9,9 +9,9 @@ import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/screens/authentication/signin_screen.dart';
 import 'package:justbuyeight/screens/maintabs/main_tabs_screen.dart';
 import 'package:justbuyeight/screens/onboarding/onboarding_screen.dart';
+import 'package:justbuyeight/widgets/components/error/error_screen.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import 'screens/error/error_screen.dart';
 
 void main() {
   runApp(

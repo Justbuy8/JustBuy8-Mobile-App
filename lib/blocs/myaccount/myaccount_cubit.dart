@@ -5,7 +5,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:justbuyeight/constants/api_manager.dart';
-import 'package:justbuyeight/constants/secure_storage.dart';
+import 'package:justbuyeight/utils/Secure_Storage.dart';
 import 'package:justbuyeight/controllers/myaccount/myaccount.dart';
 import 'package:justbuyeight/models/myaccount/myaccount_model.dart';
 import 'package:meta/meta.dart';

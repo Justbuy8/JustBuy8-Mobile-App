@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/products/featured/featured_products_bloc.dart';
 import 'package:justbuyeight/blocs/products/featured/featured_products_events_and_states.dart';
+import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
@@ -22,7 +23,7 @@ class _FeaturedProductsListviewState extends State<FeaturedProductsListview> {
     return BlocProvider<FeaturedProductsBloc>(
       create: (context) => FeaturedProductsBloc()
         ..add(
-          FeaturedProductsLoadEvent("1", "10", true),
+          FeaturedProductsLoadEvent("1", AppConfig.HomeFeaturedProductPagenateCount, true),
         ),
       child: BlocBuilder<FeaturedProductsBloc, FeaturedProductsState>(
         builder: (context, state) {

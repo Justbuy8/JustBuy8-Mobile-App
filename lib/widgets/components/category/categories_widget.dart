@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/blocs/categories/main_categories/main_category_bloc.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_bloc.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_state_and_events.dart';
+import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/widgets/components/buttons/border_text_button.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 
@@ -24,13 +25,15 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
     return BlocProvider(
       create: (context) => MainCategoryBloc()
         ..add(
-          MainCategoryLoadingEvent(page: "1", paginateBy: "10"),
+          MainCategoryLoadingEvent(
+              page: AppConfig.PageOne,
+              paginateBy: AppConfig.HomeBestNewArrivalMainCatPagenateCount),
         ),
       child: BlocConsumer<MainCategoryBloc, MainCategoryState>(
         listener: (context, state) {
           BlocProvider.of<NewArrivalBloc>(context).add(NewArrivalGetAllEvent(
-            "1",
-            "10",
+            AppConfig.PageOne,
+            AppConfig.HomeBestNewArrivalPagenateCount,
             'all',
           ));
           if (state is MainCategoryDataState) {

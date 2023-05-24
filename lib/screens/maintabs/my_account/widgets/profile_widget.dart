@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/widgets/components/images/avatar_image_widget.dart';

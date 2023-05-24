@@ -67,7 +67,7 @@ class AppText {
   static const String itemsText = "Items";
 
   // bloc text
-  static const String noBrandsFountText = "No Brands Found";
+  static const String noBrandsFountText = "No brands to load";
   static const String noArrivalsFound = "No arrivals found";
   static const String noProductsFound = "No Products found";
   static const String noCategoriesFoundText = "No Categories Found";
