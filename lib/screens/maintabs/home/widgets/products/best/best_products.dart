@@ -40,26 +40,12 @@ class _BestProductsState extends State<BestProducts> {
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
-                  childAspectRatio: 1.5,
+                  childAspectRatio: 1.7,
                   mainAxisSpacing: 20,
                 ),
                 itemCount: state.products.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  if (state.products[index].discountType?.toLowerCase() ==
-                      "flat") {
-                    newPrice = double.parse(
-                            state.products[index].unitPrice.toString()) -
-                        double.parse(state.products[index].discount.toString());
-                  } else {
-                    newPrice = double.parse(
-                            state.products[index].unitPrice.toString()) -
-                        (double.parse(
-                                state.products[index].unitPrice.toString()) *
-                            double.parse(
-                                state.products[index].discount.toString()) /
-                            100);
-                  }
                   return ProductWidget(product: state.products[index]);
                 },
               ),

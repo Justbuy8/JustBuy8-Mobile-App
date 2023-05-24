@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             /// main banner
             MainBannerWidget(),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
             Padding(
               padding: EdgeInsets.all(15.0),
               child: Column(

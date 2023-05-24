@@ -16,14 +16,14 @@ class TopCategoriesWidget extends StatelessWidget {
         builder: (context, state) {
           if (state is TopCategoriesLoadingState) {
             return SizedBox(
-              height: context.height() * 0.4,
+              height: context.height() * 0.35,
               child: const AppCircularSpinner(),
             );
           }
           if (state is TopCategoriesErrorState) {}
           if (state is TopCategoriesDataState) {
             return SizedBox(
-              height: context.height() * 0.4,
+              height: context.height() * 0.35,
               child: GridView.builder(
                 itemCount: state.topCategories.length,
                 // disable scrolling

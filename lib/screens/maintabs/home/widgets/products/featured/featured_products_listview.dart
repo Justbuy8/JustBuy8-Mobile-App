@@ -16,7 +16,6 @@ class FeaturedProductsListview extends StatefulWidget {
 }
 
 class _FeaturedProductsListviewState extends State<FeaturedProductsListview> {
-  double newPrice = 0.0;
   @override
   Widget build(BuildContext context) {
     return BlocProvider<FeaturedProductsBloc>(
@@ -37,7 +36,7 @@ class _FeaturedProductsListviewState extends State<FeaturedProductsListview> {
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
-                  childAspectRatio: 1.5,
+                  childAspectRatio: 1.7,
                   mainAxisSpacing: 10,
                 ),
                 shrinkWrap: true,

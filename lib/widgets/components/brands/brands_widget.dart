@@ -65,7 +65,7 @@ class _BrandsWidgetState extends State<BrandsWidget> {
             ),
           );
         } else {
-          return const Center(child: Text("Error"));
+          return const SizedBox();
         }
       },
     );

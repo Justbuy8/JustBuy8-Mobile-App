@@ -21,8 +21,6 @@ class ProductWidget extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            width: context.width() * 0.4,
-            // padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               shape: BoxShape.rectangle,
