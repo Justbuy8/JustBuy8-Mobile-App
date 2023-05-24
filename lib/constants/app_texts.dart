@@ -12,6 +12,8 @@ class AppText {
   static const String dontHaveAnAccount = "Don't have an account?";
   static const String alreadyHaveAnAccount = "Already have an account?";
   static const String signUp = "Sign Up";
+  static const String updateChanges = "Updated Changes";
+
   static const String allow = "Allow";
   static const String shopNow = "Shop Now";
   static const String tryAgain = "Try again";
