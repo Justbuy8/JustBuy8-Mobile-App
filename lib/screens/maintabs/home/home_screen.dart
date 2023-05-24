@@ -10,6 +10,7 @@ import 'package:justbuyeight/screens/maintabs/home/widgets/products/featured/fea
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/new_arrival/new_arrival_grid.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/top/top_categories_widgets.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/title-button/title_and_button_widget.dart';
+import 'package:justbuyeight/screens/products/all_best_products_screen.dart';
 import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/banners/FooterBannerWidget.dart';
@@ -68,7 +69,13 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   /// Best products
-                  TitleAndButtonWidget(text: AppText.bestProductsText),
+                  TitleAndButtonWidget(
+                    text: AppText.bestProductsText,
+                    onPressed: () => TabNavigator.withoutTabNavigator(
+                      context: context,
+                      screen: AllBestProductsScreen(),
+                    ),
+                  ),
                   SizedBox(height: 20),
                   BestProducts(),
                   SizedBox(height: 20),
