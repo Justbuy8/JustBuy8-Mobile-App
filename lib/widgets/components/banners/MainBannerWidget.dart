@@ -10,6 +10,7 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/banners/BannerModel.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
+import 'package:justbuyeight/widgets/components/error/retry_error_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -113,11 +114,8 @@ class _MainBannerWidgetState extends State<MainBannerWidget> {
               ],
             );
           } else if (state is MainBannerErrorState) {
-            return SizedBox(
-              height: context.height() * 0.4,
-              child: Center(
-                child: Text(state.message),
-              ),
+            return RetryErrorWidget(
+              errorMessage: state.message,
             );
           } else {
             return SizedBox(

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/controllers/banners/BannerController.dart';
 import 'package:justbuyeight/models/banners/BannerModel.dart';
 
@@ -42,10 +45,17 @@ class MainBannerBloc extends Bloc<MainBannerEvent, MainBannerState> {
         model = await BannerController.getBanners(isMainBanner: true);
         if (model.isEmpty) {
           emit(MainBannerNoDataState(model));
+        } else {
+          emit(MainBannerDataState(model));
         }
-        emit(MainBannerDataState(model));
-      } catch (error) {
-        emit(MainBannerErrorState(error.toString()));
+      } catch (e) {
+        if (e is SocketException) {
+          emit(MainBannerErrorState(AppText.internetError));
+        } else if (e is HttpException) {
+          emit(MainBannerErrorState(AppText.serverError));
+        } else {
+          emit(MainBannerErrorState(e.toString()));
+        }
       }
     });
   }

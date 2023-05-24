@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/controllers/categories/CategoryController.dart';
 import 'package:justbuyeight/models/categories/CategoryModel.dart';
 
@@ -21,7 +24,10 @@ class MainCategoryDataState extends MainCategoryState {
   MainCategoryDataState(this.mainCategory);
 }
 
-class MainCategoryErrorState extends MainCategoryState {}
+class MainCategoryErrorState extends MainCategoryState {
+  final String error;
+  MainCategoryErrorState({this.error = AppText.noCategoriesFoundText});
+}
 
 // BLOC
 class MainCategoryBloc extends Bloc<MainCategoryEvent, MainCategoryState> {
@@ -41,8 +47,14 @@ class MainCategoryBloc extends Bloc<MainCategoryEvent, MainCategoryState> {
               catName: "All",
             ));
         emit(MainCategoryDataState(categories));
-      } catch (error) {
-        emit(MainCategoryErrorState());
+      } catch (e) {
+        if (e is SocketException) {
+          emit(MainCategoryErrorState(error: AppText.internetError));
+        } else if (e is HttpException) {
+          emit(MainCategoryErrorState(error: AppText.serverError));
+        } else {
+          emit(MainCategoryErrorState(error: e.toString()));
+        }
       }
     });
   }

@@ -43,6 +43,7 @@ class AppText {
   static const String registered = "Email verified successfully";
   static const String registrationFailed = "Email verification failed";
   static const String emailExist = "Email already exist";
+  static const String serverError = "Server error";
 
   //Home Page
   static const String featuredProductsText = "Featured Products";

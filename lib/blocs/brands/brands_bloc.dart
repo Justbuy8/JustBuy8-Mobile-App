@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/brands/brands_events_and_states.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
@@ -21,8 +23,14 @@ class BrandsBloc extends Bloc<BrandsEvent, BrandsState> {
         } else {
           emit(BrandsEmptyState(AppText.noBrandsFountText));
         }
-      } catch (error) {
-        emit(BrandsErrorState(error.toString()));
+      } catch (e) {
+        if (e is SocketException) {
+          emit(BrandsErrorState(AppText.internetError));
+        } else if (e is HttpException) {
+          emit(BrandsErrorState(AppText.serverError));
+        } else {
+          emit(BrandsErrorState(e.toString()));
+        }
       }
     });
   }

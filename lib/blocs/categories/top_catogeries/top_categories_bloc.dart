@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/controllers/categories/CategoryController.dart';
 import 'package:justbuyeight/models/categories/CategoryModel.dart';
 
@@ -17,7 +20,10 @@ class TopCategoriesDataState extends TopCategoriesState {
   TopCategoriesDataState(this.topCategories);
 }
 
-class TopCategoriesErrorState extends TopCategoriesState {}
+class TopCategoriesErrorState extends TopCategoriesState {
+  final String errorMessage;
+  TopCategoriesErrorState(this.errorMessage);
+}
 
 // BLOC
 class TopCategoriesBloc extends Bloc<TopCategoriesEvent, TopCategoriesState> {
@@ -27,8 +33,14 @@ class TopCategoriesBloc extends Bloc<TopCategoriesEvent, TopCategoriesState> {
         emit(TopCategoriesDataState(
           await CategoryController.getTopCategories("1", "8"),
         ));
-      } catch (error) {
-        emit(TopCategoriesErrorState());
+      } catch (e) {
+        if (e is SocketException) {
+          emit(TopCategoriesErrorState(AppText.internetError));
+        } else if (e is HttpException) {
+          emit(TopCategoriesErrorState(AppText.serverError));
+        } else {
+          emit(TopCategoriesErrorState(e.toString()));
+        }
       }
     });
   }

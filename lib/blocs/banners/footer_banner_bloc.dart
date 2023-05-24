@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/controllers/banners/BannerController.dart';
 import 'package:justbuyeight/models/banners/BannerModel.dart';
 
@@ -44,8 +47,14 @@ class FooterBannerBloc extends Bloc<FooterBannerEvent, FooterBannerState> {
           emit(FooterBannerNoDataState(model));
         }
         emit(FooterBannerDataState(model));
-      } catch (error) {
-        emit(FooterBannerErrorState(error.toString()));
+      } catch (e) {
+        if (e is SocketException) {
+          emit(FooterBannerErrorState(AppText.internetError));
+        } else if (e is HttpException) {
+          emit(FooterBannerErrorState(AppText.serverError));
+        } else {
+          emit(FooterBannerErrorState(e.toString()));
+        }
       }
     });
   }

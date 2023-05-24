@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/controllers/categories/CategoryController.dart';
@@ -39,8 +41,14 @@ class AllCategoryBloc extends Bloc<AllCategoryEvent, AllCategoryState> {
           event.paginateBy,
         );
         emit(AllCategoryDataState(categories));
-      } catch (error) {
-        emit(AllCategoryErrorState());
+      } catch (e) {
+        if (e is SocketException) {
+          emit(AllCategoryErrorState(error: AppText.internetError));
+        } else if (e is HttpException) {
+          emit(AllCategoryErrorState(error: AppText.serverError));
+        } else {
+          emit(AllCategoryErrorState(error: e.toString()));
+        }
       }
     });
   }
