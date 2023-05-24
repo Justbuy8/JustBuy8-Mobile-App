@@ -10,7 +10,9 @@ import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/constants/secure_storage.dart';
 import 'package:justbuyeight/screens/authentication/signin_screen.dart';
+import 'package:justbuyeight/screens/maintabs/my_account/edit_profile_screen.dart';
 import 'package:justbuyeight/utils/AlertDialog.dart';
+import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/images/avatar_image_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
@@ -82,7 +84,13 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       width: 10.w,
                     ),
                     MaterialButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        TabNavigator.withoutTabNavigator(
+                            context: context,
+                            screen: EditProfileScreen(
+                              myAccountModel: state.accountData,
+                            ));
+                      },
                       color: AppColors.iconbackgroundColor,
                       textColor: Colors.white,
                       child: Icon(
