@@ -4,9 +4,9 @@ import 'package:justbuyeight/blocs/products/best/best_products_bloc.dart';
 import 'package:justbuyeight/blocs/products/best/best_products_states_and_events.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
-import 'package:justbuyeight/screens/error/error_screen.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
+import 'package:justbuyeight/widgets/components/error/retry_error_widget.dart';
 
 class AllBestProductsScreen extends StatefulWidget {
   const AllBestProductsScreen({Key? key}) : super(key: key);
@@ -56,7 +56,7 @@ class _AllBestProductsScreenState extends State<AllBestProductsScreen> {
         },
         builder: (context, state) {
           if (state is BestProductsErrorState) {
-            return const ErrorScreen();
+            return RetryErrorWidget(errorMessage: state.message);
           }
           return Padding(
             padding: const EdgeInsets.all(15.0),

@@ -16,6 +16,4 @@ class LottieAssets {
   static const String emptyproducts = "assets/lotties/empty_products.json";
 }
 
-class AppSvgs {
- 
-}
+class AppSvgs {}

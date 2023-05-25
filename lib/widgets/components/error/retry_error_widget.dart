@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:justbuyeight/constants/app_images.dart';
+import 'package:lottie/lottie.dart';
 
 class RetryErrorWidget extends StatefulWidget {
   final String errorMessage;
@@ -22,10 +23,7 @@ class _RetryErrorWidgetState extends State<RetryErrorWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            'assets/svgs/warning.svg', // Replace with your SVG image path
-            height: 150,
-          ),
+          Lottie.asset(LottieAssets.error),
           const SizedBox(height: 16),
           Text(
             widget.errorMessage,

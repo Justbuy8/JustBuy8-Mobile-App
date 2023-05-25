@@ -10,7 +10,6 @@ import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart
 import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-
 class NewArrivalGrid extends StatefulWidget {
   const NewArrivalGrid({Key? key}) : super(key: key);
 
@@ -19,7 +18,6 @@ class NewArrivalGrid extends StatefulWidget {
 }
 
 class _NewArrivalGridState extends State<NewArrivalGrid> {
-  double newPrice = 0.0;
   @override
   void initState() {
     super.initState();
@@ -33,8 +31,8 @@ class _NewArrivalGridState extends State<NewArrivalGrid> {
           return NoArrivalsWidget(
             svgImage: LottieAssets.emptyproducts,
             message: state.message,
-              width: context.height() /2 ,
-             height: context.height() /4,
+            width: context.height() / 2,
+            height: context.height() / 4,
           );
         }
         if (state is NewArrivalGetAllState) {
@@ -52,7 +50,7 @@ class _NewArrivalGridState extends State<NewArrivalGrid> {
                 itemCount: state.products.length,
                 itemBuilder: (context, index) {
                   return ProductWidget(
-                   product: state.products[index],
+                    product: state.products[index],
                   );
                 },
               ),
