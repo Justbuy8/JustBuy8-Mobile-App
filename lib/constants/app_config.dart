@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
-class AppConfig{
+class AppConfig {
 
 static String PageOne = "1";
 static String HomeFeaturedProductPagenateCount = "10";
