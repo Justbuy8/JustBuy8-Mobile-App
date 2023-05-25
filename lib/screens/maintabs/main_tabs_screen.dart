@@ -107,7 +107,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
       stateManagement: true,
       padding: const NavBarPadding.symmetric(horizontal: 10, vertical: 5),
       margin: const EdgeInsets.only(
-        bottom: 20.0,
+        bottom: 10.0,
         left: 15,
         right: 15,
       ),

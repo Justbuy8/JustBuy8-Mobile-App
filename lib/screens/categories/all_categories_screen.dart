@@ -11,6 +11,7 @@ import 'package:justbuyeight/models/categories/CategoryModel.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class AllCategoriesScreen extends StatefulWidget {
   const AllCategoriesScreen({Key? key}) : super(key: key);
@@ -148,7 +149,7 @@ class CategoriyWidget extends StatelessWidget {
             ),
             maxLines: 2,
           ),
-        ),
+        ).paddingSymmetric(horizontal: 2),
         SizedBox(height: 3.h),
         SizedBox(
           // height: context.height() * 0.05,
@@ -158,7 +159,7 @@ class CategoriyWidget extends StatelessWidget {
               fontSize: 12,
             ),
           ),
-        ),
+        ).paddingSymmetric(horizontal: 2),
       ],
     );
   }

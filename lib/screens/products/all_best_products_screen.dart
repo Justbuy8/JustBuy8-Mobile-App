@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/blocs/products/best/best_products_bloc.dart';
 import 'package:justbuyeight/blocs/products/best/best_products_states_and_events.dart';
+import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
@@ -18,7 +20,7 @@ class AllBestProductsScreen extends StatefulWidget {
 class _AllBestProductsScreenState extends State<AllBestProductsScreen> {
   // scroll controller
   final ScrollController _scrollController = ScrollController();
-  int paginateBy = 6;
+  int paginateBy = 10;
   int page = 1;
 
   List<ProductModel> products = [];
@@ -32,8 +34,9 @@ class _AllBestProductsScreenState extends State<AllBestProductsScreen> {
         BestProductsGetAllEvent(page.toString(), paginateBy.toString(), false),
       );
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.maxScrollExtent -
+              _scrollController.position.pixels <=
+          AppConfig.LoadOnScrollHeight) {
         page++;
         bloc.add(
           BestProductsGetAllEvent(
@@ -63,6 +66,7 @@ class _AllBestProductsScreenState extends State<AllBestProductsScreen> {
             child: SizedBox.expand(
               child: GridView.builder(
                 controller: _scrollController,
+                padding: EdgeInsets.symmetric(vertical: 8.h),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 0.6,

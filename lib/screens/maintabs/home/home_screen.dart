@@ -34,17 +34,17 @@ class HomeScreen extends StatelessWidget {
           children: [
             /// main banner
             MainBannerWidget(),
-            SizedBox(height: 10),
+            SizedBox(height: 24),
             Padding(
-              padding: EdgeInsets.all(15.0),
+              padding: EdgeInsets.symmetric(horizontal: 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// featured products
                   TitleAndButtonWidget(text: AppText.featuredProductsText),
-                  SizedBox(height: 20),
+                  SizedBox(height: 16),
                   FeaturedProductsListview(),
-                  SizedBox(height: 20),
+                  SizedBox(height: 24),
 
                   /// top categories
                   TitleAndButtonWidget(
@@ -56,7 +56,7 @@ class HomeScreen extends StatelessWidget {
                       );
                     },
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 16),
                   TopCategoriesWidget(),
                 ],
               ),
@@ -65,10 +65,11 @@ class HomeScreen extends StatelessWidget {
             /// footer banner
             FooterBannerWidget(),
             Padding(
-              padding: EdgeInsets.all(12.0),
+              padding: EdgeInsets.symmetric(horizontal: 12),
               child: Column(
                 children: [
                   /// Best products
+                  SizedBox(height: 24),
                   TitleAndButtonWidget(
                     text: AppText.bestProductsText,
                     onPressed: () => TabNavigator.withoutTabNavigator(
@@ -76,9 +77,9 @@ class HomeScreen extends StatelessWidget {
                       screen: AllBestProductsScreen(),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 16),
                   BestProducts(),
-                  SizedBox(height: 20),
+                  SizedBox(height: 24),
 
                   /// choose brands
                   TitleAndButtonWidget(
@@ -88,19 +89,17 @@ class HomeScreen extends StatelessWidget {
                       screen: ChooseBrandsScreen(),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 16),
                   BrandsWidget(),
-                  SizedBox(height: 20),
-
+                  SizedBox(height: 24),
                   /// new arrivals
                   TitleAndButtonWidget(
                     text: AppText.newArrivalsText,
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 16),
                   CategoriesWidget(),
-                  SizedBox(height: 20),
+                  SizedBox(height: 16),
                   NewArrivalGrid(),
-                  SizedBox(height: 100),
                 ],
               ),
             ),

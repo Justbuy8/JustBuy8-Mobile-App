@@ -67,8 +67,8 @@ class ProductWidget extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         Container(
-          width: context.width() * 0.4,
-          padding: const EdgeInsets.symmetric(horizontal: 5),
+          width: context.width() ,
+          padding: const EdgeInsets.symmetric(horizontal: 2),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

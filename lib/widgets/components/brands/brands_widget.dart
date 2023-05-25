@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/brands/brands_bloc.dart';
 import 'package:justbuyeight/blocs/brands/brands_events_and_states.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
+import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -26,8 +27,8 @@ class _BrandsWidgetState extends State<BrandsWidget> {
     super.initState();
     brandBloc = BrandsBloc()
       ..add(BrandsLoadEvent(
-        1.toString(),
-        10.toString(),
+        AppConfig.PageOne,
+        AppConfig.HomeBestChooseBrandsPagenateCount,
         true,
       ));
   }

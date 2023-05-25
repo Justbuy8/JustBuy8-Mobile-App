@@ -40,6 +40,7 @@ class _NewArrivalGridState extends State<NewArrivalGrid> {
             children: [
               GridView.builder(
                 shrinkWrap: true,
+                padding: EdgeInsets.only(bottom: 80),
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   childAspectRatio: 0.7,
@@ -104,6 +105,6 @@ class NoArrivalsWidget extends StatelessWidget {
           ),
         ),
       ],
-    );
+    ).paddingOnly(bottom: 100);
   }
 }

@@ -4,7 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:justbuyeight/constants/api_manager.dart';
-import 'package:justbuyeight/constants/secure_storage.dart';
+import 'package:justbuyeight/utils/Secure_Storage.dart';
 import 'package:justbuyeight/controllers/authentication/auth_controller.dart';
 import 'package:meta/meta.dart';
 
