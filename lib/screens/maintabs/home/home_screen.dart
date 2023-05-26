@@ -11,6 +11,7 @@ import 'package:justbuyeight/screens/maintabs/home/widgets/products/new_arrival/
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/top/top_categories_widgets.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/title-button/title_and_button_widget.dart';
 import 'package:justbuyeight/screens/products/all_best_products_screen.dart';
+import 'package:justbuyeight/screens/products/new_arrivals_screen.dart';
 import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/banners/FooterBannerWidget.dart';
@@ -92,9 +93,14 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: 16),
                   BrandsWidget(),
                   SizedBox(height: 24),
+
                   /// new arrivals
                   TitleAndButtonWidget(
                     text: AppText.newArrivalsText,
+                    onPressed: () => TabNavigator.withoutTabNavigator(
+                      context: context,
+                      screen: NewArrivalsScreen(),
+                    ),
                   ),
                   SizedBox(height: 16),
                   CategoriesWidget(),

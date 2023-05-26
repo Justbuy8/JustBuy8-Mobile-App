@@ -20,8 +20,8 @@ class AllBestProductsScreen extends StatefulWidget {
 class _AllBestProductsScreenState extends State<AllBestProductsScreen> {
   // scroll controller
   final ScrollController _scrollController = ScrollController();
-  int paginateBy = 10;
-  int page = 1;
+  int paginateBy = AppConfig.HomeBestProductPagenateCount;
+  int page = AppConfig.PageOne;
 
   List<ProductModel> products = [];
   var bloc = BestProductsBloc();

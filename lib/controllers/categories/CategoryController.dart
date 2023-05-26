@@ -38,6 +38,7 @@ class CategoryController {
   static Future<List<CategoryModel>> getMainCategories(
     String page,
     String paginateBy,
+    bool random,
   ) async {
     List<CategoryModel> mainCategories = [];
 
@@ -45,6 +46,7 @@ class CategoryController {
       {
         "page": page,
         "paginate_by": paginateBy,
+        "random": random,
       },
       CategoriesUrl.mainCategories,
     );

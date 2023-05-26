@@ -27,8 +27,8 @@ class _BrandsWidgetState extends State<BrandsWidget> {
     super.initState();
     brandBloc = BrandsBloc()
       ..add(BrandsLoadEvent(
-        AppConfig.PageOne,
-        AppConfig.HomeBestChooseBrandsPagenateCount,
+        AppConfig.PageOne.toString(),
+        AppConfig.HomeBestChooseBrandsPagenateCount.toString(),
         true,
       ));
   }

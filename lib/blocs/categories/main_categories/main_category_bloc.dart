@@ -11,7 +11,12 @@ abstract class MainCategoryEvent {}
 class MainCategoryLoadingEvent extends MainCategoryEvent {
   final String page;
   final String paginateBy;
-  MainCategoryLoadingEvent({required this.page, required this.paginateBy});
+  final bool random;
+  MainCategoryLoadingEvent({
+    required this.page,
+    required this.paginateBy,
+    required this.random,
+  });
 }
 
 // STATES
@@ -39,6 +44,7 @@ class MainCategoryBloc extends Bloc<MainCategoryEvent, MainCategoryState> {
         categories = await CategoryController.getMainCategories(
           event.page,
           event.paginateBy,
+          event.random,
         );
         categories.insert(
             0,

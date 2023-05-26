@@ -23,7 +23,11 @@ class _FeaturedProductsListviewState extends State<FeaturedProductsListview> {
     return BlocProvider<FeaturedProductsBloc>(
       create: (context) => FeaturedProductsBloc()
         ..add(
-          FeaturedProductsLoadEvent("1", AppConfig.HomeFeaturedProductPagenateCount, true),
+          FeaturedProductsLoadEvent(
+            AppConfig.PageOne.toString(),
+            AppConfig.HomeFeaturedProductPagenateCount.toString(),
+            true,
+          ),
         ),
       child: BlocBuilder<FeaturedProductsBloc, FeaturedProductsState>(
         builder: (context, state) {

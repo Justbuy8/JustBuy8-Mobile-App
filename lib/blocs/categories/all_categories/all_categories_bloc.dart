@@ -11,7 +11,12 @@ abstract class AllCategoryEvent {}
 class AllCategoriesGetEvent extends AllCategoryEvent {
   final String page;
   final String paginateBy;
-  AllCategoriesGetEvent({required this.page, required this.paginateBy});
+  final bool random;
+  AllCategoriesGetEvent({
+    required this.page,
+    required this.paginateBy,
+    required this.random,
+  });
 }
 
 // STATES
@@ -39,6 +44,7 @@ class AllCategoryBloc extends Bloc<AllCategoryEvent, AllCategoryState> {
         categories = await CategoryController.getMainCategories(
           event.page,
           event.paginateBy,
+          event.random,
         );
         emit(AllCategoryDataState(categories));
       } catch (e) {
