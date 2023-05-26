@@ -15,7 +15,7 @@ class ProductModel {
   final String? unitPrice;
   final String? discount;
   final String? discountType;
-  final int? totalRating;
+  final String? totalRating;
 
   ProductModel({
     this.id,

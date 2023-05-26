@@ -26,14 +26,17 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
       create: (context) => MainCategoryBloc()
         ..add(
           MainCategoryLoadingEvent(
-              page: AppConfig.PageOne,
-              paginateBy: AppConfig.HomeBestNewArrivalMainCatPagenateCount),
+            page: AppConfig.PageOne.toString(),
+            paginateBy:
+                AppConfig.HomeBestNewArrivalMainCatPagenateCount.toString(),
+            random: false,
+          ),
         ),
       child: BlocConsumer<MainCategoryBloc, MainCategoryState>(
         listener: (context, state) {
           BlocProvider.of<NewArrivalBloc>(context).add(NewArrivalGetAllEvent(
-            AppConfig.PageOne,
-            AppConfig.HomeBestNewArrivalPagenateCount,
+            AppConfig.PageOne.toString(),
+            AppConfig.HomeBestNewArrivalPagenateCount.toString(),
             'all',
           ));
           if (state is MainCategoryDataState) {

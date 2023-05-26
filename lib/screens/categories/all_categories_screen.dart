@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/blocs/categories/all_categories/all_categories_bloc.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
+import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/categories/CategoryModel.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
@@ -23,8 +24,8 @@ class AllCategoriesScreen extends StatefulWidget {
 class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
   // scroll controller
   final ScrollController _scrollController = ScrollController();
-  int paginateBy = 20;
-  int page = 1;
+  int paginateBy = AppConfig.AllCategoriesPagenateCount;
+  int page = AppConfig.PageOne;
 
   List<CategoryModel> categories = [];
   var categoriesBloc = AllCategoryBloc();
@@ -35,15 +36,18 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
       ..add(AllCategoriesGetEvent(
         page: page.toString(),
         paginateBy: paginateBy.toString(),
+        random: false,
       ));
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.maxScrollExtent -
+              _scrollController.position.pixels <=
+          AppConfig.LoadOnScrollHeight) {
         page++;
         categoriesBloc
           ..add(AllCategoriesGetEvent(
             page: page.toString(),
             paginateBy: paginateBy.toString(),
+            random: false,
           ));
       }
     });

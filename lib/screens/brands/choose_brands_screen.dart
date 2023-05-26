@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/brands/brands_bloc.dart';
 import 'package:justbuyeight/blocs/brands/brands_events_and_states.dart';
+import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/brands/brands_model.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
@@ -21,8 +22,8 @@ class ChooseBrandsScreen extends StatefulWidget {
 class _ChooseBrandsScreenState extends State<ChooseBrandsScreen> {
   // scroll controller
   final ScrollController _scrollController = ScrollController();
-  int paginateBy = 8;
-  int page = 1;
+  int paginateBy = AppConfig.HomeBestChooseBrandsPagenateCount;
+  int page = AppConfig.PageOne;
 
   List<BrandsModel> brands = [];
   var brandBloc = BrandsBloc();
@@ -32,8 +33,9 @@ class _ChooseBrandsScreenState extends State<ChooseBrandsScreen> {
     brandBloc = BrandsBloc()
       ..add(BrandsLoadEvent(page.toString(), paginateBy.toString(), true));
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.maxScrollExtent -
+              _scrollController.position.pixels <=
+          AppConfig.LoadOnScrollHeight) {
         page++;
         brandBloc
           ..add(BrandsLoadEvent(page.toString(), paginateBy.toString(), false));
