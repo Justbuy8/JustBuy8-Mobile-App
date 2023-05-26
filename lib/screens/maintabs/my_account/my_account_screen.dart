@@ -61,8 +61,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           AvatarImageWidget(
-                            height: 90.h,
-                            width: 90.w,
+                            height: 80.h,
+                            width: 80.w,
                             imageUrl: state.accountData.first.data.profileImage,
                           ),
                           Column(
@@ -136,6 +136,9 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               }
               return SizedBox();
             }),
+            SizedBox(
+              height: 10.h,
+            ),
             ListView.builder(
                 itemCount: myAccountListTitle.length,
                 shrinkWrap: true,
