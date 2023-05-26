@@ -27,8 +27,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
         ..add(
           MainCategoryLoadingEvent(
             page: AppConfig.PageOne.toString(),
-            paginateBy:
-                AppConfig.HomeBestNewArrivalMainCatPagenateCount.toString(),
+            paginateBy: AppConfig.HomeBestNewArrivalPagenateCount.toString(),
             random: false,
           ),
         ),
@@ -61,8 +60,8 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                     onPressed: () {
                       BlocProvider.of<NewArrivalBloc>(bloccontext).add(
                         NewArrivalGetAllEvent(
-                          "1",
-                          "10",
+                          AppConfig.PageOne.toString(),
+                          AppConfig.HomeBestNewArrivalPagenateCount.toString(),
                           state.mainCategory[index].catId.toString(),
                         ),
                       );
