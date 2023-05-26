@@ -53,4 +53,6 @@ class BrandsUrl {
 class MyAccountUrl {
   static const String myAccountUrl =
       "${AppUrl.baseUrl}/user-account/get-user-profile";
+  static const String updateProfileImage =
+      "${AppUrl.baseUrl}/user-account/update-profile-image";
 }

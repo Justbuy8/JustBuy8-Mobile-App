@@ -85,8 +85,11 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             onPressed: () {
                               TabNavigator.withoutTabNavigator(
                                   context: context,
-                                  screen: EditProfileScreen(
-                                    myAccountModel: state.accountData,
+                                  screen: MultiBlocProvider(
+                                    providers: BlocProviders.providers,
+                                    child: EditProfileScreen(
+                                      myAccountModel: state.accountData,
+                                    ),
                                   ));
                             },
                             color: AppColors.iconbackgroundColor,
@@ -194,7 +197,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       ],
                     ),
                   );
-            }),
+                }),
           ],
         ),
       ),
