@@ -10,10 +10,12 @@ class AvatarImageWidget extends StatelessWidget {
     required this.imageUrl,
     this.height,
     this.width,
+    this.boxFit,
   }) : super(key: key);
   final String imageUrl;
   final double? height;
   final double? width;
+  final BoxFit? boxFit;
 
   @override
   Widget build(BuildContext context) {
@@ -30,24 +32,19 @@ class AvatarImageWidget extends StatelessWidget {
           width: 2.0,
         ),
       ),
-      child: CachedNetworkImage(
-        imageUrl: imageUrl,
-        imageBuilder: (context, imageProvider) => Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: imageProvider,
-              fit: BoxFit.contain,
-            ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(50.r),
+        child: CachedNetworkImage(
+          fit: boxFit ?? BoxFit.fill,
+          imageUrl: imageUrl,
+          placeholder: (context, url) => const Center(
+            child: CircularProgressIndicator(),
           ),
-        ),
-        placeholder: (context, url) => const Center(
-          child: CircularProgressIndicator(),
-        ),
-        errorWidget: (context, url, error) => Icon(
-          Ionicons.person_outline,
-          size: 40.sp,
-          color: AppColors.primaryColor,
+          errorWidget: (context, url, error) => Icon(
+            Ionicons.person_outline,
+            size: 40.sp,
+            color: AppColors.primaryColor,
+          ),
         ),
       ),
     );

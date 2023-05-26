@@ -50,7 +50,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _emailController.text = widget.myAccountModel.first.data.email;
     _phoneNumberContorller.text = widget.myAccountModel.first.data.phone;
     _lastNameController.text = widget.myAccountModel.first.data.lastName;
-    print(widget.myAccountModel.first.data.profileImage);
   }
 
   @override
@@ -178,7 +177,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 prefixIcon: Ionicons.mail_outline,
               ),
               SizedBox(height: 30.h),
-              MobileNumberTextField(
+              TextFieldWidget(
+                prefixIcon: Ionicons.call_outline,
                 controller: _phoneNumberContorller,
                 validator: (val) {
                   if (val!.isEmpty) {
