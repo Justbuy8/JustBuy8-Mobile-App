@@ -46,4 +46,20 @@ class MyAccountController {
       return result;
     }
   }
+
+  static updateUserData(userBody) async {
+    Response response = await ApiManager.postRequest(
+      userBody,
+      MyAccountUrl.updateUserProfileUrl,
+      headers: {
+        "content-type": "application/json; charset=utf-8",
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var result = jsonDecode(response.body);
+
+      return result;
+    }
+  }
 }

@@ -9,6 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/blocs/myaccount/myaccount_cubit.dart';
+import 'package:justbuyeight/blocs/update_user_profile/update_user_profile_cubit.dart';
 import 'package:justbuyeight/blocs/upload_image/upload_image_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
@@ -60,41 +61,79 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UploadImageCubit, UploadImageState>(
-      listener: (context, state) async {
-        if (state is UploadImageLoading) {
-          showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (ctx) {
-                dialogueContext = ctx;
-                return Container(
-                  color: Colors.transparent,
-                  child: Center(
-                    child: SpinKitThreeBounce(
-                      color: AppColors.primaryColor,
-                      size: 30.0,
-                    ),
-                  ),
-                );
-              });
-        } else if (state is UploadImageUploaded) {
-          SnackBars.Success(context, 'Image uploaded sucessfully');
-          await context.read<MyaccountCubit>().myAccount();
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<UploadImageCubit, UploadImageState>(
+          listener: (context, state) async {
+            if (state is UploadImageLoading) {
+              showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (ctx) {
+                    dialogueContext = ctx;
+                    return Container(
+                      color: Colors.transparent,
+                      child: Center(
+                        child: SpinKitThreeBounce(
+                          color: AppColors.primaryColor,
+                          size: 30.0,
+                        ),
+                      ),
+                    );
+                  });
+            } else if (state is UploadImageUploaded) {
+              SnackBars.Success(context, 'Image uploaded sucessfully');
+              await context.read<MyaccountCubit>().myAccount();
 
-          DismissLoadingDialog(dialogueContext);
-          Navigator.of(context).pop();
-        } else if (state is UploadImageInternetError) {
-          SnackBars.Danger(context, AppText.internetError);
-          DismissLoadingDialog(dialogueContext);
-        } else if (state is UploadImageFailed) {
-          SnackBars.Danger(context, 'Image uploaded failed');
-          DismissLoadingDialog(dialogueContext);
-        } else if (state is UploadImageTimeout) {
-          SnackBars.Danger(context, AppText.timeOut);
-          DismissLoadingDialog(dialogueContext);
-        }
-      },
+              DismissLoadingDialog(dialogueContext);
+            } else if (state is UploadImageInternetError) {
+              SnackBars.Danger(context, AppText.internetError);
+              DismissLoadingDialog(dialogueContext);
+            } else if (state is UploadImageFailed) {
+              SnackBars.Danger(context, 'Image uploading failed');
+              DismissLoadingDialog(dialogueContext);
+            } else if (state is UploadImageTimeout) {
+              SnackBars.Danger(context, AppText.timeOut);
+              DismissLoadingDialog(dialogueContext);
+            }
+          },
+        ),
+        BlocListener<UpdateUserProfileCubit, UpdateUserProfileState>(
+          listener: (context, state) async {
+            if (state is UpdateUserProfileLoading) {
+              showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (ctx) {
+                    dialogueContext = ctx;
+                    return Container(
+                      color: Colors.transparent,
+                      child: Center(
+                        child: SpinKitThreeBounce(
+                          color: AppColors.primaryColor,
+                          size: 30.0,
+                        ),
+                      ),
+                    );
+                  });
+            } else if (state is UpdateUserProfileSuccess) {
+              SnackBars.Success(context, 'User profile updated sucessfully');
+              await context.read<MyaccountCubit>().myAccount();
+
+              DismissLoadingDialog(dialogueContext);
+            } else if (state is UpdateUserProfileInternetError) {
+              SnackBars.Danger(context, AppText.internetError);
+              DismissLoadingDialog(dialogueContext);
+            } else if (state is UpdateUserProfileFailed) {
+              SnackBars.Danger(context, 'User profile updating failed');
+              DismissLoadingDialog(dialogueContext);
+            } else if (state is UpdateUserProfileTimeout) {
+              SnackBars.Danger(context, AppText.timeOut);
+              DismissLoadingDialog(dialogueContext);
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         appBar: const BasicAppbarWidget(
           title: 'Profile Edit',
@@ -128,6 +167,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           setState(() {
                             pickedImage = image.path;
                           });
+
+                          await context
+                              .read<UploadImageCubit>()
+                              .uploadImage(file!.path);
                         },
                         child: ClipOval(
                           child: Container(
@@ -193,9 +236,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   height: 50.h,
                   caption: AppText.updateChanges,
                   onPressed: () async {
-                    await context
-                        .read<UploadImageCubit>()
-                        .uploadImage(file!.path);
+                    if (formGlobalKey.currentState!.validate()) {
+                      await context
+                          .read<UpdateUserProfileCubit>()
+                          .updateUserProfile(
+                              _firstNameController.text.trim(),
+                              _lastNameController.text.trim(),
+                              _phoneNumberContorller.text.trim());
+                    }
                   }),
             ],
           ),

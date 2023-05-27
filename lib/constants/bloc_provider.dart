@@ -9,6 +9,7 @@ import 'package:justbuyeight/blocs/authentication/verify_email_cubit/verify_emai
 import 'package:justbuyeight/blocs/myaccount/myaccount_cubit.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_bloc.dart';
 import 'package:justbuyeight/blocs/session_handling/splash_cubit.dart';
+import 'package:justbuyeight/blocs/update_user_profile/update_user_profile_cubit.dart';
 import 'package:justbuyeight/blocs/upload_image/upload_image_cubit.dart';
 
 class BlocProviders {
@@ -25,5 +26,7 @@ class BlocProviders {
     BlocProvider<NewArrivalBloc>(create: (context) => NewArrivalBloc()),
     BlocProvider<MyaccountCubit>(create: (context) => MyaccountCubit()),
     BlocProvider<UploadImageCubit>(create: (context) => UploadImageCubit()),
+    BlocProvider<UpdateUserProfileCubit>(
+        create: (context) => UpdateUserProfileCubit()),
   ];
 }
