@@ -11,6 +11,7 @@ import 'package:justbuyeight/screens/maintabs/home/widgets/products/new_arrival/
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/top/top_categories_widgets.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/title-button/title_and_button_widget.dart';
 import 'package:justbuyeight/screens/products/all_best_products_screen.dart';
+import 'package:justbuyeight/screens/products/featured_products_screen.dart';
 import 'package:justbuyeight/screens/products/new_arrivals_screen.dart';
 import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
@@ -42,7 +43,15 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// featured products
-                  TitleAndButtonWidget(text: AppText.featuredProductsText),
+                  TitleAndButtonWidget(
+                    text: AppText.featuredProductsText,
+                    onPressed: () {
+                      TabNavigator.withoutTabNavigator(
+                        context: context,
+                        screen: FeaturedProductsScreen(),
+                      );
+                    },
+                  ),
                   SizedBox(height: 16),
                   FeaturedProductsListview(),
                   SizedBox(height: 24),

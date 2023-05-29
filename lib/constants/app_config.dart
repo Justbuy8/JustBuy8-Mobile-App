@@ -5,6 +5,7 @@ class AppConfig {
   static int HomeFeaturedProductPagenateCount = 10;
   static int HomeTopCategoriesCount = 8;
   static int HomeBestProductPagenateCount = 10;
+  static int HomeFeaturedProductsPageCount = 10;
   static int HomeBestNewArrivalPagenateCount = 16;
   static int HomeBestNewArrivalMainCatPagenateCount = 10;
   static int HomeBestChooseBrandsPagenateCount = 10;

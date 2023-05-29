@@ -7,10 +7,10 @@ import 'package:justbuyeight/blocs/brands/brands_events_and_states.dart';
 import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/brands/brands_model.dart';
-import 'package:justbuyeight/utils/SnackBars.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/brands/brands_widget.dart';
 import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class ChooseBrandsScreen extends StatefulWidget {
   const ChooseBrandsScreen({Key? key}) : super(key: key);
@@ -50,7 +50,7 @@ class _ChooseBrandsScreenState extends State<ChooseBrandsScreen> {
       appBar: const BasicAppbarWidget(title: AppText.chooseBrandsText),
       body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: BlocListener(
+          child: BlocConsumer(
             bloc: brandBloc,
             listener: (context, state) {
               if (state is BrandsGetState) {
@@ -58,44 +58,55 @@ class _ChooseBrandsScreenState extends State<ChooseBrandsScreen> {
                   brands.addAll(state.brands);
                 });
               }
-              if (state is BrandsEmptyState) {
-                SnackBars.Danger(context, state.message);
-              }
             },
-            child: Column(
-              children: [
-                Expanded(
-                    child: brands.isEmpty
-                        ? GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 1.5,
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                            ),
-                            itemBuilder: (context, index) =>
-                                const RectangularShimmer(),
-                            itemCount: 20,
-                          )
-                        : GridView.builder(
-                            controller: _scrollController,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                            ),
-                            itemBuilder: (context, index) {
-                              return BrandWidget(
-                                text: brands[index].brandName.toString(),
-                                imageUrl: brands[index].brandImage.toString(),
-                              );
-                            },
-                            itemCount: brands.length,
-                          )),
-              ],
-            ),
+            builder: (context, state) {
+              if (state is BrandsErrorState) {
+                return Center(
+                  child: NoDataWidget(
+                    onRetry: () {
+                      brandBloc
+                        ..add(BrandsLoadEvent(
+                            page.toString(), paginateBy.toString(), false));
+                    },
+                  ),
+                );
+              }
+              return Column(
+                children: [
+                  Expanded(
+                      child: brands.isEmpty
+                          ? GridView.builder(
+                              controller: _scrollController,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                              ),
+                              itemBuilder: (context, index) {
+                                return const RectangularShimmer();
+                              },
+                              itemCount: 10,
+                            )
+                          : GridView.builder(
+                              controller: _scrollController,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                              ),
+                              itemBuilder: (context, index) {
+                                return BrandWidget(
+                                  text: brands[index].brandName.toString(),
+                                  imageUrl: brands[index].brandImage.toString(),
+                                );
+                              },
+                              itemCount: brands.length,
+                            )),
+                ],
+              );
+            },
           )),
     );
   }

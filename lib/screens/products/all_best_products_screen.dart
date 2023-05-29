@@ -9,6 +9,7 @@ import 'package:justbuyeight/models/products/ProductModel.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/error/retry_error_widget.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class AllBestProductsScreen extends StatefulWidget {
   const AllBestProductsScreen({Key? key}) : super(key: key);
@@ -61,27 +62,30 @@ class _AllBestProductsScreenState extends State<AllBestProductsScreen> {
           if (state is BestProductsErrorState) {
             return RetryErrorWidget(errorMessage: state.message);
           }
-          return Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: SizedBox.expand(
-              child: GridView.builder(
-                controller: _scrollController,
-                padding: EdgeInsets.symmetric(vertical: 8.h),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.6,
-                  mainAxisSpacing: 20,
-                  crossAxisSpacing: 10,
-                ),
-                itemBuilder: (context, index) {
-                  return ProductWidget(
-                    product: products[index],
-                  );
-                },
-                itemCount: products.length,
-              ),
-            ),
-          );
+          return products.isEmpty
+              ? NoDataWidget()
+              : Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: SizedBox.expand(
+                    child: GridView.builder(
+                      controller: _scrollController,
+                      padding: EdgeInsets.symmetric(vertical: 8.h),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.6,
+                        mainAxisSpacing: 20,
+                        crossAxisSpacing: 10,
+                      ),
+                      itemBuilder: (context, index) {
+                        return ProductWidget(
+                          product: products[index],
+                        );
+                      },
+                      itemCount: products.length,
+                    ),
+                  ),
+                );
         },
       ),
     );
