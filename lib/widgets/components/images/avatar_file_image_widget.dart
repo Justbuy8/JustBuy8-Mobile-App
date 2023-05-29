@@ -1,21 +1,18 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 
-class AvatarImageWidget extends StatelessWidget {
-  const AvatarImageWidget({
+class AvatarImageFileWidget extends StatelessWidget {
+  const AvatarImageFileWidget({
     Key? key,
     required this.imageUrl,
     this.height,
     this.width,
-    this.boxFit,
   }) : super(key: key);
-  final String imageUrl;
+  final File imageUrl;
   final double? height;
   final double? width;
-  final BoxFit? boxFit;
 
   @override
   Widget build(BuildContext context) {
@@ -34,17 +31,11 @@ class AvatarImageWidget extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(50.r),
-        child: CachedNetworkImage(
-          fit: boxFit ?? BoxFit.fill,
-          imageUrl: imageUrl,
-          placeholder: (context, url) => const Center(
-            child: CircularProgressIndicator(),
-          ),
-          errorWidget: (context, url, error) => Icon(
-            Ionicons.person_outline,
-            size: 40.sp,
-            color: AppColors.primaryColor,
-          ),
+        child: Image.file(
+          imageUrl,
+          height: height ?? 100.h,
+          width: width ?? 100.w,
+          fit: BoxFit.fill,
         ),
       ),
     );
