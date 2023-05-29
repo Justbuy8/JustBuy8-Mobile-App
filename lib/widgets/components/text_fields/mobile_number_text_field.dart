@@ -1,5 +1,6 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 
 class MobileNumberTextField extends StatefulWidget {
@@ -23,6 +24,14 @@ class _MobileNumberTextFieldState extends State<MobileNumberTextField> {
       controller: widget.controller,
       style: const TextStyle(fontSize: 18),
       keyboardType: TextInputType.number,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(
+          RegExp(
+            r'^\+?\d*',
+          ),
+        ),
+        LengthLimitingTextInputFormatter(11),
+      ],
       validator: widget.validator ?? (value) => null,
       decoration: InputDecoration(
         errorBorder: OutlineInputBorder(

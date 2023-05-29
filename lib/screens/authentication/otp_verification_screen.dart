@@ -100,7 +100,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         ResetPasswordScreen(email: widget.email)));
               }
             } else if (state is VerifyEmailFailed) {
-              SnackBars.Danger(context, "Invalid Email");
+              SnackBars.Danger(context, "The entered OTP is invalid");
               Navigator.of(dialogueContext!).pop();
             } else if (state is VerifyEmailInternetError) {
               SnackBars.Danger(context, "Internet connection failed");

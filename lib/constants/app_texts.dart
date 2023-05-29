@@ -41,7 +41,7 @@ class AppText {
   static const String internetError = "Internet connection failed";
   static const String timeOut = "Request timeout";
   static const String loggedIn = "User loggedin successfully";
-  static const String loggedInFailed = "Invalid email or password";
+  static const String loggedInFailed = "There is no account with this email";
   static const String registered = "Email verified successfully";
   static const String registrationFailed = "Email verification failed";
   static const String emailExist = "Email already exist";

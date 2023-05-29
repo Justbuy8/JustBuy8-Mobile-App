@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_string_interpolations
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +12,7 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
+import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/models/authentication/user_model.dart';
 import 'package:justbuyeight/screens/authentication/otp_verification_screen.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
@@ -113,9 +115,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Navigator.of(dialogueContext!).pop();
 
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (builder) => OtpVerificationScreen(
-                        email: _emailController.text.trim(),
-                        tapFrom: 'signupScreen',
+                  builder: (builder) => MultiBlocProvider(
+                        providers: BlocProviders.providers,
+                        child: OtpVerificationScreen(
+                          email: _emailController.text.trim(),
+                          tapFrom: 'signupScreen',
+                        ),
                       )));
             } else if (state is RegistrationAlreadyExist) {
               SnackBars.Success(context, "User account already exist");
@@ -232,6 +237,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   .hasMatch(val) ==
                               false) {
                             return "Please enter valid email address";
+                          } else if (EmailValidator.validate(val) == false) {
+                            return "Please enter valid email address";
                           }
                           return null;
                         },
@@ -244,6 +251,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         validator: (val) {
                           if (val!.isEmpty) {
                             return "Please enter phone number";
+                          } else if (val.length > 11) {
+                            return "Password length should be equal to 11";
                           }
                           return null;
                         },
