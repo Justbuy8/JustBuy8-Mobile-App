@@ -9,7 +9,7 @@ import 'package:justbuyeight/utils/Secure_Storage.dart';
 import 'package:justbuyeight/controllers/myaccount/myaccount.dart';
 import 'package:justbuyeight/models/myaccount/myaccount_model.dart';
 import 'package:meta/meta.dart';
-
+import 'dart:developer';
 part 'myaccount_state.dart';
 
 class MyaccountCubit extends Cubit<MyaccountState> {
@@ -26,8 +26,10 @@ class MyaccountCubit extends Cubit<MyaccountState> {
 
       response = await MyAccountController.getAccountData(userId, token);
 
+      print('hereee updating my acount');
       if (response['Success'] == true) {
         var decodedList = MyAccountModel.fromJson(response);
+        log(decodedList.data.firstName.toString());
         emit(MyaccountLoaded(accountData: [decodedList]));
       } else if (response['Success'] == false) {
         emit(MyaccountFailed());

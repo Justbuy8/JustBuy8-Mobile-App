@@ -12,7 +12,6 @@ import 'package:justbuyeight/screens/onboarding/onboarding_screen.dart';
 import 'package:justbuyeight/widgets/components/error/error_screen.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-
 void main() {
   runApp(
     MaterialApp(
@@ -32,38 +31,37 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: BlocProviders.providers,
-      child: ScreenUtilInit(
+    return ScreenUtilInit(
         designSize: Size(context.width(), context.height()),
         builder: (context, child) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'JustBuy8',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSwatch().copyWith(
-                secondary: AppColors.secondaryColor,
-                primary: AppColors.primaryColor,
+          return MultiBlocProvider(
+            providers: BlocProviders.providers,
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'JustBuy8',
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSwatch().copyWith(
+                  secondary: AppColors.secondaryColor,
+                  primary: AppColors.primaryColor,
+                ),
+              ),
+              home: BlocBuilder<SessionHandlingCubit, SessionHandlingState>(
+                builder: (context, state) {
+                  if (state is SessionHandlingHomeScreen) {
+                    return MainTabsScreen();
+                  } else if (state is SessionHandlingLoginScreen) {
+                    return SignInScreen();
+                  } else if (state is SessionHandlingOnBoarding) {
+                    return OnboardingScreen();
+                  } else if (state is SessionHandlingFailed) {
+                    return ErrorScreen();
+                  } else {
+                    return SizedBox();
+                  }
+                },
               ),
             ),
-            home: BlocBuilder<SessionHandlingCubit, SessionHandlingState>(
-              builder: (context, state) {
-                if (state is SessionHandlingHomeScreen) {
-                  return MainTabsScreen();
-                } else if (state is SessionHandlingLoginScreen) {
-                  return SignInScreen();
-                } else if (state is SessionHandlingOnBoarding) {
-                  return OnboardingScreen();
-                } else if (state is SessionHandlingFailed) {
-                  return ErrorScreen();
-                } else {
-                  return SizedBox();
-                }
-              },
-            ),
           );
-        },
-      ),
-    );
+        });
   }
 }

@@ -25,11 +25,14 @@ import 'package:justbuyeight/widgets/components/images/avatar_image_widget.dart'
 import 'package:justbuyeight/widgets/components/text_fields/mobile_number_text_field.dart';
 import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 class EditProfileScreen extends StatefulWidget {
   List<MyAccountModel> myAccountModel;
+  final BuildContext previousContext;
 
-  EditProfileScreen({required this.myAccountModel});
+  EditProfileScreen(
+      {required this.myAccountModel, required this.previousContext});
 
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
@@ -42,6 +45,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneNumberContorller = TextEditingController();
   final ImagePicker picker = ImagePicker();
+  late MyaccountCubit myaccountCubit;
   String? pickedImage;
   File? file;
   BuildContext? dialogueContext;
@@ -56,196 +60,207 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     assigneValues();
+    myaccountCubit = context.read<MyaccountCubit>();
     super.initState();
+  }
+
+  popFtn() {
+    widget.previousContext.read<MyaccountCubit>().myAccount();
+    Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<UploadImageCubit, UploadImageState>(
-          listener: (context, state) async {
-            if (state is UploadImageLoading) {
-              showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (ctx) {
-                    dialogueContext = ctx;
-                    return Container(
-                      color: Colors.transparent,
-                      child: Center(
-                        child: SpinKitThreeBounce(
-                          color: AppColors.primaryColor,
-                          size: 30.0,
-                        ),
-                      ),
-                    );
-                  });
-            } else if (state is UploadImageUploaded) {
-              SnackBars.Success(context, 'Image uploaded sucessfully');
-              await context.read<MyaccountCubit>().myAccount();
-
-              DismissLoadingDialog(dialogueContext);
-            } else if (state is UploadImageInternetError) {
-              SnackBars.Danger(context, AppText.internetError);
-              DismissLoadingDialog(dialogueContext);
-            } else if (state is UploadImageFailed) {
-              SnackBars.Danger(context, 'Image uploading failed');
-              DismissLoadingDialog(dialogueContext);
-            } else if (state is UploadImageTimeout) {
-              SnackBars.Danger(context, AppText.timeOut);
-              DismissLoadingDialog(dialogueContext);
-            }
-          },
-        ),
-        BlocListener<UpdateUserProfileCubit, UpdateUserProfileState>(
-          listener: (context, state) async {
-            if (state is UpdateUserProfileLoading) {
-              showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (ctx) {
-                    dialogueContext = ctx;
-                    return Container(
-                      color: Colors.transparent,
-                      child: Center(
-                        child: SpinKitThreeBounce(
-                          color: AppColors.primaryColor,
-                          size: 30.0,
-                        ),
-                      ),
-                    );
-                  });
-            } else if (state is UpdateUserProfileSuccess) {
-              SnackBars.Success(context, 'User profile updated sucessfully');
-              await context.read<MyaccountCubit>().myAccount();
-
-              DismissLoadingDialog(dialogueContext);
-            } else if (state is UpdateUserProfileInternetError) {
-              SnackBars.Danger(context, AppText.internetError);
-              DismissLoadingDialog(dialogueContext);
-            } else if (state is UpdateUserProfileFailed) {
-              SnackBars.Danger(context, 'User profile updating failed');
-              DismissLoadingDialog(dialogueContext);
-            } else if (state is UpdateUserProfileTimeout) {
-              SnackBars.Danger(context, AppText.timeOut);
-              DismissLoadingDialog(dialogueContext);
-            }
-          },
-        ),
-      ],
+    return WillPopScope(
+      onWillPop: () => popFtn(),
       child: Scaffold(
         appBar: const BasicAppbarWidget(
           title: 'Profile Edit',
         ),
-        body: Form(
-          key: formGlobalKey,
-          child: ListView(
-            padding: EdgeInsets.only(
-                left: 15.w, right: 15.w, bottom: 20.h, top: 20.h),
-            physics: BouncingScrollPhysics(),
-            children: [
-              Center(
-                child: Stack(
-                  children: [
-                    pickedImage == null
-                        ? AvatarImageWidget(
-                            imageUrl:
-                                widget.myAccountModel.first.data.profileImage)
-                        : AvatarImageFileWidget(
-                            imageUrl: File(pickedImage.toString()),
+        body: MultiBlocListener(
+          listeners: [
+            BlocListener<UploadImageCubit, UploadImageState>(
+              listener: (context, state) async {
+                if (state is UploadImageLoading) {
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (ctx) {
+                        dialogueContext = ctx;
+                        return Container(
+                          color: Colors.transparent,
+                          child: Center(
+                            child: SpinKitThreeBounce(
+                              color: AppColors.primaryColor,
+                              size: 30.0,
+                            ),
                           ),
-                    Positioned(
-                      bottom: 0,
-                      right: 1,
-                      child: GestureDetector(
-                        onTap: () async {
-                          final XFile? image = await picker.pickImage(
-                              source: ImageSource.gallery);
-                          file = File(image!.path);
+                        );
+                      });
+                } else if (state is UploadImageUploaded) {
+                  SnackBars.Success(context, 'Image uploaded sucessfully');
 
-                          setState(() {
-                            pickedImage = image.path;
-                          });
+                  context.read<MyaccountCubit>().myAccount();
 
-                          await context
-                              .read<UploadImageCubit>()
-                              .uploadImage(file!.path);
-                        },
-                        child: ClipOval(
-                          child: Container(
-                            padding: EdgeInsets.all(8.w),
-                            color: AppColors.primaryColor,
-                            child: Icon(
-                              Icons.add_a_photo,
-                              color: Colors.white,
-                              size: 20,
+                  DismissLoadingDialog(dialogueContext);
+                } else if (state is UploadImageInternetError) {
+                  SnackBars.Danger(context, AppText.internetError);
+                  DismissLoadingDialog(dialogueContext);
+                } else if (state is UploadImageFailed) {
+                  SnackBars.Danger(context, 'Image uploading failed');
+                  DismissLoadingDialog(dialogueContext);
+                } else if (state is UploadImageTimeout) {
+                  SnackBars.Danger(context, AppText.timeOut);
+                  DismissLoadingDialog(dialogueContext);
+                }
+              },
+            ),
+            BlocListener<UpdateUserProfileCubit, UpdateUserProfileState>(
+              listener: (context, state) async {
+                if (state is UpdateUserProfileLoading) {
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (ctx) {
+                        dialogueContext = ctx;
+                        return Container(
+                          color: Colors.transparent,
+                          child: Center(
+                            child: SpinKitThreeBounce(
+                              color: AppColors.primaryColor,
+                              size: 30.0,
+                            ),
+                          ),
+                        );
+                      });
+                } else if (state is UpdateUserProfileSuccess) {
+                  SnackBars.Success(
+                      context, 'User profile updated sucessfully');
+                  context.read<MyaccountCubit>().myAccount();
+
+                  DismissLoadingDialog(dialogueContext);
+                } else if (state is UpdateUserProfileInternetError) {
+                  SnackBars.Danger(context, AppText.internetError);
+                  DismissLoadingDialog(dialogueContext);
+                } else if (state is UpdateUserProfileFailed) {
+                  SnackBars.Danger(context, 'User profile updating failed');
+                  DismissLoadingDialog(dialogueContext);
+                } else if (state is UpdateUserProfileTimeout) {
+                  SnackBars.Danger(context, AppText.timeOut);
+                  DismissLoadingDialog(dialogueContext);
+                }
+              },
+            ),
+          ],
+          child: Form(
+            key: formGlobalKey,
+            child: ListView(
+              padding: EdgeInsets.only(
+                  left: 15.w, right: 15.w, bottom: 20.h, top: 20.h),
+              physics: BouncingScrollPhysics(),
+              children: [
+                Center(
+                  child: Stack(
+                    children: [
+                      pickedImage == null
+                          ? AvatarImageWidget(
+                              imageUrl:
+                                  widget.myAccountModel.first.data.profileImage)
+                          : AvatarImageFileWidget(
+                              imageUrl: File(pickedImage.toString()),
+                            ),
+                      Positioned(
+                        bottom: 0,
+                        right: 1,
+                        child: GestureDetector(
+                          onTap: () async {
+                            final XFile? image = await picker.pickImage(
+                                source: ImageSource.gallery);
+                            file = File(image!.path);
+
+                            setState(() {
+                              pickedImage = image.path;
+                            });
+
+                            await context
+                                .read<UploadImageCubit>()
+                                .uploadImage(file!.path);
+                          },
+                          child: ClipOval(
+                            child: Container(
+                              padding: EdgeInsets.all(8.w),
+                              color: AppColors.primaryColor,
+                              child: Icon(
+                                Icons.add_a_photo,
+                                color: Colors.white,
+                                size: 20,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 30.h),
-              TextFieldWidget(
-                controller: _firstNameController,
-                prefixIcon: Ionicons.person_outline,
-                label: AppText.firstName,
-                validator: (val) {
-                  if (val!.isEmpty) {
-                    return "Please enter first name";
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 30.h),
-              TextFieldWidget(
-                controller: _lastNameController,
-                prefixIcon: Ionicons.person_outline,
-                label: AppText.lastName,
-                validator: (val) {
-                  if (val!.isEmpty) {
-                    return "Please enter last name";
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 30.h),
-              TextFieldWidget(
-                readOnly: true,
-                label: 'Email',
-                controller: _emailController,
-                prefixIcon: Ionicons.mail_outline,
-              ),
-              SizedBox(height: 30.h),
-              TextFieldWidget(
-                prefixIcon: Ionicons.call_outline,
-                controller: _phoneNumberContorller,
-                validator: (val) {
-                  if (val!.isEmpty) {
-                    return "Please enter phone number";
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 30.h),
-              PrimaryButtonWidget(
-                  width: context.width(),
-                  height: 50.h,
-                  caption: AppText.updateChanges,
-                  onPressed: () async {
-                    if (formGlobalKey.currentState!.validate()) {
-                      await context
-                          .read<UpdateUserProfileCubit>()
-                          .updateUserProfile(
-                              _firstNameController.text.trim(),
-                              _lastNameController.text.trim(),
-                              _phoneNumberContorller.text.trim());
+                SizedBox(height: 30.h),
+                TextFieldWidget(
+                  controller: _firstNameController,
+                  prefixIcon: Ionicons.person_outline,
+                  label: AppText.firstName,
+                  validator: (val) {
+                    if (val!.isEmpty) {
+                      return "Please enter first name";
                     }
-                  }),
-            ],
+                    return null;
+                  },
+                ),
+                SizedBox(height: 30.h),
+                TextFieldWidget(
+                  controller: _lastNameController,
+                  prefixIcon: Ionicons.person_outline,
+                  label: AppText.lastName,
+                  validator: (val) {
+                    if (val!.isEmpty) {
+                      return "Please enter last name";
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 30.h),
+                TextFieldWidget(
+                  readOnly: true,
+                  label: 'Email',
+                  controller: _emailController,
+                  prefixIcon: Ionicons.mail_outline,
+                ),
+                SizedBox(height: 30.h),
+                TextFieldWidget(
+                  prefixIcon: Ionicons.call_outline,
+                  controller: _phoneNumberContorller,
+                  validator: (val) {
+                    if (val!.isEmpty) {
+                      return "Please enter phone number";
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 30.h),
+                PrimaryButtonWidget(
+                    width: context.width(),
+                    height: 50.h,
+                    caption: AppText.updateChanges,
+                    onPressed: () async {
+                      if (formGlobalKey.currentState!.validate()) {
+                        await context
+                            .read<UpdateUserProfileCubit>()
+                            .updateUserProfile(
+                                _firstNameController.text.trim(),
+                                _lastNameController.text.trim(),
+                                _phoneNumberContorller.text.trim());
+                      }
+                    }),
+              ],
+            ),
           ),
         ),
       ),

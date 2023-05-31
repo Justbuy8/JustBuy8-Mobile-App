@@ -48,10 +48,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
         Container(
           color: Colors.yellow,
         ),
-        MultiBlocProvider(
-          providers: BlocProviders.providers,
-          child: MyAccountScreen(),
-        ),
+        MyAccountScreen(),
       ],
       items: [
         PersistentBottomNavBarItem(
@@ -104,7 +101,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
       backgroundColor: AppColors.primaryColor,
       handleAndroidBackButtonPress: true,
       resizeToAvoidBottomInset: true,
-      stateManagement: true,
+      stateManagement: false,
       padding: const NavBarPadding.symmetric(horizontal: 10, vertical: 5),
       margin: const EdgeInsets.only(
         bottom: 10.0,

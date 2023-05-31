@@ -13,7 +13,7 @@ import 'package:justbuyeight/blocs/update_user_profile/update_user_profile_cubit
 import 'package:justbuyeight/blocs/upload_image/upload_image_cubit.dart';
 
 class BlocProviders {
-  static final List<BlocProvider> providers = [
+  static List<BlocProvider> providers = [
     BlocProvider<ValidateEmailCubit>(create: (context) => ValidateEmailCubit()),
     BlocProvider<SendOtpCubit>(create: (context) => SendOtpCubit()),
     BlocProvider<OtpTimerCubit>(create: (context) => OtpTimerCubit()),
