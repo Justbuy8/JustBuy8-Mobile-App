@@ -162,15 +162,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         onTap: () async {
                           final XFile? image = await picker.pickImage(
                               source: ImageSource.gallery);
-                          file = File(image!.path);
+                          if (image != null) {
+                            file = File(image.path);
 
-                          setState(() {
-                            pickedImage = image.path;
-                          });
+                            setState(() {
+                              pickedImage = image.path;
+                            });
 
-                          await context
-                              .read<UploadImageCubit>()
-                              .uploadImage(file!.path);
+                            await context
+                                .read<UploadImageCubit>()
+                                .uploadImage(file!.path);
+                          }
                         },
                         child: ClipOval(
                           child: Container(
