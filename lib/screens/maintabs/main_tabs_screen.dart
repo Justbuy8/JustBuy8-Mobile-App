@@ -35,10 +35,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
       context,
       controller: tabsController,
       screens: [
-        MultiBlocProvider(
-          providers: BlocProviders.providers,
-          child: HomeScreen(),
-        ),
+        HomeScreen(),
         Container(
           color: Colors.green,
         ),
