@@ -29,32 +29,32 @@ GNav HomeBottomNavBar(BuildContext context, {void Function(int)? onTabChange}) {
       tabs: [
         GButton(
           icon: Ionicons.home_outline,
-          iconSize: 20,
+          iconSize: 22,
           text: AppText.homeText,
           backgroundColor: AppColors.appWhiteColor,
         ),
         GButton(
           icon: Ionicons.search_outline,
           text: AppText.searchText,
-          iconSize: 20,
+          iconSize: 22,
           backgroundColor: AppColors.appWhiteColor,
         ),
         GButton(
           icon: Ionicons.cart_outline,
           text: AppText.cartText,
-          iconSize: 20,
+          iconSize: 22,
           backgroundColor: AppColors.appWhiteColor,
         ),
         GButton(
           icon: Ionicons.heart_outline,
           text: AppText.wishlistText,
-          iconSize: 20,
+          iconSize: 22,
           backgroundColor: AppColors.appWhiteColor,
         ),
         GButton(
           icon: Ionicons.person_outline,
           text: AppText.accountText,
-          iconSize: 20,
+          iconSize: 22,
           backgroundColor: AppColors.appWhiteColor,
         ),
       ]);

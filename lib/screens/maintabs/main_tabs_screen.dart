@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:justbuyeight/blocs/myaccount/myaccount_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/constants/app_textstyle.dart';
@@ -64,17 +65,36 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 8,vertical: 8),
-              padding: EdgeInsets.symmetric(horizontal: 8,vertical: 0),
+              margin: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
               alignment: Alignment.center,
               height: Platform.isAndroid ? 55 : 60,
               decoration: BoxDecoration(
-                color: AppColors.primaryColor,
+                  color: AppColors.primaryColor,
                   borderRadius: BorderRadius.all(Radius.circular(20))),
               child: HomeBottomNavBar(context, onTabChange: (index) {
-                setState(() {
-                  tabindex = index;
-                });
+                if (tabindex != index) {
+                  setState(() {
+                    tabindex = index;
+                  });
+
+                  //Home Page
+                  if (tabindex == 0) {}
+
+                  //Search Page
+                  if (tabindex == 1) {}
+
+                  //Cart Page
+                  if (tabindex == 2) {}
+
+                  //WishList Page
+                  if (tabindex == 3) {}
+
+                  //Account Page
+                  if (index == 4) {
+                    context.read<MyaccountCubit>().myAccount();
+                  }
+                }
               }),
             ),
           )

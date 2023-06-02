@@ -25,10 +25,9 @@ import 'package:nb_utils/nb_utils.dart';
 
 class EditProfileScreen extends StatefulWidget {
   List<MyAccountModel> myAccountModel;
-  final BuildContext previousContext;
 
   EditProfileScreen(
-      {required this.myAccountModel, required this.previousContext});
+      {required this.myAccountModel});
 
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
@@ -61,7 +60,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   popFtn() {
-    widget.previousContext.read<MyaccountCubit>().myAccount();
+    context.read<MyaccountCubit>().myAccount();
     Navigator.pop(context);
   }
 

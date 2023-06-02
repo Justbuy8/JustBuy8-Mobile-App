@@ -19,6 +19,7 @@ import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
 import 'package:lottie/lottie.dart';
 import 'package:justbuyeight/utils/Secure_Storage.dart';
+import 'package:page_transition/page_transition.dart';
 
 class MyAccountScreen extends StatefulWidget {
   const MyAccountScreen({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class MyAccountScreen extends StatefulWidget {
 class _MyAccountScreenState extends State<MyAccountScreen> {
   @override
   void initState() {
-    context.read<MyaccountCubit>().myAccount();
+    
     super.initState();
   }
 
@@ -93,15 +94,13 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             ),
                             MaterialButton(
                               onPressed: () {
-                                TabNavigator.withoutTabNavigator(
-                                    context: context,
-                                    screen: MultiBlocProvider(
-                                      providers: BlocProviders.providers,
-                                      child: EditProfileScreen(
-                                        myAccountModel: state.accountData,
-                                        previousContext: context,
-                                      ),
-                                    ));
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        duration:
+                                            const Duration(milliseconds: 400),
+                                        type: PageTransitionType.rightToLeft,
+                                        child: EditProfileScreen(myAccountModel: state.accountData, )));
                               },
                               color: AppColors.iconbackgroundColor,
                               textColor: Colors.white,

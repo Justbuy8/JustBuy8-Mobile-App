@@ -40,6 +40,7 @@ dependencies:
   country_code_picker: ^3.0.0
   pinput: ^2.2.31
   flutter_screenutil: ^5.7.0
+  page_transition: ^2.0.9
   nb_utils: ^4.6.16
   ionicons: ^0.2.2
   cached_network_image: ^3.2.3
