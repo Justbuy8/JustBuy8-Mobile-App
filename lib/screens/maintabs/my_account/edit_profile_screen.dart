@@ -13,19 +13,15 @@ import 'package:justbuyeight/blocs/update_user_profile/update_user_profile_cubit
 import 'package:justbuyeight/blocs/upload_image/upload_image_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
-import 'package:justbuyeight/constants/app_url.dart';
 import 'package:justbuyeight/models/myaccount/myaccount_model.dart';
 import 'package:justbuyeight/utils/AlertDialog.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
-import 'package:justbuyeight/utils/secure_storage.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/images/avatar_file_image_widget.dart';
 import 'package:justbuyeight/widgets/components/images/avatar_image_widget.dart';
-import 'package:justbuyeight/widgets/components/text_fields/mobile_number_text_field.dart';
 import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 class EditProfileScreen extends StatefulWidget {
   List<MyAccountModel> myAccountModel;
