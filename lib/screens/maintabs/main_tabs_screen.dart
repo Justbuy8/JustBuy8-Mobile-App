@@ -4,17 +4,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/blocs/myaccount/myaccount_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
-import 'package:justbuyeight/constants/app_texts.dart';
-import 'package:justbuyeight/constants/app_textstyle.dart';
-import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/screens/maintabs/home/home_screen.dart';
 import 'package:justbuyeight/screens/maintabs/widgets/FadeIndexedStack.dart';
 import 'package:justbuyeight/screens/maintabs/widgets/HomeBottomNavBar.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
+
 import 'my_account/my_account_screen.dart';
 
 class MainTabsScreen extends StatefulWidget {
