@@ -59,9 +59,7 @@ class _AccountCreatedScreenState extends State<AccountCreatedScreen> {
                     caption: AppText.shopNow,
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (builder) => MultiBlocProvider(
-                              providers: BlocProviders.providers,
-                              child: MainTabsScreen())));
+                          builder: (builder) => MainTabsScreen()));
                     }),
               ),
             ],

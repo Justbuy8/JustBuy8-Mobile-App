@@ -69,10 +69,8 @@ class _SignInScreenState extends State<SignInScreen> {
         } else if (state is LoginSuccessfull) {
           DismissLoadingDialog(dialogueContext);
 
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (builder) => MultiBlocProvider(
-                  providers: BlocProviders.providers,
-                  child: const MainTabsScreen())));
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (builder) => const MainTabsScreen()));
         } else if (state is LoginInternetError) {
           SnackBars.Danger(context, AppText.internetError);
           DismissLoadingDialog(dialogueContext);
@@ -135,7 +133,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             if (val!.isEmpty) {
                               return "Please enter email address";
                             } else if (RegExp(
-                                        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+                                        r'^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
                                     .hasMatch(val) ==
                                 false) {
                               return "Please enter valid email address";
@@ -284,9 +282,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (builder) => MultiBlocProvider(
-                                providers: BlocProviders.providers,
-                                child: const SignUpScreen())));
+                            builder: (builder) => const SignUpScreen()));
                       },
                       child: PrimaryTextWidget(
                         text: AppText.signUp,

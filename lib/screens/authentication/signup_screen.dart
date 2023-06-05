@@ -115,12 +115,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Navigator.of(dialogueContext!).pop();
 
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (builder) => MultiBlocProvider(
-                        providers: BlocProviders.providers,
-                        child: OtpVerificationScreen(
-                          email: _emailController.text.trim(),
-                          tapFrom: 'signupScreen',
-                        ),
+                  builder: (builder) => OtpVerificationScreen(
+                        email: _emailController.text.trim(),
+                        tapFrom: 'signupScreen',
                       )));
             } else if (state is RegistrationAlreadyExist) {
               SnackBars.Success(context, "User account already exist");

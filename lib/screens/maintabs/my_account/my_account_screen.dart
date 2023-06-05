@@ -8,6 +8,7 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/constants/bloc_provider.dart';
+import 'package:justbuyeight/main.dart';
 import 'package:justbuyeight/screens/authentication/signin_screen.dart';
 import 'package:justbuyeight/screens/maintabs/my_account/edit_profile_screen.dart';
 import 'package:justbuyeight/utils/AlertDialog.dart';
@@ -31,7 +32,6 @@ class MyAccountScreen extends StatefulWidget {
 class _MyAccountScreenState extends State<MyAccountScreen> {
   @override
   void initState() {
-    
     super.initState();
   }
 
@@ -55,7 +55,6 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             children: [
               BlocBuilder<MyaccountCubit, MyaccountState>(
                   builder: (context, state) {
-            
                 if (state is MyaccountLoading) {
                   return AppCircularSpinner();
                 } else if (state is MyaccountLoaded) {
@@ -99,7 +98,9 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                         duration:
                                             const Duration(milliseconds: 400),
                                         type: PageTransitionType.rightToLeft,
-                                        child: EditProfileScreen(myAccountModel: state.accountData, )));
+                                        child: EditProfileScreen(
+                                          myAccountModel: state.accountData,
+                                        )));
                               },
                               color: AppColors.iconbackgroundColor,
                               textColor: Colors.white,
@@ -169,12 +170,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                   await UserSecureStorage.deleteSecureStorage();
                                   Navigator.of(context).pushAndRemoveUntil(
                                       MaterialPageRoute(
-                                          builder: (builder) =>
-                                              MultiBlocProvider(
-                                                  providers:
-                                                      BlocProviders.providers,
-                                                  child: const SignInScreen())),
-                                      (route) => false);
+                                          builder: (builder) => const MyApp()),
+                                      (route) => true);
                                 }, NoPressed: () {
                                   Navigator.of(context).pop();
                                 });
