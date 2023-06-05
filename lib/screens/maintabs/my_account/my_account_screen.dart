@@ -171,7 +171,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                   Navigator.of(context).pushAndRemoveUntil(
                                       MaterialPageRoute(
                                           builder: (builder) => const MyApp()),
-                                      (route) => true);
+                                      (route) => false);
                                 }, NoPressed: () {
                                   Navigator.of(context).pop();
                                 });
