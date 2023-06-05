@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last, use_build_context_synchronously, prefer_const_constructors
+// ignore_for_file: sort_child_properties_last, use_build_context_synchronously, prefer_const_constructors, unused_import
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,7 +39,6 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   Widget build(BuildContext context) {
     return BlocListener<UpdateUserProfileCubit, UpdateUserProfileState>(
       listener: (context, state) {
-        print('state of update is $state');
         if (state is UpdateUserProfileSuccess) {
           context.read<MyaccountCubit>().myAccount();
         }
@@ -56,7 +55,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             children: [
               BlocBuilder<MyaccountCubit, MyaccountState>(
                   builder: (context, state) {
-                print(state);
+            
                 if (state is MyaccountLoading) {
                   return AppCircularSpinner();
                 } else if (state is MyaccountLoaded) {

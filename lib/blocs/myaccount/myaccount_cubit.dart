@@ -25,8 +25,6 @@ class MyaccountCubit extends Cubit<MyaccountState> {
       String? token = await UserSecureStorage.fetchToken();
 
       response = await MyAccountController.getAccountData(userId, token);
-
-      print('hereee updating my acount');
       if (response['Success'] == true) {
         var decodedList = MyAccountModel.fromJson(response);
         log(decodedList.data.firstName.toString());
