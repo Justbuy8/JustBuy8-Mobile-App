@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:async';
 import 'dart:io';
 
@@ -5,7 +7,7 @@ import 'package:bloc/bloc.dart';
 import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/controllers/myaccount/myaccount.dart';
 import 'package:justbuyeight/utils/secure_storage.dart';
-import 'package:meta/meta.dart';
+
 
 part 'update_user_profile_state.dart';
 

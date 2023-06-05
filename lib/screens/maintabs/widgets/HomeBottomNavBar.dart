@@ -9,7 +9,7 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 
 GNav HomeBottomNavBar(BuildContext context, {void Function(int)? onTabChange}) {
-  final theme = Theme.of(context);
+
   return GNav(
       selectedIndex: 0,
       onTabChange: onTabChange,
