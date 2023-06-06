@@ -16,11 +16,13 @@ class SubCategoryLoadingEvent extends SubCategoryEvent {
 // STATES
 abstract class SubCategoryState {}
 
+class subCategoryInitialState extends SubCategoryState {}
+
 class SubCategoryLoadingState extends SubCategoryState {}
 
 class SubCategoryDataState extends SubCategoryState {
-  final List<SubCategoryModel> subCategory;
-  SubCategoryDataState(this.subCategory);
+  final List<SubCategoryModel> subCategories;
+  SubCategoryDataState(this.subCategories);
 }
 
 class SubCategoryErrorState extends SubCategoryState {
@@ -30,10 +32,11 @@ class SubCategoryErrorState extends SubCategoryState {
 
 // BLOC
 class SubCategoryBloc extends Bloc<SubCategoryEvent, SubCategoryState> {
-  SubCategoryBloc() : super(SubCategoryLoadingState()) {
+  SubCategoryBloc() : super(subCategoryInitialState()) {
     List<SubCategoryModel> categories = [];
 
     on<SubCategoryLoadingEvent>((event, emit) async {
+      emit(SubCategoryLoadingState());
       try {
         categories = await CategoryController.getSubCategories(
           event.categoryId,

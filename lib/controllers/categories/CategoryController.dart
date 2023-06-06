@@ -79,7 +79,7 @@ class CategoryController {
     List<SubCategoryModel> subCategories = [];
 
     final response = await ApiManager.postRequest(
-      {"CatId": 14},
+      {"CatId": categoryId},
       CategoriesUrl.subCategories,
     );
     if (response.statusCode == 200) {
