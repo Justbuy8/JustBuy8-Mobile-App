@@ -74,7 +74,7 @@ class CategoryController {
   }
 
   static Future<List<SubCategoryModel>> getSubCategories(
-    String categoryId,
+    int categoryId,
   ) async {
     List<SubCategoryModel> subCategories = [];
 
