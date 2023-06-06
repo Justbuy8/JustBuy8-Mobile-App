@@ -9,6 +9,8 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/categories/CategoryModel.dart';
+import 'package:justbuyeight/screens/categories/sub_categories_screen.dart';
+import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
@@ -98,7 +100,15 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                           childAspectRatio: 1,
                         ),
                         itemBuilder: (context, index) {
-                          return CategoriyWidget(category: categories[index]);
+                          return GestureDetector(
+                            onTap: () => AppNavigator.goToPage(
+                                context: context,
+                                screen: SubCategoriesScreen(
+                                  title: categories[index].catName.toString(),
+                                  categoryId: categories[index].catId.toInt(),
+                                )),
+                            child: CategoriyWidget(category: categories[index]),
+                          );
                         },
                         itemCount: categories.length,
                       ),

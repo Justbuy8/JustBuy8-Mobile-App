@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                   TitleAndButtonWidget(
                     text: AppText.featuredProductsText,
                     onPressed: () {
-                      AppNavigator.GoToPage(
+                      AppNavigator.goToPage(
                         context: context,
                         screen: FeaturedProductsScreen(),
                       );
@@ -60,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                   TitleAndButtonWidget(
                     text: AppText.topCategoriesText,
                     onPressed: () {
-                      AppNavigator.GoToPage(
+                      AppNavigator.goToPage(
                         context: context,
                         screen: AllCategoriesScreen(),
                       );
@@ -82,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: 24),
                   TitleAndButtonWidget(
                     text: AppText.bestProductsText,
-                    onPressed: () => AppNavigator.GoToPage(
+                    onPressed: () => AppNavigator.goToPage(
                       context: context,
                       screen: AllBestProductsScreen(),
                     ),
@@ -94,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                   /// choose brands
                   TitleAndButtonWidget(
                     text: AppText.chooseBrandsText,
-                    onPressed: () => AppNavigator.GoToPage(
+                    onPressed: () => AppNavigator.goToPage(
                       context: context,
                       screen: ChooseBrandsScreen(),
                     ),
@@ -106,7 +106,7 @@ class HomeScreen extends StatelessWidget {
                   /// new arrivals
                   TitleAndButtonWidget(
                     text: AppText.newArrivalsText,
-                    onPressed: () => AppNavigator.GoToPage(
+                    onPressed: () => AppNavigator.goToPage(
                       context: context,
                       screen: NewArrivalsScreen(),
                     ),

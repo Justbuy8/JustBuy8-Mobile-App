@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/constants/app_url.dart';
 import 'package:justbuyeight/models/categories/CategoryModel.dart';
+import 'package:justbuyeight/models/categories/SubCategoryModel.dart';
 
 class CategoryController {
   static Future<List<CategoryModel>> getTopCategories(
@@ -70,5 +71,29 @@ class CategoryController {
       mainCategories = [];
     }
     return mainCategories;
+  }
+
+  static Future<List<SubCategoryModel>> getSubCategories(
+    String categoryId,
+  ) async {
+    List<SubCategoryModel> subCategories = [];
+
+    final response = await ApiManager.postRequest(
+      {"CatId": 14},
+      CategoriesUrl.subCategories,
+    );
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body) as Map<String, dynamic>;
+      if (data['Success']) {
+        data['Data'].forEach((category) {
+          subCategories.add(SubCategoryModel.fromJson(category));
+        });
+      } else {
+        subCategories = [];
+      }
+    } else {
+      subCategories = [];
+    }
+    return subCategories;
   }
 }

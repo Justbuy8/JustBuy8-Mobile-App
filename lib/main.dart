@@ -1,5 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,6 +44,9 @@ class _MyAppState extends State<MyApp> {
                 colorScheme: ColorScheme.fromSwatch().copyWith(
                   secondary: AppColors.secondaryColor,
                   primary: AppColors.primaryColor,
+                ),
+                appBarTheme: AppBarTheme(
+                  systemOverlayStyle: SystemUiOverlayStyle.light,
                 ),
               ),
               home: BlocBuilder<SessionHandlingCubit, SessionHandlingState>(
