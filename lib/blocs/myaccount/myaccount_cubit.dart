@@ -27,7 +27,7 @@ class MyaccountCubit extends Cubit<MyaccountState> {
       response = await MyAccountController.getAccountData(userId, token);
       if (response['Success'] == true) {
         var decodedList = MyAccountModel.fromJson(response);
-        log(decodedList.data.firstName.toString());
+        //log(decodedList.data.firstName.toString());
         emit(MyaccountLoaded(accountData: [decodedList]));
       } else if (response['Success'] == false) {
         emit(MyaccountFailed());

@@ -28,7 +28,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
           MainCategoryLoadingEvent(
             page: AppConfig.PageOne.toString(),
             paginateBy: AppConfig.HomeBestNewArrivalPagenateCount.toString(),
-            random: false,
+            random: true,
           ),
         ),
       child: BlocConsumer<MainCategoryBloc, MainCategoryState>(

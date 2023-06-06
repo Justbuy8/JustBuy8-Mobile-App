@@ -1,19 +1,15 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
-import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
-
-class TabNavigator {
-  static withoutTabNavigator(
-      {required BuildContext context,
-      required Widget screen,
-      bool? withNavBar}) {
-    return pushNewScreen(
-      context,
-      screen: screen,
-      withNavBar: withNavBar ?? false, // OPTIONAL VALUE. True by default.
-      pageTransitionAnimation: PageTransitionAnimation.cupertino,
-    );
+class AppNavigator {
+  static GoToPage({required BuildContext context, required Widget screen}) {
+    return Navigator.push(
+        context,
+        PageTransition(
+            duration: const Duration(milliseconds: 400),
+            type: PageTransitionType.rightToLeft,
+            child: screen));
   }
 }

@@ -12,7 +12,6 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
-import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/models/authentication/user_model.dart';
 import 'package:justbuyeight/screens/authentication/otp_verification_screen.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';

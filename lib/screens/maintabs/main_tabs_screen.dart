@@ -9,7 +9,6 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/screens/maintabs/home/home_screen.dart';
 import 'package:justbuyeight/screens/maintabs/widgets/FadeIndexedStack.dart';
 import 'package:justbuyeight/screens/maintabs/widgets/HomeBottomNavBar.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 import 'my_account/my_account_screen.dart';
 
@@ -21,7 +20,7 @@ class MainTabsScreen extends StatefulWidget {
 }
 
 class _MainTabsScreenState extends State<MainTabsScreen> {
-  late PersistentTabController tabsController;
+
 
   int tabindex = 0;
   static List<Widget> homepageTabs = <Widget>[
@@ -64,11 +63,11 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
                     color: AppColors.primaryColor,
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: HomeBottomNavBar(context, onTabChange: (index) {
+                   
                   if (tabindex != index) {
                     setState(() {
                       tabindex = index;
                     });
-
                     //Home Page
                     if (tabindex == 0) {}
 
@@ -83,7 +82,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
 
                     //Account Page
                     if (index == 4) {
-                      context.read<MyaccountCubit>().myAccount();
+                     
                     }
                   }
                 }),
