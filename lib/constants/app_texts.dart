@@ -2,6 +2,9 @@ import 'package:ionicons/ionicons.dart';
 
 class AppText {
   static const String signInText = "Sign In";
+  static const String addNewAddress = "Add New Address";
+  static const String addInformation = "Add Informations";
+
   static const String forgetPassword = "Forget Password?";
   static const String email = "Email";
   static const String firstName = "First Name";
@@ -88,7 +91,18 @@ const List<String> myAccountListTitle = [
   'My Wallet',
   'My Orders',
   'Payment Method',
-  'Delivery Address',
+  'Address',
   'Promocode & Gift Cards',
   'Logout',
+];
+
+const List<String> billingAddress = [
+  'Permanent',
+  'Home',
+  'Office',
+];
+
+const List<String> billingType = [
+  'Shipping',
+  'Billing',
 ];
