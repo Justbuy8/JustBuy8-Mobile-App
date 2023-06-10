@@ -58,3 +58,8 @@ class MyAccountUrl {
   static const String updateUserProfileUrl =
       "${AppUrl.baseUrl}/user-account/update-user-profile";
 }
+
+class AddressUrl {
+  static const String createAddress =
+      "${AppUrl.baseUrl}/address/add-user-address";
+}
