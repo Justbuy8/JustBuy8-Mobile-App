@@ -13,10 +13,15 @@ class SubCategoryLoadingEvent extends SubCategoryEvent {
   SubCategoryLoadingEvent(this.categoryId);
 }
 
+class SubCategoryChildClickedEvent extends SubCategoryEvent {
+  final int index;
+  SubCategoryChildClickedEvent(this.index);
+}
+
 // STATES
 abstract class SubCategoryState {}
 
-class subCategoryInitialState extends SubCategoryState {}
+class SubCategoryInitialState extends SubCategoryState {}
 
 class SubCategoryLoadingState extends SubCategoryState {}
 
@@ -30,9 +35,14 @@ class SubCategoryErrorState extends SubCategoryState {
   SubCategoryErrorState({this.error = AppText.noCategoriesFoundText});
 }
 
+class SubCategoryChildClickedState extends SubCategoryState {
+  final int index;
+  SubCategoryChildClickedState(this.index);
+}
+
 // BLOC
 class SubCategoryBloc extends Bloc<SubCategoryEvent, SubCategoryState> {
-  SubCategoryBloc() : super(subCategoryInitialState()) {
+  SubCategoryBloc() : super(SubCategoryInitialState()) {
     List<SubCategoryModel> categories = [];
 
     on<SubCategoryLoadingEvent>((event, emit) async {
@@ -52,5 +62,11 @@ class SubCategoryBloc extends Bloc<SubCategoryEvent, SubCategoryState> {
         }
       }
     });
+
+    on<SubCategoryChildClickedEvent>(
+      (event, emit) {
+        emit(SubCategoryChildClickedState(event.index));
+      },
+    );
   }
 }
