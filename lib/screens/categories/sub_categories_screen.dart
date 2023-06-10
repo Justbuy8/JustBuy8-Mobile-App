@@ -46,9 +46,9 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
                         child: ExpansionTile(
                           collapsedIconColor: AppColors.appWhiteColor,
                           childrenPadding: const EdgeInsets.all(10),
-                          iconColor: AppColors.appBlackColor,
+                          iconColor: AppColors.primaryColor,
                           collapsedBackgroundColor: AppColors.primaryColor,
-                          textColor: AppColors.appBlackColor,
+                          textColor: AppColors.primaryColor,
                           collapsedTextColor: AppColors.appWhiteColor,
                           title: Text(
                             state.subCategories[index].subCatName.toString(),
