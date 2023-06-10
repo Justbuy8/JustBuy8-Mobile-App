@@ -62,4 +62,6 @@ class MyAccountUrl {
 class AddressUrl {
   static const String createAddress =
       "${AppUrl.baseUrl}/address/add-user-address";
+  static const String getAddress =
+      "${AppUrl.baseUrl}/address/get-user-addresses";
 }

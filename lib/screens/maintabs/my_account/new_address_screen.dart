@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/blocs/create_address/create_address_cubit.dart';
+import 'package:justbuyeight/blocs/my_address/myaddress_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
@@ -60,6 +61,7 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
           DismissLoadingDialog(dialogueContext);
 
           Navigator.of(context).pop();
+          context.read<MyaddressCubit>().getAddress();
         } else if (state is CreateAddressInternetError) {
           SnackBars.Danger(context, AppText.internetError);
           DismissLoadingDialog(dialogueContext);
