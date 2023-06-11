@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,7 +53,7 @@ class _MyAdressScreenState extends State<MyAdressScreen> {
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       physics: const AlwaysScrollableScrollPhysics(),
-                      itemCount: state.addressData.length,
+                      itemCount: state.addressData.first.data.length,
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
