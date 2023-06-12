@@ -7,6 +7,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/blocs/create_address/create_address_cubit.dart';
 import 'package:justbuyeight/blocs/my_address/myaddress_cubit.dart';
+import 'package:justbuyeight/blocs/update_address/update_address_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
@@ -18,8 +19,18 @@ import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.da
 import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import 'package:justbuyeight/models/myaddress/my_address_model.dart';
+
 class NewAddressScreen extends StatefulWidget {
-  const NewAddressScreen({Key? key}) : super(key: key);
+  final List<Datum> addressData;
+  final String navigateFrom;
+  final int index;
+  const NewAddressScreen(
+      {Key? key,
+      required this.addressData,
+      required this.navigateFrom,
+      required this.index})
+      : super(key: key);
 
   @override
   State<NewAddressScreen> createState() => _NewAddressScreenState();
@@ -37,42 +48,112 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
   BuildContext? dialogueContext;
   final formGlobalKey = GlobalKey<FormState>();
 
+  assigneValues() {
+    _personNameController.text =
+        widget.addressData[widget.index].contactPersonName;
+    _addressController.text = widget.addressData[widget.index].address;
+    _cityController.text = widget.addressData[widget.index].city;
+    _zipController.text = widget.addressData[widget.index].zip;
+    _phoneController.text = widget.addressData[widget.index].phone;
+    if (widget.addressData[widget.index].isBilling == '0') {
+      billingTypeSelectedIndex = 0;
+    } else {
+      billingTypeSelectedIndex = 1;
+    }
+
+    if (widget.addressData[widget.index].addressType == billingAddress[0]) {
+      billingAddressSelectedIndex = 0;
+    } else if (widget.addressData[widget.index].addressType ==
+        billingAddress[1]) {
+      billingAddressSelectedIndex = 1;
+    } else {
+      billingAddressSelectedIndex = 2;
+    }
+  }
+
+  @override
+  void initState() {
+    if (widget.navigateFrom == 'Edit') {
+      assigneValues();
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CreateAddressCubit, CreateAddressState>(
-      listener: (context, state) {
-        if (state is CreateAddressLoading) {
-          showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (ctx) {
-                dialogueContext = ctx;
-                return Container(
-                  color: Colors.transparent,
-                  child: Center(
-                    child: SpinKitThreeBounce(
-                      color: AppColors.primaryColor,
-                      size: 30.0,
-                    ),
-                  ),
-                );
-              });
-        } else if (state is CreateAddressSuccessfull) {
-          DismissLoadingDialog(dialogueContext);
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<CreateAddressCubit, CreateAddressState>(
+          listener: (context, state) {
+            if (state is CreateAddressLoading) {
+              showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (ctx) {
+                    dialogueContext = ctx;
+                    return Container(
+                      color: Colors.transparent,
+                      child: Center(
+                        child: SpinKitThreeBounce(
+                          color: AppColors.primaryColor,
+                          size: 30.0,
+                        ),
+                      ),
+                    );
+                  });
+            } else if (state is CreateAddressSuccessfull) {
+              DismissLoadingDialog(dialogueContext);
 
-          Navigator.of(context).pop();
-          context.read<MyaddressCubit>().getAddress();
-        } else if (state is CreateAddressInternetError) {
-          SnackBars.Danger(context, AppText.internetError);
-          DismissLoadingDialog(dialogueContext);
-        } else if (state is CreateAddressFailed) {
-          SnackBars.Danger(context, 'Address add failed');
-          DismissLoadingDialog(dialogueContext);
-        } else if (state is CreateAddressTimeout) {
-          SnackBars.Danger(context, AppText.timeOut);
-          DismissLoadingDialog(dialogueContext);
-        }
-      },
+              Navigator.of(context).pop();
+              context.read<MyaddressCubit>().getAddress();
+            } else if (state is CreateAddressInternetError) {
+              SnackBars.Danger(context, AppText.internetError);
+              DismissLoadingDialog(dialogueContext);
+            } else if (state is CreateAddressFailed) {
+              SnackBars.Danger(context, 'Address add failed');
+              DismissLoadingDialog(dialogueContext);
+            } else if (state is CreateAddressTimeout) {
+              SnackBars.Danger(context, AppText.timeOut);
+              DismissLoadingDialog(dialogueContext);
+            }
+          },
+        ),
+        BlocListener<UpdateAddressCubit, UpdateAddressState>(
+          listener: (context, state) {
+            if (state is UpdateAddressLoading) {
+              showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (ctx) {
+                    dialogueContext = ctx;
+                    return Container(
+                      color: Colors.transparent,
+                      child: Center(
+                        child: SpinKitThreeBounce(
+                          color: AppColors.primaryColor,
+                          size: 30.0,
+                        ),
+                      ),
+                    );
+                  });
+            } else if (state is UpdateAddressSuccessfull) {
+              DismissLoadingDialog(dialogueContext);
+
+              Navigator.of(context).pop();
+              context.read<MyaddressCubit>().getAddress();
+            } else if (state is UpdateAddressInternetError) {
+              SnackBars.Danger(context, AppText.internetError);
+              DismissLoadingDialog(dialogueContext);
+            } else if (state is UpdateAddressFailed) {
+              SnackBars.Danger(context, 'Address not updated');
+              DismissLoadingDialog(dialogueContext);
+            } else if (state is UpdateAddressTimeout) {
+              SnackBars.Danger(context, AppText.timeOut);
+              DismissLoadingDialog(dialogueContext);
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         appBar: BasicAppbarWidget(
           title: 'Add New Address',
@@ -288,27 +369,57 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
                           String? fetchToken =
                               await UserSecureStorage.fetchToken();
 
-                          var newAddressMap = {
-                            "UserId": "$userId",
-                            "token": "$fetchToken",
-                            "contact_person_name":
-                                _personNameController.text.trim(),
-                            "address_type": billingAddressSelectedIndex == 0
+                          if (widget.navigateFrom == 'Edit') {
+                            print(billingAddressSelectedIndex == 0
                                 ? billingAddress[0]
                                 : billingAddressSelectedIndex == 1
                                     ? billingAddress[1]
-                                    : billingAddress[2],
-                            "address": _addressController.text.trim(),
-                            "city": _cityController.text.trim(),
-                            "zip": _zipController.text.trim(),
-                            "phone": _phoneController.text.trim(),
-                            "is_billing":
-                                billingTypeSelectedIndex == 0 ? '0' : '1',
-                          };
+                                    : billingAddress[2]);
+                            var newAddressMap = {
+                              "UserId": "$userId",
+                              "token": "$fetchToken",
+                              "contact_person_name":
+                                  _personNameController.text.trim(),
+                              "address_id": widget.addressData[widget.index].id,
+                              "address_type": billingAddressSelectedIndex == 0
+                                  ? billingAddress[0]
+                                  : billingAddressSelectedIndex == 1
+                                      ? billingAddress[1]
+                                      : billingAddress[2],
+                              "address": _addressController.text.trim(),
+                              "city": _cityController.text.trim(),
+                              "zip": _zipController.text.trim(),
+                              "phone": _phoneController.text.trim(),
+                              "is_billing":
+                                  billingTypeSelectedIndex == 0 ? '0' : '1',
+                            };
 
-                          context
-                              .read<CreateAddressCubit>()
-                              .createNewAddress(newAddressMap);
+                            context
+                                .read<UpdateAddressCubit>()
+                                .updateAddress(newAddressMap);
+                          } else {
+                            var newAddressMap = {
+                              "UserId": "$userId",
+                              "token": "$fetchToken",
+                              "contact_person_name":
+                                  _personNameController.text.trim(),
+                              "address_type": billingAddressSelectedIndex == 0
+                                  ? billingAddress[0]
+                                  : billingAddressSelectedIndex == 1
+                                      ? billingAddress[1]
+                                      : billingAddress[2],
+                              "address": _addressController.text.trim(),
+                              "city": _cityController.text.trim(),
+                              "zip": _zipController.text.trim(),
+                              "phone": _phoneController.text.trim(),
+                              "is_billing":
+                                  billingTypeSelectedIndex == 0 ? '0' : '1',
+                            };
+
+                            context
+                                .read<CreateAddressCubit>()
+                                .createNewAddress(newAddressMap);
+                          }
                         }
                       }),
                 ],
