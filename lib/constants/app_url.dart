@@ -64,4 +64,7 @@ class AddressUrl {
       "${AppUrl.baseUrl}/address/add-user-address";
   static const String getAddress =
       "${AppUrl.baseUrl}/address/get-user-addresses";
+
+  static const String updateAddress =
+      "${AppUrl.baseUrl}/address/update-user-address";
 }

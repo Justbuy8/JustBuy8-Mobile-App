@@ -92,9 +92,22 @@ class _MyAdressScreenState extends State<MyAdressScreen> {
                                     ),
                                   ],
                                 ),
-                                trailing: Icon(
-                                  Icons.edit_note,
-                                  color: Colors.black,
+                                trailing: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (builder) =>
+                                                NewAddressScreen(
+                                                  addressData: state
+                                                      .addressData.first.data,
+                                                  navigateFrom: 'Edit',
+                                                  index: index,
+                                                )));
+                                  },
+                                  child: Icon(
+                                    Icons.edit_note,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
                             ),
@@ -145,7 +158,11 @@ class _MyAdressScreenState extends State<MyAdressScreen> {
                       PageTransition(
                           duration: const Duration(milliseconds: 400),
                           type: PageTransitionType.rightToLeft,
-                          child: NewAddressScreen()));
+                          child: NewAddressScreen(
+                            index: 0,
+                            addressData: const [],
+                            navigateFrom: 'Button',
+                          )));
                 }),
           ),
         ],
