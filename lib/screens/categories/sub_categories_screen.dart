@@ -5,6 +5,7 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/border_text_button.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class SubCategoriesScreen extends StatefulWidget {
   final String title;
@@ -60,23 +61,22 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
                           children: [
                             GridView.builder(
                               gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 4.0,
-                                mainAxisSpacing: 10.0,
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: context.width() / 2,
+                                childAspectRatio: 5,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
                               ),
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, i) => BorderTextButton(
+                                text: state
+                                    .subCategories[index].child![i].childCatName
+                                    .toString(),
+                              ),
                               itemCount:
-                                  state.subCategories[index].child?.length,
-                              itemBuilder: (context, i) {
-                                return BorderTextButton(
-                                  text: state.subCategories[index].child![i]
-                                      .childCatName
-                                      .toString(),
-                                );
-                              },
-                            ),
+                                  state.subCategories[index].child!.length,
+                            )
                           ],
                         ),
                       ),
