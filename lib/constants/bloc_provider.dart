@@ -7,6 +7,7 @@ import 'package:justbuyeight/blocs/authentication/timer_cubit/timer_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/validate_email/validate_email_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/verify_email_cubit/verify_email_cubit.dart';
 import 'package:justbuyeight/blocs/create_address/create_address_cubit.dart';
+import 'package:justbuyeight/blocs/cubit/delete_address_cubit.dart';
 import 'package:justbuyeight/blocs/my_address/myaddress_cubit.dart';
 import 'package:justbuyeight/blocs/myaccount/myaccount_cubit.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_bloc.dart';
@@ -35,5 +36,6 @@ class BlocProviders {
     BlocProvider<MyaddressCubit>(
         create: (context) => MyaddressCubit()..getAddress()),
     BlocProvider<UpdateAddressCubit>(create: (context) => UpdateAddressCubit()),
+    BlocProvider<DeleteAddressCubit>(create: (context) => DeleteAddressCubit()),
   ];
 }

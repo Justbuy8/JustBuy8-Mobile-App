@@ -8,6 +8,7 @@ class BasicAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
   final Color? backgroundColor;
   final Color? iconColor;
   final Color? titleColor;
+
   const BasicAppbarWidget(
       {Key? key,
       required this.title,

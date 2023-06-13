@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/blocs/create_address/create_address_cubit.dart';
+import 'package:justbuyeight/blocs/cubit/delete_address_cubit.dart';
 import 'package:justbuyeight/blocs/my_address/myaddress_cubit.dart';
 import 'package:justbuyeight/blocs/update_address/update_address_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
@@ -15,6 +16,7 @@ import 'package:justbuyeight/utils/AlertDialog.dart';
 import 'package:justbuyeight/utils/Secure_Storage.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
+import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -153,12 +155,64 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
             }
           },
         ),
+        BlocListener<DeleteAddressCubit, DeleteAddressState>(
+          listener: (context, state) {
+            if (state is DeleteAddressLoading) {
+              showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (ctx) {
+                    dialogueContext = ctx;
+                    return Container(
+                      color: Colors.transparent,
+                      child: Center(
+                        child: SpinKitThreeBounce(
+                          color: AppColors.primaryColor,
+                          size: 30.0,
+                        ),
+                      ),
+                    );
+                  });
+            } else if (state is DeleteAddressSuccessfull) {
+              DismissLoadingDialog(dialogueContext);
+
+              Navigator.of(context).pop();
+              context.read<MyaddressCubit>().getAddress();
+            } else if (state is DeleteAddressInternetError) {
+              SnackBars.Danger(context, AppText.internetError);
+              DismissLoadingDialog(dialogueContext);
+            } else if (state is DeleteAddressFailed) {
+              SnackBars.Danger(context, 'Address not delete');
+              DismissLoadingDialog(dialogueContext);
+            } else if (state is DeleteAddressTimeout) {
+              SnackBars.Danger(context, AppText.timeOut);
+              DismissLoadingDialog(dialogueContext);
+            }
+          },
+        ),
       ],
       child: Scaffold(
-        appBar: BasicAppbarWidget(
-          title: 'Add New Address',
-          titleColor: Colors.black,
-        ),
+        appBar: SecondaryAppbarWidget(
+            trailingIconOnPressed: () async {
+              String? userId = await UserSecureStorage.fetchUserId();
+              String? fetchToken = await UserSecureStorage.fetchToken();
+
+              var newAddressMap = {
+                "UserId": "$userId",
+                "token": "$fetchToken",
+                "address_id": widget.addressData[widget.index].id,
+              };
+
+              print(newAddressMap);
+
+              context.read<DeleteAddressCubit>().deleteAddress(newAddressMap);
+            },
+            leadingIconOnPressed: () {
+              Navigator.of(context).pop();
+            },
+            leadingIcon: Icons.arrow_back_ios,
+            title: 'Add New Address',
+            trailingIcon: Icons.delete_outline),
         body: Padding(
           padding: EdgeInsets.all(12.w),
           child: SingleChildScrollView(
@@ -370,11 +424,6 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
                               await UserSecureStorage.fetchToken();
 
                           if (widget.navigateFrom == 'Edit') {
-                            print(billingAddressSelectedIndex == 0
-                                ? billingAddress[0]
-                                : billingAddressSelectedIndex == 1
-                                    ? billingAddress[1]
-                                    : billingAddress[2]);
                             var newAddressMap = {
                               "UserId": "$userId",
                               "token": "$fetchToken",

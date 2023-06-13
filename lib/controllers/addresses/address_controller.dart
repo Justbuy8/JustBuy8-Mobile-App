@@ -52,4 +52,22 @@ class AddressController {
       return result;
     }
   }
+
+  static deleteAddress(body) async {
+    Response response = await ApiManager.postRequest(
+      body,
+      AddressUrl.deleteAddress,
+      headers: {
+        "content-type": "application/json; charset=utf-8",
+      },
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var result = jsonDecode(response.body);
+
+      return result;
+    }
+  }
 }
