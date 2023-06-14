@@ -12,6 +12,7 @@ import 'package:justbuyeight/blocs/update_address/update_address_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
+import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/utils/AlertDialog.dart';
 import 'package:justbuyeight/utils/Secure_Storage.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
@@ -194,18 +195,28 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
       child: Scaffold(
         appBar: SecondaryAppbarWidget(
             trailingIconOnPressed: () async {
-              String? userId = await UserSecureStorage.fetchUserId();
-              String? fetchToken = await UserSecureStorage.fetchToken();
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return confirmAlertDialog(context, 'Confirm delete',
+                        'Do you wanna delete this address?',
+                        YesPressed: () async {
+                      String? userId = await UserSecureStorage.fetchUserId();
+                      String? fetchToken = await UserSecureStorage.fetchToken();
 
-              var newAddressMap = {
-                "UserId": "$userId",
-                "Token": "$fetchToken",
-                "address_id": widget.addressData[widget.index].id,
-              };
+                      var newAddressMap = {
+                        "UserId": "$userId",
+                        "Token": "$fetchToken",
+                        "address_id": widget.addressData[widget.index].id,
+                      };
 
-              print(newAddressMap);
-
-              context.read<DeleteAddressCubit>().deleteAddress(newAddressMap);
+                      context
+                          .read<DeleteAddressCubit>()
+                          .deleteAddress(newAddressMap);
+                    }, NoPressed: () {
+                      Navigator.of(context).pop();
+                    });
+                  });
             },
             leadingIconOnPressed: () {
               Navigator.of(context).pop();
