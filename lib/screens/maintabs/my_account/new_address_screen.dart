@@ -199,7 +199,7 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
 
               var newAddressMap = {
                 "UserId": "$userId",
-                "token": "$fetchToken",
+                "Token": "$fetchToken",
                 "address_id": widget.addressData[widget.index].id,
               };
 
