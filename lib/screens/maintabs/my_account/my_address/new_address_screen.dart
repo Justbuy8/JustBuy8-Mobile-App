@@ -7,7 +7,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/blocs/address/create_address/create_address_cubit.dart';
 import 'package:justbuyeight/blocs/address/delete_address/delete_address_cubit.dart';
-import 'package:justbuyeight/blocs/address/get_address/myaddress_cubit.dart';
+import 'package:justbuyeight/blocs/address/get_address/getaddress_cubit.dart';
 import 'package:justbuyeight/blocs/update_address/update_address_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
