@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:justbuyeight/blocs/address/get_address/getaddress_cubit.dart';
+import 'package:justbuyeight/blocs/address/get_address/get_address_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
@@ -28,7 +28,7 @@ class MyAdressScreen extends StatefulWidget {
 class _MyAdressScreenState extends State<MyAdressScreen> {
   @override
   void initState() {
-    context.read<GetaddressCubit>().getAddress();
+    context.read<GetAddressCubit>().getAddress();
 
     super.initState();
   }
@@ -44,11 +44,11 @@ class _MyAdressScreenState extends State<MyAdressScreen> {
       body: Column(
         children: [
           Expanded(
-            child: BlocBuilder<GetaddressCubit, GetaddressState>(
+            child: BlocBuilder<GetAddressCubit, GetAddressState>(
               builder: (context, state) {
-                if (state is GetaddressLoading) {
+                if (state is GetAddressLoading) {
                   return AppCircularSpinner();
-                } else if (state is GetaddressLoaded) {
+                } else if (state is GetAddressLoaded) {
                   return ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
@@ -115,7 +115,7 @@ class _MyAdressScreenState extends State<MyAdressScreen> {
                           ],
                         );
                       });
-                } else if (state is GetaddressFailed) {
+                } else if (state is GetAddressFailed) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +128,7 @@ class _MyAdressScreenState extends State<MyAdressScreen> {
                       )
                     ],
                   );
-                } else if (state is GetaddressInternetError) {
+                } else if (state is GetAddressInternetError) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -7,7 +7,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/blocs/address/create_address/create_address_cubit.dart';
 import 'package:justbuyeight/blocs/address/delete_address/delete_address_cubit.dart';
-import 'package:justbuyeight/blocs/address/get_address/getaddress_cubit.dart';
+import 'package:justbuyeight/blocs/address/get_address/get_address_cubit.dart';
 import 'package:justbuyeight/blocs/update_address/update_address_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
@@ -106,7 +106,7 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
               DismissLoadingDialog(dialogueContext);
 
               Navigator.of(context).pop();
-              context.read<GetaddressCubit>().getAddress();
+              context.read<GetAddressCubit>().getAddress();
             } else if (state is CreateAddressInternetError) {
               SnackBars.Danger(context, AppText.internetError);
               DismissLoadingDialog(dialogueContext);
@@ -141,7 +141,7 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
               DismissLoadingDialog(dialogueContext);
 
               Navigator.of(context).pop();
-              context.read<GetaddressCubit>().getAddress();
+              context.read<GetAddressCubit>().getAddress();
             } else if (state is UpdateAddressInternetError) {
               SnackBars.Danger(context, AppText.internetError);
               DismissLoadingDialog(dialogueContext);
@@ -176,7 +176,7 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
               DismissLoadingDialog(dialogueContext);
 
               Navigator.of(context).pop();
-              context.read<GetaddressCubit>().getAddress();
+              context.read<GetAddressCubit>().getAddress();
             } else if (state is DeleteAddressInternetError) {
               SnackBars.Danger(context, AppText.internetError);
               DismissLoadingDialog(dialogueContext);
