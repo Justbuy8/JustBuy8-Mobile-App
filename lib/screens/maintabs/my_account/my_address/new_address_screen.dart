@@ -5,18 +5,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:justbuyeight/blocs/create_address/create_address_cubit.dart';
-import 'package:justbuyeight/blocs/cubit/delete_address_cubit.dart';
-import 'package:justbuyeight/blocs/my_address/myaddress_cubit.dart';
+import 'package:justbuyeight/blocs/address/create_address/create_address_cubit.dart';
+import 'package:justbuyeight/blocs/address/delete_address/delete_address_cubit.dart';
+import 'package:justbuyeight/blocs/address/get_address/myaddress_cubit.dart';
 import 'package:justbuyeight/blocs/update_address/update_address_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
-import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/utils/AlertDialog.dart';
 import 'package:justbuyeight/utils/Secure_Storage.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
-import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.dart';
@@ -108,7 +106,7 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
               DismissLoadingDialog(dialogueContext);
 
               Navigator.of(context).pop();
-              context.read<MyaddressCubit>().getAddress();
+              context.read<GetaddressCubit>().getAddress();
             } else if (state is CreateAddressInternetError) {
               SnackBars.Danger(context, AppText.internetError);
               DismissLoadingDialog(dialogueContext);
@@ -143,7 +141,7 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
               DismissLoadingDialog(dialogueContext);
 
               Navigator.of(context).pop();
-              context.read<MyaddressCubit>().getAddress();
+              context.read<GetaddressCubit>().getAddress();
             } else if (state is UpdateAddressInternetError) {
               SnackBars.Danger(context, AppText.internetError);
               DismissLoadingDialog(dialogueContext);
@@ -178,7 +176,7 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
               DismissLoadingDialog(dialogueContext);
 
               Navigator.of(context).pop();
-              context.read<MyaddressCubit>().getAddress();
+              context.read<GetaddressCubit>().getAddress();
             } else if (state is DeleteAddressInternetError) {
               SnackBars.Danger(context, AppText.internetError);
               DismissLoadingDialog(dialogueContext);

@@ -1,4 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:justbuyeight/blocs/address/create_address/create_address_cubit.dart';
+import 'package:justbuyeight/blocs/address/delete_address/delete_address_cubit.dart';
+import 'package:justbuyeight/blocs/address/get_address/myaddress_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/login/login_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/registration/registration_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/reset_password_cubit/reset_password_cubit.dart';
@@ -6,9 +9,7 @@ import 'package:justbuyeight/blocs/authentication/send_otp/send_otp_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/timer_cubit/timer_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/validate_email/validate_email_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/verify_email_cubit/verify_email_cubit.dart';
-import 'package:justbuyeight/blocs/create_address/create_address_cubit.dart';
-import 'package:justbuyeight/blocs/cubit/delete_address_cubit.dart';
-import 'package:justbuyeight/blocs/my_address/myaddress_cubit.dart';
+
 import 'package:justbuyeight/blocs/myaccount/myaccount_cubit.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_bloc.dart';
 import 'package:justbuyeight/blocs/session_handling/splash_cubit.dart';
@@ -33,8 +34,8 @@ class BlocProviders {
     BlocProvider<UpdateUserProfileCubit>(
         create: (context) => UpdateUserProfileCubit()),
     BlocProvider<CreateAddressCubit>(create: (context) => CreateAddressCubit()),
-    BlocProvider<MyaddressCubit>(
-        create: (context) => MyaddressCubit()..getAddress()),
+    BlocProvider<GetaddressCubit>(
+        create: (context) => GetaddressCubit()..getAddress()),
     BlocProvider<UpdateAddressCubit>(create: (context) => UpdateAddressCubit()),
     BlocProvider<DeleteAddressCubit>(create: (context) => DeleteAddressCubit()),
   ];

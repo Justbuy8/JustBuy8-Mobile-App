@@ -10,7 +10,7 @@ import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/main.dart';
 import 'package:justbuyeight/screens/authentication/signin_screen.dart';
-import 'package:justbuyeight/screens/maintabs/my_account/my_address_screen.dart';
+import 'package:justbuyeight/screens/maintabs/my_account/my_address/my_address_screen.dart';
 import 'package:justbuyeight/screens/maintabs/my_account/edit_profile_screen.dart';
 import 'package:justbuyeight/utils/AlertDialog.dart';
 import 'package:justbuyeight/utils/Navigator.dart';

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:justbuyeight/blocs/my_address/myaddress_cubit.dart';
+import 'package:justbuyeight/blocs/address/get_address/getaddress_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
-import 'package:justbuyeight/screens/maintabs/my_account/new_address_screen.dart';
+import 'package:justbuyeight/screens/maintabs/my_account/my_address/new_address_screen.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
@@ -28,7 +28,7 @@ class MyAdressScreen extends StatefulWidget {
 class _MyAdressScreenState extends State<MyAdressScreen> {
   @override
   void initState() {
-    context.read<MyaddressCubit>().getAddress();
+    context.read<GetaddressCubit>().getAddress();
 
     super.initState();
   }
@@ -44,11 +44,11 @@ class _MyAdressScreenState extends State<MyAdressScreen> {
       body: Column(
         children: [
           Expanded(
-            child: BlocBuilder<MyaddressCubit, MyaddressState>(
+            child: BlocBuilder<GetaddressCubit, GetaddressState>(
               builder: (context, state) {
-                if (state is MyaddressLoading) {
+                if (state is GetaddressLoading) {
                   return AppCircularSpinner();
-                } else if (state is MyaddressLoaded) {
+                } else if (state is GetaddressLoaded) {
                   return ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
@@ -115,7 +115,7 @@ class _MyAdressScreenState extends State<MyAdressScreen> {
                           ],
                         );
                       });
-                } else if (state is MyaddressFailed) {
+                } else if (state is GetaddressFailed) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +128,7 @@ class _MyAdressScreenState extends State<MyAdressScreen> {
                       )
                     ],
                   );
-                } else if (state is MyaddressInternetError) {
+                } else if (state is GetaddressInternetError) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
