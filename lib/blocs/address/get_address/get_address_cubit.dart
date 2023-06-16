@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:justbuyeight/constants/api_manager.dart';
@@ -26,17 +29,17 @@ class GetAddressCubit extends Cubit<GetAddressState> {
           response['Message'] == 'Addresses Found.') {
         var decodedList = AddressModel.fromJson(response);
 
-        emit(GetaddressLoaded(addressData: [decodedList]));
+        emit(GetAddressLoaded(addressData: [decodedList]));
       } else if (response['Success'] == false) {
-        emit(GetaddressFailed());
+        emit(GetAddressFailed());
       }
     } on SocketException {
-      emit(GetaddressInternetError());
+      emit(GetAddressInternetError());
     } on TimeoutException {
-      emit(GetaddressTimeout());
+      emit(GetAddressTimeout());
     } catch (e) {
       print(e);
-      emit(GetaddressFailed());
+      emit(GetAddressFailed());
     }
   }
 }

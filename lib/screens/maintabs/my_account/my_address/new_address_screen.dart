@@ -196,24 +196,35 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return confirmAlertDialog(context, 'Confirm delete',
-                        'Do you wanna delete this address?',
-                        YesPressed: () async {
-                      String? userId = await UserSecureStorage.fetchUserId();
-                      String? fetchToken = await UserSecureStorage.fetchToken();
+                    return MultiBlocProvider(
+                      providers: [
+                        BlocProvider<GetAddressCubit>(
+                            create: (context) => GetAddressCubit()),
+                        BlocProvider<UpdateAddressCubit>(
+                            create: (context) => UpdateAddressCubit()),
+                        BlocProvider<DeleteAddressCubit>(
+                            create: (context) => DeleteAddressCubit()),
+                      ],
+                      child: confirmAlertDialog(context, 'Confirm delete',
+                          'Do you wanna delete this address?',
+                          YesPressed: () async {
+                        String? userId = await UserSecureStorage.fetchUserId();
+                        String? fetchToken =
+                            await UserSecureStorage.fetchToken();
 
-                      var newAddressMap = {
-                        "UserId": "$userId",
-                        "Token": "$fetchToken",
-                        "address_id": widget.addressData[widget.index].id,
-                      };
+                        var newAddressMap = {
+                          "UserId": "$userId",
+                          "Token": "$fetchToken",
+                          "address_id": widget.addressData[widget.index].id,
+                        };
 
-                      context
-                          .read<DeleteAddressCubit>()
-                          .deleteAddress(newAddressMap);
-                    }, NoPressed: () {
-                      Navigator.of(context).pop();
-                    });
+                        context
+                            .read<DeleteAddressCubit>()
+                            .deleteAddress(newAddressMap);
+                      }, NoPressed: () {
+                        Navigator.of(context).pop();
+                      }),
+                    );
                   });
             },
             leadingIconOnPressed: () {
