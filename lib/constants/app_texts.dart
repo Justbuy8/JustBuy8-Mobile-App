@@ -1,3 +1,4 @@
+import 'package:flutter_phoenix/generated/i18n.dart';
 import 'package:ionicons/ionicons.dart';
 
 class AppText {
@@ -19,6 +20,8 @@ class AppText {
 
   static const String allow = "Allow";
   static const String shopNow = "Shop Now";
+  static const String promoCode = "Add Promocode";
+
   static const String tryAgain = "Try again";
 
   static const String skip = "Skip";
@@ -77,6 +80,12 @@ class AppText {
 
   // Widgets Texts
   static const String shopNowText = "Shop Now";
+
+  ///PROMOCDODE TEXTS
+  static const String dontHaveText = "You don't have";
+  static const String promocodeText = " Promocodes Yet!";
+  static const String promocodeSubTitleText =
+      "Please Enter Coupon Code get ...............";
 }
 
 const List<IoniconsData> myAccountListIcon = [

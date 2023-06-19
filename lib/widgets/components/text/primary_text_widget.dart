@@ -8,11 +8,13 @@ class PrimaryTextWidget extends StatelessWidget {
     this.fontSize,
     this.fontFamily,
     this.fontColor,
+    this.textAlign,
   }) : super(key: key);
   final String text;
   final double? fontSize;
   final String? fontFamily;
   final Color? fontColor;
+  final TextAlign? textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class PrimaryTextWidget extends StatelessWidget {
         fontFamily: fontFamily ?? AppFonts.openSansLight,
         color: fontColor ?? Colors.black,
       ),
+      textAlign: textAlign ?? TextAlign.justify,
     );
   }
 }
