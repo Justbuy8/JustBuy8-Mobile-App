@@ -41,7 +41,7 @@ class _PromodeCodeScreenState extends State<PromodeCodeScreen> {
                 height: 20.h,
               ),
               Image.asset(
-                'assets/images/promo.png',
+                ImageAssets.promocodeImage,
                 color: Color.fromARGB(255, 146, 46, 46),
               ),
               SizedBox(
