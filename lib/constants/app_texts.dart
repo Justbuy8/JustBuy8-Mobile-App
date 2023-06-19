@@ -20,6 +20,7 @@ class AppText {
   static const String allow = "Allow";
   static const String shopNow = "Shop Now";
   static const String tryAgain = "Try again";
+  static const String searchHereText = "Search here";
 
   static const String skip = "Skip";
   static const String forgetPasswordTitle =

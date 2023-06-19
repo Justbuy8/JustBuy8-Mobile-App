@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/myaccount/myaccount_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/screens/maintabs/home/home_screen.dart';
+import 'package:justbuyeight/screens/maintabs/search/search_screen.dart';
 import 'package:justbuyeight/screens/maintabs/widgets/FadeIndexedStack.dart';
 import 'package:justbuyeight/screens/maintabs/widgets/HomeBottomNavBar.dart';
 
@@ -20,12 +21,10 @@ class MainTabsScreen extends StatefulWidget {
 }
 
 class _MainTabsScreenState extends State<MainTabsScreen> {
-
-
   int tabindex = 0;
   static List<Widget> homepageTabs = <Widget>[
     HomeScreen(),
-    Container(color: Colors.green),
+    SearchScreen(),
     Container(color: Colors.blue),
     Container(color: Colors.yellow),
     MyAccountScreen(),
@@ -63,7 +62,6 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
                     color: AppColors.primaryColor,
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: HomeBottomNavBar(context, onTabChange: (index) {
-                   
                   if (tabindex != index) {
                     setState(() {
                       tabindex = index;
@@ -81,9 +79,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
                     if (tabindex == 3) {}
 
                     //Account Page
-                    if (index == 4) {
-                     
-                    }
+                    if (index == 4) {}
                   }
                 }),
               ),
