@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
+import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class NetworkImageWidget extends StatelessWidget {
@@ -46,7 +47,7 @@ class NetworkImageWidget extends StatelessWidget {
           ),
         ),
         placeholder: (context, url) => const Center(
-          child: CircularProgressIndicator(),
+          child: AppCircularSpinner(),
         ),
         errorWidget: (context, url, error) => const Icon(Icons.error),
       ),
