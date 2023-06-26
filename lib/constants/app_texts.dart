@@ -24,6 +24,7 @@ class AppText {
 
   static const String tryAgain = "Try again";
   static const String searchHereText = "Search here";
+  static const String filterText = "Filter";
 
   static const String skip = "Skip";
   static const String forgetPasswordTitle =
@@ -72,6 +73,9 @@ class AppText {
   // other screens
   static const String allCategoriesText = "Categories";
   static const String itemsText = "Items";
+  static const String saleText = "Sale";
+  static const String trendingText = "Trending";
+  static const String newText = "New";
 
   // bloc text
   static const String noBrandsFountText = "No brands to load";

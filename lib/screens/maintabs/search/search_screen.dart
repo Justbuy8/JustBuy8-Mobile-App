@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
+import 'package:justbuyeight/screens/filter/filter_screen.dart';
+import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.dart';
 
@@ -47,19 +49,23 @@ class _SearchScreenState extends State<SearchScreen> {
                           prefixIcon: Ionicons.search_outline,
                         ),
                       ),
+                      SizedBox(width: 20.w),
                       Expanded(
-                        child: Container(
-                          height: 60.h,
-                          margin: const EdgeInsets.only(left: 20),
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              // an icon for filter
-                              Ionicons.filter_outline,
+                        child: GestureDetector(
+                          onTap: () {
+                            AppNavigator.goToPage(
+                              context: context,
+                              screen: const FilterScreen(),
+                            );
+                          },
+                          child: Container(
+                            height: 60.h,
+                            decoration: BoxDecoration(
+                              color: AppColors.primaryColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Icon(
+                              Ionicons.options_outline,
                               color: AppColors.appWhiteColor,
                             ),
                           ),
@@ -67,6 +73,10 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                     ],
                   ),
+                  SizedBox(height: 20.h),
+                  // categories
+                  SizedBox(height: 20.h),
+                  // new arrivals
                 ],
               ),
             )
