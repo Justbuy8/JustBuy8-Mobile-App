@@ -7,6 +7,7 @@ class ImageAssets {
   static const String signInCover = "assets/images/signin_cover.jpg";
   static const String signUpCover = "assets/images/signup_cover.jpg";
   static const String appLogo = "assets/images/justbuy8Logo.png";
+  static const String promocodeImage = "assets/images/promo.png";
 }
 
 class LottieAssets {
