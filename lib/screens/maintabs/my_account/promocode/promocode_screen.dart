@@ -1,20 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
-
-import 'package:justbuyeight/screens/maintabs/main_tabs_screen.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.dart';
-import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class PromodeCodeScreen extends StatefulWidget {

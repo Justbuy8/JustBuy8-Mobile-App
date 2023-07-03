@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'dart:convert';
 
 import 'package:http/http.dart';
@@ -62,8 +64,6 @@ class AddressController {
         "content-type": "application/json; charset=utf-8",
       },
     );
-
-    print(response.body);
 
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
