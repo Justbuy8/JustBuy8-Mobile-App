@@ -1,6 +1,7 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:async';
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:justbuyeight/constants/api_manager.dart';
@@ -38,7 +39,6 @@ class GetAddressCubit extends Cubit<GetAddressState> {
     } on TimeoutException {
       emit(GetAddressTimeout());
     } catch (e) {
-      print(e);
       emit(GetAddressFailed());
     }
   }

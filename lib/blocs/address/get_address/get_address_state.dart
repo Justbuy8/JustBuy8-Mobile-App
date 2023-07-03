@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, annotate_overrides
+
 part of 'get_address_cubit.dart';
 
 abstract class GetAddressState extends Equatable {

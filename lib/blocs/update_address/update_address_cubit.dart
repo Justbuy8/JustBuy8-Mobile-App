@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:async';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
@@ -16,9 +18,7 @@ class UpdateAddressCubit extends Cubit<UpdateAddressState> {
   updateAddress(body) async {
     emit(UpdateAddressLoading());
     try {
-      print(body);
       response = await AddressController.updateAddress(body);
-
       if (response['Message'] == 'Address Updated.' &&
           response['Success'] == true) {
         emit(UpdateAddressSuccessfull());
