@@ -220,7 +220,9 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
               Navigator.of(context).pop();
             },
             leadingIcon: Icons.arrow_back_ios,
-            title: 'Add New Address',
+            title: widget.navigateFrom == 'Edit'
+                ? 'Update Address'
+                : 'Add New Address',
             trailingIcon: Icons.delete_outline),
         body: Padding(
           padding: EdgeInsets.all(12.w),
@@ -424,7 +426,9 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
                   PrimaryButtonWidget(
                       width: context.width(),
                       height: 50.h,
-                      caption: AppText.addInformation,
+                      caption: widget.navigateFrom == 'Edit'
+                          ? AppText.updateInformation
+                          : AppText.addInformation,
                       onPressed: () async {
                         if (formGlobalKey.currentState!.validate()) {
                           String? userId =
