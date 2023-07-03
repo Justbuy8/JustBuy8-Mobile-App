@@ -144,7 +144,7 @@ class OrderCardWidget extends StatelessWidget {
                     SizedBox(
                       height: 10.h,
                     ),
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width / 1.7,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
