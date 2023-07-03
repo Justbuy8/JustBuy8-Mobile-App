@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'app_colors.dart';
 import 'app_fonts.dart';
 
 class AppTextStyle {
@@ -17,6 +18,13 @@ class AppTextStyle {
 
   static var topCategoriesStyle = TextStyle(
     fontWeight: FontWeight.bold,
+    fontFamily: AppFonts.robotoBold,
+  );
+
+  static var cartTextStyle = TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.bold,
+    color: AppColors.appBlackColor,
     fontFamily: AppFonts.robotoBold,
   );
 }

@@ -77,6 +77,9 @@ class AppText {
   static const String saleText = "Sale";
   static const String trendingText = "Trending";
   static const String newText = "New";
+  static const String yourCartIsEmptyText = "Your cart is empty!";
+  static const String looksLikeYouHaventMadeYourOrderYetText =
+      "Looks like you haven't made your order yet";
 
   // bloc text
   static const String noBrandsFountText = "No brands to load";

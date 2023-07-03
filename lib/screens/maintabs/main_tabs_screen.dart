@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/myaccount/myaccount_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
+import 'package:justbuyeight/screens/maintabs/cart/cart_screen.dart';
 import 'package:justbuyeight/screens/maintabs/home/home_screen.dart';
 import 'package:justbuyeight/screens/maintabs/search/search_screen.dart';
 import 'package:justbuyeight/screens/maintabs/widgets/FadeIndexedStack.dart';
@@ -25,7 +26,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
   static List<Widget> homepageTabs = <Widget>[
     HomeScreen(),
     SearchScreen(),
-    Container(color: Colors.blue),
+    CartScreen(),
     Container(color: Colors.yellow),
     MyAccountScreen(),
   ];
