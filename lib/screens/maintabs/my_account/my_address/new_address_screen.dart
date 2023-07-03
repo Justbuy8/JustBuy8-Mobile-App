@@ -199,18 +199,9 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
                     return confirmAlertDialog(context, 'Confirm delete',
                         'Do you wanna delete this address?',
                         YesPressed: () async {
-                      String? userId = await UserSecureStorage.fetchUserId();
-                      String? fetchToken = await UserSecureStorage.fetchToken();
-
-                      var newAddressMap = {
-                        "UserId": "$userId",
-                        "Token": "$fetchToken",
-                        "address_id": widget.addressData[widget.index].id,
-                      };
-
                       context
                           .read<DeleteAddressCubit>()
-                          .deleteAddress(newAddressMap);
+                          .deleteAddress(widget.addressData[widget.index].id);
                     }, NoPressed: () {
                       Navigator.of(context).pop();
                     });
