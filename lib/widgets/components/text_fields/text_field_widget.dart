@@ -13,6 +13,7 @@ class TextFieldWidget extends StatefulWidget {
     this.keyboardType,
     this.validator,
     this.readOnly,
+    this.maxLine,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -23,6 +24,7 @@ class TextFieldWidget extends StatefulWidget {
   final TextInputType? keyboardType;
   final bool? readOnly;
   final String? Function(String?)? validator;
+  final int? maxLine;
 
   @override
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
@@ -32,6 +34,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: widget.maxLine ?? 1,
       readOnly: widget.readOnly ?? false,
       controller: widget.controller,
       style: const TextStyle(fontSize: 18),
