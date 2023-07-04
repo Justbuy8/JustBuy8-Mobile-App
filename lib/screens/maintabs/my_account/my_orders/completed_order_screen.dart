@@ -5,7 +5,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
-import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/screens/maintabs/my_account/my_orders/widgets/completed_card_widgets.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
@@ -13,7 +12,6 @@ import 'package:justbuyeight/widgets/components/buttons/seconday_button_widget.d
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 class CompletedOrderScreen extends StatefulWidget {
   const CompletedOrderScreen({Key? key}) : super(key: key);

@@ -7,8 +7,6 @@ import 'package:justbuyeight/screens/maintabs/my_account/my_orders/completed_ord
 import 'package:justbuyeight/screens/maintabs/my_account/my_orders/widgets/completed_card_widgets.dart';
 import 'package:justbuyeight/screens/maintabs/my_account/my_orders/widgets/ongoing_card_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
-import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
-import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
 import 'package:page_transition/page_transition.dart';
 
 class MyOrderScreen extends StatefulWidget {
