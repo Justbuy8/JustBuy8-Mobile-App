@@ -63,12 +63,22 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
 
                   // second tab bar viiew widget
                   Container(
-                    child: Center(
-                      child: Text(
-                        'Car',
-                      ),
+                      child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 8.h),
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 10,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                OrderCardWidget(),
+                                Divider(),
+                              ],
+                            );
+                          }),
                     ),
-                  ),
+                  )),
                 ],
               ),
             ),
