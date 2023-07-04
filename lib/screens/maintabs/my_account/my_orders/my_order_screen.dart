@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/screens/maintabs/my_account/my_orders/completed_order_screen.dart';
+import 'package:justbuyeight/screens/maintabs/my_account/my_orders/ongoing_order_screen.dart';
 import 'package:justbuyeight/screens/maintabs/my_account/my_orders/widgets/completed_card_widgets.dart';
 import 'package:justbuyeight/screens/maintabs/my_account/my_orders/widgets/ongoing_card_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
@@ -55,7 +56,18 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                           itemBuilder: (context, index) {
                             return Column(
                               children: [
-                                OrderCardWidget(),
+                                GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          PageTransition(
+                                              duration: const Duration(
+                                                  milliseconds: 400),
+                                              type: PageTransitionType
+                                                  .rightToLeft,
+                                              child: OnGoingOrderScreen()));
+                                    },
+                                    child: OrderCardWidget()),
                                 Divider(),
                               ],
                             );
