@@ -3,10 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/screens/maintabs/my_account/my_orders/widgets/completed_card_widgets.dart';
 import 'package:justbuyeight/screens/maintabs/my_account/my_orders/widgets/ongoing_card_widget.dart';
+import 'package:justbuyeight/screens/maintabs/my_account/my_orders/widgets/stepper_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/seconday_button_widget.dart';
@@ -24,6 +26,15 @@ class OnGoingOrderScreen extends StatefulWidget {
 
 class _OnGoingOrderScreenState extends State<OnGoingOrderScreen> {
   final TextEditingController _messageController = TextEditingController();
+  List<IoniconsData> stepIcons = [
+    Ionicons.card_outline,
+    Ionicons.bus_outline,
+    Ionicons.card_sharp,
+    Ionicons.checkbox,
+  ];
+
+  int _curStep = 3;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,9 +48,18 @@ class _OnGoingOrderScreenState extends State<OnGoingOrderScreen> {
           ),
           OrderCardWidget(),
           SizedBox(
-            height: 10.h,
+            height: 5.h,
           ),
           Divider(),
+          StepProgressView(
+            icons: stepIcons,
+            width: MediaQuery.of(context).size.width,
+            curStep: _curStep,
+            color: AppColors.primaryColor,
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
           Padding(
             padding: EdgeInsets.only(left: 12.w),
             child: PrimaryTextWidget(
