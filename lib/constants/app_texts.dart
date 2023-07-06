@@ -71,6 +71,11 @@ class AppText {
   static const String wishlistText = "Wishlist";
   static const String accountText = "Account";
 
+  // Filter Screen
+  static const String categoriesText = "Categories";
+  static const String priceText = "Price";
+  static const String ratingText = "Rating";
+
   // other screens
   static const String allCategoriesText = "Categories";
   static const String itemsText = "Items";

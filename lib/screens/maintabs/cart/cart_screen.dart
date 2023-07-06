@@ -20,11 +20,12 @@ class CartScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
               child: Image.asset(
                 ImageAssets.emptyCart,
-                height: context.height() * 0.4,
+                height: context.height() * 0.3,
               ),
             ),
             20.height,

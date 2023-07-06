@@ -42,11 +42,14 @@ class _SearchScreenState extends State<SearchScreen> {
                   Row(
                     children: [
                       Expanded(
-                        flex: 3,
-                        child: TextFieldWidget(
-                          controller: searchController,
-                          label: AppText.searchHereText,
-                          prefixIcon: Ionicons.search_outline,
+                        flex: 5,
+                        child: SizedBox(
+                          height: 50.h,
+                          child: TextFieldWidget(
+                            controller: searchController,
+                            label: AppText.searchHereText,
+                            prefixIcon: Ionicons.search_outline,
+                          ),
                         ),
                       ),
                       SizedBox(width: 20.w),
@@ -59,7 +62,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             );
                           },
                           child: Container(
-                            height: 60.h,
+                            height: 40.h,
                             decoration: BoxDecoration(
                               color: AppColors.primaryColor,
                               borderRadius: BorderRadius.circular(10),

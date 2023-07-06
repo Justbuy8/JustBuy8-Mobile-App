@@ -46,8 +46,8 @@ class _ToggleButtonsWidgetState extends State<ToggleButtonsWidget> {
                     widget.searchTypes[index],
                     style: TextStyle(
                       color: _selectedButtonIndex == index
-                          ? Colors.white
-                          : Colors.black,
+                          ? AppColors.appWhiteColor
+                          : AppColors.primaryColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
