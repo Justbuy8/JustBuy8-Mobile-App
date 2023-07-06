@@ -11,7 +11,8 @@ import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/main.dart';
 import 'package:justbuyeight/screens/authentication/signin_screen.dart';
 import 'package:justbuyeight/screens/maintabs/my_account/my_address/my_address_screen.dart';
-import 'package:justbuyeight/screens/maintabs/my_account/edit_profile_screen.dart';
+import 'package:justbuyeight/screens/maintabs/my_account/edit_profile/edit_profile_screen.dart';
+import 'package:justbuyeight/screens/maintabs/my_account/my_orders/my_order_screen.dart';
 import 'package:justbuyeight/screens/maintabs/my_account/promocode/promocode_screen.dart';
 import 'package:justbuyeight/utils/AlertDialog.dart';
 import 'package:justbuyeight/utils/Navigator.dart';
@@ -168,6 +169,15 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                   duration: const Duration(milliseconds: 400),
                                   type: PageTransitionType.rightToLeft,
                                   child: PromodeCodeScreen()))
+                        ];
+                      } else if (index == 1) {
+                        [
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                  duration: const Duration(milliseconds: 400),
+                                  type: PageTransitionType.rightToLeft,
+                                  child: MyOrderScreen()))
                         ];
                       } else if (index == 5) {
                         [

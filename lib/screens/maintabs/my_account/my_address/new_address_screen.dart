@@ -15,6 +15,7 @@ import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/utils/AlertDialog.dart';
 import 'package:justbuyeight/utils/Secure_Storage.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
+import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.dart';
@@ -191,39 +192,34 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
         ),
       ],
       child: Scaffold(
-        appBar: SecondaryAppbarWidget(
-            trailingIconOnPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return confirmAlertDialog(context, 'Confirm delete',
-                        'Do you wanna delete this address?',
-                        YesPressed: () async {
-                      String? userId = await UserSecureStorage.fetchUserId();
-                      String? fetchToken = await UserSecureStorage.fetchToken();
-
-                      var newAddressMap = {
-                        "UserId": "$userId",
-                        "Token": "$fetchToken",
-                        "address_id": widget.addressData[widget.index].id,
-                      };
-
-                      context
-                          .read<DeleteAddressCubit>()
-                          .deleteAddress(newAddressMap);
-                    }, NoPressed: () {
-                      Navigator.of(context).pop();
-                    });
-                  });
-            },
-            leadingIconOnPressed: () {
-              Navigator.of(context).pop();
-            },
-            leadingIcon: Icons.arrow_back_ios,
-            title: widget.navigateFrom == 'Edit'
-                ? 'Update Address'
-                : 'Add New Address',
-            trailingIcon: Icons.delete_outline),
+        appBar: PreferredSize(
+          child: widget.navigateFrom == 'Edit'
+              ? SecondaryAppbarWidget(
+                  trailingIconOnPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return confirmAlertDialog(context, 'Confirm delete',
+                              'Do you wanna delete this address?',
+                              YesPressed: () async {
+                            context.read<DeleteAddressCubit>().deleteAddress(
+                                widget.addressData[widget.index].id);
+                          }, NoPressed: () {
+                            Navigator.of(context).pop();
+                          });
+                        });
+                  },
+                  leadingIconOnPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  leadingIcon: Icons.arrow_back_ios,
+                  title: 'Update Address',
+                  trailingIcon: Icons.delete_outline)
+              : BasicAppbarWidget(
+                  title: 'Add New Address',
+                ),
+          preferredSize: Size.fromHeight(50.h),
+        ),
         body: Padding(
           padding: EdgeInsets.all(12.w),
           child: SingleChildScrollView(
