@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/categories/sub_categories/sub_categories_bloc.dart';
-import 'package:justbuyeight/constants/app_colors.dart';
+import 'package:justbuyeight/screens/categories/widgets/SubCategoryListItemWidget.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
-import 'package:justbuyeight/widgets/components/buttons/border_text_button.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
-import 'package:nb_utils/nb_utils.dart';
+
 
 class SubCategoriesScreen extends StatefulWidget {
   final String title;
@@ -22,6 +21,7 @@ class SubCategoriesScreen extends StatefulWidget {
 
 class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
   final bloc = SubCategoryBloc();
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,51 +36,9 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
             builder: (context, state) {
               if (state is SubCategoryDataState) {
                 return ListView.builder(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
                   itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: ExpansionTile(
-                          collapsedIconColor: AppColors.appWhiteColor,
-                          childrenPadding: const EdgeInsets.all(10),
-                          iconColor: AppColors.primaryColor,
-                          collapsedBackgroundColor: AppColors.primaryColor,
-                          textColor: AppColors.primaryColor,
-                          collapsedTextColor: AppColors.appWhiteColor,
-                          title: Text(
-                            state.subCategories[index].subCatName.toString(),
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          children: [
-                            GridView.builder(
-                              gridDelegate:
-                                  SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: context.width() / 2,
-                                childAspectRatio: 5,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
-                              ),
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, i) => BorderTextButton(
-                                text: state
-                                    .subCategories[index].child![i].childCatName
-                                    .toString(),
-                              ),
-                              itemCount:
-                                  state.subCategories[index].child!.length,
-                            )
-                          ],
-                        ),
-                      ),
-                    );
+                    return SubCategoryListItemWidget(subCategory: state.subCategories[index]);
                   },
                   itemCount: state.subCategories.length,
                 );
@@ -98,3 +56,23 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
     );
   }
 }
+
+/*children: [
+                          GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: context.width() / 2,
+                              childAspectRatio: 5,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                            ),
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, i) => BorderTextButton(
+                              text: state
+                                  .subCategories[index].child![i].childCatName
+                                  .toString(),
+                            ),
+                            itemCount: state.subCategories[index].child!.length,
+                          )
+                        ],*/
