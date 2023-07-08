@@ -14,6 +14,7 @@ import 'package:justbuyeight/screens/maintabs/my_account/my_address/my_address_s
 import 'package:justbuyeight/screens/maintabs/my_account/edit_profile/edit_profile_screen.dart';
 import 'package:justbuyeight/screens/maintabs/my_account/my_orders/my_order_screen.dart';
 import 'package:justbuyeight/screens/maintabs/my_account/promocode/promocode_screen.dart';
+import 'package:justbuyeight/screens/settings/setting_screen.dart';
 import 'package:justbuyeight/utils/AlertDialog.dart';
 import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
@@ -43,9 +44,17 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      appBar: const SecondaryAppbarWidget(
+      appBar: SecondaryAppbarWidget(
         trailingIcon: Icons.notifications_outlined,
         leadingIcon: Icons.settings_outlined,
+        leadingIconOnPressed: () {
+          Navigator.push(
+              context,
+              PageTransition(
+                  duration: const Duration(milliseconds: 400),
+                  type: PageTransitionType.rightToLeft,
+                  child: SettingScreen()));
+        },
         title: 'My Account',
       ),
       body: SingleChildScrollView(

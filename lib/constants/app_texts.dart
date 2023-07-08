@@ -119,6 +119,23 @@ const List<String> myAccountListTitle = [
   'Logout',
 ];
 
+const List<IoniconsData> settingListIcon = [
+  Ionicons.notifications_outline,
+  Ionicons.information_circle_outline,
+  Ionicons.lock_closed_outline,
+  Ionicons.information_outline,
+  Ionicons.pencil_outline,
+  Ionicons.phone_landscape_outline,
+];
+const List<String> settingListTitle = [
+  'Notification Options',
+  'About Us',
+  'Privacy Policy',
+  'FAQs',
+  'Send Feedback',
+  'Contact Us',
+];
+
 const List<String> billingAddress = [
   'Permanent',
   'Home',
