@@ -100,6 +100,11 @@ class AppText {
   static const String promocodeText = " Promocodes Yet!";
   static const String promocodeSubTitleText =
       "Please Enter Coupon Code get ...............";
+
+  /////contactus TEXT
+  static const String contactUsText = "Contact Us";
+  static const String contactUsSubtitle =
+      "If you face any trouble for item ordering feel free to contact us.";
 }
 
 const List<IoniconsData> myAccountListIcon = [
@@ -125,7 +130,7 @@ const List<IoniconsData> settingListIcon = [
   Ionicons.lock_closed_outline,
   Ionicons.information_outline,
   Ionicons.pencil_outline,
-  Ionicons.phone_landscape_outline,
+  Ionicons.call_outline,
 ];
 const List<String> settingListTitle = [
   'Notification Options',
