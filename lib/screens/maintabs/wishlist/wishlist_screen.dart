@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/blocs/wishlist/wishlist_bloc.dart';
+import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
@@ -23,6 +24,10 @@ class _WishListScreenState extends State<WishListScreen> {
   String? userId;
   String? userToken;
 
+  final ScrollController scrollController = ScrollController();
+  int paginateBy = AppConfig.WishListPagenateCount;
+  int page = AppConfig.PageOne;
+
   @override
   void initState() {
     // getting user id and user token
@@ -37,8 +42,26 @@ class _WishListScreenState extends State<WishListScreen> {
         WishlistGetDataEvent(
           userId.toString(),
           userToken.toString(),
+          page: page,
+          paginateBy: paginateBy,
         ),
       );
+    });
+
+    scrollController.addListener(() {
+      if (scrollController.position.maxScrollExtent -
+              scrollController.position.pixels <=
+          AppConfig.LoadOnScrollHeight) {
+        page++;
+        wishlistBloc.add(
+          WishlistGetDataEvent(
+            userId.toString(),
+            userToken.toString(),
+            page: page,
+            paginateBy: paginateBy,
+          ),
+        );
+      }
     });
 
     super.initState();
@@ -47,6 +70,7 @@ class _WishListScreenState extends State<WishListScreen> {
   @override
   void dispose() {
     wishlistBloc.close();
+    scrollController.dispose();
     super.dispose();
   }
 
@@ -67,6 +91,11 @@ class _WishListScreenState extends State<WishListScreen> {
             }
           },
           builder: (context, state) {
+            if (state is WishlistErrorState) {
+              return Center(
+                child: Text(state.message),
+              );
+            }
             return products.isEmpty
                 ? GridView.builder(
                     itemCount: 10,
@@ -80,6 +109,7 @@ class _WishListScreenState extends State<WishListScreen> {
                     itemBuilder: (context, index) {
                       return const RectangularShimmer();
                     },
+                    controller: scrollController,
                     padding: const EdgeInsets.all(10.0),
                   )
                 : GridView.builder(

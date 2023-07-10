@@ -10,6 +10,7 @@ class AppConfig {
   static int HomeBestNewArrivalMainCatPagenateCount = 10;
   static int HomeBestChooseBrandsPagenateCount = 10;
   static int AllCategoriesPagenateCount = 10;
+  static int WishListPagenateCount = 20;
   static int SingleCategoryPagenateCount = 10;
 // Adjust this value to control the position to trigger loading
   static double LoadOnScrollHeight = 400.0;
