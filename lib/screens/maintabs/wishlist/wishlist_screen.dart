@@ -70,6 +70,7 @@ class _WishListScreenState extends State<WishListScreen> {
   @override
   void dispose() {
     wishlistBloc.close();
+    scrollController.dispose();
     super.dispose();
   }
 
