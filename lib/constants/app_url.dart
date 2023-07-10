@@ -28,6 +28,11 @@ class AuthUrl {
   static const String login = "${AppUrl.baseUrl}/authentication/login";
 }
 
+class WishListUrl {
+  static const String getUserWishList =
+      "${AppUrl.baseUrl}/wishlist/get-user-wlist";
+}
+
 class ProductsUrl {
   static const String featuredProducts =
       "${AppUrl.baseUrl}/product/get-featured-products";

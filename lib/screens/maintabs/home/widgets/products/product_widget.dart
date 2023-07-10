@@ -13,7 +13,9 @@ import 'package:nb_utils/nb_utils.dart';
 
 class ProductWidget extends StatelessWidget {
   final ProductModel product;
-  const ProductWidget({Key? key, required this.product}) : super(key: key);
+  final bool? isWishlist;
+  const ProductWidget({Key? key, required this.product, this.isWishlist})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +38,12 @@ class ProductWidget extends StatelessWidget {
                     backgroundColor: AppColors.appWhiteColor,
                     radius: 15,
                     child: Icon(
-                      Ionicons.heart_outline,
-                      color: AppColors.appBlackColor,
+                      isWishlist == true
+                          ? Ionicons.heart
+                          : Ionicons.heart_outline,
+                      color: isWishlist == true
+                          ? AppColors.appRedColor
+                          : AppColors.appBlackColor,
                       size: 20,
                       shadows: [
                         Shadow(
@@ -67,7 +73,7 @@ class ProductWidget extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         Container(
-          width: context.width() ,
+          width: context.width(),
           padding: const EdgeInsets.symmetric(horizontal: 2),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

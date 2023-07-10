@@ -11,6 +11,7 @@ import 'package:justbuyeight/screens/maintabs/home/home_screen.dart';
 import 'package:justbuyeight/screens/maintabs/search/search_screen.dart';
 import 'package:justbuyeight/screens/maintabs/widgets/FadeIndexedStack.dart';
 import 'package:justbuyeight/screens/maintabs/widgets/HomeBottomNavBar.dart';
+import 'package:justbuyeight/screens/maintabs/wishlist/wishlist_screen.dart';
 
 import 'my_account/my_account_screen.dart';
 
@@ -27,7 +28,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
     HomeScreen(),
     SearchScreen(),
     CartScreen(),
-    Container(color: Colors.yellow),
+    WishListScreen(),
     MyAccountScreen(),
   ];
 
