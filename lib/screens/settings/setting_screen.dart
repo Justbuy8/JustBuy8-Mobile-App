@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/screens/settings/about_us_screen.dart';
+import 'package:justbuyeight/screens/settings/privacy_policy_screen.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
 import 'package:page_transition/page_transition.dart';
@@ -36,6 +37,13 @@ class _SettingScreenState extends State<SettingScreen> {
                           duration: const Duration(milliseconds: 400),
                           type: PageTransitionType.rightToLeft,
                           child: AboutUsScreen()));
+                } else if (index == 2) {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          duration: const Duration(milliseconds: 400),
+                          type: PageTransitionType.rightToLeft,
+                          child: PrivacyPolicyScreen()));
                 }
                 // else if (index == 4) {
                 //    [
