@@ -7,8 +7,15 @@ abstract class WishlistEvent {}
 class WishlistGetDataEvent extends WishlistEvent {
   final String userId;
   final String userToken;
+  final int page;
+  final int paginateBy;
 
-  WishlistGetDataEvent(this.userId, this.userToken);
+  WishlistGetDataEvent(
+    this.userId,
+    this.userToken, {
+    required this.page,
+    required this.paginateBy,
+  });
 }
 
 //states
