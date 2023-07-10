@@ -7,12 +7,14 @@ class SecondaryTextWidget extends StatelessWidget {
       required this.text,
       this.fontSize,
       this.fontFamily,
+      this.fontWeight,
       this.fontColor})
       : super(key: key);
   final String text;
   final double? fontSize;
   final String? fontFamily;
   final Color? fontColor;
+  final FontWeight? fontWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +22,11 @@ class SecondaryTextWidget extends StatelessWidget {
       text,
       style: TextStyle(
         fontSize: fontSize ?? 16,
-        fontWeight: FontWeight.normal,
+        fontWeight: fontWeight ?? FontWeight.normal,
         fontFamily: fontFamily ?? AppFonts.openSansLight,
         color: fontColor ?? Colors.black,
       ),
+      textAlign: TextAlign.justify,
     );
   }
 }
