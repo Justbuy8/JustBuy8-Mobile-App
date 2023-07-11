@@ -6,6 +6,7 @@ import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/screens/settings/about_us_screen.dart';
 import 'package:justbuyeight/screens/settings/contact_us_screen.dart';
 import 'package:justbuyeight/screens/settings/faqs_screen.dart';
+import 'package:justbuyeight/screens/settings/notification_setting_screen.dart';
 import 'package:justbuyeight/screens/settings/privacy_policy_screen.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
@@ -23,7 +24,7 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      appBar: BasicAppbarWidget(title: 'Settings'),
+      appBar: BasicAppbarWidget(title: AppText.setting),
       body: ListView.builder(
           itemCount: myAccountListTitle.length,
           shrinkWrap: true,
@@ -32,7 +33,14 @@ class _SettingScreenState extends State<SettingScreen> {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                if (index == 1) {
+                if (index == 0) {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          duration: const Duration(milliseconds: 400),
+                          type: PageTransitionType.rightToLeft,
+                          child: NotificationSettingScreen()));
+                } else if (index == 1) {
                   Navigator.push(
                       context,
                       PageTransition(
@@ -63,37 +71,6 @@ class _SettingScreenState extends State<SettingScreen> {
                             child: ContactUsScreen()))
                   ];
                 }
-                //else if (index == 1) {
-                //    [
-                //      Navigator.push(
-                //          context,
-                //          PageTransition(
-                //              duration: const Duration(milliseconds: 400),
-                //              type: PageTransitionType.rightToLeft,
-                //              child: MyOrderScreen()))
-                //    ];
-                //  } else if (index == 5) {
-                //    [
-                //      showDialog(
-                //        context: context,
-                //        builder: (BuildContext context) {
-                //          return confirmAlertDialog(
-                //              context,
-                //              'Confirm Logout',
-                //              'Are you sure you want to logout?',
-                //              YesPressed: () async {
-                //            await UserSecureStorage.deleteSecureStorage();
-                //            Navigator.of(context).pushAndRemoveUntil(
-                //                MaterialPageRoute(
-                //                    builder: (builder) => const MyApp()),
-                //                (route) => false);
-                //          }, NoPressed: () {
-                //            Navigator.of(context).pop();
-                //          });
-                //        },
-                //      ),
-                //    ];
-                //  }
               },
               child: Column(
                 children: [

@@ -26,7 +26,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BasicAppbarWidget(title: 'Contact Us'),
+      appBar: BasicAppbarWidget(title: AppText.contactUsText),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 20.h),
@@ -63,7 +63,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               TextFieldWidget(
                 controller: _phoneNumberController,
                 prefixIcon: Icons.phone_outlined,
-                label: 'Phone number',
+                label: AppText.phoneNumber,
               ),
               SizedBox(
                 height: 15.h,
@@ -71,7 +71,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               TextFieldWidget(
                 controller: _emailController,
                 prefixIcon: Icons.email_outlined,
-                label: 'Email',
+                label: AppText.email,
               ),
               SizedBox(
                 height: 30.h,
