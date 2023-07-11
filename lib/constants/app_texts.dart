@@ -109,7 +109,7 @@ class AppText {
       "If you face any trouble for item ordering feel free to contact us.";
 
   static const String notificationOption = "Notification Options";
-  static const String setting = "Notification Options";
+  static const String setting = "Settings";
 }
 
 const List<IoniconsData> myAccountListIcon = [
