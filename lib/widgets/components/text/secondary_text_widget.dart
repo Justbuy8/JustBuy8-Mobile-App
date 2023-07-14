@@ -8,6 +8,7 @@ class SecondaryTextWidget extends StatelessWidget {
       this.fontSize,
       this.fontFamily,
       this.fontWeight,
+      this.textAlign,
       this.fontColor})
       : super(key: key);
   final String text;
@@ -15,6 +16,7 @@ class SecondaryTextWidget extends StatelessWidget {
   final String? fontFamily;
   final Color? fontColor;
   final FontWeight? fontWeight;
+  final TextAlign? textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class SecondaryTextWidget extends StatelessWidget {
         fontFamily: fontFamily ?? AppFonts.openSansLight,
         color: fontColor ?? Colors.black,
       ),
-      textAlign: TextAlign.justify,
+      textAlign: textAlign ?? TextAlign.justify,
     );
   }
 }

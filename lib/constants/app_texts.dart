@@ -11,6 +11,8 @@ class AppText {
   static const String email = "Email";
   static const String firstName = "First Name";
   static const String lastName = "Last Name";
+  static const String phoneNumber = "Phone Number";
+
   static const String password = "Password";
   static const String confirmPassword = "Confirm password";
   static const String continueWith = "or continue with";
@@ -100,6 +102,14 @@ class AppText {
   static const String promocodeText = " Promocodes Yet!";
   static const String promocodeSubTitleText =
       "Please Enter Coupon Code get ...............";
+
+  /////contactus TEXT
+  static const String contactUsText = "Contact Us";
+  static const String contactUsSubtitle =
+      "If you face any trouble for item ordering feel free to contact us.";
+
+  static const String notificationOption = "Notification Options";
+  static const String setting = "Settings";
 }
 
 const List<IoniconsData> myAccountListIcon = [
@@ -125,7 +135,7 @@ const List<IoniconsData> settingListIcon = [
   Ionicons.lock_closed_outline,
   Ionicons.information_outline,
   Ionicons.pencil_outline,
-  Ionicons.phone_landscape_outline,
+  Ionicons.call_outline,
 ];
 const List<String> settingListTitle = [
   'Notification Options',
@@ -145,4 +155,28 @@ const List<String> billingAddress = [
 const List<String> billingType = [
   'Shipping',
   'Billing',
+];
+
+const List<String> notificationOptionTitle = [
+  'General Notification',
+  'Sound',
+  'Vibration',
+  'Special Offers',
+  'Promo & Discount',
+  'Payments',
+  'App Updates',
+  'New Product Available',
+  'New Tips Available',
+];
+
+List<bool> notificationOptionStatus = [
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
 ];
