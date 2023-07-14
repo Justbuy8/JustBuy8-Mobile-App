@@ -63,8 +63,10 @@ class ProductWidget extends StatelessWidget {
                   color: AppColors.appGreyColor,
                   image: DecorationImage(
                     image: CachedNetworkImageProvider(
-                        product.thumbnail.toString()),
+                      product.thumbnail.toString(),
+                    ),
                     fit: BoxFit.cover,
+                    onError: (exception, stackTrace) => const SizedBox.shrink(),
                   ),
                 ),
               ),

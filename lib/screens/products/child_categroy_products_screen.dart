@@ -1,48 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:justbuyeight/blocs/wishlist/wishlist_bloc.dart';
+import 'package:justbuyeight/blocs/products/child_category_products_bloc/child_category_products_bloc.dart';
 import 'package:justbuyeight/constants/app_config.dart';
-import 'package:justbuyeight/constants/app_texts.dart';
+import 'package:justbuyeight/models/categories/SubCategoryModel.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
-import 'package:justbuyeight/utils/Secure_Storage.dart';
-import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
+import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 
-class WishListScreen extends StatefulWidget {
-  const WishListScreen({Key? key}) : super(key: key);
+class ChildCategoryProductsScreen extends StatefulWidget {
+  final int categoryId;
+  final SubCategoryModel subCategory;
+  final Child childCategory;
+  const ChildCategoryProductsScreen({
+    Key? key,
+    required this.categoryId,
+    required this.subCategory,
+    required this.childCategory,
+  }) : super(key: key);
 
   @override
-  State<WishListScreen> createState() => _WishListScreenState();
+  State<ChildCategoryProductsScreen> createState() =>
+      _ChildCategoryProductsScreenState();
 }
 
-class _WishListScreenState extends State<WishListScreen> {
+class _ChildCategoryProductsScreenState
+    extends State<ChildCategoryProductsScreen> {
   List<ProductModel> products = [];
-  var wishlistBloc = WishlistBloc();
-
-  String? userId;
-  String? userToken;
+  var bloc = ChildCategoryProductsBloc();
 
   final ScrollController scrollController = ScrollController();
-  int paginateBy = AppConfig.WishListPagenateCount;
+  int paginateBy = AppConfig.ChildCategoryProductsPagenateCount;
   int page = AppConfig.PageOne;
 
   @override
   void initState() {
-    // getting user id and user token
-    UserSecureStorage.fetchUserId().then((value) {
-      userId = value;
-    });
-    UserSecureStorage.fetchToken().then((value) {
-      userToken = value;
-    });
     Future.delayed(const Duration(milliseconds: 500), () {
-      wishlistBloc.add(
-        WishlistGetDataEvent(
-          userId.toString(),
-          userToken.toString(),
-          page: page,
-          paginateBy: paginateBy,
+      bloc.add(
+        ChildCategoryProductsLoadEvent(
+          page.toString(),
+          paginateBy.toString(),
+          widget.categoryId,
+          widget.subCategory.subCatId!,
+          widget.childCategory.childCatId!,
         ),
       );
     });
@@ -52,12 +51,13 @@ class _WishListScreenState extends State<WishListScreen> {
               scrollController.position.pixels <=
           AppConfig.LoadOnScrollHeight) {
         page++;
-        wishlistBloc.add(
-          WishlistGetDataEvent(
-            userId.toString(),
-            userToken.toString(),
-            page: page,
-            paginateBy: paginateBy,
+        bloc.add(
+          ChildCategoryProductsLoadEvent(
+            page.toString(),
+            paginateBy.toString(),
+            widget.categoryId,
+            widget.subCategory.subCatId!,
+            widget.childCategory.childCatId!,
           ),
         );
       }
@@ -68,7 +68,6 @@ class _WishListScreenState extends State<WishListScreen> {
 
   @override
   void dispose() {
-    wishlistBloc.close();
     scrollController.dispose();
     super.dispose();
   }
@@ -76,21 +75,20 @@ class _WishListScreenState extends State<WishListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SecondaryAppbarWidget(
-        title: AppText.wishlistText,
-        leadingIcon: Ionicons.settings_outline,
-        trailingIcon: Ionicons.notifications_outline,
+      appBar: BasicAppbarWidget(
+        title: widget.childCategory.childCatName.toString(),
       ),
       body: SafeArea(
-        child: BlocConsumer<WishlistBloc, WishlistState>(
-          bloc: wishlistBloc,
+        child:
+            BlocConsumer<ChildCategoryProductsBloc, ChildCategoryProductsState>(
+          bloc: bloc,
           listener: (context, state) {
-            if (state is WishlistGetState) {
+            if (state is ChildCategoryProductsGetState) {
               products.addAll(state.products);
             }
           },
           builder: (context, state) {
-            if (state is WishlistErrorState) {
+            if (state is ChildCategoryProductsErrorState) {
               return Center(
                 child: Text(state.message),
               );
@@ -111,7 +109,6 @@ class _WishListScreenState extends State<WishListScreen> {
                     itemBuilder: (context, index) {
                       return ProductWidget(
                         product: products[index],
-                        isWishlist: true,
                       );
                     },
                     padding: const EdgeInsets.all(10.0),

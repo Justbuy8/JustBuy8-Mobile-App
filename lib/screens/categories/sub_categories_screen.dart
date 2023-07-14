@@ -5,7 +5,6 @@ import 'package:justbuyeight/screens/categories/widgets/SubCategoryListItemWidge
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 
-
 class SubCategoriesScreen extends StatefulWidget {
   final String title;
   final int categoryId;
@@ -21,7 +20,7 @@ class SubCategoriesScreen extends StatefulWidget {
 
 class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
   final bloc = SubCategoryBloc();
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +37,10 @@ class _SubCategoriesScreenState extends State<SubCategoriesScreen> {
                 return ListView.builder(
                   padding: EdgeInsets.symmetric(horizontal: 8),
                   itemBuilder: (context, index) {
-                    return SubCategoryListItemWidget(subCategory: state.subCategories[index]);
+                    return SubCategoryListItemWidget(
+                      categoryId: widget.categoryId,
+                      subCategory: state.subCategories[index],
+                    );
                   },
                   itemCount: state.subCategories.length,
                 );
