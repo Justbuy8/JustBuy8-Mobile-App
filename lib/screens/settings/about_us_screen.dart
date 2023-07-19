@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_colors.dart';

@@ -34,17 +34,20 @@ class _ChildCategoryProductsScreenState
 
   @override
   void initState() {
-    Future.delayed(const Duration(milliseconds: 500), () {
-      bloc.add(
-        ChildCategoryProductsLoadEvent(
-          page.toString(),
-          paginateBy.toString(),
-          widget.categoryId,
-          widget.subCategory.subCatId!,
-          widget.childCategory.childCatId!,
-        ),
-      );
-    });
+    Future.delayed(
+      const Duration(milliseconds: 500),
+      () {
+        bloc.add(
+          ChildCategoryProductsLoadEvent(
+            page.toString(),
+            paginateBy.toString(),
+            widget.categoryId,
+            widget.subCategory.subCatId!,
+            widget.childCategory.childCatId!,
+          ),
+        );
+      },
+    );
 
     scrollController.addListener(() {
       if (scrollController.position.maxScrollExtent -
