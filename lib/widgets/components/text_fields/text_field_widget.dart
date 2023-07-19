@@ -57,13 +57,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         fillColor: AppColors.appGreyColor,
         filled: true,
         hintText: widget.label ?? "",
-        prefixIcon: widget.prefixIcon != ""
+        prefixIcon: widget.prefixIcon != null
             ? Icon(
                 widget.prefixIcon,
                 size: 28,
                 color: AppColors.primaryColor,
               )
-            : SizedBox(),
+            : null,
         suffixIcon: Icon(
           widget.suffixIcon,
           size: 28,

@@ -42,7 +42,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                 ),
                 Image.asset(
                   ImageAssets.contactUsImage,
-                  height: 220.h,
+                  height: 180.h,
                 ),
                 SizedBox(
                   height: 20.h,
@@ -65,7 +65,6 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                 ),
                 TextFieldWidget(
                   controller: _subjectController,
-                  // prefixIcon: Icons.person,
                   label: 'Subject',
                 ),
                 SizedBox(
@@ -87,6 +86,10 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       caption: 'Send message',
                       onPressed: () {}),
                 ),
+                SizedBox(
+                  height: 15.h,
+                ),
+                Divider(),
                 SizedBox(
                   height: 15.h,
                 ),
