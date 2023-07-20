@@ -93,6 +93,8 @@ class AppText {
   static const String noArrivalsFound = "No arrivals found";
   static const String noProductsFound = "No Products found";
   static const String noCategoriesFoundText = "No Categories Found";
+  static const String addedToWishlist = "Added to wishlist";
+  static const String failedToAddToWishlist = "Failed to add to wishlist";
 
   // Widgets Texts
   static const String shopNowText = "Shop Now";

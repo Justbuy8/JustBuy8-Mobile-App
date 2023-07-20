@@ -25,6 +25,7 @@ class WishlistController {
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
       if (result['Success']) {
+        print(jsonEncode(result['Data']));
         products = productsModelFromJson(jsonEncode(result['Data']));
       } else {
         products = [];
@@ -34,5 +35,49 @@ class WishlistController {
       products = [];
     }
     return products;
+  }
+
+  static Future<String> deleteOrAddWishlist({
+    required String userId,
+    required String userToken,
+    required String productId,
+    bool addToWishlist = false,
+    bool deleteFromWishlist = false,
+  }) async {
+    try {
+      var response;
+      if (addToWishlist) {
+        response = await ApiManager.postRequest(
+          {
+            "UserId": userId,
+            "Token": userToken,
+            "Product_id": productId,
+          },
+          WishListUrl.addToWishlist,
+        );
+      }
+      if (deleteFromWishlist) {
+        response = await ApiManager.postRequest(
+          {
+            "UserId": userId,
+            "Token": userToken,
+            "Product_id": productId,
+          },
+          WishListUrl.deleteFromWishlist,
+        );
+      }
+
+      if (response.statusCode == 200) {
+        var result = jsonDecode(response.body) as Map<String, dynamic>;
+        if (result['Success']) {
+          return result['Message'];
+        } else {
+          return result['Message'];
+        }
+      }
+    } catch (error) {
+      rethrow;
+    }
+    return "Something went wrong";
   }
 }

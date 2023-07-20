@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
@@ -11,7 +10,6 @@ import 'package:justbuyeight/screens/maintabs/my_account/my_orders/widgets/stepp
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
-
 import 'package:timeline_tile/timeline_tile.dart';
 
 class OnGoingOrderScreen extends StatefulWidget {

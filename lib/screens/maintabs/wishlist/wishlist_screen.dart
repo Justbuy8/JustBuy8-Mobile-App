@@ -18,7 +18,6 @@ class WishListScreen extends StatefulWidget {
 
 class _WishListScreenState extends State<WishListScreen> {
   List<ProductModel> products = [];
-  var wishlistBloc = WishlistBloc();
 
   String? userId;
   String? userToken;
@@ -26,6 +25,17 @@ class _WishListScreenState extends State<WishListScreen> {
   final ScrollController scrollController = ScrollController();
   int paginateBy = AppConfig.WishListPagenateCount;
   int page = AppConfig.PageOne;
+
+  callBloc() {
+    context.read<WishlistBloc>().add(
+          WishlistGetDataEvent(
+            userId.toString(),
+            userToken.toString(),
+            page: page,
+            paginateBy: paginateBy,
+          ),
+        );
+  }
 
   @override
   void initState() {
@@ -37,14 +47,7 @@ class _WishListScreenState extends State<WishListScreen> {
       userToken = value;
     });
     Future.delayed(const Duration(milliseconds: 500), () {
-      wishlistBloc.add(
-        WishlistGetDataEvent(
-          userId.toString(),
-          userToken.toString(),
-          page: page,
-          paginateBy: paginateBy,
-        ),
-      );
+      callBloc();
     });
 
     scrollController.addListener(() {
@@ -52,14 +55,7 @@ class _WishListScreenState extends State<WishListScreen> {
               scrollController.position.pixels <=
           AppConfig.LoadOnScrollHeight) {
         page++;
-        wishlistBloc.add(
-          WishlistGetDataEvent(
-            userId.toString(),
-            userToken.toString(),
-            page: page,
-            paginateBy: paginateBy,
-          ),
-        );
+        callBloc();
       }
     });
 
@@ -68,55 +64,59 @@ class _WishListScreenState extends State<WishListScreen> {
 
   @override
   void dispose() {
-    wishlistBloc.close();
     scrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: SecondaryAppbarWidget(
-        title: AppText.wishlistText,
-        leadingIcon: Ionicons.settings_outline,
-        trailingIcon: Ionicons.notifications_outline,
-      ),
-      body: SafeArea(
-        child: BlocConsumer<WishlistBloc, WishlistState>(
-          bloc: wishlistBloc,
-          listener: (context, state) {
-            if (state is WishlistGetState) {
-              products.addAll(state.products);
-            }
-          },
-          builder: (context, state) {
-            if (state is WishlistErrorState) {
-              return Center(
-                child: Text(state.message),
-              );
-            }
-            return products.isEmpty
-                ? Column(
-                    children: [],
-                  )
-                : GridView.builder(
-                    itemCount: products.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 0.7,
-                      mainAxisSpacing: 20,
-                      crossAxisSpacing: 20,
-                    ),
-                    itemBuilder: (context, index) {
-                      return ProductWidget(
-                        product: products[index],
-                        isWishlist: true,
-                      );
-                    },
-                    padding: const EdgeInsets.all(10.0),
-                  );
-          },
+    return RefreshIndicator(
+      onRefresh: () {
+        callBloc();
+        return Future.delayed(const Duration(seconds: 1));
+      },
+      child: Scaffold(
+        appBar: SecondaryAppbarWidget(
+          title: AppText.wishlistText,
+          leadingIcon: Ionicons.settings_outline,
+          trailingIcon: Ionicons.notifications_outline,
+        ),
+        body: SafeArea(
+          child: BlocConsumer<WishlistBloc, WishlistState>(
+            listener: (context, state) {
+              if (state is WishlistGetState) {
+                products.addAll(state.products);
+              }
+            },
+            builder: (context, state) {
+              if (state is WishlistErrorState) {
+                return Center(
+                  child: Text(state.message),
+                );
+              }
+              return products.isEmpty
+                  ? Column(
+                      children: [],
+                    )
+                  : GridView.builder(
+                      itemCount: products.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.7,
+                        mainAxisSpacing: 20,
+                        crossAxisSpacing: 20,
+                      ),
+                      itemBuilder: (context, index) {
+                        return ProductWidget(
+                          product: products[index],
+                          isWishlist: true,
+                        );
+                      },
+                      padding: const EdgeInsets.all(10.0),
+                    );
+            },
+          ),
         ),
       ),
     );

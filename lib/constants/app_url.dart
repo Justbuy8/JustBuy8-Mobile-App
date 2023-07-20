@@ -31,6 +31,11 @@ class AuthUrl {
 class WishListUrl {
   static const String getUserWishList =
       "${AppUrl.baseUrl}/wishlist/get-user-wlist";
+  static const String addToWishlist =
+      "${AppUrl.baseUrl}/wishlist/add-to-wishlist";
+
+  static const String deleteFromWishlist =
+      "${AppUrl.baseUrl}/wishlist/delete-from-wishlist";
 }
 
 class ProductsUrl {

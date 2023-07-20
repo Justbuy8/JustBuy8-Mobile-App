@@ -5,7 +5,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/myaccount/myaccount_cubit.dart';
+import 'package:justbuyeight/blocs/wishlist/wishlist_bloc.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
+import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/screens/maintabs/cart/cart_screen.dart';
 import 'package:justbuyeight/screens/maintabs/home/home_screen.dart';
 import 'package:justbuyeight/screens/maintabs/search/search_screen.dart';
@@ -24,6 +26,11 @@ class MainTabsScreen extends StatefulWidget {
 
 class _MainTabsScreenState extends State<MainTabsScreen> {
   int tabindex = 0;
+  String? userId;
+  String? userToken;
+
+  int paginateBy = AppConfig.WishListPagenateCount;
+  int page = AppConfig.PageOne;
   static List<Widget> homepageTabs = <Widget>[
     HomeScreen(),
     SearchScreen(),
@@ -78,7 +85,16 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
                     if (tabindex == 2) {}
 
                     //WishList Page
-                    if (tabindex == 3) {}
+                    if (tabindex == 3) {
+                      context.read<WishlistBloc>().add(
+                            WishlistGetDataEvent(
+                              userId.toString(),
+                              userToken.toString(),
+                              page: page,
+                              paginateBy: paginateBy,
+                            ),
+                          );
+                    }
 
                     //Account Page
                     if (index == 4) {}
