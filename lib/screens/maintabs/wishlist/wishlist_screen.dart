@@ -72,6 +72,7 @@ class _WishListScreenState extends State<WishListScreen> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () {
+        products.clear();
         callBloc();
         return Future.delayed(const Duration(seconds: 1));
       },
