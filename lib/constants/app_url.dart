@@ -82,3 +82,8 @@ class AddressUrl {
   static const String deleteAddress =
       "${AppUrl.baseUrl}/address/delete-user-addresses";
 }
+
+class SupportUrl {
+  static const String getSupport = "${AppUrl.baseUrl}/support/get-contact";
+  static const String postContact = "${AppUrl.baseUrl}/support/contact";
+}
