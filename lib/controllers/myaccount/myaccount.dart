@@ -4,17 +4,17 @@ import 'package:http/http.dart';
 import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/constants/app_url.dart';
 import 'package:http/http.dart' as http;
+import 'package:justbuyeight/constants/secure_storage.dart';
 
 class MyAccountController {
-  static getAccountData(userId, userToken) async {
+  static getAccountData() async {
+    String? userToken = await UserSecureStorage.fetchToken();
     Response response = await ApiManager.postRequest(
-      {
-        "UserId": "$userId",
-        "Token": "$userToken",
-      },
+      {},
       MyAccountUrl.myAccountUrl,
       headers: {
         "content-type": "application/json; charset=utf-8",
+        'Authorization': 'Bearer ${userToken}'
       },
     );
 
@@ -25,7 +25,7 @@ class MyAccountController {
     }
   }
 
-  static uploadImage(userId, userToken, file) async {
+  static uploadImage(userToken, file) async {
     var request = http.MultipartRequest(
       'POST',
       Uri.parse(MyAccountUrl.updateProfileImage),
@@ -36,7 +36,7 @@ class MyAccountController {
 
     request.headers.addAll(headers);
 
-    request.fields['UserId'] = userId!;
+    //request.fields['UserId'] = userId!;
     request.fields['Token'] = userToken!;
 
     var res = await request.send();
@@ -48,11 +48,13 @@ class MyAccountController {
   }
 
   static updateUserData(userBody) async {
+    String? userToken = await UserSecureStorage.fetchToken();
     Response response = await ApiManager.postRequest(
       userBody,
       MyAccountUrl.updateUserProfileUrl,
       headers: {
         "content-type": "application/json; charset=utf-8",
+        'Authorization': 'Bearer ${userToken}'
       },
     );
 
