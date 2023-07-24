@@ -79,31 +79,26 @@ class _CompletedOrderScreenState extends State<CompletedOrderScreen> {
           SizedBox(
             height: 20.h,
           ),
-          Row(
-            children: [
-              SizedBox(
-                width: 20.w,
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 20.h),
-                child: SecondaryButtonWidget(
-                    width: 150.w,
-                    height: 50.h,
-                    caption: 'Cancel',
-                    onPressed: () async {}),
-              ),
-              SizedBox(
-                width: 20.w,
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 20.h),
-                child: PrimaryButtonWidget(
-                    width: 150.w,
-                    height: 50.h,
-                    caption: 'Submit',
-                    onPressed: () async {}),
-              ),
-            ],
+          Padding(
+            padding: EdgeInsets.all(20.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: SecondaryButtonWidget(
+                      caption: 'Cancel', onPressed: () async {}),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                Expanded(
+                  flex: 3,
+                  child: PrimaryButtonWidget(
+                      caption: 'Submit', onPressed: () async {}),
+                ),
+              ],
+            ),
           ),
         ],
       ),

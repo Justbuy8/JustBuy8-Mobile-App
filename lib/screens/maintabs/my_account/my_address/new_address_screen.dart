@@ -429,8 +429,8 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
                         if (formGlobalKey.currentState!.validate()) {
                           // String? userId =
                           //     await UserSecureStorage.fetchUserId();
-                          String? fetchToken =
-                              await UserSecureStorage.fetchToken();
+                          // String? fetchToken =
+                          //     await UserSecureStorage.fetchToken();
 
                           if (widget.navigateFrom == 'Edit') {
                             var newAddressMap = {

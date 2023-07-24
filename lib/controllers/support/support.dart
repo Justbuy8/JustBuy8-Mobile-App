@@ -7,8 +7,13 @@ import 'package:justbuyeight/utils/secure_storage.dart';
 
 class SupportController {
   static getSupportData() async {
+    String? userToken = await UserSecureStorage.fetchToken();
     Response response = await ApiManager.getRequest(
       SupportUrl.getSupport,
+      headers: {
+        "content-type": "application/json; charset=utf-8",
+        'Authorization': 'Bearer ${userToken}'
+      },
     );
 
     if (response.statusCode == 200) {
@@ -28,8 +33,6 @@ class SupportController {
         'Authorization': 'Bearer ${userToken}'
       },
     );
-
-    print(response.body);
 
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);

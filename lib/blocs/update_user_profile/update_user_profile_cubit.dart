@@ -19,9 +19,6 @@ class UpdateUserProfileCubit extends Cubit<UpdateUserProfileState> {
   updateUserProfile(firstName, lastName, phoneNumber) async {
     emit(UpdateUserProfileLoading());
     try {
-      // String? userId = await UserSecureStorage.fetchUserId();
-      // String? token = await UserSecureStorage.fetchToken();
-
       var updateProfileMap = {
         "f_name": "$firstName",
         "l_name": "$lastName",

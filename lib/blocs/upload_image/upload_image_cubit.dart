@@ -19,7 +19,6 @@ class UploadImageCubit extends Cubit<UploadImageState> {
   uploadImage(file) async {
     emit(UploadImageLoading());
     try {
-      //String? userId = await UserSecureStorage.fetchUserId();
       String? token = await UserSecureStorage.fetchToken();
 
       response = await MyAccountController.uploadImage(token, file);

@@ -17,7 +17,8 @@ class MyAccountController {
         'Authorization': 'Bearer ${userToken}'
       },
     );
-
+    print("ACCOUNT DATA");
+    print(response.body);
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
 
@@ -36,7 +37,6 @@ class MyAccountController {
 
     request.headers.addAll(headers);
 
-    //request.fields['UserId'] = userId!;
     request.fields['Token'] = userToken!;
 
     var res = await request.send();

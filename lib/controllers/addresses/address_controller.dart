@@ -10,11 +10,13 @@ import 'package:nb_utils/nb_utils.dart';
 
 class AddressController {
   static createAddress(body) async {
+    String? userToken = await UserSecureStorage.fetchToken();
     Response response = await ApiManager.postRequest(
       body,
       AddressUrl.createAddress,
       headers: {
         "content-type": "application/json; charset=utf-8",
+        'Authorization': 'Bearer ${userToken}'
       },
     );
 
@@ -25,15 +27,17 @@ class AddressController {
     }
   }
 
-  static getAddress(body) async {
+  static getAddress() async {
+    String? userToken = await UserSecureStorage.fetchToken();
     Response response = await ApiManager.postRequest(
-      body,
+      {},
       AddressUrl.getAddress,
       headers: {
         "content-type": "application/json; charset=utf-8",
+        'Authorization': 'Bearer ${userToken}'
       },
     );
-
+    log(response.body);
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
 

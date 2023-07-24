@@ -21,13 +21,10 @@ class MyaccountCubit extends Cubit<MyaccountState> {
   myAccount() async {
     emit(MyaccountLoading());
     try {
-      //    String? userId = await UserSecureStorage.fetchUserId();
-      // String? token = await UserSecureStorage.fetchToken();
-
       response = await MyAccountController.getAccountData();
       if (response['Success'] == true) {
         var decodedList = MyAccountModel.fromJson(response);
-        //log(decodedList.data.firstName.toString());
+
         emit(MyaccountLoaded(accountData: [decodedList]));
       } else if (response['Success'] == false) {
         emit(MyaccountFailed());

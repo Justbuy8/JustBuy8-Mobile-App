@@ -20,11 +20,9 @@ class GetAddressCubit extends Cubit<GetAddressState> {
   getAddress() async {
     emit(GetAddressLoading());
     try {
-      String? userId = await UserSecureStorage.fetchUserId();
       String? token = await UserSecureStorage.fetchToken();
-      var body = {"UserId": "$userId", "Token": "$token"};
 
-      response = await AddressController.getAddress(body);
+      response = await AddressController.getAddress();
 
       if (response['Success'] == true &&
           response['Message'] == 'Addresses Found.') {
