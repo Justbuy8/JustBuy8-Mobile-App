@@ -38,11 +38,11 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   @override
   void initState() {
-    UserSecureStorage.fetchUserId().then((value) {
-      setState(() {
-        userId = value!;
-      });
-    });
+    // UserSecureStorage.fetchUserId().then((value) {
+    //   setState(() {
+    //     userId = value!;
+    //   });
+    // });
 
     UserSecureStorage.fetchToken().then((value) {
       setState(() {

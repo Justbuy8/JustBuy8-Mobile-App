@@ -8,7 +8,6 @@ import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/controllers/myaccount/myaccount.dart';
 import 'package:justbuyeight/utils/secure_storage.dart';
 
-
 part 'update_user_profile_state.dart';
 
 class UpdateUserProfileCubit extends Cubit<UpdateUserProfileState> {
@@ -20,12 +19,10 @@ class UpdateUserProfileCubit extends Cubit<UpdateUserProfileState> {
   updateUserProfile(firstName, lastName, phoneNumber) async {
     emit(UpdateUserProfileLoading());
     try {
-      String? userId = await UserSecureStorage.fetchUserId();
-      String? token = await UserSecureStorage.fetchToken();
+      // String? userId = await UserSecureStorage.fetchUserId();
+      // String? token = await UserSecureStorage.fetchToken();
 
       var updateProfileMap = {
-        "UserId": "$userId",
-        "Token": "$token",
         "f_name": "$firstName",
         "l_name": "$lastName",
         "phone": "$phoneNumber"

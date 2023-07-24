@@ -8,7 +8,6 @@ import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/controllers/myaccount/myaccount.dart';
 import 'package:justbuyeight/utils/secure_storage.dart';
 
-
 part 'upload_image_state.dart';
 
 class UploadImageCubit extends Cubit<UploadImageState> {
@@ -20,10 +19,10 @@ class UploadImageCubit extends Cubit<UploadImageState> {
   uploadImage(file) async {
     emit(UploadImageLoading());
     try {
-      String? userId = await UserSecureStorage.fetchUserId();
+      //String? userId = await UserSecureStorage.fetchUserId();
       String? token = await UserSecureStorage.fetchToken();
 
-      response = await MyAccountController.uploadImage(userId, token, file);
+      response = await MyAccountController.uploadImage(token, file);
 
       if (response['Success'] == true) {
         emit(UploadImageUploaded());

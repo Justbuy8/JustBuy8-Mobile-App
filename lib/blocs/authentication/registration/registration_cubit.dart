@@ -21,11 +21,11 @@ class RegistrationCubit extends Cubit<RegistrationState> {
     try {
       response = await AuthenticationController.registration(body);
 
-      if (response['Message'] == 'Register Success' &&
+      if (response['Message'][0] == 'Register Success' &&
           response['Success'] == true) {
-        await UserSecureStorage.setUserId(
-            response["Data"]["UserId"].toString());
-        await UserSecureStorage.setToken(response["Data"]["Token"].toString());
+        // await UserSecureStorage.setUserId(
+        //     response["Data"]["UserId"].toString());
+        await UserSecureStorage.setToken(response["Data"].toString());
 
         emit(RegistrationSuccessfull());
       }

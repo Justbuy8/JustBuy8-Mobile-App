@@ -18,12 +18,7 @@ class DeleteAddressCubit extends Cubit<DeleteAddressState> {
   deleteAddress(addressId) async {
     emit(DeleteAddressLoading());
     try {
-      String? userId = await UserSecureStorage.fetchUserId();
-      String? fetchToken = await UserSecureStorage.fetchToken();
-
       var newAddressMap = {
-        "UserId": "$userId",
-        "Token": "$fetchToken",
         "address_id": addressId,
       };
       response = await AddressController.deleteAddress(newAddressMap);

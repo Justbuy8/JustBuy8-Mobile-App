@@ -427,15 +427,15 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
                           : AppText.addInformation,
                       onPressed: () async {
                         if (formGlobalKey.currentState!.validate()) {
-                          String? userId =
-                              await UserSecureStorage.fetchUserId();
+                          // String? userId =
+                          //     await UserSecureStorage.fetchUserId();
                           String? fetchToken =
                               await UserSecureStorage.fetchToken();
 
                           if (widget.navigateFrom == 'Edit') {
                             var newAddressMap = {
-                              "UserId": "$userId",
-                              "token": "$fetchToken",
+                              // "UserId": "$userId",
+                              // "token": "$fetchToken",
                               "contact_person_name":
                                   _personNameController.text.trim(),
                               "address_id": widget.addressData[widget.index].id,
@@ -457,8 +457,8 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
                                 .updateAddress(newAddressMap);
                           } else {
                             var newAddressMap = {
-                              "UserId": "$userId",
-                              "token": "$fetchToken",
+                              // "UserId": "$userId",
+                              // "token": "$fetchToken",
                               "contact_person_name":
                                   _personNameController.text.trim(),
                               "address_type": billingAddressSelectedIndex == 0
