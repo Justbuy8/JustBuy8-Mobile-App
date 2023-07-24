@@ -7,7 +7,6 @@ import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/utils/Secure_Storage.dart';
 import 'package:justbuyeight/controllers/authentication/auth_controller.dart';
 import 'package:meta/meta.dart';
-
 part 'registration_state.dart';
 
 class RegistrationCubit extends Cubit<RegistrationState> {
@@ -22,9 +21,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
       response = await AuthenticationController.registration(body);
 
       if (response['Success'] == true) {
-        // await UserSecureStorage.setUserId(
-        //     response["Data"]["UserId"].toString());
-        await UserSecureStorage.setToken(response["Data"].toString());
+        await UserSecureStorage.setToken(response["Data"]["Token"].toString());
 
         emit(RegistrationSuccessfull());
       }

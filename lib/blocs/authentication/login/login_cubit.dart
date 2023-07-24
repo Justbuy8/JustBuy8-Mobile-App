@@ -24,7 +24,7 @@ class LoginCubit extends Cubit<LoginState> {
       if (response['Success'] == true) {
         // await UserSecureStorage.setUserId(
         //     response["Data"]["UserId"].toString());
-        await UserSecureStorage.setToken(response["Data"].toString());
+        await UserSecureStorage.setToken(response["Data"]['Token'].toString());
 
         emit(LoginSuccessfull());
       } else if (response['Message'] == 'Invalid email or password' &&

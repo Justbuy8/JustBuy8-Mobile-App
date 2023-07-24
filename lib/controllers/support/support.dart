@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:http/http.dart';
 import 'package:justbuyeight/constants/api_manager.dart';
@@ -15,6 +16,9 @@ class SupportController {
         'Authorization': 'Bearer ${userToken}'
       },
     );
+
+    print(userToken);
+    log(userToken.toString());
 
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
