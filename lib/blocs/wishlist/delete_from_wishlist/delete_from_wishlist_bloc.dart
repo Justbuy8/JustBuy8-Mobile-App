@@ -16,9 +16,7 @@ class DeleteFromWishlistBloc
           return;
         }
         final message = await WishlistController.deleteOrAddWishlist(
-          userId: event.userId,
           productId: event.productId,
-          userToken: event.userToken,
           deleteFromWishlist: true,
         );
         emit(DeleteFromWishlistSuccessState(message));

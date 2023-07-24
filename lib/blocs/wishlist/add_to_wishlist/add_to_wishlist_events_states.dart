@@ -3,12 +3,9 @@ part of 'add_to_wishlist_bloc.dart';
 abstract class AddToWishlistEvent {}
 
 class AddToWishlistOnClickEvent extends AddToWishlistEvent {
-  final String userId;
-  final String userToken;
   final String productId;
 
-  AddToWishlistOnClickEvent(
-      {required this.userId, required this.userToken, required this.productId});
+  AddToWishlistOnClickEvent({required this.productId});
 }
 
 // States

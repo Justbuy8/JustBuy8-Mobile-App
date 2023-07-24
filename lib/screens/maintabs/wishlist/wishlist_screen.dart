@@ -6,7 +6,6 @@ import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
-import 'package:justbuyeight/utils/Secure_Storage.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 
 class WishListScreen extends StatefulWidget {
@@ -19,9 +18,6 @@ class WishListScreen extends StatefulWidget {
 class _WishListScreenState extends State<WishListScreen> {
   List<ProductModel> products = [];
 
-  String? userId;
-  String? userToken;
-
   final ScrollController scrollController = ScrollController();
   int paginateBy = AppConfig.WishListPagenateCount;
   int page = AppConfig.PageOne;
@@ -29,8 +25,6 @@ class _WishListScreenState extends State<WishListScreen> {
   callBloc() {
     context.read<WishlistBloc>().add(
           WishlistGetDataEvent(
-            userId.toString(),
-            userToken.toString(),
             page: page,
             paginateBy: paginateBy,
           ),
@@ -39,13 +33,6 @@ class _WishListScreenState extends State<WishListScreen> {
 
   @override
   void initState() {
-    // getting user id and user token
-    UserSecureStorage.fetchUserId().then((value) {
-      userId = value;
-    });
-    UserSecureStorage.fetchToken().then((value) {
-      userToken = value;
-    });
     Future.delayed(const Duration(milliseconds: 500), () {
       callBloc();
     });

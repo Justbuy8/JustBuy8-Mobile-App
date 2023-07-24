@@ -5,9 +5,7 @@ import 'package:justbuyeight/constants/app_url.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
 
 class WishlistController {
-  static Future<List<ProductModel>> getProducts(
-    String userId,
-    String userToken, {
+  static Future<List<ProductModel>> getProducts({
     required int page,
     required int paginateBy,
   }) async {
@@ -15,8 +13,6 @@ class WishlistController {
 
     final response = await ApiManager.postRequest(
       {
-        "UserId": userId,
-        "Token": userToken,
         "page": page,
         "paginate_by": paginateBy,
       },
@@ -38,8 +34,6 @@ class WishlistController {
   }
 
   static Future<String> deleteOrAddWishlist({
-    required String userId,
-    required String userToken,
     required String productId,
     bool addToWishlist = false,
     bool deleteFromWishlist = false,
@@ -49,8 +43,6 @@ class WishlistController {
       if (addToWishlist) {
         response = await ApiManager.postRequest(
           {
-            "UserId": userId,
-            "Token": userToken,
             "Product_id": productId,
           },
           WishListUrl.addToWishlist,
@@ -59,8 +51,6 @@ class WishlistController {
       if (deleteFromWishlist) {
         response = await ApiManager.postRequest(
           {
-            "UserId": userId,
-            "Token": userToken,
             "Product_id": productId,
           },
           WishListUrl.deleteFromWishlist,

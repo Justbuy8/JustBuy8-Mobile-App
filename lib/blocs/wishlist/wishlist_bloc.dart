@@ -14,8 +14,6 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
       emit(WishlistInitState());
       try {
         products = await WishlistController.getProducts(
-          event.userId,
-          event.userToken,
           page: event.page,
           paginateBy: event.paginateBy,
         );

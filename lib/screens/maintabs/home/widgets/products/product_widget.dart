@@ -73,8 +73,10 @@ class _ProductWidgetState extends State<ProductWidget> {
           } else if (state is DeleteFromWishlistSuccessState) {
             toast(state.message);
             context.read<WishlistBloc>().add(
-                  WishlistGetDataEvent(userId, userToken,
-                      page: page, paginateBy: paginateBy,),
+                  WishlistGetDataEvent(
+                    page: page,
+                    paginateBy: paginateBy,
+                  ),
                 );
           } else if (state is DeleteFromWishlistErrorState) {
             toast(state.error);
@@ -109,8 +111,6 @@ class _ProductWidgetState extends State<ProductWidget> {
                           addToWishlistBloc.add(
                             AddToWishlistOnClickEvent(
                               productId: widget.product.id.toString(),
-                              userId: userId,
-                              userToken: userToken,
                             ),
                           );
                         }

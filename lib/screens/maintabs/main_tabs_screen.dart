@@ -26,8 +26,6 @@ class MainTabsScreen extends StatefulWidget {
 
 class _MainTabsScreenState extends State<MainTabsScreen> {
   int tabindex = 0;
-  String? userId;
-  String? userToken;
 
   int paginateBy = AppConfig.WishListPagenateCount;
   int page = AppConfig.PageOne;
@@ -88,8 +86,6 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
                     if (tabindex == 3) {
                       context.read<WishlistBloc>().add(
                             WishlistGetDataEvent(
-                              userId.toString(),
-                              userToken.toString(),
                               page: page,
                               paginateBy: paginateBy,
                             ),

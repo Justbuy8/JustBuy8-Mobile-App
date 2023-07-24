@@ -15,9 +15,7 @@ class AddToWishlistBloc extends Bloc<AddToWishlistEvent, AddToWishlistState> {
           return;
         }
         final message = await WishlistController.deleteOrAddWishlist(
-          userId: event.userId,
           productId: event.productId,
-          userToken: event.userToken,
           addToWishlist: true,
         );
         emit(AddToWishlistSuccessState(message));
