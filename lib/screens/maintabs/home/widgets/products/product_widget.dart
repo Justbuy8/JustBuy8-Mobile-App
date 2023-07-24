@@ -72,9 +72,10 @@ class _ProductWidgetState extends State<ProductWidget> {
             toast("Loading");
           } else if (state is DeleteFromWishlistSuccessState) {
             toast(state.message);
-            context.read<WishlistBloc>().add(WishlistGetDataEvent(
-                userId, userToken,
-                page: page, paginateBy: paginateBy));
+            context.read<WishlistBloc>().add(
+                  WishlistGetDataEvent(userId, userToken,
+                      page: page, paginateBy: paginateBy,),
+                );
           } else if (state is DeleteFromWishlistErrorState) {
             toast(state.error);
           }
