@@ -58,6 +58,9 @@ class AppText {
   static const String emailExist = "Email already exist";
   static const String serverError = "Server error";
 
+  static const String loadingText = "Loading...";
+  static const String somethingWentWrong = "Something went wrong";
+
   //Home Page
   static const String featuredProductsText = "Featured Products";
   static const String topCategoriesText = "Top Categories";
