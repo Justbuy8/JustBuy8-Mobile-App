@@ -22,21 +22,17 @@ class LoginCubit extends Cubit<LoginState> {
       response = await AuthenticationController.login(loginBody);
 
       if (response['Success'] == true) {
-        // await UserSecureStorage.setUserId(
-        //     response["Data"]["UserId"].toString());
         await UserSecureStorage.setToken(response["Data"]['Token'].toString());
-
         emit(LoginSuccessfull());
-      } else if (response['Message'] == 'Invalid email or password' &&
-          response['Success'] == false) {
-        emit(LoginFailed());
+      } else if (response["Success"] == false) {
+        emit(LoginFailed(errorMessage: response["Message"]));
       }
     } on SocketException {
       emit(LoginInternetError());
     } on TimeoutException {
       emit(LoginTimeout());
     } catch (e) {
-      emit(LoginFailed());
+      emit(LoginFailed(errorMessage: response["Message"]));
     }
   }
 }

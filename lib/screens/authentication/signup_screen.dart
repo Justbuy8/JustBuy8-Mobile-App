@@ -118,14 +118,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         email: _emailController.text.trim(),
                         tapFrom: 'signupScreen',
                       )));
-            } else if (state is RegistrationAlreadyExist) {
-              SnackBars.Success(context, "User account already exist");
-              Navigator.of(dialogueContext!).pop();
             } else if (state is RegistrationInternetError) {
               SnackBars.Danger(context, "Internet connection failed");
               Navigator.of(dialogueContext!).pop();
             } else if (state is RegistrationFailed) {
-              SnackBars.Danger(context, "User account creation failed");
+              SnackBars.Danger(context, state.errorMessage[0].toString());
               Navigator.of(dialogueContext!).pop();
             } else if (state is RegistrationTimeout) {
               SnackBars.Danger(context, "Request timeout");

@@ -9,7 +9,11 @@ class LoginLoading extends LoginState {}
 
 class LoginSuccessfull extends LoginState {}
 
-class LoginFailed extends LoginState {}
+class LoginFailed extends LoginState {
+  final List errorMessage;
+
+  LoginFailed({required this.errorMessage});
+}
 
 class LoginInternetError extends LoginState {}
 
