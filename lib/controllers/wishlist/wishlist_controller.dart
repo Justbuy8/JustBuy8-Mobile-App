@@ -4,6 +4,7 @@ import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/constants/app_url.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
+import 'package:justbuyeight/utils/Secure_Storage.dart';
 
 class WishlistController {
   static Future<List<ProductModel>> getProducts({
@@ -11,6 +12,7 @@ class WishlistController {
     required int paginateBy,
   }) async {
     List<ProductModel> products = [];
+    String? userToken = await UserSecureStorage.fetchToken();
 
     final response = await ApiManager.postRequest(
       {
@@ -18,9 +20,12 @@ class WishlistController {
         "paginate_by": "$paginateBy",
       },
       WishListUrl.getUserWishList,
+      headers: {
+        "content-type": "application/json; charset=utf-8",
+        'Authorization': 'Bearer ${userToken}'
+      },
     );
 
-    print('response ${response.body}');
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
       if (result['Success']) {
@@ -41,6 +46,8 @@ class WishlistController {
     bool addToWishlist = false,
     bool deleteFromWishlist = false,
   }) async {
+    String? userToken = await UserSecureStorage.fetchToken();
+
     try {
       var response;
       if (addToWishlist) {
@@ -49,6 +56,10 @@ class WishlistController {
             "Product_id": productId,
           },
           WishListUrl.addToWishlist,
+          headers: {
+            "content-type": "application/json; charset=utf-8",
+            'Authorization': 'Bearer ${userToken}'
+          },
         );
       }
       if (deleteFromWishlist) {
@@ -57,6 +68,10 @@ class WishlistController {
             "Product_id": productId,
           },
           WishListUrl.deleteFromWishlist,
+          headers: {
+            "content-type": "application/json; charset=utf-8",
+            'Authorization': 'Bearer ${userToken}'
+          },
         );
       }
 

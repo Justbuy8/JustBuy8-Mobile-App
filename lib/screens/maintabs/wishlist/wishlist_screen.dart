@@ -6,7 +6,6 @@ import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
-import 'package:justbuyeight/utils/AppDialog.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 
 class WishListScreen extends StatefulWidget {
@@ -73,13 +72,8 @@ class _WishListScreenState extends State<WishListScreen> {
         body: SafeArea(
           child: BlocConsumer<WishlistBloc, WishlistState>(
             listener: (context, state) {
-              if (state is WishlistLoadingState) {
-                AppDialog.loadingDialog(context);
-              } else if (state is WishlistGetState) {
-                AppDialog.closeDialog();
+              if (state is WishlistGetState) {
                 products.addAll(state.products);
-              } else if (state is WishlistErrorState) {
-                AppDialog.closeDialog();
               }
             },
             builder: (context, state) {

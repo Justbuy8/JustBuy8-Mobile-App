@@ -83,14 +83,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
                     if (tabindex == 2) {}
 
                     //WishList Page
-                    if (tabindex == 3) {
-                      context.read<WishlistBloc>().add(
-                            WishlistGetDataEvent(
-                              page: page,
-                              paginateBy: paginateBy,
-                            ),
-                          );
-                    }
+                    if (tabindex == 3) {}
 
                     //Account Page
                     if (index == 4) {}
