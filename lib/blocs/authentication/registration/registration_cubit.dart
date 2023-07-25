@@ -30,7 +30,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
     } on TimeoutException {
       emit(RegistrationTimeout());
     } catch (e) {
-      emit(RegistrationFailed());
+      emit(RegistrationFailed(errorMessage: response['Message']));
     }
   }
 }

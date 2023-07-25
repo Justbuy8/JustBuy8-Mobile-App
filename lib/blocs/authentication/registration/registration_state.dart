@@ -9,7 +9,11 @@ class RegistrationLoading extends RegistrationState {}
 
 class RegistrationSuccessfull extends RegistrationState {}
 
-class RegistrationFailed extends RegistrationState {}
+class RegistrationFailed extends RegistrationState {
+  final List errorMessage;
+
+  RegistrationFailed({required this.errorMessage});
+}
 
 class RegistrationInternetError extends RegistrationState {}
 
