@@ -12,9 +12,10 @@ import 'package:justbuyeight/blocs/wishlist/wishlist_bloc.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
+import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
+import 'package:justbuyeight/utils/AppToast.dart';
 import 'package:justbuyeight/utils/Converts.dart';
-import 'package:justbuyeight/utils/Secure_Storage.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class ProductWidget extends StatefulWidget {
@@ -28,8 +29,6 @@ class ProductWidget extends StatefulWidget {
 }
 
 class _ProductWidgetState extends State<ProductWidget> {
-  String userId = "";
-  String userToken = "";
   int paginateBy = AppConfig.WishListPagenateCount;
   int page = AppConfig.PageOne;
 
@@ -38,17 +37,6 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   @override
   void initState() {
-    // UserSecureStorage.fetchUserId().then((value) {
-    //   setState(() {
-    //     userId = value!;
-    //   });
-    // });
-
-    UserSecureStorage.fetchToken().then((value) {
-      setState(() {
-        userToken = value!;
-      });
-    });
     super.initState();
   }
 
@@ -58,20 +46,20 @@ class _ProductWidgetState extends State<ProductWidget> {
       bloc: addToWishlistBloc,
       listener: (context, state) {
         if (state is AddToWishlistLoadingState) {
-          toast("Loading");
+          AppToast.normal(AppText.loadingText);
         } else if (state is AddToWishlistSuccessState) {
-          toast(state.message);
+          AppToast.success(state.message);
         } else if (state is AddToWishlistErrorState) {
-          toast(state.error);
+          AppToast.danger(state.error);
         }
       },
       child: BlocListener<DeleteFromWishlistBloc, DeleteFromWishlistState>(
         bloc: deleteFromWishlistBloc,
         listener: (context, state) {
           if (state is DeleteFromWishlistLoadingState) {
-            toast("Loading");
+            AppToast.normal(AppText.loadingText);
           } else if (state is DeleteFromWishlistSuccessState) {
-            toast(state.message);
+            AppToast.success(state.message);
             context.read<WishlistBloc>().add(
                   WishlistGetDataEvent(
                     page: page,
@@ -79,7 +67,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                   ),
                 );
           } else if (state is DeleteFromWishlistErrorState) {
-            toast(state.error);
+            AppToast.danger(state.error);
           }
         },
         child: Column(
@@ -102,8 +90,6 @@ class _ProductWidgetState extends State<ProductWidget> {
                           deleteFromWishlistBloc.add(
                             DeleteFromWishlistOnClickEvent(
                               productId: widget.product.id.toString(),
-                              userId: userId,
-                              userToken: userToken,
                             ),
                           );
                         } else {

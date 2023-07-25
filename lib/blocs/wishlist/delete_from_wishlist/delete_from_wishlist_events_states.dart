@@ -3,12 +3,9 @@ part of 'delete_from_wishlist_bloc.dart';
 abstract class DeleteFromWishlistEvent {}
 
 class DeleteFromWishlistOnClickEvent extends DeleteFromWishlistEvent {
-  final String userId;
-  final String userToken;
   final String productId;
 
-  DeleteFromWishlistOnClickEvent(
-      {required this.userId, required this.userToken, required this.productId});
+  DeleteFromWishlistOnClickEvent({required this.productId});
 }
 
 // States

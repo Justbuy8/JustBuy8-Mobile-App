@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/controllers/wishlist/wishlist_controller.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -12,7 +13,7 @@ class DeleteFromWishlistBloc
       try {
         final networkStatus = await isNetworkAvailable();
         if (!networkStatus) {
-          emit(DeleteFromWishlistErrorState("No internet connection"));
+          emit(DeleteFromWishlistErrorState(AppText.internetError));
           return;
         }
         final message = await WishlistController.deleteOrAddWishlist(

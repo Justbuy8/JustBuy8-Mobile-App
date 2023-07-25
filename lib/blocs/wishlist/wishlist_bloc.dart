@@ -11,7 +11,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   WishlistBloc() : super(WishlistInitState()) {
     List<ProductModel> products = [];
     on<WishlistGetDataEvent>((event, emit) async {
-      emit(WishlistInitState());
+      emit(WishlistLoadingState());
       try {
         products = await WishlistController.getProducts(
           page: event.page,
