@@ -20,7 +20,6 @@ class OnGoingOrderScreen extends StatefulWidget {
 }
 
 class _OnGoingOrderScreenState extends State<OnGoingOrderScreen> {
-  final TextEditingController _messageController = TextEditingController();
   List<IoniconsData> stepIcons = [
     Ionicons.card_outline,
     Ionicons.bus_outline,

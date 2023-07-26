@@ -5,8 +5,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/controllers/addresses/address_controller.dart';
-import 'package:justbuyeight/utils/secure_storage.dart';
-
 part 'delete_address_state.dart';
 
 class DeleteAddressCubit extends Cubit<DeleteAddressState> {
