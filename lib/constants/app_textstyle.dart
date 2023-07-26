@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'app_colors.dart';
 import 'app_fonts.dart';
@@ -26,5 +28,17 @@ class AppTextStyle {
     fontWeight: FontWeight.bold,
     color: AppColors.appBlackColor,
     fontFamily: AppFonts.robotoBold,
+  );
+
+  static var html = Style(
+    fontSize: FontSize(16.sp),
+    fontFamily: AppFonts.openSansRegular,
+  );
+
+  static var htmlEllipsed = Style(
+    fontSize: FontSize(16.sp),
+    fontFamily: AppFonts.openSansRegular,
+    maxLines: 2,
+    textOverflow: TextOverflow.ellipsis,
   );
 }

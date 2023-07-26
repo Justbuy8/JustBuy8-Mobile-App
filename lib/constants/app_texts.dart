@@ -81,6 +81,12 @@ class AppText {
   static const String priceText = "Price";
   static const String ratingText = "Rating";
 
+  // Product Details Screen
+  static const String productDetailsText = "Product Details";
+  static const String descriptionText = "Description";
+  static const String sizeText = "Size";
+  static const String colorText = "Color";
+
   // other screens
   static const String allCategoriesText = "Categories";
   static const String itemsText = "Items";

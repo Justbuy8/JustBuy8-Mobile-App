@@ -34,6 +34,7 @@ class _WishListScreenState extends State<WishListScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(milliseconds: 500), () {
+      products.clear();
       callBloc();
     });
 
@@ -73,7 +74,9 @@ class _WishListScreenState extends State<WishListScreen> {
           child: BlocConsumer<WishlistBloc, WishlistState>(
             listener: (context, state) {
               if (state is WishlistGetState) {
-                products.addAll(state.products);
+                state.products.forEach((element) {
+                  products.add(element);
+                });
               }
             },
             builder: (context, state) {

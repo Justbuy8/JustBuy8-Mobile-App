@@ -51,6 +51,12 @@ class _ProductWidgetState extends State<ProductWidget> {
           AppToast.normal(AppText.loadingText);
         } else if (state is AddToWishlistSuccessState) {
           AppToast.success(state.message);
+          context.read<WishlistBloc>().add(
+                WishlistGetDataEvent(
+                  page: page,
+                  paginateBy: paginateBy,
+                ),
+              );
         } else if (state is AddToWishlistErrorState) {
           AppToast.danger(state.error);
         }
