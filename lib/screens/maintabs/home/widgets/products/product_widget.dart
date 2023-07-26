@@ -14,8 +14,10 @@ import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
+import 'package:justbuyeight/screens/products/products_details_screen.dart';
 import 'package:justbuyeight/utils/AppToast.dart';
 import 'package:justbuyeight/utils/Converts.dart';
+import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class ProductWidget extends StatefulWidget {
@@ -123,18 +125,28 @@ class _ProductWidgetState extends State<ProductWidget> {
                       ),
                     ),
                   ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      shape: BoxShape.rectangle,
-                      color: AppColors.appGreyColor,
-                      image: DecorationImage(
-                        image: CachedNetworkImageProvider(
-                          widget.product.thumbnail.toString(),
+                  child: GestureDetector(
+                    onTap: () {
+                      AppNavigator.goToPage(
+                        context: context,
+                        screen: ProductsDetailsScreen(
+                          productId: widget.product.id!,
                         ),
-                        fit: BoxFit.cover,
-                        onError: (exception, stackTrace) =>
-                            const SizedBox.shrink(),
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        shape: BoxShape.rectangle,
+                        color: AppColors.appGreyColor,
+                        image: DecorationImage(
+                          image: CachedNetworkImageProvider(
+                            widget.product.thumbnail.toString(),
+                          ),
+                          fit: BoxFit.cover,
+                          onError: (exception, stackTrace) =>
+                              const SizedBox.shrink(),
+                        ),
                       ),
                     ),
                   ),

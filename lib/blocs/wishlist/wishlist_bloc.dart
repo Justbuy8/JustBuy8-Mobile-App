@@ -13,6 +13,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     on<WishlistGetDataEvent>((event, emit) async {
       emit(WishlistLoadingState());
       try {
+        products.clear();
         products = await WishlistController.getProducts(
           page: event.page,
           paginateBy: event.paginateBy,

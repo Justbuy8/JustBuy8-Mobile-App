@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:justbuyeight/constants/api_manager.dart';
-import 'package:justbuyeight/utils/secure_storage.dart';
 import 'package:justbuyeight/controllers/addresses/address_controller.dart';
 import 'package:justbuyeight/models/myaddress/my_address_model.dart';
 
