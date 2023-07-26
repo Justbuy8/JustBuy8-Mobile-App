@@ -25,4 +25,16 @@ class SnackBars {
             borderRadius: BorderRadius.only(
                 topRight: Radius.circular(8), topLeft: Radius.circular(8)))));
   }
+
+  static void DangerListMessage(BuildContext context, List message) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content:
+            Text(message.reduce((value, element) => value + '\n' + element)),
+        duration: const Duration(seconds: 5),
+        backgroundColor: AppColors.dangerColor,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(8), topLeft: Radius.circular(8)))));
+  }
 }

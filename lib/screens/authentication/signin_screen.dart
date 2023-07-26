@@ -74,7 +74,7 @@ class _SignInScreenState extends State<SignInScreen> {
           SnackBars.Danger(context, AppText.internetError);
           DismissLoadingDialog(dialogueContext);
         } else if (state is LoginFailed) {
-          SnackBars.Danger(context, state.errorMessage[0].toString());
+          SnackBars.DangerListMessage(context, state.errorMessage);
           DismissLoadingDialog(dialogueContext);
         } else if (state is LoginTimeout) {
           SnackBars.Danger(context, AppText.timeOut);

@@ -26,8 +26,7 @@ import 'package:nb_utils/nb_utils.dart';
 class EditProfileScreen extends StatefulWidget {
   List<MyAccountModel> myAccountModel;
 
-  EditProfileScreen(
-      {required this.myAccountModel});
+  EditProfileScreen({required this.myAccountModel});
 
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();

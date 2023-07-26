@@ -119,10 +119,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         tapFrom: 'signupScreen',
                       )));
             } else if (state is RegistrationInternetError) {
-              SnackBars.Danger(context, "Internet connection failed");
+              SnackBars.Danger(context, AppText.internetError);
               Navigator.of(dialogueContext!).pop();
             } else if (state is RegistrationFailed) {
-              SnackBars.Danger(context, state.errorMessage[0].toString());
+              SnackBars.DangerListMessage(context, state.errorMessage);
               Navigator.of(dialogueContext!).pop();
             } else if (state is RegistrationTimeout) {
               SnackBars.Danger(context, "Request timeout");
