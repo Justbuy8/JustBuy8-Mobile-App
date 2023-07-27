@@ -9,9 +9,10 @@ class ProductDetailsModel {
   String? discountType;
   List<ChoiceOptions>? choiceOptions;
   List<Variation>? variation;
-  String? totalRating;
-  String? ratingsCount;
-  List<Ratings>? ratings;
+  List<Colors>? colors;
+  String? totalReviews;
+  String? reviewsCount;
+  List<Reviews>? reviews;
   String? currentStock;
 
   ProductDetailsModel(
@@ -25,9 +26,10 @@ class ProductDetailsModel {
       this.discountType,
       this.choiceOptions,
       this.variation,
-      this.totalRating,
-      this.ratingsCount,
-      this.ratings,
+      this.colors,
+      this.totalReviews,
+      this.reviewsCount,
+      this.reviews,
       this.currentStock});
 
   ProductDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -56,12 +58,18 @@ class ProductDetailsModel {
         variation!.add(new Variation.fromJson(v));
       });
     }
-    totalRating = json['total_rating'];
-    ratingsCount = json['ratings_count'];
-    if (json['ratings'] != null) {
-      ratings = <Ratings>[];
-      json['ratings'].forEach((v) {
-        ratings!.add(new Ratings.fromJson(v));
+    if (json['colors'] != null) {
+      colors = <Colors>[];
+      json['colors'].forEach((v) {
+        colors!.add(new Colors.fromJson(v));
+      });
+    }
+    totalReviews = json['total_reviews'];
+    reviewsCount = json['reviews_count'];
+    if (json['reviews'] != null) {
+      reviews = <Reviews>[];
+      json['reviews'].forEach((v) {
+        reviews!.add(new Reviews.fromJson(v));
       });
     }
     currentStock = json['current_stock'];
@@ -86,10 +94,13 @@ class ProductDetailsModel {
     if (this.variation != null) {
       data['variation'] = this.variation!.map((v) => v.toJson()).toList();
     }
-    data['total_rating'] = this.totalRating;
-    data['ratings_count'] = this.ratingsCount;
-    if (this.ratings != null) {
-      data['ratings'] = this.ratings!.map((v) => v.toJson()).toList();
+    if (this.colors != null) {
+      data['colors'] = this.colors!.map((v) => v.toJson()).toList();
+    }
+    data['total_reviews'] = this.totalReviews;
+    data['reviews_count'] = this.reviewsCount;
+    if (this.reviews != null) {
+      data['reviews'] = this.reviews!.map((v) => v.toJson()).toList();
     }
     data['current_stock'] = this.currentStock;
     return data;
@@ -159,7 +170,26 @@ class Variation {
   }
 }
 
-class Ratings {
+class Colors {
+  String? name;
+  String? code;
+
+  Colors({this.name, this.code});
+
+  Colors.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    code = json['code'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['code'] = this.code;
+    return data;
+  }
+}
+
+class Reviews {
   int? id;
   String? productId;
   String? customerId;
@@ -170,7 +200,7 @@ class Ratings {
   String? createdAt;
   String? updatedAt;
 
-  Ratings(
+  Reviews(
       {this.id,
       this.productId,
       this.customerId,
@@ -181,7 +211,7 @@ class Ratings {
       this.createdAt,
       this.updatedAt});
 
-  Ratings.fromJson(Map<String, dynamic> json) {
+  Reviews.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     productId = json['product_id'];
     customerId = json['customer_id'];

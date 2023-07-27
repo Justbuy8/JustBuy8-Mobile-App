@@ -13,11 +13,11 @@ import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/screens/products/widgets/read_more_button.dart';
-import 'package:justbuyeight/screens/products/widgets/rectangular_button_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
-import 'package:justbuyeight/widgets/components/buttons/circle_text_button.dart';
+import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:quantity_input/quantity_input.dart';
 
 class ProductsDetailsScreen extends StatefulWidget {
   final int productId;
@@ -36,6 +36,8 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
   List<bool> selectedColor = [];
   String size = "";
   String color = "";
+  int productQuantity = 1;
+  int productPrice = 0;
 
   @override
   void initState() {
@@ -51,14 +53,17 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
       bloc: productDetailsBloc,
       listener: (context, state) {
         if (state is ProductDetailsSuccessState) {
-          selectedSize = List.generate(
-            state.products[0].choiceOptions?[0].options?.length ?? 0,
-            (index) => false,
-          );
+          // selectedSize = List.generate(
+          //   state.product.choiceOptions?[0].options?.length ?? 0,
+          //   (index) => false,
+          // );
+
           selectedColor = List.generate(
-            state.products[0].variation?.length ?? 0,
+            state.product.colors?.length ?? 0,
             (index) => false,
           );
+
+          productPrice = state.product.unitPrice.toInt();
         }
       },
       builder: (context, state) {
@@ -73,7 +78,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                   Stack(
                     children: [
                       CarouselSlider.builder(
-                        itemCount: state.products[0].images?.length,
+                        itemCount: state.product.images?.length,
                         options: CarouselOptions(
                           aspectRatio: 1.0,
                           viewportFraction: 1.0,
@@ -82,8 +87,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                         itemBuilder:
                             (BuildContext context, int index, int realIndex) {
                           return CachedNetworkImage(
-                            imageUrl:
-                                state.products[0].images?[index].image ?? "",
+                            imageUrl: state.product.images?[index].image ?? "",
                             fit: BoxFit.contain,
                             colorBlendMode: BlendMode.exclusion,
                             errorWidget: (context, url, error) => Icon(
@@ -102,7 +106,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                             CarouselIndicator(
                               width: 10,
                               height: 10,
-                              count: state.products[0].images?.length,
+                              count: state.product.images?.length,
                               index: _currentIndex,
                             ),
                           ],
@@ -117,7 +121,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AutoSizeText(
-                          state.products[0].name.toString(),
+                          state.product.name.toString(),
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontFamily: AppFonts.openSansMedium,
@@ -134,9 +138,17 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                             ),
                             5.width,
                             Text(
-                              state.products[0].totalRating.toString(),
+                              state.product.reviewsCount.toString(),
                               style: TextStyle(
-                                fontSize: 18.sp,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            10.width,
+                            Text(
+                              "(Reviews})",
+                              style: TextStyle(
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -152,93 +164,138 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                         // display discription with max 3 lines
                         // and add read more button
                         Html(
-                          data: """${state.products[0].description}""",
+                          data: """${state.product.description}""",
                           style: {
                             "body": AppTextStyle.htmlEllipsed,
                           },
                         ),
                         10.height,
                         ReadMoreButton(
-                          description: state.products[0].description.toString(),
+                          description: state.product.description.toString(),
                         ),
                         Divider(thickness: 1),
                         10.height,
-                        Text(
-                          AppText.sizeText,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: AppFonts.robotoMonoBold,
-                          ),
-                        ),
+                        // Text(
+                        //   AppText.sizeText,
+                        //   style: TextStyle(
+                        //     fontSize: 20,
+                        //     fontFamily: AppFonts.robotoMonoBold,
+                        //   ),
+                        // ),
+                        // 10.height,
+                        // SizedBox(
+                        //   height: 60,
+                        //   child: ListView.builder(
+                        //     itemBuilder: (context, i) => CircleTextButton(
+                        //       text: state.product.choiceOptions![0].options![i],
+                        //       isSelected: selectedSize[i],
+                        //       onPressed: () {
+                        //         setState(() {
+                        //           size = state
+                        //               .product.choiceOptions![0].options![i];
+                        //           // make all other is selected false
+                        //           for (int j = 0;
+                        //               j < selectedSize.length;
+                        //               j++) {
+                        //             if (j != i) {
+                        //               selectedSize[j] = false;
+                        //             }
+                        //           }
+                        //           selectedSize[i] = !selectedSize[i];
+                        //         });
+                        //       },
+                        //     ),
+                        //     itemCount:
+                        //         state.product.choiceOptions![0].options?.length,
+                        //     scrollDirection: Axis.horizontal,
+                        //   ),
+                        // ),
+                        // Divider(thickness: 1),
+                        // 10.height,
+                        // Display colors if color list is not empty
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              AppText.colorText,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: AppFonts.robotoMonoBold,
+                              ),
+                            ),
+                            10.height,
+                            SizedBox(
+                              height: 50.h,
+                              child: ListView.builder(
+                                itemBuilder: (context, i) => ColorWidget(
+                                  colorCode: state.product.colors![i].code!,
+                                  isSelected: selectedColor[i],
+                                  onPressed: () {
+                                    setState(() {
+                                      color = state.product.colors![i].name!;
+                                      // make all other is selected false
+                                      for (int j = 0;
+                                          j < selectedColor.length;
+                                          j++) {
+                                        if (j != i) {
+                                          selectedColor[j] = false;
+                                        }
+                                      }
+                                      selectedColor[i] = !selectedColor[i];
+                                    });
+                                  },
+                                ),
+                                itemCount: state.product.colors?.length,
+                                scrollDirection: Axis.horizontal,
+                              ),
+                            ),
+                          ],
+                        ).visible(state.product.colors?.isNotEmpty ?? false),
+
                         10.height,
-                        SizedBox(
-                          height: 60,
-                          child: ListView.builder(
-                            itemBuilder: (context, i) => CircleTextButton(
-                              text: state
-                                  .products[0].choiceOptions![0].options![i],
-                              isSelected: selectedSize[i],
-                              onPressed: () {
+                      ],
+                    ),
+                  ),
+                  Divider(thickness: 3),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              AppText.priceText,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: AppFonts.robotoMonoBold,
+                              ),
+                            ),
+                            10.width,
+                            Text(
+                              "\$${productPrice}",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: AppFonts.robotoMonoBold,
+                              ),
+                            ),
+                            Spacer(),
+                            QuantityInput(
+                              value: productQuantity,
+                              onChanged: (p0) {
                                 setState(() {
-                                  size = state.products[0].choiceOptions![0]
-                                      .options![i];
-                                  // make all other is selected false
-                                  for (int j = 0;
-                                      j < selectedSize.length;
-                                      j++) {
-                                    if (j != i) {
-                                      selectedSize[j] = false;
-                                    }
-                                  }
-                                  selectedSize[i] = !selectedSize[i];
+                                  productQuantity = p0.toInt();
                                 });
                               },
+                              buttonColor: AppColors.backgroundColor,
+                              iconColor: AppColors.primaryColor,
+                              inputWidth: 50,
                             ),
-                            itemCount: state
-                                .products[0].choiceOptions![0].options?.length,
-                            scrollDirection: Axis.horizontal,
-                          ),
+                          ],
                         ),
-                        Divider(thickness: 1),
-                        10.height,
-                        Text(
-                          AppText.colorText,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: AppFonts.robotoMonoBold,
-                          ),
+                        PrimaryButtonWidget(
+                          caption: AppText.addToCartText,
+                          onPressed: () {},
                         ),
-                        10.height,
-                        SizedBox(
-                          height: 30.h,
-                          child: ListView.builder(
-                            itemBuilder: (context, i) => RectangleButtonWidget(
-                              text: state.products[0].variation![i].type
-                                  .toString(),
-                              isSelected: selectedColor[i],
-                              onPressed: () {
-                                setState(() {
-                                  color = state.products[0].variation![i].type
-                                      .toString();
-                                  // make all other is selected false
-                                  for (int j = 0;
-                                      j < selectedColor.length;
-                                      j++) {
-                                    if (j != i) {
-                                      selectedColor[j] = false;
-                                    }
-                                  }
-                                  selectedColor[i] = !selectedColor[i];
-                                });
-                              },
-                            ),
-                            itemCount: state.products[0].variation?.length,
-                            scrollDirection: Axis.horizontal,
-                          ),
-                        ),
-                        10.height,
-                        Divider(thickness: 1),
-                        10.height,
                       ],
                     ),
                   ),
@@ -251,6 +308,39 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
           appBar: BasicAppbarWidget(title: "Product Details"),
         );
       },
+    );
+  }
+}
+
+class ColorWidget extends StatelessWidget {
+  final String colorCode;
+  final bool isSelected;
+  final VoidCallback onPressed;
+
+  const ColorWidget(
+      {Key? key,
+      required this.colorCode,
+      required this.isSelected,
+      required this.onPressed})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        margin: EdgeInsets.only(right: 10),
+        child: CircleAvatar(
+          backgroundColor: Color(
+              int.parse(colorCode.substring(1, 7), radix: 16) + 0xFF000000),
+          radius: 15,
+          child: isSelected
+              ? Icon(
+                  Ionicons.checkmark,
+                  color: AppColors.appWhiteColor,
+                )
+              : null,
+        ),
+      ),
     );
   }
 }
