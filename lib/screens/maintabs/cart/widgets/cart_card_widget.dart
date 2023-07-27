@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
@@ -69,7 +70,7 @@ class CartCardWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(5.r),
                               border: Border.all(color: Colors.grey)),
                           child: Icon(
-                            Icons.add,
+                            Ionicons.remove,
                             color: const Color.fromARGB(255, 141, 141, 141),
                           ),
                         ),
