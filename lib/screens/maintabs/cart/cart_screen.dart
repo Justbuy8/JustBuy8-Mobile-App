@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 
@@ -240,13 +241,13 @@ class _CartScreenState extends State<CartScreen> {
                     child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.r),
-                            border: Border.all(color: Colors.red)),
+                            border: Border.all(color: AppColors.primaryColor)),
                         height: 40.h,
                         child: Padding(
                           padding: EdgeInsets.all(8.w),
                           child: PrimaryTextWidget(
                             text: 'Proceed To Checkout',
-                            fontColor: Colors.red,
+                            fontColor: AppColors.primaryColor,
                           ),
                         )),
                   ),
