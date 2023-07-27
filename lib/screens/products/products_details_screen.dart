@@ -12,7 +12,9 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/constants/app_textstyle.dart';
+import 'package:justbuyeight/screens/products/widgets/color_widget.dart';
 import 'package:justbuyeight/screens/products/widgets/read_more_button.dart';
+import 'package:justbuyeight/screens/products/widgets/rectangular_button_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
@@ -32,10 +34,10 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
   final ProductDetailsBloc productDetailsBloc = ProductDetailsBloc();
   int _currentIndex = 0;
   bool readMore = false;
-  List<bool> selectedSize = [];
   List<bool> selectedColor = [];
-  String size = "";
+  String selectionOption = '';
   String color = "";
+  String variation = "";
   int productQuantity = 1;
   int productPrice = 0;
 
@@ -53,11 +55,6 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
       bloc: productDetailsBloc,
       listener: (context, state) {
         if (state is ProductDetailsSuccessState) {
-          // selectedSize = List.generate(
-          //   state.product.choiceOptions?[0].options?.length ?? 0,
-          //   (index) => false,
-          // );
-
           selectedColor = List.generate(
             state.product.colors?.length ?? 0,
             (index) => false,
@@ -69,6 +66,10 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
       builder: (context, state) {
         if (state is ProductDetailsLoadingState) {
           return Scaffold(body: AppCircularSpinner());
+        } else if (state is ProductDetailsErrorState) {
+          return Center(
+            child: Text(state.error),
+          );
         } else if (state is ProductDetailsSuccessState) {
           return Scaffold(
             appBar: BasicAppbarWidget(title: AppText.productDetailsText),
@@ -138,7 +139,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                             ),
                             5.width,
                             Text(
-                              state.product.reviewsCount.toString(),
+                              state.product.totalReviews.toString(),
                               style: TextStyle(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w500,
@@ -146,7 +147,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                             ),
                             10.width,
                             Text(
-                              "(Reviews})",
+                              "(${state.product.reviewsCount} Reviews)",
                               style: TextStyle(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w500,
@@ -175,43 +176,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                         ),
                         Divider(thickness: 1),
                         10.height,
-                        // Text(
-                        //   AppText.sizeText,
-                        //   style: TextStyle(
-                        //     fontSize: 20,
-                        //     fontFamily: AppFonts.robotoMonoBold,
-                        //   ),
-                        // ),
-                        // 10.height,
-                        // SizedBox(
-                        //   height: 60,
-                        //   child: ListView.builder(
-                        //     itemBuilder: (context, i) => CircleTextButton(
-                        //       text: state.product.choiceOptions![0].options![i],
-                        //       isSelected: selectedSize[i],
-                        //       onPressed: () {
-                        //         setState(() {
-                        //           size = state
-                        //               .product.choiceOptions![0].options![i];
-                        //           // make all other is selected false
-                        //           for (int j = 0;
-                        //               j < selectedSize.length;
-                        //               j++) {
-                        //             if (j != i) {
-                        //               selectedSize[j] = false;
-                        //             }
-                        //           }
-                        //           selectedSize[i] = !selectedSize[i];
-                        //         });
-                        //       },
-                        //     ),
-                        //     itemCount:
-                        //         state.product.choiceOptions![0].options?.length,
-                        //     scrollDirection: Axis.horizontal,
-                        //   ),
-                        // ),
-                        // Divider(thickness: 1),
-                        // 10.height,
+
                         // Display colors if color list is not empty
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -225,14 +190,17 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                             ),
                             10.height,
                             SizedBox(
-                              height: 50.h,
+                              height: 40.h,
                               child: ListView.builder(
                                 itemBuilder: (context, i) => ColorWidget(
                                   colorCode: state.product.colors![i].code!,
                                   isSelected: selectedColor[i],
                                   onPressed: () {
                                     setState(() {
+                                      // assign value to color...
                                       color = state.product.colors![i].name!;
+                                      // reset the variation....
+                                      variation = color.trim();
                                       // make all other is selected false
                                       for (int j = 0;
                                           j < selectedColor.length;
@@ -249,14 +217,61 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                                 scrollDirection: Axis.horizontal,
                               ),
                             ),
+                            10.height,
+                            Divider(thickness: 1),
                           ],
                         ).visible(state.product.colors?.isNotEmpty ?? false),
+                        10.height,
+
+                        // Now when a user selects color, then we will
+                        // display options but only if variation is not empty
+                        // and if user selects color
+
+                        Column(
+                          children: state.product.choiceOptions!
+                              .map((e) => Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        e.title!,
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontFamily: AppFonts.robotoMonoBold,
+                                        ),
+                                      ),
+                                      10.height,
+                                      SizedBox(
+                                        height: 40,
+                                        child: ListView.builder(
+                                          itemBuilder: (context, i) =>
+                                              RectangleButtonWidget(
+                                            text: e.options![i],
+                                            onPressed: () {
+                                              setState(() {
+                                                // Assign selected value to the selectedOption variable
+                                                selectionOption = e.options![i];
+                                                print(variation);
+                                              });
+                                            },
+                                            selectedOption: selectionOption,
+                                          ),
+                                          itemCount: e.options?.length,
+                                          scrollDirection: Axis.horizontal,
+                                        ),
+                                      ),
+                                      10.height,
+                                      Divider(thickness: 1),
+                                    ],
+                                  ))
+                              .toList(),
+                        ).visible(state.product.choiceOptions!.isNotEmpty),
 
                         10.height,
                       ],
                     ),
                   ),
-                  Divider(thickness: 3),
+                  // Divider(thickness: 3),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -292,6 +307,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                             ),
                           ],
                         ),
+                        10.height,
                         PrimaryButtonWidget(
                           caption: AppText.addToCartText,
                           onPressed: () {},
@@ -308,39 +324,6 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
           appBar: BasicAppbarWidget(title: "Product Details"),
         );
       },
-    );
-  }
-}
-
-class ColorWidget extends StatelessWidget {
-  final String colorCode;
-  final bool isSelected;
-  final VoidCallback onPressed;
-
-  const ColorWidget(
-      {Key? key,
-      required this.colorCode,
-      required this.isSelected,
-      required this.onPressed})
-      : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        margin: EdgeInsets.only(right: 10),
-        child: CircleAvatar(
-          backgroundColor: Color(
-              int.parse(colorCode.substring(1, 7), radix: 16) + 0xFF000000),
-          radius: 15,
-          child: isSelected
-              ? Icon(
-                  Ionicons.checkmark,
-                  color: AppColors.appWhiteColor,
-                )
-              : null,
-        ),
-      ),
     );
   }
 }

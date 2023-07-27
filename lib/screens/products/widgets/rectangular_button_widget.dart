@@ -5,9 +5,9 @@ import 'package:justbuyeight/constants/app_fonts.dart';
 class RectangleButtonWidget extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
-  final bool? isSelected;
+  final String? selectedOption;
   const RectangleButtonWidget(
-      {Key? key, required this.text, this.onPressed, this.isSelected})
+      {Key? key, required this.text, this.onPressed, this.selectedOption})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class RectangleButtonWidget extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: AppColors.primaryColor),
-          color: isSelected == true
+          color: selectedOption == text
               ? AppColors.primaryColor
               : AppColors.appWhiteColor,
         ),
@@ -28,7 +28,7 @@ class RectangleButtonWidget extends StatelessWidget {
           text.trim(),
           style: TextStyle(
             fontFamily: AppFonts.openSansRegular,
-            color: isSelected == true
+            color: selectedOption == text
                 ? AppColors.appWhiteColor
                 : AppColors.primaryColor,
           ),
