@@ -5,8 +5,8 @@ import 'package:justbuyeight/constants/app_url.dart';
 import 'package:justbuyeight/models/products/ProductDetailsModel.dart';
 
 class ProductDetailsController {
-  static Future<List<ProductDetailsModel>> getProducts(productId) async {
-    List<ProductDetailsModel> products = [];
+  static Future<ProductDetailsModel?> getProducts(productId) async {
+    ProductDetailsModel? products;
 
     final response = await ApiManager.postRequest(
       {
@@ -18,14 +18,12 @@ class ProductDetailsController {
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
       if (result['Success']) {
-        products = (result['Data'] as List)
-            .map((e) => ProductDetailsModel.fromJson(e))
-            .toList();
+        products = ProductDetailsModel.fromJson(result['Data']);
       } else {
-        products = [];
+        products;
       }
     } else {
-      products = [];
+      products;
     }
     return products;
   }

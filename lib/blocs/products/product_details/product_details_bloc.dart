@@ -9,14 +9,14 @@ part 'product_details_states_events.dart';
 class ProductDetailsBloc
     extends Bloc<ProductDetailsEvent, ProductDetailsState> {
   ProductDetailsBloc() : super(ProductDetailsInitialState()) {
+    ProductDetailsModel? product;
     on<ProductDetailsGetDataEvent>((event, emit) async {
       bool isInternet = await isNetworkAvailable();
       if (isInternet) {
         emit(ProductDetailsLoadingState());
-        List<ProductDetailsModel> products =
-            await ProductDetailsController.getProducts(event.productId);
-        if (products.isNotEmpty) {
-          emit(ProductDetailsSuccessState(products: products));
+        product = await ProductDetailsController.getProducts(event.productId);
+        if (product != null) {
+          emit(ProductDetailsSuccessState(product: product!));
         } else {
           emit(ProductDetailsErrorState(error: AppText.noProductsFound));
         }
