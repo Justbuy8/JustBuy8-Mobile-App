@@ -63,6 +63,22 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
     });
   }
 
+  handleColor(ProductDetailsModel product, int i) {
+    setState(() {
+      // assign value to color...
+      color = product.name!;
+      // reset the variation....
+      variation = color.trim();
+      // make all other is selected false
+      for (int j = 0; j < selectedColor.length; j++) {
+        if (j != i) {
+          selectedColor[j] = false;
+        }
+      }
+      selectedColor[i] = !selectedColor[i];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProductDetailsBloc, ProductDetailsState>(
@@ -210,21 +226,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                                   colorCode: state.product.colors![i].code!,
                                   isSelected: selectedColor[i],
                                   onPressed: () {
-                                    setState(() {
-                                      // assign value to color...
-                                      color = state.product.colors![i].name!;
-                                      // reset the variation....
-                                      variation = color.trim();
-                                      // make all other is selected false
-                                      for (int j = 0;
-                                          j < selectedColor.length;
-                                          j++) {
-                                        if (j != i) {
-                                          selectedColor[j] = false;
-                                        }
-                                      }
-                                      selectedColor[i] = !selectedColor[i];
-                                    });
+                                    handleColor(state.product, i);
                                   },
                                 ),
                                 itemCount: state.product.colors?.length,
