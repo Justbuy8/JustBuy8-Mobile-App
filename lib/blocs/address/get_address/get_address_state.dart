@@ -21,6 +21,8 @@ class GetAddressLoaded extends GetAddressState {
   List<Object> get props => [];
 }
 
+class GetNoAddressFound extends GetAddressState {}
+
 class GetAddressFailed extends GetAddressState {}
 
 class GetAddressInternetError extends GetAddressState {}

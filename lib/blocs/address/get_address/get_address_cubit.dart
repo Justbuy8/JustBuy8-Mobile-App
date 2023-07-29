@@ -28,8 +28,9 @@ class GetAddressCubit extends Cubit<GetAddressState> {
         var decodedList = AddressModel.fromJson(response);
 
         emit(GetAddressLoaded(addressData: [decodedList]));
-      } else if (response['Success'] == false) {
-        emit(GetAddressFailed());
+      } else if (response['Success'] == true &&
+          response['Message'] == 'No Saved Addresses Found') {
+        emit(GetNoAddressFound());
       }
     } on SocketException {
       emit(GetAddressInternetError());
