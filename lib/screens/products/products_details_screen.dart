@@ -270,10 +270,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                                             onPressed: () {
                                               setState(() {
                                                 // Assign selected value to the selectedOption variable
-                                                if (selectedOption !=
-                                                    e.options![i]) {
-                                                  variation = color.trim();
-                                                }
+                                                variation = color.trim();
                                                 selectedOption = e.options![i];
                                                 variation =
                                                     "$variation-${selectedOption.trim()}";
