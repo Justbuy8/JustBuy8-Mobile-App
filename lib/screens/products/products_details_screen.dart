@@ -323,6 +323,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                               onChanged: (p0) {
                                 setState(() {
                                   productQuantity = p0.toInt();
+                                  productPrice *= productQuantity;
                                 });
                               },
                               buttonColor: AppColors.backgroundColor,
