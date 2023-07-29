@@ -17,8 +17,9 @@ class DeleteFromWishlistLoadingState extends DeleteFromWishlistState {}
 
 class DeleteFromWishlistSuccessState extends DeleteFromWishlistState {
   final String message;
+  final String productId;
 
-  DeleteFromWishlistSuccessState(this.message);
+  DeleteFromWishlistSuccessState(this.message, this.productId);
 }
 
 class DeleteFromWishlistErrorState extends DeleteFromWishlistState {

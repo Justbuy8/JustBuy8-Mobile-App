@@ -10,6 +10,7 @@ part 'wishlist_states_events.dart';
 class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   WishlistBloc() : super(WishlistInitState()) {
     List<ProductModel> products = [];
+
     on<WishlistGetDataEvent>((event, emit) async {
       emit(WishlistLoadingState());
       try {

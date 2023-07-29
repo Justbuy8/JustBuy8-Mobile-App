@@ -8,6 +8,7 @@ import 'package:justbuyeight/blocs/myaccount/myaccount_cubit.dart';
 import 'package:justbuyeight/blocs/wishlist/wishlist_bloc.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_config.dart';
+import 'package:justbuyeight/models/products/ProductModel.dart';
 import 'package:justbuyeight/screens/maintabs/cart/cart_screen.dart';
 import 'package:justbuyeight/screens/maintabs/home/home_screen.dart';
 import 'package:justbuyeight/screens/maintabs/search/search_screen.dart';
@@ -29,11 +30,14 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
 
   int paginateBy = AppConfig.WishListPagenateCount;
   int page = AppConfig.PageOne;
+
+  static final List<ProductModel> productsList = [];
+
   static List<Widget> homepageTabs = <Widget>[
     HomeScreen(),
     SearchScreen(),
     CartScreen(),
-    WishListScreen(),
+    WishListScreen(products: productsList),
     MyAccountScreen(),
   ];
 
@@ -84,6 +88,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
 
                     //WishList Page
                     if (tabindex == 3) {
+                      productsList.clear();
                       context.read<WishlistBloc>().add(
                             WishlistGetDataEvent(
                               page: page,

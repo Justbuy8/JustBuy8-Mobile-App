@@ -20,7 +20,7 @@ class DeleteFromWishlistBloc
           productId: event.productId,
           deleteFromWishlist: true,
         );
-        emit(DeleteFromWishlistSuccessState(message));
+        emit(DeleteFromWishlistSuccessState(message, event.productId));
       } catch (e) {
         emit(DeleteFromWishlistErrorState(e.toString()));
       }

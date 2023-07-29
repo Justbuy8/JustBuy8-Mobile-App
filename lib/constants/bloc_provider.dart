@@ -17,6 +17,7 @@ import 'package:justbuyeight/blocs/support_cubit/support_cubit.dart';
 import 'package:justbuyeight/blocs/update_address/update_address_cubit.dart';
 import 'package:justbuyeight/blocs/update_user_profile/update_user_profile_cubit.dart';
 import 'package:justbuyeight/blocs/upload_image/upload_image_cubit.dart';
+import 'package:justbuyeight/blocs/wishlist/delete_from_wishlist/delete_from_wishlist_bloc.dart';
 import 'package:justbuyeight/blocs/wishlist/wishlist_bloc.dart';
 
 class BlocProviders {
@@ -42,6 +43,8 @@ class BlocProviders {
     BlocProvider<DeleteAddressCubit>(create: (context) => DeleteAddressCubit()),
     BlocProvider<WishlistBloc>(create: (context) => WishlistBloc()),
     BlocProvider<SupportCubit>(create: (context) => SupportCubit()),
-    BlocProvider<ContactUsCubit>(create: (context) => ContactUsCubit())
+    BlocProvider<ContactUsCubit>(create: (context) => ContactUsCubit()),
+    BlocProvider<DeleteFromWishlistBloc>(
+        create: (context) => DeleteFromWishlistBloc()),
   ];
 }

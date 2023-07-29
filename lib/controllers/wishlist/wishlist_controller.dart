@@ -29,7 +29,6 @@ class WishlistController {
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
       if (result['Success']) {
-        print(jsonEncode(result['Data']));
         products = productsModelFromJson(jsonEncode(result['Data']));
       } else {
         products = [];
