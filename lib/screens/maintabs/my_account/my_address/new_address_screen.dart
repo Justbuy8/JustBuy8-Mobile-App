@@ -12,7 +12,7 @@ import 'package:justbuyeight/blocs/update_address/update_address_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
-import 'package:justbuyeight/constants/bloc_provider.dart';
+import 'package:justbuyeight/models/myaddress/my_address_model.dart';
 import 'package:justbuyeight/utils/AlertDialog.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
@@ -20,8 +20,6 @@ import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
-
-import 'package:justbuyeight/models/myaddress/my_address_model.dart';
 
 class NewAddressScreen extends StatefulWidget {
   final List<Datum> addressData;
