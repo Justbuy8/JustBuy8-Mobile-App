@@ -6,6 +6,7 @@ import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 
 import 'package:justbuyeight/screens/maintabs/cart/widgets/cart_card_widget.dart';
+import 'package:justbuyeight/screens/maintabs/my_account/promocode/promocode_screen.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
@@ -113,15 +114,20 @@ class _CartScreenState extends State<CartScreen> {
                     SizedBox(
                       width: 10.w,
                     ),
-                    Container(
-                      height: 50.h,
-                      width: 45.w,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.r),
-                          color: Colors.black),
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.white,
+                    GestureDetector(
+                      onTap: () {
+                        bottomSheet();
+                      },
+                      child: Container(
+                        height: 50.h,
+                        width: 45.w,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.r),
+                            color: Colors.black),
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ],
@@ -257,6 +263,23 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> bottomSheet() {
+    return showModalBottomSheet<void>(
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext context) {
+        return Wrap(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height / 1.4,
+              child: PromodeCodeScreen(),
+            ),
+          ],
+        );
+      },
     );
   }
 }
