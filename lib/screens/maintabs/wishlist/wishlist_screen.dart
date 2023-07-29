@@ -9,7 +9,6 @@ import 'package:justbuyeight/models/products/ProductModel.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
 import 'package:justbuyeight/utils/AppToast.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
-import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 
 class WishListScreen extends StatefulWidget {
   final List<ProductModel> products;
