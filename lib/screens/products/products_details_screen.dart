@@ -36,7 +36,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
   int _currentIndex = 0;
   bool readMore = false;
   List<bool> selectedColor = [];
-  String selectionOption = '';
+  String selectedOption = '';
   String color = "";
   String variation = "";
   int productQuantity = 1;
@@ -65,6 +65,8 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
 
   handleColor(ProductDetailsModel product, int i) {
     setState(() {
+      // reset the selection option
+      selectedOption = '';
       // assign value to color...
       color = product.name!;
       // reset the variation....
@@ -76,6 +78,8 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
         }
       }
       selectedColor[i] = !selectedColor[i];
+
+      print(variation);
     });
   }
 
@@ -266,18 +270,19 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                                             onPressed: () {
                                               setState(() {
                                                 // Assign selected value to the selectedOption variable
-                                                if (selectionOption !=
+                                                if (selectedOption !=
                                                     e.options![i]) {
                                                   variation = color.trim();
                                                 }
-                                                selectionOption = e.options![i];
+                                                selectedOption = e.options![i];
                                                 variation =
-                                                    "$variation-${selectionOption.trim()}";
+                                                    "$variation-${selectedOption.trim()}";
 
                                                 calculatePrice(state.product);
+                                                print("Variation: $variation");
                                               });
                                             },
-                                            selectedOption: selectionOption,
+                                            selectedOption: selectedOption,
                                           ),
                                           itemCount: e.options?.length,
                                           scrollDirection: Axis.horizontal,
