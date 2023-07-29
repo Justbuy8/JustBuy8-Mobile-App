@@ -12,6 +12,7 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/constants/app_textstyle.dart';
+import 'package:justbuyeight/models/products/ProductDetailsModel.dart';
 import 'package:justbuyeight/screens/products/widgets/color_widget.dart';
 import 'package:justbuyeight/screens/products/widgets/read_more_button.dart';
 import 'package:justbuyeight/screens/products/widgets/rectangular_button_widget.dart';
@@ -47,6 +48,19 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
       ProductDetailsGetDataEvent(productId: widget.productId),
     );
     super.initState();
+  }
+
+  calculatePrice(ProductDetailsModel product) {
+    setState(() {
+      // grab price from product.variation
+      // match the variation string with product.variation type
+
+      product.variation?.forEach((_variation) {
+        if (_variation.type == variation) {
+          productPrice = _variation.price!.toInt();
+        }
+      });
+    });
   }
 
   @override
@@ -250,8 +264,15 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                                             onPressed: () {
                                               setState(() {
                                                 // Assign selected value to the selectedOption variable
+                                                if (selectionOption !=
+                                                    e.options![i]) {
+                                                  variation = color.trim();
+                                                }
                                                 selectionOption = e.options![i];
-                                                print(variation);
+                                                variation =
+                                                    "$variation-${selectionOption.trim()}";
+
+                                                calculatePrice(state.product);
                                               });
                                             },
                                             selectedOption: selectionOption,
@@ -265,7 +286,8 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                                     ],
                                   ))
                               .toList(),
-                        ).visible(state.product.choiceOptions!.isNotEmpty),
+                        ).visible(state.product.choiceOptions!.isNotEmpty &&
+                            color.isNotEmpty),
 
                         10.height,
                       ],
