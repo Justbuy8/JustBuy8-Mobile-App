@@ -16,6 +16,7 @@ import 'package:justbuyeight/models/products/ProductDetailsModel.dart';
 import 'package:justbuyeight/screens/products/widgets/color_widget.dart';
 import 'package:justbuyeight/screens/products/widgets/read_more_button.dart';
 import 'package:justbuyeight/screens/products/widgets/rectangular_button_widget.dart';
+import 'package:justbuyeight/utils/Converts.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
@@ -40,7 +41,9 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
   String color = "";
   String variation = "";
   int productQuantity = 1;
-  int productPrice = 0;
+  double productPrice = 0.0;
+  String discountType = '';
+  double discount = 0;
 
   @override
   void initState() {
@@ -57,7 +60,13 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
 
       product.variation?.forEach((_variation) {
         if (_variation.type == variation) {
-          productPrice = _variation.price!.toInt();
+          productPrice = _variation.price!.toDouble();
+          // now calculate the price
+          productPrice = Converts.calculateProductPrice(
+            productPrice,
+            discount,
+            discountType,
+          );
         }
       });
     });
@@ -94,7 +103,17 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
             (index) => false,
           );
 
-          productPrice = state.product.unitPrice.toInt();
+          // grab out discount and discount type
+          discount = state.product.discount.toDouble();
+          discountType = state.product.discountType!;
+          productPrice = state.product.unitPrice.toDouble();
+
+          // now calculate the price
+          productPrice = Converts.calculateProductPrice(
+            productPrice,
+            discount,
+            discountType,
+          );
         }
       },
       builder: (context, state) {
