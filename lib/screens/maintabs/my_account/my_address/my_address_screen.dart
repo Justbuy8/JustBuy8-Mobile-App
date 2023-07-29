@@ -128,6 +128,19 @@ class _MyAdressScreenState extends State<MyAdressScreen> {
                       )
                     ],
                   );
+                } else if (state is GetNoAddressFound) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.asset(LottieAssets.error, height: 200.h),
+                      Center(
+                        child: PrimaryTextWidget(
+                          text: 'No Address Found',
+                        ),
+                      )
+                    ],
+                  );
                 } else if (state is GetAddressInternetError) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.center,

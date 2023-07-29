@@ -12,6 +12,7 @@ import 'package:justbuyeight/blocs/update_address/update_address_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
+import 'package:justbuyeight/constants/bloc_provider.dart';
 import 'package:justbuyeight/utils/AlertDialog.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
@@ -49,6 +50,8 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
   BuildContext? dialogueContext;
   final formGlobalKey = GlobalKey<FormState>();
 
+  late DeleteAddressCubit deleteAddressCubit;
+
   assigneValues() {
     _personNameController.text =
         widget.addressData[widget.index].contactPersonName;
@@ -74,6 +77,7 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
 
   @override
   void initState() {
+    deleteAddressCubit = context.read<DeleteAddressCubit>();
     if (widget.navigateFrom == 'Edit') {
       assigneValues();
     }
@@ -197,12 +201,13 @@ class _NewAddressScreenState extends State<NewAddressScreen> {
                   trailingIconOnPressed: () {
                     showDialog(
                         context: context,
-                        builder: (BuildContext context) {
+                        builder: (context) {
                           return confirmAlertDialog(context, 'Confirm delete',
                               'Do you wanna delete this address?',
                               YesPressed: () async {
-                            context.read<DeleteAddressCubit>().deleteAddress(
+                            await deleteAddressCubit.deleteAddress(
                                 widget.addressData[widget.index].id);
+                            Navigator.of(context).pop();
                           }, NoPressed: () {
                             Navigator.of(context).pop();
                           });
