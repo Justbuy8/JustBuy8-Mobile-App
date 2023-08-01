@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:justbuyeight/blocs/refresh_token/refresh_token_cubit.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/screens/brands/choose_brands_screen.dart';
 import 'package:justbuyeight/screens/categories/all_categories_screen.dart';
@@ -20,8 +22,26 @@ import 'package:justbuyeight/widgets/components/banners/MainBannerWidget.dart';
 import 'package:justbuyeight/widgets/components/brands/brands_widget.dart';
 import 'package:justbuyeight/widgets/components/category/categories_widget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late RefreshTokenCubit refreshTokenCubit;
+
+  refreshingToken() {
+    refreshTokenCubit = context.read<RefreshTokenCubit>();
+    refreshTokenCubit.refreshAuthToken();
+  }
+
+  @override
+  void initState() {
+    refreshingToken();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

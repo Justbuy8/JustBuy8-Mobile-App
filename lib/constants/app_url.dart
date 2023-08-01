@@ -90,3 +90,7 @@ class SupportUrl {
   static const String getSupport = "${AppUrl.baseUrl}/support/get-contact";
   static const String postContact = "${AppUrl.baseUrl}/support/contact";
 }
+
+class RefreshTokenUrl {
+  static const String refreshToken = "${AppUrl.baseUrl}/token/refresh-token";
+}

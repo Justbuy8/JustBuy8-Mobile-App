@@ -12,6 +12,7 @@ import 'package:justbuyeight/blocs/authentication/verify_email_cubit/verify_emai
 import 'package:justbuyeight/blocs/contact_us/contact_us_cubit.dart';
 import 'package:justbuyeight/blocs/myaccount/myaccount_cubit.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_bloc.dart';
+import 'package:justbuyeight/blocs/refresh_token/refresh_token_cubit.dart';
 import 'package:justbuyeight/blocs/session_handling/splash_cubit.dart';
 import 'package:justbuyeight/blocs/support_cubit/support_cubit.dart';
 import 'package:justbuyeight/blocs/update_address/update_address_cubit.dart';
@@ -46,5 +47,6 @@ class BlocProviders {
     BlocProvider<ContactUsCubit>(create: (context) => ContactUsCubit()),
     BlocProvider<DeleteFromWishlistBloc>(
         create: (context) => DeleteFromWishlistBloc()),
+    BlocProvider<RefreshTokenCubit>(create: (context) => RefreshTokenCubit()),
   ];
 }
