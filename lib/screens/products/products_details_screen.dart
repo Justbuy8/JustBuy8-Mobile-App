@@ -14,6 +14,7 @@ import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/models/products/ProductDetailsModel.dart';
 import 'package:justbuyeight/screens/products/widgets/color_widget.dart';
+import 'package:justbuyeight/screens/products/widgets/custom_quality_input.dart';
 import 'package:justbuyeight/screens/products/widgets/read_more_button.dart';
 import 'package:justbuyeight/screens/products/widgets/rectangular_button_widget.dart';
 import 'package:justbuyeight/utils/Converts.dart';
@@ -21,7 +22,6 @@ import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:quantity_input/quantity_input.dart';
 
 class ProductsDetailsScreen extends StatefulWidget {
   final int productId;
@@ -339,18 +339,21 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                               ),
                             ),
                             Spacer(),
-                            QuantityInput(
-                              value: productQuantity,
-                              onChanged: (p0) {
-                                setState(() {
-                                  productQuantity = p0.toInt();
-                                  productPrice *= productQuantity;
-                                });
-                              },
-                              buttonColor: AppColors.backgroundColor,
-                              iconColor: AppColors.primaryColor,
-                              inputWidth: 50,
-                            ),
+                            CustomQuantityInput(
+                                value: productQuantity,
+                                onChanged: (value, symbol) {
+                                  setState(() {
+                                    if (value.toInt() == 0) {
+                                      productQuantity = 1;
+                                    } else if (symbol == "+") {
+                                      productQuantity = value.toInt();
+                                      productPrice *= productQuantity;
+                                    } else if (symbol == "-") {
+                                      productPrice /= productQuantity;
+                                      productQuantity = value.toInt();
+                                    }
+                                  });
+                                }),
                           ],
                         ),
                         10.height,
@@ -367,7 +370,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
           );
         }
         return Scaffold(
-          appBar: BasicAppbarWidget(title: "Product Details"),
+          appBar: BasicAppbarWidget(title: AppText.productDetailsText),
         );
       },
     );
