@@ -13,11 +13,13 @@ import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/models/products/ProductDetailsModel.dart';
+import 'package:justbuyeight/screens/products/product_reviews_screen.dart';
 import 'package:justbuyeight/screens/products/widgets/color_widget.dart';
 import 'package:justbuyeight/screens/products/widgets/custom_quality_input.dart';
 import 'package:justbuyeight/screens/products/widgets/read_more_button.dart';
 import 'package:justbuyeight/screens/products/widgets/rectangular_button_widget.dart';
 import 'package:justbuyeight/utils/Converts.dart';
+import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
@@ -183,30 +185,41 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                         ),
                         10.height,
                         // Rating
-                        Row(
-                          children: [
-                            Icon(
-                              Ionicons.star,
-                              color: AppColors.primaryColor,
-                              size: 20,
-                            ),
-                            5.width,
-                            Text(
-                              state.product.totalReviews.toString(),
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
+                        GestureDetector(
+                          onTap: () {
+                            // go to the reviews screen
+                            AppNavigator.goToPage(
+                              context: context,
+                              screen: ProductReviewsScreen(
+                                productId: state.product.id!,
                               ),
-                            ),
-                            10.width,
-                            Text(
-                              "(${state.product.reviewsCount} Reviews)",
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
+                            );
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Ionicons.star,
+                                color: AppColors.primaryColor,
+                                size: 20,
                               ),
-                            ),
-                          ],
+                              5.width,
+                              Text(
+                                state.product.totalReviews.toString(),
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              10.width,
+                              Text(
+                                "(${state.product.reviewsCount} Reviews)",
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         Divider(thickness: 1),
                         10.height,
