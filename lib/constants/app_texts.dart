@@ -20,6 +20,8 @@ class AppText {
   static const String alreadyHaveAnAccount = "Already have an account?";
   static const String signUp = "Sign Up";
   static const String updateChanges = "Updated Changes";
+  static const String confirmOrder = "Confirm Order";
+  static const String checkOut = "Checkout";
 
   static const String allow = "Allow";
   static const String shopNow = "Shop Now";
@@ -191,4 +193,13 @@ List<bool> notificationOptionStatus = [
   false,
   false,
   false,
+];
+
+const List<IoniconsData> checkOutTitleIcon = [
+  Ionicons.location_outline,
+  Ionicons.wallet_outline,
+];
+const List<String> checkOutTitle = [
+  'Shopping Details',
+  'Payment Method',
 ];

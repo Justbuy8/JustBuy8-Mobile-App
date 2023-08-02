@@ -4,6 +4,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
+import 'package:justbuyeight/screens/maintabs/cart/checkout_screen.dart';
 
 import 'package:justbuyeight/screens/maintabs/cart/widgets/cart_card_widget.dart';
 import 'package:justbuyeight/screens/maintabs/my_account/promocode/promocode_screen.dart';
@@ -144,7 +145,7 @@ class _CartScreenState extends State<CartScreen> {
                   padding: EdgeInsets.only(left: 10.w, right: 20.w),
                   child: PrimaryTextWidget(
                     text: 'Sub total',
-                    fontSize: 14,
+                    fontSize: 16,
                     fontFamily: AppFonts.robotoLight,
                   ),
                 ),
@@ -152,7 +153,7 @@ class _CartScreenState extends State<CartScreen> {
                   padding: EdgeInsets.only(left: 10.w, right: 20.w),
                   child: PrimaryTextWidget(
                     text: '\$300.00',
-                    fontSize: 14,
+                    fontSize: 16,
                     fontFamily: AppFonts.robotoLight,
                   ),
                 ),
@@ -168,7 +169,7 @@ class _CartScreenState extends State<CartScreen> {
                   padding: EdgeInsets.only(left: 10.w, right: 20.w),
                   child: SecondaryTextWidget(
                     text: 'Discount',
-                    fontSize: 14,
+                    fontSize: 16,
                     fontFamily: AppFonts.robotoLight,
                   ),
                 ),
@@ -176,7 +177,7 @@ class _CartScreenState extends State<CartScreen> {
                   padding: EdgeInsets.only(left: 10.w, right: 20.w),
                   child: PrimaryTextWidget(
                     text: '\$0.00',
-                    fontSize: 14,
+                    fontSize: 16,
                     fontFamily: AppFonts.robotoLight,
                     fontColor: Colors.green,
                   ),
@@ -193,7 +194,7 @@ class _CartScreenState extends State<CartScreen> {
                   padding: EdgeInsets.only(left: 10.w, right: 20.w),
                   child: SecondaryTextWidget(
                     text: 'Delivery',
-                    fontSize: 14,
+                    fontSize: 16,
                     fontFamily: AppFonts.robotoLight,
                   ),
                 ),
@@ -201,7 +202,7 @@ class _CartScreenState extends State<CartScreen> {
                   padding: EdgeInsets.only(left: 10.w, right: 20.w),
                   child: PrimaryTextWidget(
                     text: '+\$15.00',
-                    fontSize: 14,
+                    fontSize: 16,
                     fontFamily: AppFonts.robotoLight,
                     fontColor: Colors.red,
                   ),
@@ -225,7 +226,7 @@ class _CartScreenState extends State<CartScreen> {
                     children: [
                       PrimaryTextWidget(
                         text: 'Total',
-                        fontSize: 14,
+                        fontSize: 16,
                         fontFamily: AppFonts.robotoLight,
                       ),
                       SizedBox(
@@ -233,7 +234,7 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       PrimaryTextWidget(
                         text: '\$315.00',
-                        fontSize: 14,
+                        fontSize: 16,
                         fontFamily: AppFonts.robotoLight,
                       ),
                     ],
@@ -241,18 +242,24 @@ class _CartScreenState extends State<CartScreen> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 10.w, right: 20.w),
-                  child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.r),
-                          border: Border.all(color: AppColors.primaryColor)),
-                      height: 40.h,
-                      child: Padding(
-                        padding: EdgeInsets.all(8.w),
-                        child: PrimaryTextWidget(
-                          text: 'Proceed To Checkout',
-                          fontColor: AppColors.primaryColor,
-                        ),
-                      )),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (builder) => CheckOutScreen()));
+                    },
+                    child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.r),
+                            border: Border.all(color: AppColors.primaryColor)),
+                        height: 40.h,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.w),
+                          child: PrimaryTextWidget(
+                            text: 'Proceed To Checkout',
+                            fontColor: AppColors.primaryColor,
+                          ),
+                        )),
+                  ),
                 ),
               ],
             ),
