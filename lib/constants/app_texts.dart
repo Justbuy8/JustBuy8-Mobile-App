@@ -200,6 +200,12 @@ const List<IoniconsData> checkOutTitleIcon = [
   Ionicons.wallet_outline,
 ];
 const List<String> checkOutTitle = [
-  'Shopping Details',
+  'Shipping Details',
   'Payment Method',
+];
+
+const List<String> chooseShippingDetailTitle = [
+  'Home',
+  'Work',
+  'Other',
 ];

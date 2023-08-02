@@ -19,6 +19,7 @@ class CheckOutScreen extends StatefulWidget {
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
   final TextEditingController _messageController = TextEditingController();
+  int? selectedRadioTile;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,12 +161,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     return GestureDetector(
                       onTap: () {
                         if (index == 0) {
-                          // Navigator.push(
-                          //     context,
-                          //     PageTransition(
-                          //         duration: const Duration(milliseconds: 400),
-                          //         type: PageTransitionType.rightToLeft,
-                          //         child: NotificationSettingScreen()));
+                          shopDetailAlertDialogue(context);
                         } else if (index == 1) {
                           // Navigator.push(
                           //     context,
@@ -233,6 +229,100 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  void shopDetailAlertDialogue(context) {
+    Dialog fancyDialog = Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(8.w),
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 10.h, left: 20.w),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 5,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                PrimaryTextWidget(
+                                  text: 'Choose Shipping Details',
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Divider(),
+                StatefulBuilder(builder: (context, setcheckboxstate) {
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: chooseShippingDetailTitle.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(left: 8.w),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Expanded(
+                                    flex: 6,
+                                    child: RadioListTile(
+                                      contentPadding: EdgeInsets.all(0),
+                                      title: PrimaryTextWidget(
+                                        text: chooseShippingDetailTitle[index],
+                                        fontSize: 14,
+                                      ),
+                                      subtitle: SecondaryTextWidget(
+                                        text: '157 Park view Peshawar',
+                                        fontSize: 12,
+                                      ),
+                                      value: index,
+                                      groupValue: selectedRadioTile,
+                                      onChanged: (val) {
+                                        print("Radio Tile pressed $val");
+                                        setcheckboxstate(() {
+                                          selectedRadioTile = val as int?;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            index == 2 ? SizedBox() : Divider(),
+                          ],
+                        );
+                      });
+                }),
+              ],
+            ),
+          ),
+        ));
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => fancyDialog,
     );
   }
 }
