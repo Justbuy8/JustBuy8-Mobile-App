@@ -60,8 +60,9 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   timeline_tile: ^2.0.0
   stepper_flutter_form: ^1.0.2+1
-  flutter_html:
-  quantity_input: ^1.0.2
+  timeago: ^3.5.0
+  velocity_x: ^4.1.1
+  flutter_html: 
 
 dev_dependencies:
   flutter_test:
