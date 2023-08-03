@@ -1,5 +1,7 @@
 // import 'package:flutter_phoenix/generated/i18n.dart';
+import 'package:flutter/widgets.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:justbuyeight/constants/app_images.dart';
 
 class AppText {
   static const String signInText = "Sign In";
@@ -20,6 +22,8 @@ class AppText {
   static const String alreadyHaveAnAccount = "Already have an account?";
   static const String signUp = "Sign Up";
   static const String updateChanges = "Updated Changes";
+  static const String confirmOrder = "Confirm Order";
+  static const String checkOut = "Checkout";
 
   static const String allow = "Allow";
   static const String shopNow = "Shop Now";
@@ -194,4 +198,38 @@ List<bool> notificationOptionStatus = [
   false,
   false,
   false,
+];
+
+const List<IoniconsData> checkOutTitleIcon = [
+  Ionicons.location_outline,
+  Ionicons.wallet_outline,
+];
+const List<String> checkOutTitle = [
+  'Shipping Details',
+  'Payment Method',
+];
+
+const List<String> chooseShippingDetailTitle = [
+  'Home',
+  'Work',
+  'Other',
+];
+
+const List<String> paymentMethodIcon = [
+  ImageAssets.walletImage,
+  ImageAssets.visaImage,
+  ImageAssets.cardImage,
+  ImageAssets.applePayImage,
+  ImageAssets.googlePayImage,
+  ImageAssets.payPalImage,
+  ImageAssets.amazonPayImage,
+];
+const List<String> paymentMethodTitle = [
+  'My Wallet',
+  '****8645',
+  '****857',
+  'Connected',
+  'Connected',
+  'Connected',
+  'Connected',
 ];

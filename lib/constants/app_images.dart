@@ -10,6 +10,13 @@ class ImageAssets {
   static const String promocodeImage = "assets/images/promo.png";
   static const String emptyCart = "assets/images/empty_cart.png";
   static const String contactUsImage = 'assets/images/support.png';
+  static const String payPalImage = 'assets/images/paypal.png';
+  static const String visaImage = 'assets/images/visa.png';
+  static const String walletImage = 'assets/images/wallet.png';
+  static const String amazonPayImage = 'assets/images/amazon-pay.png';
+  static const String applePayImage = 'assets/images/apple-pay.png';
+  static const String cardImage = 'assets/images/card.png';
+  static const String googlePayImage = 'assets/images/google-pay.png';
 }
 
 class LottieAssets {
