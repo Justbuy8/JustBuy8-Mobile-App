@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
+import 'package:justbuyeight/screens/maintabs/cart/confirmation_screen.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
@@ -218,7 +219,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     width: context.width(),
                     height: 50.h,
                     caption: AppText.confirmOrder,
-                    onPressed: () async {}),
+                    onPressed: () async {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (builder) => ConfirmationScreen()));
+                    }),
               ),
             ],
           ),
@@ -419,7 +423,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 ],
                               ),
                             ),
-                            index == 2 ? SizedBox() : Divider(),
+                            index == 6 ? SizedBox() : Divider(),
                           ],
                         );
                       });
