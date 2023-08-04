@@ -128,6 +128,15 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
         } else if (state is ProductDetailsSuccessState) {
           return Scaffold(
             appBar: BasicAppbarWidget(title: AppText.productDetailsText),
+            bottomNavigationBar: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: PrimaryButtonWidget(
+                caption: AppText.addToCartText,
+                onPressed: () {
+                  // add to cart
+                },
+              ),
+            ),
             body: SingleChildScrollView(
               child: Column(
                 children: [
@@ -370,10 +379,6 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                           ],
                         ),
                         10.height,
-                        PrimaryButtonWidget(
-                          caption: AppText.addToCartText,
-                          onPressed: () {},
-                        ),
                       ],
                     ),
                   ),
