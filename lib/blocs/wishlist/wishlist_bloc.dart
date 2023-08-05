@@ -18,7 +18,11 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
           page: event.page,
           paginateBy: event.paginateBy,
         );
-        emit(WishlistGetState(products));
+        if (products.isEmpty) {
+          emit(WishlistEmptyState());
+        } else {
+          emit(WishlistGetState(products));
+        }
       } catch (e) {
         if (e is SocketException) {
           emit(WishlistErrorState(AppText.internetError));

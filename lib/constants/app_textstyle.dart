@@ -6,6 +6,10 @@ import 'app_colors.dart';
 import 'app_fonts.dart';
 
 class AppTextStyle {
+  static var heading = TextStyle(
+    fontSize: 20,
+    fontFamily: AppFonts.openSansBold,
+  );
   static var onboardingTitleTextStyle = TextStyle(
     fontSize: 32,
     color: Colors.white,

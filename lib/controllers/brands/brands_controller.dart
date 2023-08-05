@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/constants/app_url.dart';
@@ -21,7 +20,6 @@ class BrandsController {
       },
       BrandsUrl.brands,
     );
-    log(response.body.toString());
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
       if (result['Success']) {

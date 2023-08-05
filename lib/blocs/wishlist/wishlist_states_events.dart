@@ -26,6 +26,8 @@ class WishlistGetState extends WishlistState {
   WishlistGetState(this.products);
 }
 
+class WishlistEmptyState extends WishlistState {}
+
 class WishlistErrorState extends WishlistState {
   final String message;
   WishlistErrorState(this.message);
