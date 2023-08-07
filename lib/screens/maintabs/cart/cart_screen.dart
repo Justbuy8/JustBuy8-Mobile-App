@@ -35,7 +35,7 @@ class _CartScreenState extends State<CartScreen> {
         child: ListView(
           children: [
             SizedBox(
-              height: 10.h,
+              height: 20.h,
             ),
             // Center(
             //   child: Image.asset(
