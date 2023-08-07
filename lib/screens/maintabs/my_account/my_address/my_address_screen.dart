@@ -149,7 +149,7 @@ class _MyAdressScreenState extends State<MyAdressScreen> {
                       Lottie.asset(LottieAssets.error, height: 200.h),
                       Center(
                         child: PrimaryTextWidget(
-                          text: 'Internet connection failed',
+                          text: AppText.internetError,
                         ),
                       )
                     ],
