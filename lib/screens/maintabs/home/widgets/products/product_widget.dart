@@ -11,9 +11,9 @@ import 'package:justbuyeight/blocs/wishlist/delete_from_wishlist/delete_from_wis
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
-import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
 import 'package:justbuyeight/screens/products/products_details_screen.dart';
+import 'package:justbuyeight/utils/AppDialog.dart';
 import 'package:justbuyeight/utils/AppToast.dart';
 import 'package:justbuyeight/utils/Converts.dart';
 import 'package:justbuyeight/utils/Navigator.dart';
@@ -34,7 +34,6 @@ class _ProductWidgetState extends State<ProductWidget> {
   int page = AppConfig.PageOne;
 
   AddToWishlistBloc addToWishlistBloc = AddToWishlistBloc();
-  DeleteFromWishlistBloc deleteFromWishlistBloc = DeleteFromWishlistBloc();
 
   @override
   void initState() {
@@ -47,75 +46,75 @@ class _ProductWidgetState extends State<ProductWidget> {
       bloc: addToWishlistBloc,
       listener: (context, state) {
         if (state is AddToWishlistLoadingState) {
-          AppToast.normal(AppText.loadingText);
+          AppDialog.loadingDialog(context);
         } else if (state is AddToWishlistSuccessState) {
+          AppDialog.closeDialog();
           AppToast.success(state.message);
         } else if (state is AddToWishlistErrorState) {
+          AppDialog.closeDialog();
           AppToast.danger(state.error);
         }
       },
-      child: Column(
-        children: [
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                shape: BoxShape.rectangle,
-                color: AppColors.appGreyColor,
-              ),
-              child: GridTile(
-                header: GridTileBar(
-                  leading: const SizedBox.shrink(),
-                  title: const SizedBox.shrink(),
-                  trailing: IconButton(
-                    onPressed: () {
-                      if (widget.isWishlist == true) {
-                        // remove product from wishlist
-                        context.read<DeleteFromWishlistBloc>().add(
-                              DeleteFromWishlistOnClickEvent(
-                                productId: widget.product.id.toString(),
-                              ),
-                            );
-                      } else {
-                        // add product to wishlist
-                        addToWishlistBloc.add(
-                          AddToWishlistOnClickEvent(
-                            productId: widget.product.id.toString(),
-                          ),
-                        );
-                      }
-                    },
-                    icon: CircleAvatar(
-                      backgroundColor: AppColors.appWhiteColor,
-                      radius: 15,
-                      child: Icon(
-                        widget.isWishlist == true
-                            ? Ionicons.heart
-                            : Ionicons.heart_outline,
-                        color: widget.isWishlist == true
-                            ? AppColors.appRedColor
-                            : AppColors.appBlackColor,
-                        size: 20,
-                        shadows: [
-                          Shadow(
-                            color: AppColors.appBlackColor,
-                            blurRadius: 1,
-                            offset: const Offset(0, 1),
-                          ),
-                        ],
+      child: GestureDetector(
+        onTap: () => AppNavigator.goToPage(
+          context: context,
+          screen: ProductsDetailsScreen(
+            productId: widget.product.id!,
+          ),
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  shape: BoxShape.rectangle,
+                  color: AppColors.appGreyColor,
+                ),
+                child: GridTile(
+                  header: GridTileBar(
+                    leading: const SizedBox.shrink(),
+                    title: const SizedBox.shrink(),
+                    trailing: IconButton(
+                      onPressed: () {
+                        if (widget.isWishlist == true) {
+                          // remove product from wishlist
+                          context.read<DeleteFromWishlistBloc>().add(
+                                DeleteFromWishlistOnClickEvent(
+                                  productId: widget.product.id.toString(),
+                                ),
+                              );
+                        } else {
+                          // add product to wishlist
+                          addToWishlistBloc.add(
+                            AddToWishlistOnClickEvent(
+                              productId: widget.product.id.toString(),
+                            ),
+                          );
+                        }
+                      },
+                      icon: CircleAvatar(
+                        backgroundColor: AppColors.appWhiteColor,
+                        radius: 15,
+                        child: Icon(
+                          widget.isWishlist == true
+                              ? Ionicons.heart
+                              : Ionicons.heart_outline,
+                          color: widget.isWishlist == true
+                              ? AppColors.appRedColor
+                              : AppColors.appBlackColor,
+                          size: 20,
+                          shadows: [
+                            Shadow(
+                              color: AppColors.appBlackColor,
+                              blurRadius: 1,
+                              offset: const Offset(0, 1),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                child: GestureDetector(
-                  onTap: () {
-                    AppNavigator.goToPage(
-                      context: context,
-                      screen: ProductsDetailsScreen(
-                        productId: widget.product.id!,
-                      ),
-                    );
-                  },
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
@@ -134,83 +133,83 @@ class _ProductWidgetState extends State<ProductWidget> {
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 5),
-          Container(
-            width: context.width(),
-            padding: const EdgeInsets.symmetric(horizontal: 2),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AutoSizeText(
-                  widget.product.name.toString(),
-                  style: TextStyle(
-                    fontFamily: AppFonts.openSansBold,
+            const SizedBox(height: 5),
+            Container(
+              width: context.width(),
+              padding: const EdgeInsets.symmetric(horizontal: 2),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AutoSizeText(
+                    widget.product.name.toString(),
+                    style: TextStyle(
+                      fontFamily: AppFonts.openSansBold,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 5),
-                Row(
-                  children: [
-                    AutoSizeText(
-                      "\$" + widget.product.unitPrice.toString(),
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        // delete the text
-                        decoration: (widget.product.discount.toDouble() > 0 &&
-                                widget.product.discount != null)
-                            ? TextDecoration.lineThrough
-                            : null,
+                  const SizedBox(height: 5),
+                  Row(
+                    children: [
+                      AutoSizeText(
+                        "\$" + widget.product.unitPrice.toString(),
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          // delete the text
+                          decoration: (widget.product.discount.toDouble() > 0 &&
+                                  widget.product.discount != null)
+                              ? TextDecoration.lineThrough
+                              : null,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(width: 5),
-                    AutoSizeText(
-                      "\$" +
-                          Converts.calculateProductPrice(
-                                  widget.product.unitPrice.toDouble(),
-                                  widget.product.discount.toDouble(),
-                                  widget.product.discountType.toString())
-                              .toString(),
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: AppColors.primaryColor,
-                        fontWeight: FontWeight.w500,
-                        // delete the text
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ).visible(widget.product.discount.toDouble() > 0 &&
-                        widget.product.discount != null),
-                    const Spacer(),
-                    Row(
-                      children: [
-                        Icon(
-                          Ionicons.star,
+                      const SizedBox(width: 5),
+                      AutoSizeText(
+                        "\$" +
+                            Converts.calculateProductPrice(
+                                    widget.product.unitPrice.toDouble(),
+                                    widget.product.discount.toDouble(),
+                                    widget.product.discountType.toString())
+                                .toString(),
+                        style: TextStyle(
+                          fontSize: 14.sp,
                           color: AppColors.primaryColor,
-                          size: 14,
+                          fontWeight: FontWeight.w500,
+                          // delete the text
                         ),
-                        const SizedBox(width: 5),
-                        AutoSizeText(
-                          widget.product.totalRating.toString(),
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ).visible(widget.product.discount.toDouble() > 0 &&
+                          widget.product.discount != null),
+                      const Spacer(),
+                      Row(
+                        children: [
+                          Icon(
+                            Ionicons.star,
+                            color: AppColors.primaryColor,
+                            size: 14,
                           ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                          const SizedBox(width: 5),
+                          AutoSizeText(
+                            widget.product.totalRating.toString(),
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

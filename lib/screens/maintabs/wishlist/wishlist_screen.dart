@@ -4,11 +4,16 @@ import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/blocs/wishlist/delete_from_wishlist/delete_from_wishlist_bloc.dart';
 import 'package:justbuyeight/blocs/wishlist/wishlist_bloc.dart';
 import 'package:justbuyeight/constants/app_config.dart';
+import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
+import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
+import 'package:justbuyeight/utils/AppDialog.dart';
 import 'package:justbuyeight/utils/AppToast.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
+import 'package:lottie/lottie.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class WishListScreen extends StatefulWidget {
   final List<ProductModel> products;
@@ -87,6 +92,21 @@ class _WishListScreenState extends State<WishListScreen> {
                 return Center(
                   child: Text(state.message),
                 );
+              } else if (state is WishlistEmptyState) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset(
+                      LottieAssets.emptyproducts,
+                      repeat: false,
+                    ),
+                    10.height,
+                    Text(
+                      AppText.noProductsFound,
+                      style: AppTextStyle.heading,
+                    ),
+                  ],
+                );
               }
               return widget.products.isEmpty
                   ? Column()
@@ -94,8 +114,9 @@ class _WishListScreenState extends State<WishListScreen> {
                       DeleteFromWishlistState>(
                       listener: (context, st) {
                         if (st is DeleteFromWishlistLoadingState) {
-                          AppToast.normal(AppText.loadingText);
+                          AppDialog.loadingDialog(context);
                         } else if (st is DeleteFromWishlistSuccessState) {
+                          AppDialog.closeDialog();
                           AppToast.success(st.message);
                           widget.products.clear();
                           context.read<WishlistBloc>().add(
@@ -105,6 +126,7 @@ class _WishListScreenState extends State<WishListScreen> {
                                 ),
                               );
                         } else if (st is DeleteFromWishlistErrorState) {
+                          AppDialog.closeDialog();
                           AppToast.danger(st.error);
                         }
                       },

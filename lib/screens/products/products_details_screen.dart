@@ -15,7 +15,7 @@ import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/models/products/ProductDetailsModel.dart';
 import 'package:justbuyeight/screens/products/product_reviews_screen.dart';
 import 'package:justbuyeight/screens/products/widgets/color_widget.dart';
-import 'package:justbuyeight/screens/products/widgets/custom_quality_input.dart';
+import 'package:justbuyeight/screens/products/widgets/custom_quantity_input.dart';
 import 'package:justbuyeight/screens/products/widgets/read_more_button.dart';
 import 'package:justbuyeight/screens/products/widgets/rectangular_button_widget.dart';
 import 'package:justbuyeight/utils/Converts.dart';
@@ -130,11 +130,52 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
             appBar: BasicAppbarWidget(title: AppText.productDetailsText),
             bottomNavigationBar: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: PrimaryButtonWidget(
-                caption: AppText.addToCartText,
-                onPressed: () {
-                  // add to cart
-                },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        AppText.priceText,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: AppFonts.robotoMonoBold,
+                        ),
+                      ),
+                      10.width,
+                      Text(
+                        "\$${productPrice}",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: AppFonts.robotoMonoBold,
+                        ),
+                      ),
+                      Spacer(),
+                      CustomQuantityInput(
+                          value: productQuantity,
+                          onChanged: (value, symbol) {
+                            setState(() {
+                              if (value.toInt() == 0) {
+                                productQuantity = 1;
+                              } else if (symbol == "+") {
+                                productQuantity = value.toInt();
+                                productPrice *= productQuantity;
+                              } else if (symbol == "-") {
+                                productPrice /= productQuantity;
+                                productQuantity = value.toInt();
+                              }
+                            });
+                          }),
+                    ],
+                  ),
+                  10.height,
+                  PrimaryButtonWidget(
+                    caption: AppText.addToCartText,
+                    onPressed: () {
+                      // add to cart
+                    },
+                  ),
+                ],
               ),
             ),
             body: SingleChildScrollView(
@@ -240,7 +281,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                         // display discription with max 3 lines
                         // and add read more button
                         Html(
-                          data: """${state.product.description}""",
+                          data: "${state.product.description}",
                           style: {
                             "body": AppTextStyle.htmlEllipsed,
                           },
@@ -334,50 +375,6 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                         ).visible(state.product.choiceOptions!.isNotEmpty &&
                             color.isNotEmpty),
 
-                        10.height,
-                      ],
-                    ),
-                  ),
-                  // Divider(thickness: 3),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              AppText.priceText,
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontFamily: AppFonts.robotoMonoBold,
-                              ),
-                            ),
-                            10.width,
-                            Text(
-                              "\$${productPrice}",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontFamily: AppFonts.robotoMonoBold,
-                              ),
-                            ),
-                            Spacer(),
-                            CustomQuantityInput(
-                                value: productQuantity,
-                                onChanged: (value, symbol) {
-                                  setState(() {
-                                    if (value.toInt() == 0) {
-                                      productQuantity = 1;
-                                    } else if (symbol == "+") {
-                                      productQuantity = value.toInt();
-                                      productPrice *= productQuantity;
-                                    } else if (symbol == "-") {
-                                      productPrice /= productQuantity;
-                                      productQuantity = value.toInt();
-                                    }
-                                  });
-                                }),
-                          ],
-                        ),
                         10.height,
                       ],
                     ),

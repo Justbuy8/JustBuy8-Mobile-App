@@ -21,22 +21,22 @@ class CustomQuantityInput extends StatelessWidget {
             }
           },
           child: Container(
-            height: 30.h,
-            width: 30.w,
+            height: 25.h,
+            width: 25.w,
             decoration: BoxDecoration(
               color: AppColors.backgroundColor,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: AppColors.appBlackColor),
+              border:
+                  Border.all(color: AppColors.appBlackColor.withOpacity(0.7)),
             ),
             child: Icon(
               Icons.remove,
-              color: AppColors.appBlackColor,
+              color: AppColors.appBlackColor.withOpacity(0.7),
             ),
           ),
         ),
         10.width,
         Container(
-          height: 30.h,
+          height: 25.h,
           width: 50.w,
           decoration: BoxDecoration(
             color: AppColors.appGreyColor.withOpacity(0.5),
@@ -45,8 +45,8 @@ class CustomQuantityInput extends StatelessWidget {
             value.toString(),
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 20,
-              fontFamily: AppFonts.robotoMonoBold,
+              fontSize: 18,
+              fontFamily: AppFonts.robotoMonoMedium,
             ),
           ),
         ),
@@ -56,16 +56,16 @@ class CustomQuantityInput extends StatelessWidget {
             onChanged(value + 1, "+");
           },
           child: Container(
-            height: 30.h,
-            width: 30.w,
+            height: 25.h,
+            width: 25.w,
             decoration: BoxDecoration(
               color: AppColors.backgroundColor,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: AppColors.appBlackColor),
+              border:
+                  Border.all(color: AppColors.appBlackColor.withOpacity(0.7)),
             ),
             child: Icon(
               Icons.add,
-              color: AppColors.appBlackColor,
+              color: AppColors.appBlackColor.withOpacity(0.7),
             ),
           ),
         ),
