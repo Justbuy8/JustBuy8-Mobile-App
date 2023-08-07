@@ -281,7 +281,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                         // display discription with max 3 lines
                         // and add read more button
                         Html(
-                          data: """${state.product.description}""",
+                          data: "${state.product.description}",
                           style: {
                             "body": AppTextStyle.htmlEllipsed,
                           },

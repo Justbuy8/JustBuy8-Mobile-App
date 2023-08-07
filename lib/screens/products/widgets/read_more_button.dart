@@ -23,6 +23,17 @@ class ReadMoreButton extends StatelessWidget {
           // display modal bottom sheet
           showModalBottomSheet(
             context: context,
+            enableDrag: true,
+            isScrollControlled: true,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            isDismissible: true,
+            showDragHandle: true,
+            useSafeArea: true,
             builder: (context) => Container(
               height: context.height() * 0.8,
               padding: EdgeInsets.all(10),
@@ -46,7 +57,7 @@ class ReadMoreButton extends StatelessWidget {
                       ),
                     ),
                     Html(
-                      data: """$description""",
+                      data: "$description",
                       style: {
                         "body": AppTextStyle.html,
                       },
