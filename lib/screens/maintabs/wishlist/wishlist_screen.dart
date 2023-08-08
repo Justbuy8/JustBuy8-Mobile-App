@@ -79,6 +79,7 @@ class _WishListScreenState extends State<WishListScreen> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () {
+        page = AppConfig.PageOne;
         widget.products.clear();
         getInitialData();
         return Future.delayed(const Duration(seconds: 1));
@@ -115,8 +116,29 @@ class _WishListScreenState extends State<WishListScreen> {
                 );
               }
               if (state is WishlistErrorState) {
-                return Center(
-                  child: Text(state.message),
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset(
+                      LottieAssets.error,
+                      repeat: false,
+                    ),
+                    10.height,
+                    Text(
+                      state.message,
+                      style: AppTextStyle.heading,
+                    ),
+                    // retry button
+                    20.height,
+                    ElevatedButton(
+                      onPressed: () {
+                        page = AppConfig.PageOne;
+                        widget.products.clear();
+                        getInitialData();
+                      },
+                      child: Text(AppText.tryAgain),
+                    ),
+                  ],
                 );
               } else if (state is WishlistEmptyState) {
                 return Column(
