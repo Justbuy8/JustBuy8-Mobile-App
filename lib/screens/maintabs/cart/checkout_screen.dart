@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:justbuyeight/blocs/address/get_address/get_address_cubit.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
+import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/screens/maintabs/cart/confirmation_screen.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
+import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class CheckOutScreen extends StatefulWidget {
@@ -21,6 +26,19 @@ class CheckOutScreen extends StatefulWidget {
 class _CheckOutScreenState extends State<CheckOutScreen> {
   final TextEditingController _messageController = TextEditingController();
   int? selectedRadioTile;
+  late GetAddressCubit getAddressCubit;
+
+  initCubit() {
+    getAddressCubit = context.read<GetAddressCubit>();
+    getAddressCubit.getAddress();
+  }
+
+  @override
+  void initState() {
+    initCubit();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -272,48 +290,103 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 ),
                 Divider(),
                 StatefulBuilder(builder: (context, setcheckboxstate) {
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: chooseShippingDetailTitle.length,
-                      itemBuilder: (context, index) {
+                  return BlocBuilder<GetAddressCubit, GetAddressState>(
+                    builder: (context, state) {
+                      if (state is GetAddressLoading) {
                         return Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(left: 8.w),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Expanded(
-                                    flex: 6,
-                                    child: RadioListTile(
-                                      contentPadding: EdgeInsets.all(0),
-                                      title: PrimaryTextWidget(
-                                        text: chooseShippingDetailTitle[index],
-                                        fontSize: 14,
-                                      ),
-                                      subtitle: SecondaryTextWidget(
-                                        text: '157 Park view Peshawar',
-                                        fontSize: 12,
-                                      ),
-                                      value: index,
-                                      groupValue: selectedRadioTile,
-                                      onChanged: (val) {
-                                        print("Radio Tile pressed $val");
-                                        setcheckboxstate(() {
-                                          selectedRadioTile = val as int?;
-                                        });
-                                      },
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [AppCircularSpinner()],
+                        );
+                      }
+                      if (state is GetAddressLoaded) {
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: state.addressData.length,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8.w),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Expanded(
+                                          flex: 6,
+                                          child: RadioListTile(
+                                            contentPadding: EdgeInsets.all(0),
+                                            title: PrimaryTextWidget(
+                                              text: state.addressData.first
+                                                  .data[index].addressType,
+                                              fontSize: 14,
+                                            ),
+                                            subtitle: SecondaryTextWidget(
+                                              text:
+                                                  '${state.addressData.first.data[index].address}\n,${state.addressData.first.data[index].city}',
+                                              fontSize: 12,
+                                            ),
+                                            value: index,
+                                            groupValue: selectedRadioTile,
+                                            onChanged: (val) {
+                                              print("Radio Tile pressed $val");
+                                              setcheckboxstate(() {
+                                                selectedRadioTile = val as int?;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
+                                  index == 2 ? SizedBox() : Divider(),
                                 ],
+                              );
+                            });
+                      } else if (state is GetAddressFailed) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Lottie.asset(LottieAssets.error, height: 200.h),
+                            Center(
+                              child: PrimaryTextWidget(
+                                text: 'Loading data failed',
                               ),
-                            ),
-                            index == 2 ? SizedBox() : Divider(),
+                            )
                           ],
                         );
-                      });
+                      } else if (state is GetNoAddressFound) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Lottie.asset(LottieAssets.error, height: 200.h),
+                            Center(
+                              child: PrimaryTextWidget(
+                                text: 'No Address Found',
+                              ),
+                            )
+                          ],
+                        );
+                      } else if (state is GetAddressInternetError) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Lottie.asset(LottieAssets.error, height: 200.h),
+                            Center(
+                              child: PrimaryTextWidget(
+                                text: 'Internet connection failed',
+                              ),
+                            )
+                          ],
+                        );
+                      }
+                      return SizedBox();
+                    },
+                  );
                 }),
               ],
             ),
@@ -321,7 +394,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         ));
     showDialog(
       context: context,
-      builder: (BuildContext context) => fancyDialog,
+      builder: (BuildContext context) => BlocProvider(
+        create: (context) => GetAddressCubit()..getAddress(),
+        child: fancyDialog,
+      ),
     );
   }
 
