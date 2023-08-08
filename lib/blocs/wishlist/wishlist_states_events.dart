@@ -4,11 +4,21 @@ part of 'wishlist_bloc.dart';
 
 abstract class WishlistEvent {}
 
-class WishlistGetDataEvent extends WishlistEvent {
+class WishlistGetInitialData extends WishlistEvent {
   final int page;
   final int paginateBy;
 
-  WishlistGetDataEvent({
+  WishlistGetInitialData({
+    required this.page,
+    required this.paginateBy,
+  });
+}
+
+class WishlistGetMoreData extends WishlistEvent {
+  final int page;
+  final int paginateBy;
+
+  WishlistGetMoreData({
     required this.page,
     required this.paginateBy,
   });
