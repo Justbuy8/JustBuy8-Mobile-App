@@ -17,6 +17,9 @@ class ReviewBloc extends Bloc<ReviewsEvent, ReviewState> {
           emit(ReviewsErrorState(message: AppText.internetError));
         }
         reviews = await ProductReviewController.getReviews(event.productId);
+        if (reviews.isEmpty) {
+          emit(ReviewsEmptyState(message: "No Reviews Found"));
+        }
         emit(ReviewsLoadedState(reviews: reviews));
       } catch (e) {
         emit(ReviewsErrorState(message: e.toString()));

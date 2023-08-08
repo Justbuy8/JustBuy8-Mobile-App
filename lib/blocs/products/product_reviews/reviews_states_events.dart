@@ -21,6 +21,11 @@ class ReviewsLoadedState extends ReviewState {
   ReviewsLoadedState({required this.reviews});
 }
 
+class ReviewsEmptyState extends ReviewState {
+  final String message;
+  ReviewsEmptyState({required this.message});
+}
+
 class ReviewsErrorState extends ReviewState {
   final String message;
   ReviewsErrorState({required this.message});

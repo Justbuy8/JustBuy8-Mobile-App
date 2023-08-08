@@ -145,6 +145,7 @@ class _WishListScreenState extends State<WishListScreen> {
                             isWishlist: true,
                           );
                         },
+                        controller: scrollController,
                         padding: const EdgeInsets.all(10.0),
                       ),
                     );

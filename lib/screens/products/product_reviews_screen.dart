@@ -39,6 +39,8 @@ class _ProductReviewsScreenState extends State<ProductReviewsScreen> {
             return AppCircularSpinner();
           } else if (state is ReviewsErrorState) {
             return Center(child: Text(state.message));
+          } else if (state is ReviewsEmptyState) {
+            return Center(child: Text(state.message.toString()));
           } else if (state is ReviewsLoadedState) {
             return ListView.builder(
               itemCount: state.reviews.length,
@@ -73,18 +75,14 @@ class _ProductReviewsScreenState extends State<ProductReviewsScreen> {
                           // time ago
                           Text(
                             timeago.format(
-                              DateTime(
-                                state.reviews[index].timePassed!.years!,
-                                state.reviews[index].timePassed!.months!,
-                                state.reviews[index].timePassed!.days!,
-                                state.reviews[index].timePassed!.hours!,
-                                state.reviews[index].timePassed!.minutes!,
-                                state.reviews[index].timePassed!.seconds!,
+                              DateTime.parse(
+                                state.reviews[index].timePassed.toString(),
                               ),
                             ),
                             style: TextStyle(
-                              color: Colors.grey,
+                              color: AppColors.appBlackColor.withOpacity(0.7),
                               fontSize: 12,
+                              fontFamily: AppFonts.openSansRegular,
                             ),
                           ),
                         ],
