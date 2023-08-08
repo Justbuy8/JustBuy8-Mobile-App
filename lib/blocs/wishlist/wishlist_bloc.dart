@@ -36,6 +36,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
 
     // Get more data
     on<WishlistGetMoreData>((event, emit) async {
+      emit(WishlistLoadingMoreState());
       try {
         products = await WishlistController.getProducts(
           page: event.page,

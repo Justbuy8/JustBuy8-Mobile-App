@@ -12,6 +12,7 @@ import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widg
 import 'package:justbuyeight/utils/AppDialog.dart';
 import 'package:justbuyeight/utils/AppToast.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
+import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -156,7 +157,7 @@ class _WishListScreenState extends State<WishListScreen> {
                         }
                       },
                       child: GridView.builder(
-                        itemCount: widget.products.length,
+                        itemCount: widget.products.length + 2,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
@@ -165,10 +166,17 @@ class _WishListScreenState extends State<WishListScreen> {
                           crossAxisSpacing: 20,
                         ),
                         itemBuilder: (context, index) {
-                          return ProductWidget(
-                            product: widget.products[index],
-                            isWishlist: true,
-                          );
+                          if (index == widget.products.length ||
+                              index == widget.products.length + 1) {
+                            if (state is WishlistLoadingMoreState) {
+                              return const AppCircularSpinner();
+                            } else
+                              return const SizedBox.shrink();
+                          } else
+                            return ProductWidget(
+                              product: widget.products[index],
+                              isWishlist: true,
+                            );
                         },
                         controller: scrollController,
                         padding: const EdgeInsets.all(10.0),

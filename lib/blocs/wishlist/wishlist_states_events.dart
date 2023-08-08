@@ -31,6 +31,8 @@ class WishlistInitState extends WishlistState {}
 
 class WishlistLoadingState extends WishlistState {}
 
+class WishlistLoadingMoreState extends WishlistState {}
+
 class WishlistGetState extends WishlistState {
   final List<ProductModel> products;
   WishlistGetState(this.products);
