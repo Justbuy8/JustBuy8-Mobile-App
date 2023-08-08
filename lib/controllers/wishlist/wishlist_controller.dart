@@ -34,7 +34,6 @@ class WishlistController {
         products = [];
       }
     } else {
-      print(response.statusCode);
       products = [];
     }
     return products;

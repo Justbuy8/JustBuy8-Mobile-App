@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, avoid_print
-
 import 'dart:convert';
 
 import 'package:http/http.dart';
@@ -16,7 +14,6 @@ class BannerController {
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
       if (result['Success']) {
-        print(result['Data']);
         bannerList = bannerModelFromJson(jsonEncode(result['Data']));
       } else {
         bannerList = [];
