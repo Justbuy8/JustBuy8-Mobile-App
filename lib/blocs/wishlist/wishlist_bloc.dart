@@ -11,7 +11,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   WishlistBloc() : super(WishlistInitState()) {
     List<ProductModel> products = [];
 
-    on<WishlistGetDataEvent>((event, emit) async {
+    on<WishlistGetInitialData>((event, emit) async {
       emit(WishlistLoadingState());
       try {
         products = await WishlistController.getProducts(
@@ -31,6 +31,27 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
         } else {
           emit(WishlistErrorState(e.toString()));
         }
+      }
+    });
+
+    // Get more data
+    on<WishlistGetMoreData>((event, emit) async {
+      emit(WishlistLoadingMoreState());
+      try {
+        products = await WishlistController.getProducts(
+          page: event.page,
+          paginateBy: event.paginateBy,
+        );
+
+        emit(WishlistGetState(products));
+      } catch (e) {
+        // if (e is SocketException) {
+        //   emit(WishlistErrorState(AppText.internetError));
+        // } else if (e is HttpException) {
+        //   emit(WishlistErrorState(AppText.serverError));
+        // } else {
+        //   emit(WishlistErrorState(e.toString()));
+        // }
       }
     });
   }

@@ -90,7 +90,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
                     if (tabindex == 3) {
                       productsList.clear();
                       context.read<WishlistBloc>().add(
-                            WishlistGetDataEvent(
+                            WishlistGetInitialData(
                               page: page,
                               paginateBy: paginateBy,
                             ),
