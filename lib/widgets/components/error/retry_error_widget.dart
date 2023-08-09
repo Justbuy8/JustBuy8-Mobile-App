@@ -35,10 +35,7 @@ class _RetryErrorWidgetState extends State<RetryErrorWidget> {
           ),
           const SizedBox(height: 16),
           ElevatedButton(
-            onPressed: widget.onRetry ??
-                () {
-                  setState(() {});
-                },
+            onPressed: widget.onRetry ?? () {},
             child: const Text('Retry'),
           ),
         ],

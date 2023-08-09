@@ -24,7 +24,7 @@ class _BestProductsState extends State<BestProducts> {
     return BlocProvider(
       create: (context) => BestProductsBloc()
         ..add(
-          BestProductsGetAllEvent("1", "10", true),
+          BestProductsGetInitData("1", "10", true),
         ),
       child: BlocBuilder<BestProductsBloc, BestProductsState>(
         builder: (context, state) {

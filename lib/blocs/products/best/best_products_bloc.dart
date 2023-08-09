@@ -7,7 +7,7 @@ import 'package:justbuyeight/controllers/products/best_products_controller.dart'
 
 class BestProductsBloc extends Bloc<BestProductsEvent, BestProductsState> {
   BestProductsBloc() : super(BestProductsLoadingState()) {
-    on<BestProductsGetAllEvent>((event, emit) async {
+    on<BestProductsGetInitData>((event, emit) async {
       emit(BestProductsLoadingState());
       try {
         final products = await BestProductsController.getBestProducts(
@@ -17,12 +17,9 @@ class BestProductsBloc extends Bloc<BestProductsEvent, BestProductsState> {
         );
 
         if (products.isEmpty) {
-          emit(
-            BestProductsEmptyState(),
-          );
-          return;
-        }
-        emit(BestProductsGetAllState(products));
+          emit(BestProductsEmptyState());
+        } else
+          emit(BestProductsGetAllState(products));
       } catch (e) {
         if (e is SocketException) {
           emit(BestProductsErrorState(AppText.internetError));
@@ -31,6 +28,28 @@ class BestProductsBloc extends Bloc<BestProductsEvent, BestProductsState> {
         } else {
           emit(BestProductsErrorState(e.toString()));
         }
+      }
+    });
+
+    // Get more data
+    on<BestProductsGetMoreData>((event, emit) async {
+      emit(BestProductsLoadingMoreState());
+      try {
+        final products = await BestProductsController.getBestProducts(
+          event.page,
+          event.paginateBy,
+          event.random,
+        );
+
+        emit(BestProductsGetAllState(products));
+      } catch (e) {
+        // if (e is SocketException) {
+        //   emit(BestProductsErrorState(AppText.internetError));
+        // } else if (e is HttpException) {
+        //   emit(BestProductsErrorState(AppText.serverError));
+        // } else {
+        //   emit(BestProductsErrorState(e.toString()));
+        // }
       }
     });
   }

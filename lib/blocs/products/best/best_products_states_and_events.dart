@@ -5,12 +5,24 @@ import 'package:justbuyeight/models/products/ProductModel.dart';
 
 abstract class BestProductsEvent {}
 
-class BestProductsGetAllEvent extends BestProductsEvent {
+class BestProductsGetInitData extends BestProductsEvent {
   final String page;
   final String paginateBy;
   final bool random;
 
-  BestProductsGetAllEvent(
+  BestProductsGetInitData(
+    this.page,
+    this.paginateBy,
+    this.random,
+  );
+}
+
+class BestProductsGetMoreData extends BestProductsEvent {
+  final String page;
+  final String paginateBy;
+  final bool random;
+
+  BestProductsGetMoreData(
     this.page,
     this.paginateBy,
     this.random,
@@ -21,6 +33,8 @@ class BestProductsGetAllEvent extends BestProductsEvent {
 abstract class BestProductsState {}
 
 class BestProductsLoadingState extends BestProductsState {}
+
+class BestProductsLoadingMoreState extends BestProductsState {}
 
 class BestProductsEmptyState extends BestProductsState {
   final String message;
