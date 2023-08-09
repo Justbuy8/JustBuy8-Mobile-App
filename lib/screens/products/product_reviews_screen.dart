@@ -3,9 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/products/product_reviews/reviews_bloc.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
+import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
+import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:velocity_x/velocity_x.dart';
@@ -38,9 +41,36 @@ class _ProductReviewsScreenState extends State<ProductReviewsScreen> {
           if (state is ReviewsLoadingState) {
             return AppCircularSpinner();
           } else if (state is ReviewsErrorState) {
-            return Center(child: Text(state.message));
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.asset(
+                  LottieAssets.error,
+                  repeat: false,
+                ),
+                10.height,
+                Text(
+                  state.message,
+                  style: AppTextStyle.heading,
+                ),
+                // retry button
+                20.height,
+                ElevatedButton(
+                  onPressed: () {
+                    reviewBloc
+                        .add(GetReviewsEvent(productId: widget.productId));
+                  },
+                  child: Text(AppText.tryAgain),
+                ),
+              ],
+            );
           } else if (state is ReviewsEmptyState) {
-            return Center(child: Text(state.message.toString()));
+            return Center(
+              child: Text(
+                state.message,
+                style: AppTextStyle.heading,
+              ),
+            );
           } else if (state is ReviewsLoadedState) {
             return ListView.builder(
               itemCount: state.reviews.length,
