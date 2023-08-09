@@ -235,41 +235,59 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                         ),
                         10.height,
                         // Rating
-                        GestureDetector(
-                          onTap: () {
-                            // go to the reviews screen
-                            AppNavigator.goToPage(
-                              context: context,
-                              screen: ProductReviewsScreen(
-                                productId: state.product.id!,
+                        Row(
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                if (state.product.vendor!.addedBy == 'admin') {
+                                  // Go to the vendor screen
+                                } else {
+                                  // Do nothing......
+                                }
+                              },
+                              child: Text(
+                                state.product.vendor!.shopName.toString(),
+                                style: AppTextStyle.textButtonStyle,
                               ),
-                            );
-                          },
-                          child: Row(
-                            children: [
-                              Icon(
-                                Ionicons.star,
-                                color: AppColors.primaryColor,
-                                size: 20,
+                            ),
+                            Spacer(),
+                            GestureDetector(
+                              onTap: () {
+                                // go to the reviews screen
+                                AppNavigator.goToPage(
+                                  context: context,
+                                  screen: ProductReviewsScreen(
+                                    productId: state.product.id!,
+                                  ),
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Ionicons.star,
+                                    color: AppColors.primaryColor,
+                                    size: 20,
+                                  ),
+                                  5.width,
+                                  Text(
+                                    state.product.totalReviews.toString(),
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  10.width,
+                                  Text(
+                                    "(${state.product.reviewsCount} Reviews)",
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              5.width,
-                              Text(
-                                state.product.totalReviews.toString(),
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              10.width,
-                              Text(
-                                "(${state.product.reviewsCount} Reviews)",
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                         Divider(thickness: 1),
                         10.height,

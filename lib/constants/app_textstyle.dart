@@ -45,4 +45,9 @@ class AppTextStyle {
     maxLines: 2,
     textOverflow: TextOverflow.ellipsis,
   );
+
+  static var textButtonStyle = TextStyle(
+    fontSize: 16.sp,
+    fontFamily: AppFonts.openSansMedium,
+  );
 }

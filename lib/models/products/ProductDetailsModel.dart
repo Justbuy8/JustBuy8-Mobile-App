@@ -5,6 +5,7 @@ class ProductDetailsModel {
   String? description;
   String? thumbnail;
   String? unitPrice;
+  Vendor? vendor;
   String? discount;
   String? discountType;
   List<ChoiceOptions>? choiceOptions;
@@ -22,6 +23,7 @@ class ProductDetailsModel {
       this.description,
       this.thumbnail,
       this.unitPrice,
+      this.vendor,
       this.discount,
       this.discountType,
       this.choiceOptions,
@@ -44,6 +46,8 @@ class ProductDetailsModel {
     description = json['description'];
     thumbnail = json['thumbnail'];
     unitPrice = json['unit_price'];
+    vendor =
+        json['Vendor'] != null ? new Vendor.fromJson(json['Vendor']) : null;
     discount = json['discount'];
     discountType = json['discount_type'];
     if (json['choice_options'] != null) {
@@ -85,6 +89,9 @@ class ProductDetailsModel {
     data['description'] = this.description;
     data['thumbnail'] = this.thumbnail;
     data['unit_price'] = this.unitPrice;
+    if (this.vendor != null) {
+      data['Vendor'] = this.vendor!.toJson();
+    }
     data['discount'] = this.discount;
     data['discount_type'] = this.discountType;
     if (this.choiceOptions != null) {
@@ -119,6 +126,31 @@ class Images {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['image'] = this.image;
+    return data;
+  }
+}
+
+class Vendor {
+  String? addedBy;
+  String? id;
+  int? shopId;
+  String? shopName;
+
+  Vendor({this.addedBy, this.id, this.shopId, this.shopName});
+
+  Vendor.fromJson(Map<String, dynamic> json) {
+    addedBy = json['added_by'];
+    id = json['id'];
+    shopId = json['shop_id'];
+    shopName = json['shop_name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['added_by'] = this.addedBy;
+    data['id'] = this.id;
+    data['shop_id'] = this.shopId;
+    data['shop_name'] = this.shopName;
     return data;
   }
 }

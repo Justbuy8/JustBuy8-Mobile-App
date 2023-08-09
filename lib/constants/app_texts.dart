@@ -90,6 +90,7 @@ class AppText {
   static const String sizeText = "Size";
   static const String colorText = "Color";
   static const String addToCartText = "Add To Cart";
+  static const String visitText = "Visit";
 
   // Review Screen
   static const String reviewText = "Review";
