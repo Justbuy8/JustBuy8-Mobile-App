@@ -104,7 +104,7 @@ class _NewArrivalsScreenState extends State<NewArrivalsScreen> {
                 ),
                 10.height,
                 Text(
-                  AppText.noProductsFound,
+                  state.message,
                   style: AppTextStyle.heading,
                 ),
               ],
