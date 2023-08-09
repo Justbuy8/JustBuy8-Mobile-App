@@ -5,12 +5,24 @@ import 'package:justbuyeight/models/products/ProductModel.dart';
 
 abstract class NewArrivalEvent {}
 
-class NewArrivalGetAllEvent extends NewArrivalEvent {
+class NewArrivalGetInitialData extends NewArrivalEvent {
   final String page;
   final String paginateBy;
   final String categoryId;
 
-  NewArrivalGetAllEvent(
+  NewArrivalGetInitialData(
+    this.page,
+    this.paginateBy,
+    this.categoryId,
+  );
+}
+
+class NewArrivalGetMoreData extends NewArrivalEvent {
+  final String page;
+  final String paginateBy;
+  final String categoryId;
+
+  NewArrivalGetMoreData(
     this.page,
     this.paginateBy,
     this.categoryId,
@@ -21,6 +33,8 @@ class NewArrivalGetAllEvent extends NewArrivalEvent {
 abstract class NewArrivalState {}
 
 class NewArrivalLoadingState extends NewArrivalState {}
+
+class NewArrivalLoadingMoreState extends NewArrivalState {}
 
 class NewArrivalEmptyState extends NewArrivalState {
   final String message;

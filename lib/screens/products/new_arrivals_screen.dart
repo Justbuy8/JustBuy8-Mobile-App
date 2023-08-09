@@ -3,10 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_bloc.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_state_and_events.dart';
 import 'package:justbuyeight/constants/app_config.dart';
+import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
+import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
+import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
+import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer_grid_view.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class NewArrivalsScreen extends StatefulWidget {
@@ -28,20 +33,27 @@ class _NewArrivalsScreenState extends State<NewArrivalsScreen> {
   @override
   void initState() {
     super.initState();
-    bloc = bloc
-      ..add(
-        NewArrivalGetAllEvent(page.toString(), paginateBy.toString(), "all"),
-      );
+    getInitialData();
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
               _scrollController.position.pixels <=
           AppConfig.LoadOnScrollHeight) {
         page++;
-        bloc.add(
-          NewArrivalGetAllEvent(page.toString(), paginateBy.toString(), "all"),
-        );
+        getMoreData();
       }
     });
+  }
+
+  getInitialData() {
+    bloc.add(
+      NewArrivalGetInitialData(page.toString(), paginateBy.toString(), "all"),
+    );
+  }
+
+  getMoreData() {
+    bloc.add(
+      NewArrivalGetMoreData(page.toString(), paginateBy.toString(), "all"),
+    );
   }
 
   @override
@@ -57,11 +69,52 @@ class _NewArrivalsScreenState extends State<NewArrivalsScreen> {
           }
         },
         builder: (context, state) {
+          if (state is NewArrivalLoadingState) {
+            return RectangularShimmerGridView(itemCount: 8);
+          } else if (state is NewArrivalErrorState) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.asset(
+                  LottieAssets.error,
+                  repeat: false,
+                ),
+                10.height,
+                Text(
+                  state.message,
+                  style: AppTextStyle.heading,
+                ),
+                // retry button
+                20.height,
+                ElevatedButton(
+                  onPressed: () {
+                    getInitialData();
+                  },
+                  child: Text(AppText.tryAgain),
+                ),
+              ],
+            );
+          } else if (state is NewArrivalEmptyState) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.asset(
+                  LottieAssets.emptyproducts,
+                  repeat: false,
+                ),
+                10.height,
+                Text(
+                  AppText.noProductsFound,
+                  style: AppTextStyle.heading,
+                ),
+              ],
+            );
+          }
           return products.isEmpty
               ? NoDataWidget()
               : GridView.builder(
                   controller: _scrollController,
-                  itemCount: products.length,
+                  itemCount: products.length + 2,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 0.7,
@@ -69,7 +122,14 @@ class _NewArrivalsScreenState extends State<NewArrivalsScreen> {
                     crossAxisSpacing: 20,
                   ),
                   itemBuilder: (context, index) {
-                    return ProductWidget(product: products[index]);
+                    if (index == products.length ||
+                        index == products.length + 1) {
+                      if (state is NewArrivalLoadingMoreState) {
+                        return const RectangularShimmer();
+                      } else
+                        return const SizedBox.shrink();
+                    } else
+                      return ProductWidget(product: products[index]);
                   },
                   padding: const EdgeInsets.all(10.0),
                 );

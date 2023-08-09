@@ -9,7 +9,7 @@ import 'package:justbuyeight/models/products/ProductModel.dart';
 class NewArrivalBloc extends Bloc<NewArrivalEvent, NewArrivalState> {
   NewArrivalBloc() : super(NewArrivalLoadingState()) {
     List<ProductModel> products = [];
-    on<NewArrivalGetAllEvent>((event, emit) async {
+    on<NewArrivalGetInitialData>((event, emit) async {
       emit(NewArrivalLoadingState());
       try {
         products = await NewArrivalController.getNewArrivals(
@@ -33,6 +33,28 @@ class NewArrivalBloc extends Bloc<NewArrivalEvent, NewArrivalState> {
         } else {
           emit(NewArrivalErrorState(e.toString()));
         }
+      }
+    });
+
+    // Get more data
+    on<NewArrivalGetMoreData>((event, emit) async {
+      emit(NewArrivalLoadingMoreState());
+      try {
+        products = await NewArrivalController.getNewArrivals(
+          event.page,
+          event.paginateBy,
+          event.categoryId,
+        );
+
+        emit(NewArrivalGetAllState(products));
+      } catch (e) {
+        // if (e is SocketException) {
+        //   emit(NewArrivalErrorState(AppText.internetError));
+        // } else if (e is HttpException) {
+        //   emit(NewArrivalErrorState(AppText.serverError));
+        // } else {
+        //   emit(NewArrivalErrorState(e.toString()));
+        // }
       }
     });
   }

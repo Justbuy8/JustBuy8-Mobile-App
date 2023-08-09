@@ -33,7 +33,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
         ),
       child: BlocConsumer<MainCategoryBloc, MainCategoryState>(
         listener: (context, state) {
-          BlocProvider.of<NewArrivalBloc>(context).add(NewArrivalGetAllEvent(
+          BlocProvider.of<NewArrivalBloc>(context).add(NewArrivalGetInitialData(
             AppConfig.PageOne.toString(),
             AppConfig.HomeBestNewArrivalPagenateCount.toString(),
             'all',
@@ -59,7 +59,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                     text: state.mainCategory[index].catName.toString(),
                     onPressed: () {
                       BlocProvider.of<NewArrivalBloc>(bloccontext).add(
-                        NewArrivalGetAllEvent(
+                        NewArrivalGetInitialData(
                           AppConfig.PageOne.toString(),
                           AppConfig.HomeBestNewArrivalPagenateCount.toString(),
                           state.mainCategory[index].catId.toString(),
