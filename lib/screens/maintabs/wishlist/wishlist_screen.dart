@@ -13,7 +13,7 @@ import 'package:justbuyeight/utils/AppDialog.dart';
 import 'package:justbuyeight/utils/AppToast.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
-import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
+import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer_grid_view.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -101,21 +101,34 @@ class _WishListScreenState extends State<WishListScreen> {
             },
             builder: (context, state) {
               if (state is WishlistLoadingState) {
-                return GridView.builder(
-                  itemCount: 8,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.7,
-                    mainAxisSpacing: 20,
-                    crossAxisSpacing: 20,
-                  ),
-                  itemBuilder: (context, index) {
-                    return RectangularShimmer();
-                  },
-                  padding: const EdgeInsets.all(10.0),
+                return RectangularShimmerGridView(itemCount: 8);
+              } else if (state is WishlistEmptyState) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset(
+                      LottieAssets.emptyproducts,
+                      repeat: false,
+                    ),
+                    10.height,
+                    Text(
+                      AppText.noProductsFound,
+                      style: AppTextStyle.heading,
+                    ),
+                    // retry button
+
+                    20.height,
+                    ElevatedButton(
+                      onPressed: () {
+                        page = AppConfig.PageOne;
+                        widget.products.clear();
+                        getInitialData();
+                      },
+                      child: Text(AppText.tryAgain),
+                    ),
+                  ],
                 );
-              }
-              if (state is WishlistErrorState) {
+              } else if (state is WishlistErrorState) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -140,70 +153,52 @@ class _WishListScreenState extends State<WishListScreen> {
                     ),
                   ],
                 );
-              } else if (state is WishlistEmptyState) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Lottie.asset(
-                      LottieAssets.emptyproducts,
-                      repeat: false,
-                    ),
-                    10.height,
-                    Text(
-                      AppText.noProductsFound,
-                      style: AppTextStyle.heading,
-                    ),
-                  ],
-                );
               }
-              return widget.products.isEmpty
-                  ? Column()
-                  : BlocListener<DeleteFromWishlistBloc,
-                      DeleteFromWishlistState>(
-                      listener: (context, st) {
-                        if (st is DeleteFromWishlistLoadingState) {
-                          AppDialog.loadingDialog(context);
-                        } else if (st is DeleteFromWishlistSuccessState) {
-                          AppDialog.closeDialog();
-                          AppToast.success(st.message);
-                          widget.products.clear();
-                          context.read<WishlistBloc>().add(
-                                WishlistGetInitialData(
-                                  page: page,
-                                  paginateBy: paginateBy,
-                                ),
-                              );
-                        } else if (st is DeleteFromWishlistErrorState) {
-                          AppDialog.closeDialog();
-                          AppToast.danger(st.error);
-                        }
-                      },
-                      child: GridView.builder(
-                        itemCount: widget.products.length + 2,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.7,
-                          mainAxisSpacing: 20,
-                          crossAxisSpacing: 20,
-                        ),
-                        itemBuilder: (context, index) {
-                          if (index == widget.products.length ||
-                              index == widget.products.length + 1) {
-                            if (state is WishlistLoadingMoreState) {
-                              return const AppCircularSpinner();
-                            } else
-                              return const SizedBox.shrink();
-                          } else
-                            return ProductWidget(
-                              product: widget.products[index],
-                              isWishlist: true,
-                            );
-                        },
-                        controller: scrollController,
-                        padding: const EdgeInsets.all(10.0),
-                      ),
-                    );
+              return BlocListener<DeleteFromWishlistBloc,
+                  DeleteFromWishlistState>(
+                listener: (context, st) {
+                  if (st is DeleteFromWishlistLoadingState) {
+                    AppDialog.loadingDialog(context);
+                  } else if (st is DeleteFromWishlistSuccessState) {
+                    AppDialog.closeDialog();
+                    AppToast.success(st.message);
+                    widget.products.clear();
+                    context.read<WishlistBloc>().add(
+                          WishlistGetInitialData(
+                            page: page,
+                            paginateBy: paginateBy,
+                          ),
+                        );
+                  } else if (st is DeleteFromWishlistErrorState) {
+                    AppDialog.closeDialog();
+                    AppToast.danger(st.error);
+                  }
+                },
+                child: GridView.builder(
+                  itemCount: widget.products.length + 2,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.7,
+                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 20,
+                  ),
+                  itemBuilder: (context, index) {
+                    if (index == widget.products.length ||
+                        index == widget.products.length + 1) {
+                      if (state is WishlistLoadingMoreState) {
+                        return const AppCircularSpinner();
+                      } else
+                        return const SizedBox.shrink();
+                    } else
+                      return ProductWidget(
+                        product: widget.products[index],
+                        isWishlist: true,
+                      );
+                  },
+                  controller: scrollController,
+                  padding: const EdgeInsets.all(10.0),
+                ),
+              );
             },
           ),
         ),

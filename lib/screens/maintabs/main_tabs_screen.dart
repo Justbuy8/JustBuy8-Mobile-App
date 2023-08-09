@@ -88,6 +88,7 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
 
                     //WishList Page
                     if (tabindex == 3) {
+                      page = AppConfig.PageOne;
                       productsList.clear();
                       context.read<WishlistBloc>().add(
                             WishlistGetInitialData(
