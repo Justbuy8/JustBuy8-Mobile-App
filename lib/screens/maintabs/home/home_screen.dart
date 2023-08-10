@@ -5,16 +5,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/blocs/refresh_token/refresh_token_cubit.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
-import 'package:justbuyeight/screens/brands/choose_brands_screen.dart';
-import 'package:justbuyeight/screens/categories/all_categories_screen.dart';
+import 'package:justbuyeight/screens/maintabs/home/brands/choose_brands_screen.dart';
+import 'package:justbuyeight/screens/maintabs/home/categories/all_categories_screen.dart';
+import 'package:justbuyeight/screens/maintabs/home/products/all_best_products_screen.dart';
+import 'package:justbuyeight/screens/maintabs/home/products/featured_products_screen.dart';
+import 'package:justbuyeight/screens/maintabs/home/products/new_arrivals_screen.dart';
+import 'package:justbuyeight/screens/maintabs/home/shop/widgets/all_shops_grid.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/best/best_products.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/featured/featured_products_listview.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/new_arrival/new_arrival_grid.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/top/top_categories_widgets.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/title-button/title_and_button_widget.dart';
-import 'package:justbuyeight/screens/products/all_best_products_screen.dart';
-import 'package:justbuyeight/screens/products/featured_products_screen.dart';
-import 'package:justbuyeight/screens/products/new_arrivals_screen.dart';
 import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/banners/FooterBannerWidget.dart';
@@ -136,6 +137,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   CategoriesWidget(),
                   SizedBox(height: 16),
                   NewArrivalGrid(),
+                  SizedBox(height: 24),
+                  TitleAndButtonWidget(
+                    text: AppText.shopsText,
+                    onPressed: () => AppNavigator.goToPage(
+                      context: context,
+                      screen: ChooseBrandsScreen(),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  AllShopsGrid(),
                 ],
               ),
             ),

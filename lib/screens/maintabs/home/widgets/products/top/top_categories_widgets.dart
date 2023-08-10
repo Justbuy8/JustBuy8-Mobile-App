@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/categories/top_catogeries/top_categories_bloc.dart';
-import 'package:justbuyeight/screens/categories/single_category_screen.dart';
+import 'package:justbuyeight/screens/maintabs/home/categories/single_category_screen.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/top/top_category_widget.dart';
 import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';

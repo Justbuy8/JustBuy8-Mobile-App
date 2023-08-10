@@ -32,6 +32,8 @@ class NewArrivalGetMoreData extends NewArrivalEvent {
 //states
 abstract class NewArrivalState {}
 
+class NewArrivalInitState extends NewArrivalState {}
+
 class NewArrivalLoadingState extends NewArrivalState {}
 
 class NewArrivalLoadingMoreState extends NewArrivalState {}

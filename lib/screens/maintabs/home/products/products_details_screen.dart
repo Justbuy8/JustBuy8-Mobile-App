@@ -13,11 +13,11 @@ import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/models/products/ProductDetailsModel.dart';
-import 'package:justbuyeight/screens/products/product_reviews_screen.dart';
-import 'package:justbuyeight/screens/products/widgets/color_widget.dart';
-import 'package:justbuyeight/screens/products/widgets/custom_quantity_input.dart';
-import 'package:justbuyeight/screens/products/widgets/read_more_button.dart';
-import 'package:justbuyeight/screens/products/widgets/rectangular_button_widget.dart';
+import 'package:justbuyeight/screens/maintabs/home/products/product_reviews_screen.dart';
+import 'package:justbuyeight/screens/maintabs/home/products/widgets/color_widget.dart';
+import 'package:justbuyeight/screens/maintabs/home/products/widgets/custom_quantity_input.dart';
+import 'package:justbuyeight/screens/maintabs/home/products/widgets/read_more_button.dart';
+import 'package:justbuyeight/screens/maintabs/home/products/widgets/rectangular_button_widget.dart';
 import 'package:justbuyeight/utils/Converts.dart';
 import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
@@ -327,7 +327,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                               height: 40.h,
                               child: ListView.builder(
                                 itemBuilder: (context, i) => ColorWidget(
-                                  colorCode: state.product.colors![i].code!,
+                                  colorHexCode: state.product.colors![i].code!,
                                   isSelected: selectedColor[i],
                                   onPressed: () {
                                     handleColor(state.product, i);

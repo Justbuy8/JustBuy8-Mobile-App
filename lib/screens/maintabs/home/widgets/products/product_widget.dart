@@ -12,7 +12,7 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
-import 'package:justbuyeight/screens/products/products_details_screen.dart';
+import 'package:justbuyeight/screens/maintabs/home/products/products_details_screen.dart';
 import 'package:justbuyeight/utils/AppDialog.dart';
 import 'package:justbuyeight/utils/AppToast.dart';
 import 'package:justbuyeight/utils/Converts.dart';

@@ -9,7 +9,7 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/categories/CategoryModel.dart';
-import 'package:justbuyeight/screens/categories/sub_categories_screen.dart';
+import 'package:justbuyeight/screens/maintabs/home/categories/sub_categories_screen.dart';
 import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';

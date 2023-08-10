@@ -71,6 +71,7 @@ class AppText {
   static const String newArrivalsText = "New Arrivals";
   static const String bestProductsText = "Best Products";
   static const String viewAll = "View All";
+  static const String shopsText = "Shops";
 
   // Main Tabs Screen
   static const String homeText = "Home";

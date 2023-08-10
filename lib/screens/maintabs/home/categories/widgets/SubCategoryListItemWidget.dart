@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/models/categories/SubCategoryModel.dart';
-import 'package:justbuyeight/screens/products/child_categroy_products_screen.dart';
+import 'package:justbuyeight/screens/maintabs/home/products/child_categroy_products_screen.dart';
 import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:justbuyeight/widgets/components/buttons/border_text_button.dart';
 import 'package:nb_utils/nb_utils.dart';

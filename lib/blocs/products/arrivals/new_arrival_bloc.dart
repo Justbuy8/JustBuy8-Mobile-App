@@ -7,7 +7,7 @@ import 'package:justbuyeight/controllers/products/new_arrival_controller.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
 
 class NewArrivalBloc extends Bloc<NewArrivalEvent, NewArrivalState> {
-  NewArrivalBloc() : super(NewArrivalLoadingState()) {
+  NewArrivalBloc() : super(NewArrivalInitState()) {
     List<ProductModel> products = [];
     on<NewArrivalGetInitialData>((event, emit) async {
       emit(NewArrivalLoadingState());
