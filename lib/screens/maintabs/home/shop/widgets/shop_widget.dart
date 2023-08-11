@@ -3,10 +3,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/models/shop/Shop.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class ShopWidget extends StatelessWidget {
   final Shop shop;
@@ -61,62 +63,28 @@ class ShopWidget extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 5),
-              // Row(
-              //   children: [
-              //     AutoSizeText(
-              //       "\$" + shop.unitPrice.toString(),
-              //       style: TextStyle(
-              //         fontSize: 14.sp,
-              //         fontWeight: FontWeight.w500,
-              //         // delete the text
-              //         decoration: (shop.discount.toDouble() > 0 &&
-              //                 shop.discount != null)
-              //             ? TextDecoration.lineThrough
-              //             : null,
-              //       ),
-              //       maxLines: 1,
-              //       overflow: TextOverflow.ellipsis,
-              //     ),
-              //     const SizedBox(width: 5),
-              //     AutoSizeText(
-              //       "\$" +
-              //           Converts.calculateProductPrice(
-              //                   shop.unitPrice.toDouble(),
-              //                   shop.discount.toDouble(),
-              //                   shop.discountType.toString())
-              //               .toString(),
-              //       style: TextStyle(
-              //         fontSize: 14.sp,
-              //         color: AppColors.primaryColor,
-              //         fontWeight: FontWeight.w500,
-              //         // delete the text
-              //       ),
-              //       maxLines: 1,
-              //       overflow: TextOverflow.ellipsis,
-              //     ).visible(
-              //         shop.discount.toDouble() > 0 && shop.discount != null),
-              //     const Spacer(),
-              //     Row(
-              //       children: [
-              //         Icon(
-              //           Ionicons.star,
-              //           color: AppColors.primaryColor,
-              //           size: 14,
-              //         ),
-              //         const SizedBox(width: 5),
-              //         AutoSizeText(
-              //           shop.totalRating.toString(),
-              //           style: TextStyle(
-              //             fontSize: 14.sp,
-              //             fontWeight: FontWeight.w500,
-              //           ),
-              //           maxLines: 1,
-              //           overflow: TextOverflow.ellipsis,
-              //         ),
-              //       ],
-              //     ),
-              //   ],
-              // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AutoSizeText(
+                    "${shop.reviews} Reviews",
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  VxRating(
+                    size: 14,
+                    onRatingUpdate: (value) {},
+                    count: 5,
+                    selectionColor: AppColors.primaryColor,
+                    isSelectable: false,
+                    value: shop.reviews.toDouble(),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
