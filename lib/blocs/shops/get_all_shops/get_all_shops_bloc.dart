@@ -15,7 +15,7 @@ class GetAllShopsBloc extends Bloc<GetAllShopsEvent, GetAllShopsState> {
       try {
         shops = await ShopController.getAllShops(
           event.page,
-          event.paginateBy,
+          event.paginatedBy,
         );
 
         if (shops.isEmpty) {
@@ -34,6 +34,17 @@ class GetAllShopsBloc extends Bloc<GetAllShopsEvent, GetAllShopsState> {
           emit(GetAllShopsFailed(message: e.toString()));
         }
       }
+    });
+
+    on<GetMoreShops>((event, emit) async {
+      emit(GetAllShopsMoreLoading());
+      try {
+        shops = await ShopController.getAllShops(
+          event.page,
+          event.paginatedBy,
+        );
+        emit(GetAllShopsSuccess(shops: shops));
+      } catch (error) {}
     });
   }
 }

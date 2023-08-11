@@ -28,7 +28,7 @@ class _AllShopsGridState extends State<AllShopsGrid> {
       ..add(
         GetAllShops(
           page: page,
-          paginateBy: paginatedBy,
+          paginatedBy: paginatedBy,
         ),
       );
     super.initState();

@@ -40,7 +40,7 @@ class _NewArrivalGridState extends State<NewArrivalGrid> {
             children: [
               GridView.builder(
                 shrinkWrap: true,
-                padding: EdgeInsets.only(bottom: 80),
+                padding: EdgeInsets.only(bottom: 20),
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   childAspectRatio: 0.7,

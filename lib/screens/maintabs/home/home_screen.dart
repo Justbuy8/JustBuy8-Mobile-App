@@ -10,6 +10,7 @@ import 'package:justbuyeight/screens/maintabs/home/categories/all_categories_scr
 import 'package:justbuyeight/screens/maintabs/home/products/all_best_products_screen.dart';
 import 'package:justbuyeight/screens/maintabs/home/products/featured_products_screen.dart';
 import 'package:justbuyeight/screens/maintabs/home/products/new_arrivals_screen.dart';
+import 'package:justbuyeight/screens/maintabs/home/shop/shops_screen.dart';
 import 'package:justbuyeight/screens/maintabs/home/shop/widgets/all_shops_grid.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/best/best_products.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/featured/featured_products_listview.dart';
@@ -137,16 +138,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   CategoriesWidget(),
                   SizedBox(height: 16),
                   NewArrivalGrid(),
-                  SizedBox(height: 24),
+                  SizedBox(height: 16),
                   TitleAndButtonWidget(
                     text: AppText.shopsText,
                     onPressed: () => AppNavigator.goToPage(
                       context: context,
-                      screen: ChooseBrandsScreen(),
+                      screen: ShopScreen(),
                     ),
                   ),
                   SizedBox(height: 16),
                   AllShopsGrid(),
+                  SizedBox(height: 24),
                 ],
               ),
             ),
