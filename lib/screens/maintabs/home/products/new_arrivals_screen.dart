@@ -72,42 +72,46 @@ class _NewArrivalsScreenState extends State<NewArrivalsScreen> {
           if (state is NewArrivalLoadingState) {
             return RectangularShimmerGridView(itemCount: 8);
           } else if (state is NewArrivalErrorState) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Lottie.asset(
-                  LottieAssets.error,
-                  repeat: false,
-                ),
-                10.height,
-                Text(
-                  state.message,
-                  style: AppTextStyle.heading,
-                ),
-                // retry button
-                20.height,
-                ElevatedButton(
-                  onPressed: () {
-                    getInitialData();
-                  },
-                  child: Text(AppText.tryAgain),
-                ),
-              ],
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Lottie.asset(
+                    LottieAssets.error,
+                    repeat: false,
+                  ),
+                  10.height,
+                  Text(
+                    state.message,
+                    style: AppTextStyle.heading,
+                  ),
+                  // retry button
+                  20.height,
+                  ElevatedButton(
+                    onPressed: () {
+                      getInitialData();
+                    },
+                    child: Text(AppText.tryAgain),
+                  ),
+                ],
+              ),
             );
           } else if (state is NewArrivalEmptyState) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Lottie.asset(
-                  LottieAssets.emptyproducts,
-                  repeat: false,
-                ),
-                10.height,
-                Text(
-                  state.message,
-                  style: AppTextStyle.heading,
-                ),
-              ],
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Lottie.asset(
+                    LottieAssets.emptyproducts,
+                    repeat: false,
+                  ),
+                  10.height,
+                  Text(
+                    state.message,
+                    style: AppTextStyle.heading,
+                  ),
+                ],
+              ),
             );
           }
           return products.isEmpty

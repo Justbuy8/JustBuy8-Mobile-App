@@ -1,11 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:justbuyeight/constants/app_colors.dart';
 
 class CustomCachedNetworkImage extends StatelessWidget {
-  const CustomCachedNetworkImage(
-      {Key? key, required this.imageUrl, this.placeholder})
-      : super(key: key);
+  const CustomCachedNetworkImage({
+    Key? key,
+    required this.imageUrl,
+    this.placeholder,
+  }) : super(key: key);
 
   final String imageUrl;
   final IconData? placeholder;
@@ -17,8 +20,11 @@ class CustomCachedNetworkImage extends StatelessWidget {
       fit: BoxFit.cover,
       placeholder: (context, url) =>
           Icon(placeholder ?? Ionicons.image_outline),
-      errorWidget: (context, url, error) =>
-          Icon(Ionicons.image_outline, size: 50),
+      errorWidget: (context, url, error) => Icon(
+        Ionicons.image_outline,
+        size: 50,
+        color: AppColors.primaryColor,
+      ),
     );
   }
 }
