@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/blocs/shops/get_all_shops/get_all_shops_bloc.dart';
 import 'package:justbuyeight/constants/app_config.dart';
+import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/shop/Shop.dart';
 import 'package:justbuyeight/screens/maintabs/home/shop/widgets/shop_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
+import 'package:lottie/lottie.dart';
 
 class ShopScreen extends StatefulWidget {
   const ShopScreen({Key? key}) : super(key: key);
@@ -68,7 +70,7 @@ class _ShopScreenState extends State<ShopScreen> {
         bloc: shopsBloc,
         listener: (context, state) {
           if (state is GetAllShopsSuccess) {
-            shops = state.shops;
+            shops.addAll(state.shops);
           }
         },
         builder: (context, state) {
@@ -76,34 +78,74 @@ class _ShopScreenState extends State<ShopScreen> {
             return AppCircularSpinner();
           } else if (state is GetAllShopsEmpty) {
             return Center(
-              child: Text("No Shops"),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(AppText.noShopsFoundText),
+                  ElevatedButton(
+                    onPressed: () {
+                      getInitialShops();
+                    },
+                    child: Text(AppText.tryAgain),
+                  ),
+                ],
+              ),
             );
           } else if (state is GetAllShopsFailed) {
             return Center(
-              child: Text(state.message),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // show error lottie
+                  Lottie.asset(LottieAssets.error),
+                  Text(state.message),
+                  ElevatedButton(
+                      onPressed: () {
+                        getInitialShops();
+                      },
+                      child: Text(AppText.tryAgain))
+                ],
+              ),
             );
           }
-          return GridView.builder(
-            shrinkWrap: true,
-            controller: scrollController,
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: 1,
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-            ),
-            itemCount: shops.length + 2,
-            itemBuilder: (context, index) {
-              if (index == shops.length || index == shops.length + 1) {
-                if (state is GetAllShopsMoreLoading) {
-                  return AppCircularSpinner();
-                } else
-                  return SizedBox.shrink();
-              } else
-                return ShopWidget(shop: shops[index]);
-            },
-          );
+
+          return shops.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // show error lottie
+                      Text(AppText.noShopsFoundText),
+                      ElevatedButton(
+                          onPressed: () {
+                            getInitialShops();
+                          },
+                          child: Text(AppText.tryAgain))
+                    ],
+                  ),
+                )
+              : GridView.builder(
+                  shrinkWrap: true,
+                  controller: scrollController,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 1,
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemCount: shops.length + 2,
+                  itemBuilder: (context, index) {
+                    if (index == shops.length || index == shops.length + 1) {
+                      if (state is GetAllShopsMoreLoading) {
+                        return AppCircularSpinner();
+                      } else
+                        return SizedBox.shrink();
+                    } else
+                      return ShopWidget(shop: shops[index]);
+                  },
+                );
         },
       )),
     );

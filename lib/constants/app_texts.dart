@@ -97,6 +97,9 @@ class AppText {
   static const String reviewText = "Review";
   static const String noReviewsText = "No Reviews found";
 
+  // Shops screen
+  static const String noShopsFoundText = "No Shops found";
+
   // other screens
   static const String allCategoriesText = "Categories";
   static const String itemsText = "Items";
