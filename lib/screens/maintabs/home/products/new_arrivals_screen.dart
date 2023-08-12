@@ -9,7 +9,7 @@ import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
-import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
+import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer_grid_view.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -125,7 +125,7 @@ class _NewArrivalsScreenState extends State<NewArrivalsScreen> {
                     if (index == products.length ||
                         index == products.length + 1) {
                       if (state is NewArrivalLoadingMoreState) {
-                        return const RectangularShimmer();
+                        return const AppCircularSpinner();
                       } else
                         return const SizedBox.shrink();
                     } else

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:justbuyeight/blocs/shops/get_all_shops/get_all_shops_bloc.dart';
+import 'package:justbuyeight/blocs/shops/get_new_shops/get_new_shops_bloc.dart';
 import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/screens/maintabs/home/shop/widgets/shop_widget.dart';
 import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer.dart';
@@ -20,26 +20,20 @@ class _AllShopsGridState extends State<AllShopsGrid> {
   final int paginatedBy = AppConfig.GetAllShopsPagenateCount;
 
   // bloc
-  GetAllShopsBloc getAllShopsBloc = GetAllShopsBloc();
+  NewShopsBloc newShopsBloc = NewShopsBloc();
 
   @override
   void initState() {
-    getAllShopsBloc = getAllShopsBloc
-      ..add(
-        GetAllShops(
-          page: page,
-          paginatedBy: paginatedBy,
-        ),
-      );
+    newShopsBloc = newShopsBloc..add(GetNewShopsEvent());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetAllShopsBloc, GetAllShopsState>(
-      bloc: getAllShopsBloc,
+    return BlocBuilder<NewShopsBloc, NewShopsState>(
+      bloc: newShopsBloc,
       builder: (context, state) {
-        if (state is GetAllShopsLoading) {
+        if (state is NewShopsLoadingState) {
           return GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               childAspectRatio: 0.7,
@@ -52,7 +46,7 @@ class _AllShopsGridState extends State<AllShopsGrid> {
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => RectangularShimmer(),
           );
-        } else if (state is GetAllShopsSuccess) {
+        } else if (state is NewShopsSuccessState) {
           return Column(
             children: [
               GridView.builder(
@@ -60,7 +54,7 @@ class _AllShopsGridState extends State<AllShopsGrid> {
                 padding: EdgeInsets.only(bottom: 80),
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 0.7,
+                  childAspectRatio: 1,
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
@@ -75,7 +69,7 @@ class _AllShopsGridState extends State<AllShopsGrid> {
         }
         return GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: 0.7,
+            childAspectRatio: 1,
             crossAxisCount: 2,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,

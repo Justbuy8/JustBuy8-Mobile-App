@@ -1,12 +1,12 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/models/shop/Shop.dart';
+import 'package:justbuyeight/widgets/components/images/custom_cached_network_image.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -35,12 +35,22 @@ class ShopWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                   shape: BoxShape.rectangle,
                   color: AppColors.appGreyColor,
-                  image: DecorationImage(
-                    image: CachedNetworkImageProvider(
-                      shop.image.toString(),
-                    ),
-                    fit: BoxFit.cover,
-                    onError: (exception, stackTrace) => const SizedBox.shrink(),
+                  // image: DecorationImage(
+                  //   image: CachedNetworkImageProvider(
+                  //     shop.image.toString(),
+                  //     cacheKey: shop.image.toString(),
+                  //     errorListener: () {},
+                  //   ),
+                  //   fit: BoxFit.cover,
+                  //   onError: (exception, stackTrace) => const Icon(
+                  //     Ionicons.image_outline,
+                  //   ),
+                  // ),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: CustomCachedNetworkImage(
+                    imageUrl: shop.image.toString(),
                   ),
                 ),
               ),
@@ -69,14 +79,14 @@ class ShopWidget extends StatelessWidget {
                   AutoSizeText(
                     "${shop.reviews} Reviews",
                     style: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.w500,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   VxRating(
-                    size: 14,
+                    size: 10,
                     onRatingUpdate: (value) {},
                     count: 5,
                     selectionColor: AppColors.primaryColor,

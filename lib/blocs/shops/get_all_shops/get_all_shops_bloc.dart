@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/controllers/shops/shop_controller.dart';
 import 'package:justbuyeight/models/shop/Shop.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 part 'get_all_shops_states_events.dart';
 
@@ -13,6 +14,11 @@ class GetAllShopsBloc extends Bloc<GetAllShopsEvent, GetAllShopsState> {
     on<GetAllShops>((event, emit) async {
       emit(GetAllShopsLoading());
       try {
+        bool networkStatus = await isNetworkAvailable();
+        if (!networkStatus) {
+          emit(GetAllShopsFailed(message: AppText.internetError));
+          return;
+        }
         shops = await ShopController.getAllShops(
           event.page,
           event.paginatedBy,
