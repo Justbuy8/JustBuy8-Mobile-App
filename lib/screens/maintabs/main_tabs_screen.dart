@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:justbuyeight/blocs/cart/cubit/get_cart_cubit.dart';
 import 'package:justbuyeight/blocs/myaccount/myaccount_cubit.dart';
 import 'package:justbuyeight/blocs/wishlist/wishlist_bloc.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
@@ -84,7 +85,9 @@ class _MainTabsScreenState extends State<MainTabsScreen> {
                     if (tabindex == 1) {}
 
                     //Cart Page
-                    if (tabindex == 2) {}
+                    if (tabindex == 2) {
+                      context.read<GetCartCubit>().getCart();
+                    }
 
                     //WishList Page
                     if (tabindex == 3) {

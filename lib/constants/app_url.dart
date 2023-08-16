@@ -103,3 +103,7 @@ class SupportUrl {
 class RefreshTokenUrl {
   static const String refreshToken = "${AppUrl.baseUrl}/token/refresh-token";
 }
+
+class CartUrl {
+  static const String getCartUrl = "${AppUrl.baseUrl}/cart/get-cart";
+}
