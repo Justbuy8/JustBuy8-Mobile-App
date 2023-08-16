@@ -72,6 +72,7 @@ class BrandsUrl {
 class ShopsUrl {
   static const String getAllShops = "${AppUrl.baseUrl}/shop/all-shops";
   static const String newShops = "${AppUrl.baseUrl}/shop/latest-shop";
+  static const String getShopDetails = "${AppUrl.baseUrl}/shop/shop-details";
 }
 
 class MyAccountUrl {
