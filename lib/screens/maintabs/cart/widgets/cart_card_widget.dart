@@ -3,19 +3,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class CartCardWidget extends StatelessWidget {
-  const CartCardWidget({
-    Key? key,
-  }) : super(key: key);
+  final String title;
+  final String image;
+  final String price;
+  final String quantity;
+  final String color;
+  final String size;
+
+  const CartCardWidget(
+      {Key? key,
+      required this.title,
+      required this.image,
+      required this.price,
+      required this.quantity,
+      required this.color,
+      required this.size})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 140.h,
+      height: 155.h,
       width: MediaQuery.of(context).size.width,
       child: Column(
         children: [
@@ -24,13 +37,12 @@ class CartCardWidget extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  decoration: BoxDecoration(
-                      color: AppColors.iconbackgroundColor,
-                      borderRadius: BorderRadius.circular(10.r)),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10.r)),
                   child: Padding(
                     padding: EdgeInsets.all(5.w),
                     child: Image.network(
-                      "https://cdn.shopify.com/s/files/1/0344/8442/0748/files/DPCH-230-_6_600x.jpg?v=1684404363",
+                      image,
                       height: 130.h,
                       width: 100.w,
                     ),
@@ -42,22 +54,26 @@ class CartCardWidget extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    PrimaryTextWidget(
-                      text: 'Premium womens georgette\na-line knee long',
-                      fontSize: 15,
+                    Container(
+                      width: context.width() / 2,
+                      child: PrimaryTextWidget(
+                        text: title,
+                        fontSize: 15,
+                        overflow: TextOverflow.fade,
+                      ),
                     ),
                     SizedBox(
                       height: 10.h,
                     ),
                     PrimaryTextWidget(
-                      text: '\$150',
+                      text: price,
                       fontSize: 14,
                     ),
                     SizedBox(
                       height: 10.h,
                     ),
                     SecondaryTextWidget(
-                      text: 'Color: tilt | Size: M ',
+                      text: 'Color: ${color} | Size: ${size} ',
                       fontSize: 12,
                     ),
                     SizedBox(
@@ -85,7 +101,7 @@ class CartCardWidget extends StatelessWidget {
                                     const Color.fromARGB(255, 227, 225, 225)),
                             child: Center(
                               child: PrimaryTextWidget(
-                                text: '5',
+                                text: '${quantity}',
                                 fontSize: 14,
                               ),
                             ),
