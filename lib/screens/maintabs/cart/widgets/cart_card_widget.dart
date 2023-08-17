@@ -28,7 +28,7 @@ class CartCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 155.h,
+      height: 140.h,
       width: MediaQuery.of(context).size.width,
       child: Column(
         children: [
@@ -59,26 +59,33 @@ class CartCardWidget extends StatelessWidget {
                       child: PrimaryTextWidget(
                         text: title,
                         fontSize: 15,
-                        overflow: TextOverflow.fade,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 5.h,
                     ),
                     PrimaryTextWidget(
-                      text: price,
+                      text: '${price} \$',
                       fontSize: 14,
                     ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
+                    (color.isNotEmpty || size.isNotEmpty)
+                        ? SizedBox(
+                            height: 10.h,
+                          )
+                        : SizedBox(),
                     SecondaryTextWidget(
-                      text: 'Color: ${color} | Size: ${size} ',
+                      text:
+                          '${color.isEmpty ? '' : 'Color ${color} '}  ${size.isEmpty ? '' : '| Size ${size}'}',
                       fontSize: 12,
                     ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
+                    (color.isNotEmpty || size.isNotEmpty)
+                        ? SizedBox(
+                            height: 10.h,
+                          )
+                        : SizedBox(
+                            height: 5.h,
+                          ),
                     Row(
                       children: [
                         Container(
