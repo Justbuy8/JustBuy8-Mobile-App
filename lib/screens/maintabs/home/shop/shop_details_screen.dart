@@ -150,13 +150,13 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                           DateFormat.yMMMM().format(
                             DateTime.parse(state.shop.memberSince.toString()),
                           ),
-                    ).visible(state.shop.memberSince != null),
+                    ).visible(!state.shop.memberSince.isEmptyOrNull),
                     Divider(thickness: 2),
                     20.height,
                     CustomListTile(
                       icon: Ionicons.location,
                       text: state.shop.address.toString(),
-                    ).visible(state.shop.address != null),
+                    ).visible(!state.shop.address.isEmptyOrNull),
                     Divider(thickness: 2),
                     20.height,
                     BlocConsumer<ProductsByShopBloc, ProductsByShopState>(
