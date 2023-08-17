@@ -73,6 +73,8 @@ class _CartScreenState extends State<CartScreen> {
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
+                            print(state.cartData.first.data[index].variation ==
+                                null);
                             return Column(
                               children: [
                                 CartCardWidget(
@@ -86,11 +88,25 @@ class _CartScreenState extends State<CartScreen> {
                                     quantity: state
                                         .cartData.first.data[index].quantity,
                                     color: state.cartData.first.data[index]
-                                        .variation.color
-                                        .toString(),
+                                                .variation ==
+                                            null
+                                        ? ''
+                                        : state.cartData.first.data[index]
+                                                    .variation!.color ==
+                                                null
+                                            ? ''
+                                            : state.cartData.first.data[index]
+                                                .variation!.color,
                                     size: state.cartData.first.data[index]
-                                        .variation.size
-                                        .toString()),
+                                                .variation ==
+                                            null
+                                        ? ''
+                                        : state.cartData.first.data[index]
+                                                    .variation!.size ==
+                                                null
+                                            ? ''
+                                            : state.cartData.first.data[index]
+                                                .variation!.size!),
                                 Divider(),
                               ],
                             );

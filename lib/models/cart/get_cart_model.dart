@@ -45,8 +45,8 @@ class Datum {
   int price;
   int shippingCost;
   String quantity;
-  Variation variation;
-  String colorCode;
+  Variation? variation;
+  String? colorCode;
   int discount;
   int tax;
 
@@ -72,7 +72,9 @@ class Datum {
         price: json["price"],
         shippingCost: json["shipping_cost"],
         quantity: json["quantity"],
-        variation: Variation.fromJson(json["variation"]),
+        variation: json["variation"] == null
+            ? null
+            : Variation.fromJson(json["variation"]),
         colorCode: json["color_code"],
         discount: json["discount"],
         tax: json["tax"],
@@ -86,7 +88,7 @@ class Datum {
         "price": price,
         "shipping_cost": shippingCost,
         "quantity": quantity,
-        "variation": variation.toJson(),
+        "variation": variation?.toJson(),
         "color_code": colorCode,
         "discount": discount,
         "tax": tax,
@@ -95,12 +97,12 @@ class Datum {
 
 class Variation {
   String color;
-  String? bagType;
+  String bagType;
   String? size;
 
   Variation({
     required this.color,
-    this.bagType,
+    required this.bagType,
     this.size,
   });
 
