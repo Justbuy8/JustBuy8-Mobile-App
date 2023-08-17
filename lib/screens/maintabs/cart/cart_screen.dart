@@ -64,6 +64,7 @@ class _CartScreenState extends State<CartScreen> {
             discountPrice = 0;
             deliveryCharges = 0;
             tax = 0;
+            finalPrice = 0;
             for (var i = 0; i < state.cartData.first.data.length; i++) {
               totalPrice = (totalPrice! +
                   int.parse(state.cartData.first.data[i].price.toString()));
@@ -75,6 +76,7 @@ class _CartScreenState extends State<CartScreen> {
               tax = (tax! +
                   int.parse(state.cartData.first.data[i].tax.toString()));
             }
+            finalPrice = totalPrice! + deliveryCharges! + tax!;
 
             return RefreshIndicator(
               onRefresh: () {
@@ -222,7 +224,7 @@ class _CartScreenState extends State<CartScreen> {
                           Padding(
                             padding: EdgeInsets.only(left: 10.w, right: 20.w),
                             child: PrimaryTextWidget(
-                              text: '-${discountPrice} \$',
+                              text: '-0 \$',
                               fontSize: 16,
                               fontFamily: AppFonts.robotoLight,
                               fontColor: Colors.green,
@@ -304,7 +306,7 @@ class _CartScreenState extends State<CartScreen> {
                                   height: 5.h,
                                 ),
                                 PrimaryTextWidget(
-                                  text: '\.00',
+                                  text: '${finalPrice} \$',
                                   fontSize: 16,
                                   fontFamily: AppFonts.robotoLight,
                                 ),
