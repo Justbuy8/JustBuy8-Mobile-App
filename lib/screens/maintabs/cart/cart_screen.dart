@@ -30,6 +30,11 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   final TextEditingController _promocode = TextEditingController();
   late GetCartCubit getCartCubit;
+  int? totalPrice;
+  int? discountPrice;
+  int? finalPrice;
+  int? deliveryCharges;
+  int? tax;
 
   initCubit() {
     getCartCubit = context.read<GetCartCubit>();
@@ -55,6 +60,22 @@ class _CartScreenState extends State<CartScreen> {
           if (state is GetCartLoading) {
             return AppCircularSpinner();
           } else if (state is GetCartLoaded) {
+            totalPrice = 0;
+            discountPrice = 0;
+            deliveryCharges = 0;
+            tax = 0;
+            for (var i = 0; i < state.cartData.first.data.length; i++) {
+              totalPrice = (totalPrice! +
+                  int.parse(state.cartData.first.data[i].price.toString()));
+              discountPrice = (discountPrice! +
+                  int.parse(state.cartData.first.data[i].discount.toString()));
+              deliveryCharges = (deliveryCharges! +
+                  int.parse(
+                      state.cartData.first.data[i].shippingCost.toString()));
+              tax = (tax! +
+                  int.parse(state.cartData.first.data[i].tax.toString()));
+            }
+
             return RefreshIndicator(
               onRefresh: () {
                 return getCartCubit.getCart();
@@ -73,8 +94,6 @@ class _CartScreenState extends State<CartScreen> {
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-                            print(state.cartData.first.data[index].variation ==
-                                null);
                             return Column(
                               children: [
                                 CartCardWidget(
@@ -92,8 +111,7 @@ class _CartScreenState extends State<CartScreen> {
                                             null
                                         ? ''
                                         : state.cartData.first.data[index]
-                                                    .variation!.color ==
-                                                null
+                                                .variation!.color.isEmpty
                                             ? ''
                                             : state.cartData.first.data[index]
                                                 .variation!.color,
@@ -180,7 +198,7 @@ class _CartScreenState extends State<CartScreen> {
                           Padding(
                             padding: EdgeInsets.only(left: 10.w, right: 20.w),
                             child: PrimaryTextWidget(
-                              text: '\.00',
+                              text: '${totalPrice} \$',
                               fontSize: 16,
                               fontFamily: AppFonts.robotoLight,
                             ),
@@ -204,7 +222,7 @@ class _CartScreenState extends State<CartScreen> {
                           Padding(
                             padding: EdgeInsets.only(left: 10.w, right: 20.w),
                             child: PrimaryTextWidget(
-                              text: '\.00',
+                              text: '-${discountPrice} \$',
                               fontSize: 16,
                               fontFamily: AppFonts.robotoLight,
                               fontColor: Colors.green,
@@ -229,10 +247,35 @@ class _CartScreenState extends State<CartScreen> {
                           Padding(
                             padding: EdgeInsets.only(left: 10.w, right: 20.w),
                             child: PrimaryTextWidget(
-                              text: '+\.00',
+                              text: '+${deliveryCharges} \$',
                               fontSize: 16,
                               fontFamily: AppFonts.robotoLight,
                               fontColor: Colors.red,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 10.w, right: 20.w),
+                            child: SecondaryTextWidget(
+                              text: 'Tax',
+                              fontSize: 16,
+                              fontFamily: AppFonts.robotoLight,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 10.w, right: 20.w),
+                            child: PrimaryTextWidget(
+                              text: '+${tax} \$',
+                              fontSize: 16,
+                              fontFamily: AppFonts.robotoLight,
+                              fontColor: Colors.black,
                             ),
                           ),
                         ],
