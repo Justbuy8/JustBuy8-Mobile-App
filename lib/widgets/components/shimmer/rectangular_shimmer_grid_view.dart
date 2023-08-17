@@ -24,6 +24,7 @@ class RectangularShimmerGridView extends StatelessWidget {
         return RectangularShimmer();
       },
       padding: const EdgeInsets.all(10.0),
+      shrinkWrap: true,
     );
   }
 }
