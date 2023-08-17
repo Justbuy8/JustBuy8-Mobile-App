@@ -156,7 +156,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                     CustomListTile(
                       icon: Ionicons.location,
                       text: state.shop.address.toString(),
-                    ),
+                    ).visible(state.shop.address != null),
                     Divider(thickness: 2),
                     20.height,
                     BlocConsumer<ProductsByShopBloc, ProductsByShopState>(
