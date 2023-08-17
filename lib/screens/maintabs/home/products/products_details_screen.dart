@@ -44,6 +44,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
   String variation = "";
   int productQuantity = 1;
   double productPrice = 0.0;
+  double totalPrice = 0.0;
   String discountType = '';
   double discount = 0;
 
@@ -69,6 +70,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
             discount,
             discountType,
           );
+          totalPrice = productPrice * productQuantity;
         }
       });
     });
@@ -116,6 +118,8 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
             discount,
             discountType,
           );
+
+          totalPrice = productPrice;
         }
       },
       builder: (context, state) {
@@ -144,7 +148,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                       ),
                       10.width,
                       Text(
-                        "\$${productPrice}",
+                        "\$${totalPrice}",
                         style: TextStyle(
                           fontSize: 20,
                           fontFamily: AppFonts.robotoMonoBold,
@@ -157,12 +161,17 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                             setState(() {
                               if (value.toInt() == 0) {
                                 productQuantity = 1;
-                              } else if (symbol == "+") {
-                                productQuantity = value.toInt();
-                                productPrice *= productQuantity;
+                              }
+                              if (symbol == "+") {
+                                if (productQuantity >= 1) {
+                                  productQuantity = value.toInt();
+                                  totalPrice += productPrice;
+                                }
                               } else if (symbol == "-") {
-                                productPrice /= productQuantity;
-                                productQuantity = value.toInt();
+                                if (productQuantity > 1) {
+                                  productQuantity = value.toInt();
+                                  totalPrice -= productPrice;
+                                }
                               }
                             });
                           }),

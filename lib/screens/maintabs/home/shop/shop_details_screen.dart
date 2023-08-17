@@ -32,6 +32,8 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
   ProductsByShopBloc productsByShopBloc = ProductsByShopBloc();
   ScrollController scrollController = ScrollController();
   List<ProductModel> products = [];
+  String email = "";
+  String contact = "";
 
   @override
   void initState() {
@@ -68,7 +70,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
               child: ElevatedButton.icon(
                 onPressed: () {
                   try {
-                    AppUrlLauncher.call("+923005447070");
+                    AppUrlLauncher.call(contact);
                   } catch (e) {
                     AppToast.danger(e.toString());
                   }
@@ -82,7 +84,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
               child: ElevatedButton.icon(
                 onPressed: () {
                   try {
-                    AppUrlLauncher.email("wasimxaman13@gmail.com");
+                    AppUrlLauncher.email(email);
                   } catch (e) {
                     AppToast.danger(e.toString());
                   }
@@ -97,7 +99,12 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
       body: SafeArea(
         child: BlocConsumer<ShopDetailsBloc, ShopDetailsState>(
           bloc: shopDetailsBloc,
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state is ShopDetailsLoaded) {
+              email = state.shop.email.toString();
+              contact = state.shop.contact.toString();
+            }
+          },
           builder: (context, state) {
             if (state is ShopDetailsLoading) {
               return Center(child: AppCircularSpinner());
