@@ -4,11 +4,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:justbuyeight/blocs/products/get_product_by_shop/products_by_shop_bloc.dart';
 import 'package:justbuyeight/blocs/shops/shop_details/shop_details_bloc.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
+import 'package:justbuyeight/constants/app_config.dart';
+import 'package:justbuyeight/models/products/ProductModel.dart';
 import 'package:justbuyeight/models/shop/ShopDetailsModel.dart';
+import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
+import 'package:justbuyeight/utils/AppToast.dart';
+import 'package:justbuyeight/utils/app_url_launcher.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
+import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer_grid_view.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class ShopDetailsScreen extends StatefulWidget {
@@ -19,7 +26,12 @@ class ShopDetailsScreen extends StatefulWidget {
 }
 
 class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
+  int page = AppConfig.PageOne;
+  int paginatedBy = 10;
   ShopDetailsBloc shopDetailsBloc = ShopDetailsBloc();
+  ProductsByShopBloc productsByShopBloc = ProductsByShopBloc();
+  ScrollController scrollController = ScrollController();
+  List<ProductModel> products = [];
 
   @override
   void initState() {
@@ -27,8 +39,22 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
       ..add(
         GetShopDetails(shopId: widget.shopId),
       );
+    getInitialProductsBloc();
     super.initState();
   }
+
+  getInitialProductsBloc() {
+    productsByShopBloc = productsByShopBloc
+      ..add(
+        GetProductsByShopInitial(
+          shopId: widget.shopId,
+          page: page,
+          paginateBy: paginatedBy,
+        ),
+      );
+  }
+
+  getMoreProductsBloc() {}
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +66,13 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
           children: [
             Expanded(
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  try {
+                    AppUrlLauncher.call("+923005447070");
+                  } catch (e) {
+                    AppToast.danger(e.toString());
+                  }
+                },
                 icon: Icon(Ionicons.call),
                 label: Text("Call"),
               ),
@@ -48,7 +80,13 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
             20.width,
             Expanded(
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  try {
+                    AppUrlLauncher.email("wasimxaman13@gmail.com");
+                  } catch (e) {
+                    AppToast.danger(e.toString());
+                  }
+                },
                 icon: Icon(Ionicons.mail),
                 label: Text("Email"),
               ),
@@ -68,6 +106,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
             } else if (state is ShopDetailsLoaded) {
               return SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Shop Image and banner
                     TopBannerWidget(shop: state.shop),
@@ -87,6 +126,40 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                       text: state.shop.address.toString(),
                     ),
                     Divider(thickness: 2),
+                    20.height,
+                    BlocConsumer(
+                      bloc: productsByShopBloc,
+                      listener: (context, state) {
+                        if (state is ProductsByShopLoaded) {
+                          products.addAll(state.products);
+                        }
+                      },
+                      builder: (context, state) {
+                        if (state is ProductsByShopLoading) {
+                          return RectangularShimmerGridView(itemCount: 4);
+                        } else if (state is ProductsByShopFailed) {
+                          return Center(child: Text(state.message));
+                        } else if (state is ProductsByShopEmpty) {
+                          return Center(child: Text("No Products Found"));
+                        } else {
+                          return GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.7,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                            ),
+                            itemBuilder: (context, index) {
+                              return ProductWidget(product: products[index]);
+                            },
+                            itemCount: products.length,
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.all(10.0),
+                          );
+                        }
+                      },
+                    )
                   ],
                 ),
               );
