@@ -97,6 +97,12 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
   }
 
   @override
+  void dispose() {
+    productDetailsBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProductDetailsBloc, ProductDetailsState>(
       bloc: productDetailsBloc,

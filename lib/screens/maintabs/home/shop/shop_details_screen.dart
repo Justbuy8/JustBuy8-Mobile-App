@@ -27,7 +27,7 @@ class ShopDetailsScreen extends StatefulWidget {
 
 class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
   int page = AppConfig.PageOne;
-  int paginatedBy = 10;
+  int paginatedBy = AppConfig.GetProductsByShopPagenateCount;
   ShopDetailsBloc shopDetailsBloc = ShopDetailsBloc();
   ProductsByShopBloc productsByShopBloc = ProductsByShopBloc();
   ScrollController scrollController = ScrollController();
@@ -38,10 +38,16 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
   @override
   void initState() {
     shopDetailsBloc = shopDetailsBloc
-      ..add(
-        GetShopDetails(shopId: widget.shopId),
-      );
+      ..add(GetShopDetails(shopId: widget.shopId));
     getInitialProductsBloc();
+    scrollController.addListener(() {
+      if (scrollController.position.maxScrollExtent -
+              scrollController.position.pixels <=
+          AppConfig.LoadOnScrollHeight) {
+        page++;
+        getMoreProductsBloc();
+      }
+    });
     super.initState();
   }
 
@@ -56,7 +62,25 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
       );
   }
 
-  getMoreProductsBloc() {}
+  getMoreProductsBloc() {
+    productsByShopBloc = productsByShopBloc
+      ..add(
+        GetProductsByShopMore(
+          shopId: widget.shopId,
+          page: page,
+          paginateBy: paginatedBy,
+        ),
+      );
+  }
+
+  @override
+  void dispose() {
+    shopDetailsBloc.close();
+    productsByShopBloc.close();
+    scrollController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +136,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
               return Center(child: Text(state.message));
             } else if (state is ShopDetailsLoaded) {
               return SingleChildScrollView(
+                controller: scrollController,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -125,7 +150,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                           DateFormat.yMMMM().format(
                             DateTime.parse(state.shop.memberSince.toString()),
                           ),
-                    ),
+                    ).visible(state.shop.memberSince != null),
                     Divider(thickness: 2),
                     20.height,
                     CustomListTile(
@@ -134,7 +159,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                     ),
                     Divider(thickness: 2),
                     20.height,
-                    BlocConsumer(
+                    BlocConsumer<ProductsByShopBloc, ProductsByShopState>(
                       bloc: productsByShopBloc,
                       listener: (context, state) {
                         if (state is ProductsByShopLoaded) {
@@ -149,20 +174,29 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                         } else if (state is ProductsByShopEmpty) {
                           return Center(child: Text("No Products Found"));
                         } else {
-                          return GridView.builder(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 0.7,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                            ),
-                            itemBuilder: (context, index) {
-                              return ProductWidget(product: products[index]);
-                            },
-                            itemCount: products.length,
-                            shrinkWrap: true,
-                            padding: const EdgeInsets.all(10.0),
+                          return Column(
+                            children: [
+                              GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 0.8,
+                                  crossAxisSpacing: 15,
+                                  mainAxisSpacing: 10,
+                                ),
+                                itemBuilder: (context, index) {
+                                  return ProductWidget(
+                                      product: products[index]);
+                                },
+                                itemCount: products.length,
+                                shrinkWrap: true,
+                                padding: const EdgeInsets.all(10.0),
+                                physics: NeverScrollableScrollPhysics(),
+                              ),
+                              10.height,
+                              Center(child: AppCircularSpinner())
+                                  .visible(state is ProductsByShopMoreLoading),
+                            ],
                           );
                         }
                       },

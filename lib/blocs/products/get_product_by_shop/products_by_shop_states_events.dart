@@ -14,8 +14,13 @@ class GetProductsByShopInitial extends ProductsByShopEvent {
 }
 
 class GetProductsByShopMore extends ProductsByShopEvent {
-  final int shopId;
-  GetProductsByShopMore({required this.shopId});
+  final int shopId, page, paginateBy;
+
+  GetProductsByShopMore({
+    required this.shopId,
+    required this.page,
+    required this.paginateBy,
+  });
 }
 
 // States
