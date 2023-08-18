@@ -95,13 +95,20 @@ class GetCartCardWidget extends StatelessWidget {
                             : SizedBox(),
                         Row(
                           children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5.r),
-                                  border: Border.all(color: Colors.grey)),
-                              child: Icon(
-                                Ionicons.remove,
-                                color: const Color.fromARGB(255, 141, 141, 141),
+                            GestureDetector(
+                              onTap: () {
+                                getCartCubit.decrementinQuantity(
+                                    state.cartData.first.data[index].cartId);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.r),
+                                    border: Border.all(color: Colors.grey)),
+                                child: Icon(
+                                  Ionicons.remove,
+                                  color:
+                                      const Color.fromARGB(255, 141, 141, 141),
+                                ),
                               ),
                             ),
                             Padding(

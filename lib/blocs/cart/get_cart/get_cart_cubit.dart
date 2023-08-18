@@ -54,4 +54,21 @@ class GetCartCubit extends Cubit<GetCartState> {
       emit(GetCartQuantityNotIncreases());
     }
   }
+
+  decrementinQuantity(cartId) async {
+    emit(GetCartLoading(cartData: listModel));
+    try {
+      var mapBody = {"cart_id": cartId};
+      response = await CartController.decrementInQuantity(mapBody);
+
+      if (response['Success'] == true &&
+          response['Message'] == 'Quantity decreased') {
+        emit(GetCartQuantityIncreases());
+      } else if (response['Success'] == false) {
+        emit(GetCartQuantityNotIncreases());
+      }
+    } catch (e) {
+      emit(GetCartQuantityNotIncreases());
+    }
+  }
 }
