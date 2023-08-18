@@ -24,4 +24,22 @@ class CartController {
       return result;
     }
   }
+
+  static incrementInQuantity(body) async {
+    String? userToken = await UserSecureStorage.fetchToken();
+    Response response = await ApiManager.postRequest(
+      body,
+      CartUrl.incrementUrl,
+      headers: {
+        "content-type": "application/json; charset=utf-8",
+        'Authorization': 'Bearer ${userToken}'
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var result = jsonDecode(response.body);
+
+      return result;
+    }
+  }
 }

@@ -9,7 +9,13 @@ class GetCartState extends Equatable {
 
 class GetCartInitial extends GetCartState {}
 
-class GetCartLoading extends GetCartState {}
+class GetCartLoading extends GetCartState {
+  final List<GetCartModel> cartData;
+
+  GetCartLoading({required this.cartData});
+
+  List<Object> get props => [cartData];
+}
 
 class GetCartLoaded extends GetCartState {
   final List<GetCartModel> cartData;
@@ -26,3 +32,7 @@ class GetCartFailed extends GetCartState {}
 class GetCartInternetError extends GetCartState {}
 
 class GetCartTimeout extends GetCartState {}
+
+class GetCartQuantityIncreases extends GetCartState {}
+
+class GetCartQuantityNotIncreases extends GetCartState {}

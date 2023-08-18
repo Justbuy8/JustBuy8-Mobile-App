@@ -14,15 +14,16 @@ class GetCartCubit extends Cubit<GetCartState> {
 
   ApiManager apiManager = ApiManager();
   dynamic response;
+  List<GetCartModel> listModel = [];
 
   getCart() async {
-    emit(GetCartLoading());
+    emit(GetCartLoading(cartData: listModel));
     try {
       response = await CartController.getCart();
 
       if (response['Success'] == true && response['Message'] == 'Cart Found') {
         var decodedList = GetCartModel.fromJson(response);
-
+        listModel = [decodedList];
         emit(GetCartLoaded(cartData: [decodedList]));
       } else if (response['Success'] == false &&
           response['Message'] == 'Cart not Found.') {
@@ -34,6 +35,23 @@ class GetCartCubit extends Cubit<GetCartState> {
       emit(GetCartTimeout());
     } catch (e) {
       emit(GetCartFailed());
+    }
+  }
+
+  incrementinQuantity(cartId) async {
+    emit(GetCartLoading(cartData: listModel));
+    try {
+      var mapBody = {"cart_id": cartId};
+      response = await CartController.incrementInQuantity(mapBody);
+
+      if (response['Success'] == true &&
+          response['Message'] == 'Quantity increased') {
+        emit(GetCartQuantityIncreases());
+      } else if (response['Success'] == false) {
+        emit(GetCartQuantityNotIncreases());
+      }
+    } catch (e) {
+      emit(GetCartQuantityNotIncreases());
     }
   }
 }

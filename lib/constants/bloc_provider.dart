@@ -9,7 +9,7 @@ import 'package:justbuyeight/blocs/authentication/send_otp/send_otp_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/timer_cubit/timer_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/validate_email/validate_email_cubit.dart';
 import 'package:justbuyeight/blocs/authentication/verify_email_cubit/verify_email_cubit.dart';
-import 'package:justbuyeight/blocs/cart/cubit/get_cart_cubit.dart';
+import 'package:justbuyeight/blocs/cart/get_cart/get_cart_cubit.dart';
 import 'package:justbuyeight/blocs/contact_us/contact_us_cubit.dart';
 import 'package:justbuyeight/blocs/myaccount/myaccount_cubit.dart';
 import 'package:justbuyeight/blocs/products/arrivals/new_arrival_bloc.dart';
