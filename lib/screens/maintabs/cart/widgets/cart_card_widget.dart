@@ -97,8 +97,10 @@ class GetCartCardWidget extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                getCartCubit.decrementinQuantity(
-                                    state.cartData.first.data[index].cartId);
+                                state.cartData.first.data[index].quantity == '1'
+                                    ? null
+                                    : getCartCubit.decrementinQuantity(state
+                                        .cartData.first.data[index].cartId);
                               },
                               child: Container(
                                 decoration: BoxDecoration(
