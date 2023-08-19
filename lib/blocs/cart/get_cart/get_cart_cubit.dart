@@ -27,6 +27,7 @@ class GetCartCubit extends Cubit<GetCartState> {
         emit(GetCartLoaded(cartData: [decodedList]));
       } else if (response['Success'] == false &&
           response['Message'] == 'Cart not Found.') {
+        listModel = [];
         emit(GetNoCartFound());
       }
     } on SocketException {
