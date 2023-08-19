@@ -54,6 +54,10 @@ class _CartScreenState extends State<CartScreen> {
       listener: (context, state) {
         if (state is GetCartQuantityIncreases) {
           controller.getCart();
+        } else if (state is GetCartQuantityDecreases) {
+          controller.getCart();
+        } else if (state is GetCartDeleted) {
+          controller.getCart();
         }
       },
       child: Scaffold(

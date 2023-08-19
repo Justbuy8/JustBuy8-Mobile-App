@@ -47,11 +47,9 @@ class GetCartCubit extends Cubit<GetCartState> {
       if (response['Success'] == true &&
           response['Message'] == 'Quantity increased') {
         emit(GetCartQuantityIncreases());
-      } else if (response['Success'] == false) {
-        emit(GetCartQuantityNotIncreases());
       }
     } catch (e) {
-      emit(GetCartQuantityNotIncreases());
+      emit(GetCartQuantityDecreases());
     }
   }
 
@@ -64,11 +62,24 @@ class GetCartCubit extends Cubit<GetCartState> {
       if (response['Success'] == true &&
           response['Message'] == 'Quantity decreased') {
         emit(GetCartQuantityIncreases());
-      } else if (response['Success'] == false) {
-        emit(GetCartQuantityNotIncreases());
       }
     } catch (e) {
-      emit(GetCartQuantityNotIncreases());
+      emit(GetCartQuantityDecreases());
+    }
+  }
+
+  deleteCartItem(cartId) async {
+    emit(GetCartLoading(cartData: listModel));
+    try {
+      var mapBody = {"cart_id": cartId};
+      response = await CartController.deleteCart(mapBody);
+
+      if (response['Success'] == true &&
+          response['Message'] == 'Remove from Cart') {
+        emit(GetCartDeleted());
+      }
+    } catch (e) {
+      emit(GetCartQuantityDecreases());
     }
   }
 }

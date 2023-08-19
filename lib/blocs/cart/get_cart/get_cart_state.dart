@@ -35,4 +35,6 @@ class GetCartTimeout extends GetCartState {}
 
 class GetCartQuantityIncreases extends GetCartState {}
 
-class GetCartQuantityNotIncreases extends GetCartState {}
+class GetCartQuantityDecreases extends GetCartState {}
+
+class GetCartDeleted extends GetCartState {}

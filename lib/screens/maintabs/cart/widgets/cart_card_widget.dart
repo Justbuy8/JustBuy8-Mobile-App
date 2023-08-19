@@ -46,13 +46,13 @@ class GetCartCardWidget extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: 10.w,
+                      width: 5.w,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: context.width() / 2,
+                          width: context.width() / 1.9,
                           child: PrimaryTextWidget(
                             text: state.cartData.first.data[index].productName,
                             fontSize: 15,
@@ -150,7 +150,20 @@ class GetCartCardWidget extends StatelessWidget {
                           ],
                         ),
                       ],
-                    )
+                    ),
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        getCartCubit.deleteCartItem(
+                            state.cartData.first.data[index].cartId);
+                      },
+                      child: Icon(
+                        Icons.delete_outline,
+                        color: Colors.red,
+                      ),
+                    ),
                   ],
                 ),
               )

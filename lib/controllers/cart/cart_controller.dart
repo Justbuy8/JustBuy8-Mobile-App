@@ -61,4 +61,23 @@ class CartController {
       return result;
     }
   }
+
+  static deleteCart(body) async {
+    String? userToken = await UserSecureStorage.fetchToken();
+    print(body);
+    Response response = await ApiManager.postRequest(
+      body,
+      CartUrl.deleteUrl,
+      headers: {
+        "content-type": "application/json; charset=utf-8",
+        'Authorization': 'Bearer ${userToken}'
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var result = jsonDecode(response.body);
+
+      return result;
+    }
+  }
 }
