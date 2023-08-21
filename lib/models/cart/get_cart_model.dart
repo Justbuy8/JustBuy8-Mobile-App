@@ -108,7 +108,7 @@ class Variation {
 
   factory Variation.fromJson(Map<String, dynamic> json) => Variation(
         color: json["color"],
-        bagType: json["BagType"],
+        bagType: json["BagType"] == null ? '' : json["BagType"],
         size: json["Size"],
       );
 

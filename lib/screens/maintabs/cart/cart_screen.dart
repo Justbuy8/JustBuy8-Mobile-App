@@ -80,7 +80,9 @@ class _CartScreenState extends State<CartScreen> {
               finalPrice = 0;
               for (var i = 0; i < state.cartData.first.data.length; i++) {
                 totalPrice = (totalPrice! +
-                    int.parse(state.cartData.first.data[i].price.toString()));
+                    (int.parse(state.cartData.first.data[i].price.toString()) *
+                        int.parse(
+                            state.cartData.first.data[i].quantity.toString())));
                 discountPrice = (discountPrice! +
                     int.parse(
                         state.cartData.first.data[i].discount.toString()));
