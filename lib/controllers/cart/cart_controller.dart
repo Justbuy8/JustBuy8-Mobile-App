@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:http/http.dart';
 import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/constants/app_url.dart';
@@ -17,7 +15,7 @@ class CartController {
         'Authorization': 'Bearer ${userToken}'
       },
     );
-    log(response.body);
+
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
 
@@ -45,7 +43,7 @@ class CartController {
 
   static decrementInQuantity(body) async {
     String? userToken = await UserSecureStorage.fetchToken();
-    print(body);
+
     Response response = await ApiManager.postRequest(
       body,
       CartUrl.decrementUrl,
@@ -64,7 +62,7 @@ class CartController {
 
   static deleteCart(body) async {
     String? userToken = await UserSecureStorage.fetchToken();
-    print(body);
+
     Response response = await ApiManager.postRequest(
       body,
       CartUrl.deleteUrl,
