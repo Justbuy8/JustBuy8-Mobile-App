@@ -48,9 +48,11 @@ class GetCartCubit extends Cubit<GetCartState> {
       if (response['Success'] == true &&
           response['Message'] == 'Quantity increased') {
         emit(GetCartQuantityIncreases());
+      } else {
+        emit(GetCartQuantityIncreasesFailed(response['Message']));
       }
     } catch (e) {
-      emit(GetCartQuantityDecreases());
+      emit(GetCartQuantityIncreasesFailed(response['Message']));
     }
   }
 
@@ -62,10 +64,12 @@ class GetCartCubit extends Cubit<GetCartState> {
 
       if (response['Success'] == true &&
           response['Message'] == 'Quantity decreased') {
-        emit(GetCartQuantityIncreases());
+        emit(GetCartQuantityDecreases());
+      } else {
+        emit(GetCartQuantityDecreasesFailed(response['Message']));
       }
     } catch (e) {
-      emit(GetCartQuantityDecreases());
+      emit(GetCartQuantityDecreasesFailed(response['Message']));
     }
   }
 

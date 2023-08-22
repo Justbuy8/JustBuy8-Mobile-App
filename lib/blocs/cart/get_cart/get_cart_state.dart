@@ -35,6 +35,18 @@ class GetCartTimeout extends GetCartState {}
 
 class GetCartQuantityIncreases extends GetCartState {}
 
+class GetCartQuantityIncreasesFailed extends GetCartState {
+  final String errorMessage;
+
+  GetCartQuantityIncreasesFailed(this.errorMessage);
+}
+
 class GetCartQuantityDecreases extends GetCartState {}
+
+class GetCartQuantityDecreasesFailed extends GetCartState {
+  final String errorMessage;
+
+  GetCartQuantityDecreasesFailed(this.errorMessage);
+}
 
 class GetCartDeleted extends GetCartState {}

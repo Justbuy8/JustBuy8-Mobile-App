@@ -13,6 +13,7 @@ import 'package:justbuyeight/constants/app_textstyle.dart';
 import 'package:justbuyeight/screens/maintabs/cart/checkout_screen.dart';
 import 'package:justbuyeight/screens/maintabs/cart/widgets/cart_card_widget.dart';
 import 'package:justbuyeight/screens/maintabs/cart/widgets/promo_code_widget.dart';
+import 'package:justbuyeight/utils/SnackBars.dart';
 
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
@@ -55,6 +56,12 @@ class _CartScreenState extends State<CartScreen> {
         if (state is GetCartQuantityIncreases) {
           controller.getCart();
         } else if (state is GetCartQuantityDecreases) {
+          controller.getCart();
+        } else if (state is GetCartQuantityDecreasesFailed) {
+          SnackBars.Danger(context, state.errorMessage);
+          controller.getCart();
+        } else if (state is GetCartQuantityIncreasesFailed) {
+          SnackBars.Danger(context, state.errorMessage);
           controller.getCart();
         } else if (state is GetCartDeleted) {
           controller.getCart();
