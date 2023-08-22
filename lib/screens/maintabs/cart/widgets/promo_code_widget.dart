@@ -65,7 +65,7 @@ class _PromoCodeWidgetState extends State<PromoCodeWidget> {
           ),
         ),
         SizedBox(
-          height: 20.h,
+          height: 10.h,
         ),
       ],
     );

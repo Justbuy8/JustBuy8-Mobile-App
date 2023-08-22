@@ -180,7 +180,8 @@ class _CartScreenState extends State<CartScreen> {
         return controller.getCart();
       },
       child: Padding(
-        padding: EdgeInsets.all(10.w),
+        padding:
+            EdgeInsets.only(top: 10.w, bottom: 10.w, left: 5.w, right: 5.w),
         child: Padding(
           padding: EdgeInsets.only(bottom: 60.0),
           child: ListView(
@@ -200,15 +201,12 @@ class _CartScreenState extends State<CartScreen> {
                     );
                   }),
               SizedBox(
-                height: 20.h,
+                height: 5.h,
               ),
               PromoCodeWidget(
                 controller: _promocode,
               ),
               Divider(),
-              SizedBox(
-                height: 20.h,
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -296,10 +294,34 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 10.w, right: 20.w),
-                    child: PrimaryTextWidget(
+                    child: SecondaryTextWidget(
                       text: '+${tax} \$',
                       fontSize: 16,
                       fontFamily: AppFonts.robotoLight,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.w, right: 20.w),
+                    child: SecondaryTextWidget(
+                      text: 'Total',
+                      fontSize: 16,
+                      fontFamily: AppFonts.robotoBold,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.w, right: 20.w),
+                    child: PrimaryTextWidget(
+                      text: '${finalPrice} \$',
+                      fontSize: 16,
+                      fontFamily: AppFonts.robotoBold,
                       fontColor: Colors.black,
                     ),
                   ),
@@ -313,29 +335,8 @@ class _CartScreenState extends State<CartScreen> {
                 height: 10.h,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 10.w, right: 20.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        PrimaryTextWidget(
-                          text: 'Total',
-                          fontSize: 16,
-                          fontFamily: AppFonts.robotoLight,
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        PrimaryTextWidget(
-                          text: '${finalPrice} \$',
-                          fontSize: 16,
-                          fontFamily: AppFonts.robotoLight,
-                        ),
-                      ],
-                    ),
-                  ),
                   Padding(
                     padding: EdgeInsets.only(left: 10.w, right: 20.w),
                     child: GestureDetector(

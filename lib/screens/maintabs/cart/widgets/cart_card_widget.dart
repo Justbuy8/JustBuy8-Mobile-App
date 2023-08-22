@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/blocs/cart/get_cart/get_cart_cubit.dart';
+import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
 import 'package:justbuyeight/widgets/components/text/secondary_text_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -30,7 +31,7 @@ class GetCartCardWidget extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 10.w, right: 20.w),
+                padding: EdgeInsets.only(left: 10.w, right: 5.w),
                 child: Row(
                   children: [
                     Container(
@@ -52,10 +53,10 @@ class GetCartCardWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: context.width() / 1.9,
+                          width: context.width() / 1.8,
                           child: PrimaryTextWidget(
                             text: state.cartData.first.data[index].productName,
-                            fontSize: 15,
+                            fontSize: 14,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -65,6 +66,7 @@ class GetCartCardWidget extends StatelessWidget {
                         PrimaryTextWidget(
                           text: '${state.cartData.first.data[index].price} \$',
                           fontSize: 14,
+                          fontFamily: AppFonts.robotoBold,
                         ),
                         state.cartData.first.data[index].variation != null
                             ? (state.cartData.first.data[index].variation!.color
