@@ -44,7 +44,7 @@ class Datum {
   String thumbnail;
   int price;
   int shippingCost;
-  String quantity;
+  int quantity;
   Variation? variation;
   String? colorCode;
   int discount;

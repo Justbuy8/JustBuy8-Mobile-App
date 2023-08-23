@@ -99,7 +99,8 @@ class _CartScreenState extends State<CartScreen> {
                 tax = (tax! +
                     int.parse(state.cartData.first.data[i].tax.toString()));
               }
-              finalPrice = totalPrice! + deliveryCharges! + tax!;
+              finalPrice =
+                  (totalPrice! - discountPrice!) + deliveryCharges! + tax!;
 
               return getCartWidget(state, context);
             } else if (state is GetCartFailed) {
@@ -252,7 +253,7 @@ class _CartScreenState extends State<CartScreen> {
                   Padding(
                     padding: EdgeInsets.only(left: 10.w, right: 20.w),
                     child: PrimaryTextWidget(
-                      text: '-0 \$',
+                      text: '-${discountPrice} \$',
                       fontSize: 16,
                       fontFamily: AppFonts.robotoLight,
                       fontColor: Colors.green,
