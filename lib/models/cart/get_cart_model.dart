@@ -44,7 +44,7 @@ class Datum {
   String thumbnail;
   int price;
   int shippingCost;
-  String quantity;
+  int quantity;
   Variation? variation;
   String? colorCode;
   int discount;
@@ -108,7 +108,7 @@ class Variation {
 
   factory Variation.fromJson(Map<String, dynamic> json) => Variation(
         color: json["color"],
-        bagType: json["BagType"],
+        bagType: json["BagType"] == null ? '' : json["BagType"],
         size: json["Size"],
       );
 

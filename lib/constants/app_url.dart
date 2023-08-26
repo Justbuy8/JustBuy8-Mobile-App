@@ -108,4 +108,7 @@ class RefreshTokenUrl {
 
 class CartUrl {
   static const String getCartUrl = "${AppUrl.baseUrl}/cart/get-cart";
+  static const String incrementUrl = "${AppUrl.baseUrl}/cart/product/increase";
+  static const String decrementUrl = "${AppUrl.baseUrl}/cart/product/decrease";
+  static const String deleteUrl = "${AppUrl.baseUrl}/cart/remove-product";
 }
