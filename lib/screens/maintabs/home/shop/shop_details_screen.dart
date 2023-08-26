@@ -8,6 +8,7 @@ import 'package:justbuyeight/blocs/products/get_product_by_shop/products_by_shop
 import 'package:justbuyeight/blocs/shops/shop_details/shop_details_bloc.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_config.dart';
+import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
 import 'package:justbuyeight/models/shop/ShopDetailsModel.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
@@ -18,6 +19,7 @@ import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spin
 import 'package:justbuyeight/widgets/components/shimmer/rectangular_shimmer_grid_view.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+/*    When we click on any shop, this page will be opened   */
 class ShopDetailsScreen extends StatefulWidget {
   final int shopId;
   const ShopDetailsScreen({Key? key, required this.shopId}) : super(key: key);
@@ -26,6 +28,7 @@ class ShopDetailsScreen extends StatefulWidget {
 }
 
 class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
+  // Some variables
   int page = AppConfig.PageOne;
   int paginatedBy = AppConfig.GetProductsByShopPagenateCount;
   ShopDetailsBloc shopDetailsBloc = ShopDetailsBloc();
@@ -34,6 +37,8 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
   List<ProductModel> products = [];
   String email = "";
   String contact = "";
+
+  // Some Functions | Methods
 
   @override
   void initState() {
@@ -52,6 +57,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
   }
 
   getInitialProductsBloc() {
+    // 1st time we will get products
     productsByShopBloc = productsByShopBloc
       ..add(
         GetProductsByShopInitial(
@@ -63,6 +69,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
   }
 
   getMoreProductsBloc() {
+    // when we scroll down, we will get more products
     productsByShopBloc = productsByShopBloc
       ..add(
         GetProductsByShopMore(
@@ -85,7 +92,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BasicAppbarWidget(title: "Shop Details"),
+      appBar: BasicAppbarWidget(title: AppText.shopDetailsTitle),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Row(
@@ -100,7 +107,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                   }
                 },
                 icon: Icon(Ionicons.call),
-                label: Text("Call"),
+                label: Text(AppText.callText),
               ),
             ),
             20.width,
@@ -114,7 +121,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                   }
                 },
                 icon: Icon(Ionicons.mail),
-                label: Text("Email"),
+                label: Text(AppText.email),
               ),
             ),
           ],
@@ -146,7 +153,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                     10.height,
                     CustomListTile(
                       icon: Ionicons.time,
-                      text: "Member since " +
+                      text: AppText.memberSinceText +
                           DateFormat.yMMMM().format(
                             DateTime.parse(state.shop.memberSince.toString()),
                           ),
@@ -159,6 +166,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                     ).visible(!state.shop.address.isEmptyOrNull),
                     Divider(thickness: 2),
                     20.height,
+
                     BlocConsumer<ProductsByShopBloc, ProductsByShopState>(
                       bloc: productsByShopBloc,
                       listener: (context, state) {
@@ -172,7 +180,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                         } else if (state is ProductsByShopFailed) {
                           return Center(child: Text(state.message));
                         } else if (state is ProductsByShopEmpty) {
-                          return Center(child: Text("No Products Found"));
+                          return Center(child: Text(AppText.noProductsFound));
                         } else {
                           return Column(
                             children: [
@@ -213,6 +221,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
   }
 }
 
+// The custom list tile was originnaly designed in order to match the UI......
 class CustomListTile extends StatelessWidget {
   final IconData icon;
   final String text;

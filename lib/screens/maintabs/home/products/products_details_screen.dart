@@ -113,6 +113,12 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
             (index) => false,
           );
 
+          // select the first color
+          selectedColor[0] = true;
+
+          // grab the first color value and assign to variation
+          color = state.product.colors?[0].name ?? "";
+
           // grab out discount and discount type
           discount = state.product.discount.toDouble();
           discountType = state.product.discountType!;

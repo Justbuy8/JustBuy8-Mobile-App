@@ -99,6 +99,11 @@ class AppText {
 
   // Shops screen
   static const String noShopsFoundText = "No Shops found";
+  static const String callText = "Call";
+  static const String memberSinceText = "Member since ";
+
+  // Shop details screen
+  static const String shopDetailsTitle = "Shop Details";
 
   // other screens
   static const String allCategoriesText = "Categories";
