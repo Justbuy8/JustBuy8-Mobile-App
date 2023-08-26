@@ -28,12 +28,15 @@ class ShopDetailsScreen extends StatefulWidget {
 }
 
 class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
-  // Some variables
+  /* Some variables */
+
+  // for paginated scrolling
   int page = AppConfig.PageOne;
   int paginatedBy = AppConfig.GetProductsByShopPagenateCount;
+  ScrollController scrollController = ScrollController();
+
   ShopDetailsBloc shopDetailsBloc = ShopDetailsBloc();
   ProductsByShopBloc productsByShopBloc = ProductsByShopBloc();
-  ScrollController scrollController = ScrollController();
   List<ProductModel> products = [];
   String email = "";
   String contact = "";
