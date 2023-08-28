@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
-import 'package:justbuyeight/screens/filter/widgets/rating_filter_widget.dart';
-import 'package:justbuyeight/screens/filter/widgets/toggle_buttons_widget.dart';
+import 'package:justbuyeight/screens/maintabs/search/widgets/rating_filter_widget.dart';
+import 'package:justbuyeight/screens/maintabs/search/widgets/toggle_buttons_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/category/filter_categories_widget.dart';
