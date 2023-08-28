@@ -64,7 +64,8 @@ class GetCartCardWidget extends StatelessWidget {
                           height: 5.h,
                         ),
                         PrimaryTextWidget(
-                          text: '${state.cartData.first.data[index].price} \$',
+                          text:
+                              '${state.cartData.first.data[index].price - state.cartData.first.data[index].discount} \$',
                           fontSize: 14,
                           fontFamily: AppFonts.robotoBold,
                         ),
