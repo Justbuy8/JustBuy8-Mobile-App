@@ -20,4 +20,5 @@ class AppColors {
   static var appGreyColor = Colors.grey.shade300;
   static var appRedColor = Colors.red;
   static var appOrangeColor = Colors.deepOrange;
+  static var shimmerColor = Colors.grey.shade300;
 }
