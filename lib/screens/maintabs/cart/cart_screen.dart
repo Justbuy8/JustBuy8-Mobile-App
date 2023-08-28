@@ -92,7 +92,9 @@ class _CartScreenState extends State<CartScreen> {
                             state.cartData.first.data[i].quantity.toString())));
                 discountPrice = (discountPrice! +
                     int.parse(
-                        state.cartData.first.data[i].discount.toString()));
+                            state.cartData.first.data[i].discount.toString()) *
+                        int.parse(
+                            state.cartData.first.data[i].quantity.toString()));
                 deliveryCharges = (deliveryCharges! +
                     int.parse(
                         state.cartData.first.data[i].shippingCost.toString()));
