@@ -18,6 +18,8 @@ import 'package:justbuyeight/screens/maintabs/home/products/widgets/color_widget
 import 'package:justbuyeight/screens/maintabs/home/products/widgets/custom_quantity_input.dart';
 import 'package:justbuyeight/screens/maintabs/home/products/widgets/read_more_button.dart';
 import 'package:justbuyeight/screens/maintabs/home/products/widgets/rectangular_button_widget.dart';
+import 'package:justbuyeight/screens/maintabs/home/shop/shop_details_screen.dart';
+import 'package:justbuyeight/utils/AppToast.dart';
 import 'package:justbuyeight/utils/Converts.dart';
 import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
@@ -287,9 +289,14 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                             TextButton(
                               onPressed: () {
                                 if (state.product.vendor!.addedBy == 'admin') {
-                                  // Go to the vendor screen
+                                  AppToast.normal("This is admin product");
                                 } else {
-                                  // Do nothing......
+                                  AppNavigator.goToPage(
+                                    context: context,
+                                    screen: ShopDetailsScreen(
+                                      shopId: state.product.vendor!.id.toInt(),
+                                    ),
+                                  );
                                 }
                               },
                               child: Text(
