@@ -306,7 +306,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                                 state.product.vendor!.shopName.toString(),
                                 style: AppTextStyle.textButtonStyle,
                               ),
-                            ).visible(state.product.vendor!.shopName != null),
+                            ).visible(state.product.vendor?.shopName != null),
                             Spacer(),
                             GestureDetector(
                               onTap: () {
