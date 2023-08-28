@@ -35,8 +35,15 @@ class ProductsDetailsScreen extends StatefulWidget {
 }
 
 class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
+  /*      Variables     */
+
+  // bloc
   final ProductDetailsBloc productDetailsBloc = ProductDetailsBloc();
+
+  // carousel
   int _currentIndex = 0;
+
+  // product details
   bool readMore = false;
   List<bool> selectedColor = [];
   String selectedOption = '';
@@ -56,6 +63,8 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
     super.initState();
   }
 
+  // There is a discount on the product, so we need to calculate the price
+  // based on the discount
   calculatePrice(ProductDetailsModel product) {
     setState(() {
       // grab price from product.variation
@@ -76,6 +85,23 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
     });
   }
 
+  /* 
+    There would be one value string which will include all the details 
+    like the color of the product, its size, its weight etc.
+    So we will concate the value of color, size, weight etc and assign it to
+    variation variable.
+
+    Now when user selects the color, we will assign the color value to the
+    variation variable and then we will check if the variation variable is
+    empty or not, if it is not empty then we will display the options
+    like size, weight etc.
+
+    For example:
+    If user selects the color, then we will assign the color value to the
+    variation variable and then we will check if the variation variable is
+    empty or not, if it is not empty then we will display the options
+    like size, weight etc.
+  */
   handleColor(ProductDetailsModel product, int i) {
     setState(() {
       // reset the selection option

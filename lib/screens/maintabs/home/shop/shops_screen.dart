@@ -20,6 +20,7 @@ class ShopScreen extends StatefulWidget {
 }
 
 class _ShopScreenState extends State<ShopScreen> {
+  // paginated scrolling variables
   int page = AppConfig.PageOne;
   int paginatedBy = AppConfig.GetAllShopsPagenateCount;
 
@@ -34,23 +35,28 @@ class _ShopScreenState extends State<ShopScreen> {
 
   @override
   void initState() {
+    // first we load specific number of shops
     getInitialShops();
+    // then we listen to scroll controller, if user reaches end of the list
     scrollController.addListener(() {
       if (scrollController.position.maxScrollExtent -
               scrollController.position.pixels <=
           AppConfig.LoadOnScrollHeight) {
         page++;
+        // then we load more shops
         getMoreShops();
       }
     });
     super.initState();
   }
 
+  // get initial shops
   getInitialShops() {
     shopsBloc = shopsBloc
       ..add(GetAllShops(page: page, paginatedBy: paginatedBy));
   }
 
+  // get more shops
   getMoreShops() {
     shopsBloc = shopsBloc
       ..add(GetMoreShops(page: page, paginatedBy: paginatedBy));
