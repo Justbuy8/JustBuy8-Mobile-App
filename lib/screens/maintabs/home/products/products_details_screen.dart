@@ -166,8 +166,11 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
         if (state is ProductDetailsLoadingState) {
           return Scaffold(body: AppCircularSpinner());
         } else if (state is ProductDetailsErrorState) {
-          return Center(
-            child: Text(state.error),
+          return Scaffold(
+            appBar: BasicAppbarWidget(title: AppText.productDetailsText),
+            body: Center(
+              child: Text(state.error),
+            ),
           );
         } else if (state is ProductDetailsSuccessState) {
           return Scaffold(
@@ -303,7 +306,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                                 state.product.vendor!.shopName.toString(),
                                 style: AppTextStyle.textButtonStyle,
                               ),
-                            ),
+                            ).visible(state.product.vendor!.shopName != null),
                             Spacer(),
                             GestureDetector(
                               onTap: () {
@@ -324,7 +327,9 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                                   ),
                                   5.width,
                                   Text(
-                                    state.product.totalReviews.toString(),
+                                    state.product.totalReviews == null
+                                        ? "0.0"
+                                        : state.product.totalReviews.toString(),
                                     style: TextStyle(
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w500,
@@ -332,7 +337,9 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                                   ),
                                   10.width,
                                   Text(
-                                    "(${state.product.reviewsCount} Reviews)",
+                                    state.product.reviewsCount == null
+                                        ? "(0 Reviews)"
+                                        : "(${state.product.reviewsCount} Reviews)",
                                     style: TextStyle(
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w500,

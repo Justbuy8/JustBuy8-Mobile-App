@@ -205,8 +205,16 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                                 physics: NeverScrollableScrollPhysics(),
                               ),
                               10.height,
-                              Center(child: AppCircularSpinner())
-                                  .visible(state is ProductsByShopMoreLoading),
+                              Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    AppCircularSpinner(),
+                                    10.width,
+                                    Text("Loading more products..."),
+                                  ],
+                                ),
+                              ).visible(state is ProductsByShopMoreLoading),
                             ],
                           );
                         }
