@@ -38,6 +38,86 @@ class _SearchScreenState extends State<SearchScreen> {
     isSelected = List.generate(searchTypes.length, (index) => false);
   }
 
+  void filterBottomSheet(BuildContext context) {
+    /*
+    Bottom sheet that will be shown when the user clicks on the filter icon
+    and will contain the filter options, such as categories, price range, rating, etc.
+    Based on the user's selection, the products will be filtered.
+    */
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: true,
+      isScrollControlled: true,
+      enableDrag: true,
+      constraints: BoxConstraints.expand(
+        height: MediaQuery.of(context).size.height / 1.2,
+      ),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ToggleButtonsWidget(searchTypes: searchTypes),
+                        const SizedBox(height: 20),
+                        Text(
+                          AppText.categoriesText,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        const SizedBox(height: 20),
+                        const FilterCategoriesWidget(),
+                        const SizedBox(height: 20),
+                        Text(
+                          AppText.priceText,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        RangeSlider(
+                          values: _currentRangeValues,
+                          onChanged: (RangeValues values) {
+                            setState(() {
+                              _currentRangeValues = values;
+                            });
+                          },
+                          min: 1,
+                          max: 200,
+                          divisions: 200,
+                          labels: RangeLabels(
+                            "€${_currentRangeValues.start.round()}",
+                            "€${_currentRangeValues.end.round()}",
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Text(
+                          AppText.ratingText,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        const SizedBox(height: 20),
+                        const RatingFilterWidget(),
+                        const SizedBox(height: 20),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              PrimaryButtonWidget(
+                caption: AppText.filterText,
+                onPressed: () {
+                  // TODO: Close modal and apply filters
+                  context.pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   void dispose() {
     searchController.dispose();
@@ -71,86 +151,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   10.widthBox,
                   GestureDetector(
                     onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        showDragHandle: true,
-                        isScrollControlled: true,
-                        enableDrag: true,
-                        constraints: BoxConstraints.expand(
-                          height: MediaQuery.of(context).size.height / 1.2,
-                        ),
-                        builder: (context) {
-                          return Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          ToggleButtonsWidget(
-                                              searchTypes: searchTypes),
-                                          const SizedBox(height: 20),
-                                          Text(
-                                            AppText.categoriesText,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge,
-                                          ),
-                                          const SizedBox(height: 20),
-                                          const FilterCategoriesWidget(),
-                                          const SizedBox(height: 20),
-                                          Text(
-                                            AppText.priceText,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge,
-                                          ),
-                                          RangeSlider(
-                                            values: _currentRangeValues,
-                                            onChanged: (RangeValues values) {
-                                              setState(() {
-                                                _currentRangeValues = values;
-                                              });
-                                            },
-                                            min: 1,
-                                            max: 200,
-                                            divisions: 200,
-                                            labels: RangeLabels(
-                                              "€${_currentRangeValues.start.round()}",
-                                              "€${_currentRangeValues.end.round()}",
-                                            ),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          Text(
-                                            AppText.ratingText,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge,
-                                          ),
-                                          const SizedBox(height: 20),
-                                          const RatingFilterWidget(),
-                                          const SizedBox(height: 20),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                PrimaryButtonWidget(
-                                  caption: AppText.filterText,
-                                  onPressed: () {
-                                    // TODO: Close modal and apply filters
-                                    context.pop();
-                                  },
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      );
+                      filterBottomSheet(context);
                     },
                     child: Container(
                       height: 50.h,
