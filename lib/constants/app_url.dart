@@ -110,6 +110,10 @@ class RefreshTokenUrl {
   static const String refreshToken = "${AppUrl.baseUrl}/token/refresh-token";
 }
 
+class CoupinsUrl {
+  static const String couponsUrl = "${AppUrl.baseUrl}/coupons/get-coupons";
+}
+
 class CartUrl {
   static const String getCartUrl = "${AppUrl.baseUrl}/cart/get-cart";
   static const String incrementUrl = "${AppUrl.baseUrl}/cart/product/increase";

@@ -44,6 +44,8 @@ class Datum {
   String thumbnail;
   int price;
   int shippingCost;
+  String shippingType;
+
   int quantity;
   Variation? variation;
   String? colorCode;
@@ -62,6 +64,7 @@ class Datum {
     required this.colorCode,
     required this.discount,
     required this.tax,
+    required this.shippingType,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -78,6 +81,7 @@ class Datum {
         colorCode: json["color_code"],
         discount: json["discount"],
         tax: json["tax"],
+        shippingType: json["shipping_type"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -92,6 +96,7 @@ class Datum {
         "color_code": colorCode,
         "discount": discount,
         "tax": tax,
+        "shipping_type": shippingType
       };
 }
 

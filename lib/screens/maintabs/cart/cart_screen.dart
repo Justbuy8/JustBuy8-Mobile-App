@@ -34,8 +34,8 @@ class _CartScreenState extends State<CartScreen> {
   int? totalPrice;
   int? discountPrice;
   int? finalPrice;
-  int? deliveryCharges;
   int? tax;
+  int? shippingCost;
 
   initCubit() {
     controller = context.read<GetCartCubit>();
@@ -81,28 +81,46 @@ class _CartScreenState extends State<CartScreen> {
             } else if (state is GetCartLoaded) {
               totalPrice = 0;
               discountPrice = 0;
-              deliveryCharges = 0;
+
               tax = 0;
               finalPrice = 0;
+              shippingCost = 0;
+
               for (var i = 0; i < state.cartData.first.data.length; i++) {
-                totalPrice = (totalPrice! +
-                    (int.parse(state.cartData.first.data[i].price.toString()) *
-                        int.parse(
-                            state.cartData.first.data[i].quantity.toString())));
+                if (state.cartData.first.data[i].shippingType ==
+                    "product_wise") {
+                  shippingCost = shippingCost! +
+                      int.parse(state.cartData.first.data[i].quantity
+                              .toString()) *
+                          int.parse(state.cartData.first.data[i].shippingCost
+                              .toString());
+                } else {
+                  shippingCost = shippingCost! +
+                      int.parse(
+                          state.cartData.first.data[i].shippingCost.toString());
+                }
+
+                totalPrice = totalPrice! +
+                    ((int.parse(state.cartData.first.data[i].price.toString()) *
+                            int.parse(state.cartData.first.data[i].quantity
+                                .toString())) -
+                        (int.parse(state.cartData.first.data[i].discount
+                                .toString()) *
+                            int.parse(state.cartData.first.data[i].quantity
+                                .toString())));
+
                 discountPrice = (discountPrice! +
                     int.parse(
                             state.cartData.first.data[i].discount.toString()) *
                         int.parse(
                             state.cartData.first.data[i].quantity.toString()));
-                deliveryCharges = (deliveryCharges! +
-                    int.parse(
-                        state.cartData.first.data[i].shippingCost.toString()));
+
                 tax = (tax! +
                     int.parse(state.cartData.first.data[i].tax.toString()));
-              }
-              finalPrice =
-                  (totalPrice! - discountPrice!) + deliveryCharges! + tax!;
 
+                finalPrice =
+                    (totalPrice! - discountPrice!) + shippingCost! + tax!;
+              }
               return getCartWidget(state, context);
             } else if (state is GetCartFailed) {
               return Column(
@@ -277,7 +295,7 @@ class _CartScreenState extends State<CartScreen> {
                   Padding(
                     padding: EdgeInsets.only(left: 10.w, right: 20.w),
                     child: PrimaryTextWidget(
-                      text: '+${deliveryCharges} \$',
+                      text: '+${shippingCost} \$',
                       fontSize: 16,
                       fontFamily: AppFonts.robotoLight,
                       fontColor: Colors.red,
