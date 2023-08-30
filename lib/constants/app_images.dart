@@ -15,6 +15,7 @@ class ImageAssets {
   static const String walletImage = 'assets/images/wallet.png';
   static const String paysera = 'assets/images/paysera.png';
   static const String stripe = 'assets/images/stripe.png';
+  static const String cashOnDelivery = 'assets/images/cash_on_delivery.png';
   static const String amazonPayImage = 'assets/images/amazon-pay.png';
   static const String applePayImage = 'assets/images/apple-pay.png';
   static const String cardImage = 'assets/images/card.png';

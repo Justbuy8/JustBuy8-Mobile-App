@@ -66,7 +66,7 @@ class _ChoosePaymentScreenState extends State<ChoosePaymentScreen> {
               title: Row(
                 children: [
                   Image.asset(
-                    ImageAssets.walletImage,
+                    ImageAssets.cashOnDelivery,
                     height: 30,
                     width: 30,
                   ),
@@ -74,7 +74,7 @@ class _ChoosePaymentScreenState extends State<ChoosePaymentScreen> {
                   paymentMethodTitle[0].text.make(),
                 ],
               ),
-            ).visible(_paymentGateway.cashOnDelivery?.status == 1),
+            ).visible(_paymentGateway.cashOnDelivery?.status != 0),
             10.height,
             RadioListTile(
               value: payment.paypal.index,
@@ -95,7 +95,7 @@ class _ChoosePaymentScreenState extends State<ChoosePaymentScreen> {
                   paymentMethodTitle[1].text.make(),
                 ],
               ),
-            ).visible(_paymentGateway.paypal?.status == 1),
+            ).visible(_paymentGateway.paypal?.status != 0),
             10.height,
             RadioListTile(
               value: payment.stripe.index,
@@ -116,7 +116,7 @@ class _ChoosePaymentScreenState extends State<ChoosePaymentScreen> {
                   paymentMethodTitle[2].text.make(),
                 ],
               ),
-            ).visible(_paymentGateway.stripe?.status == 1),
+            ).visible(_paymentGateway.stripe?.status != 0),
             10.height,
             RadioListTile(
               value: payment.paysera.index,
@@ -137,7 +137,7 @@ class _ChoosePaymentScreenState extends State<ChoosePaymentScreen> {
                   paymentMethodTitle[3].text.make(),
                 ],
               ),
-            ).visible(_paymentGateway.paysera?.status == 1),
+            ).visible(_paymentGateway.paysera?.status != 0),
             Spacer(),
             Padding(
               padding: EdgeInsets.only(left: 30.w, right: 30.w, bottom: 20.h),
