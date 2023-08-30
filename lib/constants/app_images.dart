@@ -13,6 +13,8 @@ class ImageAssets {
   static const String payPalImage = 'assets/images/paypal.png';
   static const String visaImage = 'assets/images/visa.png';
   static const String walletImage = 'assets/images/wallet.png';
+  static const String paysera = 'assets/images/paysera.png';
+  static const String stripe = 'assets/images/stripe.png';
   static const String amazonPayImage = 'assets/images/amazon-pay.png';
   static const String applePayImage = 'assets/images/apple-pay.png';
   static const String cardImage = 'assets/images/card.png';
@@ -27,4 +29,6 @@ class LottieAssets {
   static const String orderCompleted = "assets/lotties/order_completed.json";
 }
 
-class AppSvgs {}
+class AppSvgs {
+  static const String paypal = 'assets/svgs/paypal.svg';
+}

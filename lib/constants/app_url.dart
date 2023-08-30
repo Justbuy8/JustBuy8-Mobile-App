@@ -77,6 +77,10 @@ class ShopsUrl {
       "${AppUrl.baseUrl}/shop/get-products-by-shop";
 }
 
+class PaymentUrl {
+  static const getPaymentGateways = "${AppUrl.baseUrl}/payments/get-gateways";
+}
+
 class MyAccountUrl {
   static const String myAccountUrl =
       "${AppUrl.baseUrl}/user-account/get-user-profile";

@@ -105,6 +105,9 @@ class AppText {
   // Shop details screen
   static const String shopDetailsTitle = "Shop Details";
 
+  // Choose Payment Screen
+  static const String choosePaymentMethodText = "Choose Payment Method";
+
   // other screens
   static const String allCategoriesText = "Categories";
   static const String itemsText = "Items";
@@ -235,11 +238,8 @@ const List<String> paymentMethodIcon = [
   ImageAssets.amazonPayImage,
 ];
 const List<String> paymentMethodTitle = [
-  'My Wallet',
-  '****8645',
-  '****857',
-  'Connected',
-  'Connected',
-  'Connected',
-  'Connected',
+  'Cash On Delivery',
+  'Paypal',
+  'Stripe',
+  'Paysera',
 ];

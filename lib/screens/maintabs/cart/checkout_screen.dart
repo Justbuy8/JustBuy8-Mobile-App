@@ -6,7 +6,8 @@ import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
-import 'package:justbuyeight/screens/maintabs/cart/confirmation_screen.dart';
+import 'package:justbuyeight/screens/maintabs/cart/choose_payment_screen.dart';
+import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
@@ -218,9 +219,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ),
                     );
                   }),
-              SizedBox(
-                height: 20.h,
-              ),
+              SizedBox(height: 20.h),
               Padding(
                   padding: EdgeInsets.only(left: 10.w, right: 10.w),
                   child: TextFieldWidget(
@@ -236,10 +235,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 child: PrimaryButtonWidget(
                     width: context.width(),
                     height: 50.h,
-                    caption: AppText.confirmOrder,
+                    caption: "Proceed to Payment",
                     onPressed: () async {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (builder) => ConfirmationScreen()));
+                      AppNavigator.goToPage(
+                        context: context,
+                        screen: ChoosePaymentScreen(),
+                      );
                     }),
               ),
             ],
@@ -403,111 +404,111 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   void paymentDetailAlertDialogue(context) {
     Dialog fancyDialog = Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
         ),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(8.w),
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 10.h, left: 20.w),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+        child: Padding(
+          padding: EdgeInsets.all(8.w),
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 10.h, left: 20.w),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 5,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              PrimaryTextWidget(
+                                text: 'Choose Payment Method',
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Divider(),
+              StatefulBuilder(builder: (context, setcheckboxstate) {
+                return ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: paymentMethodTitle.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(left: 8.w),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                PrimaryTextWidget(
-                                  text: 'Choose Payment Method',
+                                Expanded(
+                                  flex: 6,
+                                  child: RadioListTile(
+                                    contentPadding: EdgeInsets.all(0),
+                                    title: Row(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.r),
+                                              border: Border.all(
+                                                  color:
+                                                      AppColors.appGreyColor)),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(4.0),
+                                            child: Image.asset(
+                                              paymentMethodIcon[index],
+                                              height: 30.h,
+                                              width: 30.w,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10.w,
+                                        ),
+                                        PrimaryTextWidget(
+                                          text: paymentMethodTitle[index],
+                                          fontSize: 14,
+                                        ),
+                                      ],
+                                    ),
+                                    value: index,
+                                    groupValue: selectedRadioTile,
+                                    onChanged: (val) {
+                                      print("Radio Tile pressed $val");
+                                      setcheckboxstate(() {
+                                        selectedRadioTile = val as int?;
+                                      });
+                                    },
+                                  ),
                                 ),
                               ],
                             ),
                           ),
+                          index == 6 ? SizedBox() : Divider(),
                         ],
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Divider(),
-                StatefulBuilder(builder: (context, setcheckboxstate) {
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: paymentMethodTitle.length,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(left: 8.w),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Expanded(
-                                    flex: 6,
-                                    child: RadioListTile(
-                                      contentPadding: EdgeInsets.all(0),
-                                      title: Row(
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5.r),
-                                                border: Border.all(
-                                                    color: AppColors
-                                                        .appGreyColor)),
-                                            child: Padding(
-                                              padding: EdgeInsets.all(4.0),
-                                              child: Image.asset(
-                                                paymentMethodIcon[index],
-                                                height: 30.h,
-                                                width: 30.w,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 10.w,
-                                          ),
-                                          PrimaryTextWidget(
-                                            text: paymentMethodTitle[index],
-                                            fontSize: 14,
-                                          ),
-                                        ],
-                                      ),
-                                      value: index,
-                                      groupValue: selectedRadioTile,
-                                      onChanged: (val) {
-                                        print("Radio Tile pressed $val");
-                                        setcheckboxstate(() {
-                                          selectedRadioTile = val as int?;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            index == 6 ? SizedBox() : Divider(),
-                          ],
-                        );
-                      });
-                }),
-              ],
-            ),
+                      );
+                    });
+              }),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
     showDialog(
       context: context,
       builder: (BuildContext context) => fancyDialog,
