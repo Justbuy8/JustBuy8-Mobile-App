@@ -20,7 +20,6 @@ class ChoosePaymentScreen extends StatefulWidget {
 }
 
 class _ChoosePaymentScreenState extends State<ChoosePaymentScreen> {
-  // Payment enum
   final PaymentGatewayBloc paymentGatewayBloc = PaymentGatewayBloc();
 
   List paymentGateways = [];
