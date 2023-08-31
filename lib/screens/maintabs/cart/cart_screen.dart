@@ -14,7 +14,6 @@ import 'package:justbuyeight/screens/maintabs/cart/checkout_screen.dart';
 import 'package:justbuyeight/screens/maintabs/cart/widgets/cart_card_widget.dart';
 import 'package:justbuyeight/screens/maintabs/cart/widgets/promo_code_widget.dart';
 import 'package:justbuyeight/utils/SnackBars.dart';
-
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
@@ -285,9 +284,7 @@ class _CartScreenState extends State<CartScreen> {
                       index: index,
                     );
                   }),
-              SizedBox(
-                height: 5.h,
-              ),
+              SizedBox(height: 5.h),
               PromoCodeWidget(
                 controller: _promocode,
               ),
