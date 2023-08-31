@@ -50,3 +50,5 @@ class GetCartQuantityDecreasesFailed extends GetCartState {
 }
 
 class GetCartDeleted extends GetCartState {}
+
+class GetCartCouponSelected extends GetCartState {}
