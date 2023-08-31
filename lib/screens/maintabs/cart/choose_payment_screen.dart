@@ -5,7 +5,6 @@ import 'package:justbuyeight/blocs/cart/payment_gateway/payment_gateway_bloc.dar
 import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/cart/payment_gateway/payment_gateway.dart';
-import 'package:justbuyeight/screens/maintabs/cart/confirmation_screen.dart';
 import 'package:justbuyeight/widgets/components/appbars/basic_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -34,6 +33,26 @@ class _ChoosePaymentScreenState extends State<ChoosePaymentScreen> {
   void initState() {
     paymentGatewayBloc.add(GetPaymentGateways());
     super.initState();
+  }
+
+  // Cash on delivery
+  void cashOnDelivery() {
+    print('Cash on delivery');
+  }
+
+  // Paypal
+  void paypal() {
+    print('Paypal');
+  }
+
+  // Stripe
+  void stripe() {
+    print('Stripe');
+  }
+
+  // Paysera
+  void paysera() {
+    print('Paysera');
   }
 
   @override
@@ -67,15 +86,18 @@ class _ChoosePaymentScreenState extends State<ChoosePaymentScreen> {
                 children: [
                   Image.asset(
                     ImageAssets.cashOnDelivery,
-                    height: 30,
-                    width: 30,
+                    height: 40,
+                    width: 40,
                   ),
-                  10.widthBox,
+                  10.width,
                   paymentMethodTitle[0].text.make(),
                 ],
               ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10,
+              ),
             ).visible(_paymentGateway.cashOnDelivery?.status != 0),
-            10.height,
             RadioListTile(
               value: payment.paypal.index,
               groupValue: selectedPayment,
@@ -88,15 +110,18 @@ class _ChoosePaymentScreenState extends State<ChoosePaymentScreen> {
                 children: [
                   Image.asset(
                     ImageAssets.payPalImage,
-                    height: 30,
-                    width: 30,
+                    height: 40,
+                    width: 40,
                   ),
-                  10.widthBox,
+                  10.width,
                   paymentMethodTitle[1].text.make(),
                 ],
               ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10,
+              ),
             ).visible(_paymentGateway.paypal?.status != 0),
-            10.height,
             RadioListTile(
               value: payment.stripe.index,
               groupValue: selectedPayment,
@@ -109,15 +134,18 @@ class _ChoosePaymentScreenState extends State<ChoosePaymentScreen> {
                 children: [
                   Image.asset(
                     ImageAssets.stripe,
-                    height: 30,
-                    width: 30,
+                    height: 40,
+                    width: 40,
                   ),
-                  10.widthBox,
+                  10.width,
                   paymentMethodTitle[2].text.make(),
                 ],
               ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10,
+              ),
             ).visible(_paymentGateway.stripe?.status != 0),
-            10.height,
             RadioListTile(
               value: payment.paysera.index,
               groupValue: selectedPayment,
@@ -130,12 +158,16 @@ class _ChoosePaymentScreenState extends State<ChoosePaymentScreen> {
                 children: [
                   Image.asset(
                     ImageAssets.paysera,
-                    height: 30,
-                    width: 30,
+                    height: 40,
+                    width: 40,
                   ),
-                  10.widthBox,
+                  10.width,
                   paymentMethodTitle[3].text.make(),
                 ],
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10,
               ),
             ).visible(_paymentGateway.paysera?.status != 0),
             Spacer(),
@@ -146,11 +178,20 @@ class _ChoosePaymentScreenState extends State<ChoosePaymentScreen> {
                   height: 50.h,
                   caption: AppText.confirmOrder,
                   onPressed: () async {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (builder) => ConfirmationScreen(),
-                      ),
-                    );
+                    if (payment.cashOnDelivery.index == selectedPayment) {
+                      cashOnDelivery();
+                    } else if (payment.paypal.index == selectedPayment) {
+                      paypal();
+                    } else if (payment.stripe.index == selectedPayment) {
+                      stripe();
+                    } else if (payment.paysera.index == selectedPayment) {
+                      paysera();
+                    }
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (builder) => ConfirmationScreen(),
+                    //   ),
+                    // );
                   }),
             ),
           ],
