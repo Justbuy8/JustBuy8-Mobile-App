@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:justbuyeight/blocs/cart/get_cart/get_cart_cubit.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/screens/maintabs/my_account/promocode/promocode_screen.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
@@ -7,7 +8,10 @@ import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.da
 
 class PromoCodeWidget extends StatefulWidget {
   final TextEditingController controller;
-  PromoCodeWidget({required this.controller});
+
+  PromoCodeWidget({
+    required this.controller,
+  });
 
   @override
   State<PromoCodeWidget> createState() => _PromoCodeWidgetState();
@@ -38,8 +42,9 @@ class _PromoCodeWidgetState extends State<PromoCodeWidget> {
                 height: 55.h,
                 width: MediaQuery.of(context).size.width / 1.3,
                 child: TextFieldWidget(
+                  readOnly: true,
                   controller: widget.controller,
-                  label: 'Enter Code Here',
+                  label: 'Coupon code',
                 ),
               ),
               SizedBox(

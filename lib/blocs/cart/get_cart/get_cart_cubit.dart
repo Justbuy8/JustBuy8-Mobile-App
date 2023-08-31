@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/controllers/cart/cart_controller.dart';
 import 'package:justbuyeight/models/cart/get_cart_model.dart';
+import 'package:justbuyeight/models/coupons/coupons_model.dart' as coupons;
 
 part 'get_cart_state.dart';
 
@@ -15,6 +16,7 @@ class GetCartCubit extends Cubit<GetCartState> {
   ApiManager apiManager = ApiManager();
   dynamic response;
   List<GetCartModel> listModel = [];
+  coupons.Datum? couponsData;
 
   getCart() async {
     emit(GetCartLoading(cartData: listModel));
@@ -86,5 +88,11 @@ class GetCartCubit extends Cubit<GetCartState> {
     } catch (e) {
       emit(GetCartQuantityDecreases());
     }
+  }
+
+  getCouponsInformation(data) {
+    couponsData = data;
+    print(couponsData);
+    emit(GetCartCouponSelected());
   }
 }
