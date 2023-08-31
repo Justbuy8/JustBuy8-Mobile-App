@@ -42,17 +42,26 @@ class _ChoosePaymentScreenState extends State<ChoosePaymentScreen> {
 
   // Paypal
   void paypal() {
-    print('Paypal');
+    var environment = _paymentGateway.paypal?.environment;
+    var clientId = _paymentGateway.paypal?.paypalClientId;
+    var paypalSecret = _paymentGateway.paypal?.paypalSecret;
+
+    print('Paypal $environment $clientId $paypalSecret');
   }
 
   // Stripe
   void stripe() {
-    print('Stripe');
+    var apiKey = _paymentGateway.stripe?.apiKey;
+    var publishedKey = _paymentGateway.stripe?.publishedKey;
+    print('Stripe $apiKey $publishedKey');
   }
 
   // Paysera
   void paysera() {
-    print('Paysera');
+    var projectId = _paymentGateway.paysera?.projectId;
+    var signInPassword = _paymentGateway.paysera?.signPassword;
+    var testMode = _paymentGateway.paysera?.testMode;
+    print('Paysera $projectId $signInPassword $testMode');
   }
 
   @override
