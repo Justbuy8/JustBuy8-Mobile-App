@@ -182,8 +182,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       onTap: () {
                         if (index == 0) {
                           shopDetailAlertDialogue(context);
-                        } else if (index == 1) {
-                          paymentDetailAlertDialogue(context);
                         }
                       },
                       child: Column(
@@ -402,116 +400,116 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     );
   }
 
-  void paymentDetailAlertDialogue(context) {
-    Dialog fancyDialog = Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(8.w),
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 10.h, left: 20.w),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 5,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              PrimaryTextWidget(
-                                text: 'Choose Payment Method',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Divider(),
-              StatefulBuilder(builder: (context, setcheckboxstate) {
-                return ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: paymentMethodTitle.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(left: 8.w),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Expanded(
-                                  flex: 6,
-                                  child: RadioListTile(
-                                    contentPadding: EdgeInsets.all(0),
-                                    title: Row(
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.r),
-                                              border: Border.all(
-                                                  color:
-                                                      AppColors.appGreyColor)),
-                                          child: Padding(
-                                            padding: EdgeInsets.all(4.0),
-                                            child: Image.asset(
-                                              paymentMethodIcon[index],
-                                              height: 30.h,
-                                              width: 30.w,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 10.w,
-                                        ),
-                                        PrimaryTextWidget(
-                                          text: paymentMethodTitle[index],
-                                          fontSize: 14,
-                                        ),
-                                      ],
-                                    ),
-                                    value: index,
-                                    groupValue: selectedRadioTile,
-                                    onChanged: (val) {
-                                      print("Radio Tile pressed $val");
-                                      setcheckboxstate(() {
-                                        selectedRadioTile = val as int?;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          index == 6 ? SizedBox() : Divider(),
-                        ],
-                      );
-                    });
-              }),
-            ],
-          ),
-        ),
-      ),
-    );
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => fancyDialog,
-    );
-  }
+  // void paymentDetailAlertDialogue(context) {
+  //   Dialog fancyDialog = Dialog(
+  //     shape: RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.circular(12.0),
+  //     ),
+  //     child: Container(
+  //       decoration: BoxDecoration(
+  //         borderRadius: BorderRadius.circular(20.0),
+  //       ),
+  //       child: Padding(
+  //         padding: EdgeInsets.all(8.w),
+  //         child: ListView(
+  //           shrinkWrap: true,
+  //           children: [
+  //             Padding(
+  //               padding: EdgeInsets.only(top: 10.h, left: 20.w),
+  //               child: Column(
+  //                 children: [
+  //                   Row(
+  //                     children: [
+  //                       Expanded(
+  //                         flex: 5,
+  //                         child: Column(
+  //                           crossAxisAlignment: CrossAxisAlignment.start,
+  //                           children: [
+  //                             PrimaryTextWidget(
+  //                               text: 'Choose Payment Method',
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //             SizedBox(
+  //               height: 10.h,
+  //             ),
+  //             Divider(),
+  //             StatefulBuilder(builder: (context, setcheckboxstate) {
+  //               return ListView.builder(
+  //                   shrinkWrap: true,
+  //                   physics: NeverScrollableScrollPhysics(),
+  //                   itemCount: paymentMethodTitle.length,
+  //                   itemBuilder: (context, index) {
+  //                     return Column(
+  //                       children: <Widget>[
+  //                         Padding(
+  //                           padding: EdgeInsets.only(left: 8.w),
+  //                           child: Row(
+  //                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //                             children: [
+  //                               Expanded(
+  //                                 flex: 6,
+  //                                 child: RadioListTile(
+  //                                   contentPadding: EdgeInsets.all(0),
+  //                                   title: Row(
+  //                                     children: [
+  //                                       Container(
+  //                                         decoration: BoxDecoration(
+  //                                             borderRadius:
+  //                                                 BorderRadius.circular(5.r),
+  //                                             border: Border.all(
+  //                                                 color:
+  //                                                     AppColors.appGreyColor)),
+  //                                         child: Padding(
+  //                                           padding: EdgeInsets.all(4.0),
+  //                                           child: Image.asset(
+  //                                             paymentMethodIcon[index],
+  //                                             height: 30.h,
+  //                                             width: 30.w,
+  //                                           ),
+  //                                         ),
+  //                                       ),
+  //                                       SizedBox(
+  //                                         width: 10.w,
+  //                                       ),
+  //                                       PrimaryTextWidget(
+  //                                         text: paymentMethodTitle[index],
+  //                                         fontSize: 14,
+  //                                       ),
+  //                                     ],
+  //                                   ),
+  //                                   value: index,
+  //                                   groupValue: selectedRadioTile,
+  //                                   onChanged: (val) {
+  //                                     print("Radio Tile pressed $val");
+  //                                     setcheckboxstate(() {
+  //                                       selectedRadioTile = val as int?;
+  //                                     });
+  //                                   },
+  //                                 ),
+  //                               ),
+  //                             ],
+  //                           ),
+  //                         ),
+  //                         index == 6 ? SizedBox() : Divider(),
+  //                       ],
+  //                     );
+  //                   });
+  //             }),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) => fancyDialog,
+  //   );
+  // }
 }

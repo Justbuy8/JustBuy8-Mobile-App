@@ -219,7 +219,6 @@ const List<IoniconsData> checkOutTitleIcon = [
 ];
 const List<String> checkOutTitle = [
   'Shipping Details',
-  'Payment Method',
 ];
 
 const List<String> chooseShippingDetailTitle = [

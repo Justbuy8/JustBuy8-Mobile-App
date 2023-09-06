@@ -32,7 +32,7 @@ class _CartScreenState extends State<CartScreen> {
   final TextEditingController _promocode = TextEditingController();
   late GetCartCubit controller;
   double? totalPrice;
-  int? discountPrice;
+  double? discountPrice;
   double? finalPrice;
   int? tax;
   int? shippingCost;
@@ -90,18 +90,18 @@ class _CartScreenState extends State<CartScreen> {
 
               if (controller.couponsData == null) {
                 for (var i = 0; i < state.cartData.first.data.length; i++) {
-                  if (state.cartData.first.data[i].shippingType ==
-                      "product_wise") {
-                    shippingCost = shippingCost! +
-                        int.parse(state.cartData.first.data[i].quantity
-                                .toString()) *
-                            int.parse(state.cartData.first.data[i].shippingCost
-                                .toString());
-                  } else {
-                    shippingCost = shippingCost! +
-                        int.parse(state.cartData.first.data[i].shippingCost
-                            .toString());
-                  }
+                  // if (state.cartData.first.data[i].shippingType ==
+                  //     "product_wise") {
+                  //   shippingCost = shippingCost! +
+                  //       int.parse(state.cartData.first.data[i].quantity
+                  //               .toString()) *
+                  //           int.parse(state.cartData.first.data[i].shippingCost
+                  //               .toString());
+                  // } else {
+                  shippingCost = shippingCost! +
+                      int.parse(
+                          state.cartData.first.data[i].shippingCost.toString());
+                  //}
 
                   totalPrice = totalPrice! +
                       ((int.parse(state.cartData.first.data[i].price
@@ -120,7 +120,9 @@ class _CartScreenState extends State<CartScreen> {
                               .toString()));
 
                   tax = (tax! +
-                      int.parse(state.cartData.first.data[i].tax.toString()));
+                      int.parse(state.cartData.first.data[i].tax.toString()) *
+                          int.parse(state.cartData.first.data[i].quantity
+                              .toString()));
 
                   finalPrice =
                       (totalPrice! - discountPrice!) + shippingCost! + tax!;
@@ -129,19 +131,19 @@ class _CartScreenState extends State<CartScreen> {
                 if (controller.couponsData!.discountType == "amount") {
                   print("AMOUNT ONE");
                   for (var i = 0; i < state.cartData.first.data.length; i++) {
-                    if (state.cartData.first.data[i].shippingType ==
-                        "product_wise") {
-                      shippingCost = shippingCost! +
-                          int.parse(state.cartData.first.data[i].quantity
-                                  .toString()) *
-                              int.parse(state
-                                  .cartData.first.data[i].shippingCost
-                                  .toString());
-                    } else {
-                      shippingCost = shippingCost! +
-                          int.parse(state.cartData.first.data[i].shippingCost
-                              .toString());
-                    }
+                    // if (state.cartData.first.data[i].shippingType ==
+                    //     "product_wise") {
+                    //   shippingCost = shippingCost! +
+                    //       int.parse(state.cartData.first.data[i].quantity
+                    //               .toString()) *
+                    //           int.parse(state
+                    //               .cartData.first.data[i].shippingCost
+                    //               .toString());
+                    // } else {
+                    shippingCost = shippingCost! +
+                        int.parse(state.cartData.first.data[i].shippingCost
+                            .toString());
+                    // }
 
                     totalPrice = totalPrice! +
                         ((int.parse(state.cartData.first.data[i].price
@@ -160,22 +162,93 @@ class _CartScreenState extends State<CartScreen> {
                                 .toString()));
 
                     tax = (tax! +
-                        int.parse(state.cartData.first.data[i].tax.toString()));
+                        int.parse(state.cartData.first.data[i].tax.toString()) *
+                            int.parse(state.cartData.first.data[i].quantity
+                                .toString()));
 
                     finalPrice =
                         (totalPrice! - discountPrice!) + shippingCost! + tax!;
-                  }
+                    print(finalPrice);
 
-                  if (finalPrice! >=
-                      double.parse(controller.couponsData!.minPurchase)) {
-                    print(controller.couponsData!.discount);
-                    finalPrice = finalPrice! -
-                        double.parse(controller.couponsData!.discount);
-                    // }else if(finalPrice! >
-                    //     double.parse(controller.couponsData!,)){
+                    if (finalPrice! >=
+                        double.parse(controller.couponsData!.minPurchase)) {
+                      double caldiscount = 0.0;
+                      caldiscount = finalPrice! -
+                          double.parse(controller.couponsData!.discount);
+                      if (caldiscount >
+                          double.parse(controller.couponsData!.maxDiscount)) {
+                        print(
+                            double.parse(controller.couponsData!.maxDiscount));
+                        finalPrice = finalPrice! -
+                            double.parse(controller.couponsData!.maxDiscount);
+                      } else {
+                        finalPrice = finalPrice! -
+                            double.parse(controller.couponsData!.discount);
+                      }
+                    }
                   }
                 } else {
                   print("PERCENTAGE ONE");
+                  for (var i = 0; i < state.cartData.first.data.length; i++) {
+                    // if (state.cartData.first.data[i].shippingType ==
+                    //     "product_wise") {
+                    //   shippingCost = shippingCost! +
+                    //       int.parse(state.cartData.first.data[i].quantity
+                    //               .toString()) *
+                    //           int.parse(state
+                    //               .cartData.first.data[i].shippingCost
+                    //               .toString());
+                    // } else {
+                    shippingCost = shippingCost! +
+                        int.parse(state.cartData.first.data[i].shippingCost
+                            .toString());
+                    // }
+
+                    totalPrice = totalPrice! +
+                        ((int.parse(state.cartData.first.data[i].price
+                                    .toString()) *
+                                int.parse(state.cartData.first.data[i].quantity
+                                    .toString())) -
+                            (int.parse(state.cartData.first.data[i].discount
+                                    .toString()) *
+                                int.parse(state.cartData.first.data[i].quantity
+                                    .toString())));
+
+                    discountPrice = (discountPrice! +
+                        int.parse(state.cartData.first.data[i].discount
+                                .toString()) *
+                            int.parse(state.cartData.first.data[i].quantity
+                                .toString()));
+
+                    tax = (tax! +
+                        int.parse(state.cartData.first.data[i].tax.toString()) *
+                            int.parse(state.cartData.first.data[i].quantity
+                                .toString()));
+
+                    finalPrice =
+                        (totalPrice! - discountPrice!) + shippingCost! + tax!;
+
+                    if (finalPrice! >=
+                        double.parse(controller.couponsData!.minPurchase)) {
+                      double caldiscount = 0.0;
+                      double discountedValue = 0.0;
+
+                      discountedValue =
+                          (double.parse(controller.couponsData!.discount) /
+                                  100) *
+                              finalPrice!;
+
+                      caldiscount = finalPrice! - discountedValue;
+                      if (caldiscount >
+                          double.parse(controller.couponsData!.maxDiscount)) {
+                        finalPrice = finalPrice! -
+                            double.parse(controller.couponsData!.maxDiscount);
+                      } else {
+                        finalPrice = finalPrice! -
+                            double.parse(controller.couponsData!.discount);
+                      }
+                    }
+                  }
                 }
               }
               return getCartWidget(state, context);
