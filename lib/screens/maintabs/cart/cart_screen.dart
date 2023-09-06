@@ -36,6 +36,8 @@ class _CartScreenState extends State<CartScreen> {
   double? finalPrice;
   int? tax;
   int? shippingCost;
+  double? caldiscount;
+  double? discountedValue;
 
   initCubit() {
     controller = context.read<GetCartCubit>();
@@ -65,8 +67,12 @@ class _CartScreenState extends State<CartScreen> {
         } else if (state is GetCartDeleted) {
           controller.getCart();
         } else if (state is GetCartCouponSelected) {
-          _promocode.text = controller.couponsData!.code;
-          controller.getCart();
+          if (controller.couponsData != null) {
+            _promocode.text = controller.couponsData!.code;
+            controller.getCart();
+          } else {
+            controller.getCart();
+          }
         }
       },
       child: Scaffold(
@@ -87,6 +93,8 @@ class _CartScreenState extends State<CartScreen> {
               tax = 0;
               finalPrice = 0;
               shippingCost = 0;
+              caldiscount = 0.0;
+              discountedValue = 0.0;
 
               if (controller.couponsData == null) {
                 for (var i = 0; i < state.cartData.first.data.length; i++) {
@@ -172,17 +180,20 @@ class _CartScreenState extends State<CartScreen> {
 
                     if (finalPrice! >=
                         double.parse(controller.couponsData!.minPurchase)) {
-                      double caldiscount = 0.0;
                       caldiscount = finalPrice! -
                           double.parse(controller.couponsData!.discount);
-                      if (caldiscount >
+                      print("caldiscount ${caldiscount}");
+
+                      if (caldiscount! >
                           double.parse(controller.couponsData!.maxDiscount)) {
-                        print(
-                            double.parse(controller.couponsData!.maxDiscount));
                         finalPrice = finalPrice! -
+                            double.parse(controller.couponsData!.maxDiscount);
+                        discountedValue = discountedValue! +
                             double.parse(controller.couponsData!.maxDiscount);
                       } else {
                         finalPrice = finalPrice! -
+                            double.parse(controller.couponsData!.discount);
+                        discountedValue = discountedValue! +
                             double.parse(controller.couponsData!.discount);
                       }
                     }
@@ -230,7 +241,6 @@ class _CartScreenState extends State<CartScreen> {
 
                     if (finalPrice! >=
                         double.parse(controller.couponsData!.minPurchase)) {
-                      double caldiscount = 0.0;
                       double discountedValue = 0.0;
 
                       discountedValue =
@@ -239,7 +249,7 @@ class _CartScreenState extends State<CartScreen> {
                               finalPrice!;
 
                       caldiscount = finalPrice! - discountedValue;
-                      if (caldiscount >
+                      if (caldiscount! >
                           double.parse(controller.couponsData!.maxDiscount)) {
                         finalPrice = finalPrice! -
                             double.parse(controller.couponsData!.maxDiscount);
@@ -417,7 +427,7 @@ class _CartScreenState extends State<CartScreen> {
                   Padding(
                     padding: EdgeInsets.only(left: 10.w, right: 20.w),
                     child: SecondaryTextWidget(
-                      text: 'Delivery',
+                      text: 'Shipping',
                       fontSize: 16,
                       fontFamily: AppFonts.robotoLight,
                     ),
@@ -460,33 +470,32 @@ class _CartScreenState extends State<CartScreen> {
               SizedBox(
                 height: 10.h,
               ),
-              // controller.couponsData != null
-              //     ? Row(
-              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //         children: [
-              //           Padding(
-              //             padding: EdgeInsets.only(left: 10.w, right: 20.w),
-              //             child: SecondaryTextWidget(
-              //               text: 'Coupon discount',
-              //               fontSize: 16,
-              //               fontFamily: AppFonts.robotoBold,
-              //             ),
-              //           ),
-              //           Padding(
-              //             padding: EdgeInsets.only(left: 10.w, right: 20.w),
-              //             child: PrimaryTextWidget(
-              //               text: '- ${controller.couponsData!.maxDiscount} \$',
-              //               fontSize: 16,
-              //               fontFamily: AppFonts.robotoBold,
-              //               fontColor: Colors.black,
-              //             ),
-              //           ),
-              //         ],
-              //       )
-              //     : SizedBox(),
-              // SizedBox(
-              //   height: 10.h,
-              // ),
+              controller.couponsData != null
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 10.w, right: 20.w),
+                          child: SecondaryTextWidget(
+                            text: 'Coupon discount',
+                            fontSize: 16,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10.w, right: 20.w),
+                          child: PrimaryTextWidget(
+                            text: '- ${discountedValue} \$',
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    )
+                  : SizedBox(),
+              controller.couponsData != null
+                  ? SizedBox(
+                      height: 10.h,
+                    )
+                  : SizedBox(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

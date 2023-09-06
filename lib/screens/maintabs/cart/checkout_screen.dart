@@ -153,7 +153,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   Padding(
                     padding: EdgeInsets.only(left: 10.w, right: 10.w),
                     child: SecondaryTextWidget(
-                      text: 'Delivery',
+                      text: 'Shipping',
                       fontSize: 16,
                       fontFamily: AppFonts.robotoLight,
                     ),
