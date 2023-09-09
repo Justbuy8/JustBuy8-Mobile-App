@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/blocs/cart/get_cart/get_cart_cubit.dart';
+import 'package:justbuyeight/blocs/coupons_cubit/coupons_cubit.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/screens/maintabs/my_account/promocode/promocode_screen.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
@@ -50,22 +52,44 @@ class _PromoCodeWidgetState extends State<PromoCodeWidget> {
               SizedBox(
                 width: 10.w,
               ),
-              GestureDetector(
-                onTap: () {
-                  bottomSheet();
-                },
-                child: Container(
-                  height: 50.h,
-                  width: 45.w,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.r),
-                      color: Colors.black),
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+              widget.controller.text.isEmpty
+                  ? GestureDetector(
+                      onTap: () {
+                        bottomSheet();
+                      },
+                      child: Container(
+                        height: 50.h,
+                        width: 45.w,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.r),
+                            color: Colors.black),
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  : GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          widget.controller.clear();
+                          context
+                              .read<GetCartCubit>()
+                              .getCouponsInformation(null);
+                        });
+                      },
+                      child: Container(
+                        height: 50.h,
+                        width: 45.w,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.r),
+                            color: Colors.red),
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
             ],
           ),
         ),

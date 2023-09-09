@@ -92,7 +92,7 @@ class GetCartCubit extends Cubit<GetCartState> {
 
   getCouponsInformation(data) {
     couponsData = data;
-    print(couponsData);
+
     emit(GetCartCouponSelected());
   }
 }

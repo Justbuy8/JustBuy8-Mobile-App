@@ -153,33 +153,6 @@ class _PromodeCodeScreenState extends State<PromodeCodeScreen> {
                                                     ),
                                                   ],
                                                 ),
-                                                PrimaryTextWidget(
-                                                    text:
-                                                        '${state.couponsData.first.data[index].code}'),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 20.h,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                state.couponsData.first
-                                                        .data[index].expireDate
-                                                        .isAfter(DateTime.now())
-                                                    ? SecondaryTextWidget(
-                                                        text:
-                                                            'Expires in ${state.couponsData.first.data[index].expireDate.toString().substring(0, 11)}')
-                                                    : SecondaryTextWidget(
-                                                        text:
-                                                            '${state.couponsData.first.data[index].expireDate.toString().substring(0, 11)}',
-                                                        fontColor: AppColors
-                                                            .appRedColor,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
                                                 Row(
                                                   children: [
                                                     SecondaryTextWidget(
@@ -207,6 +180,33 @@ class _PromodeCodeScreenState extends State<PromodeCodeScreen> {
                                                           )
                                                   ],
                                                 )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 20.h,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                state.couponsData.first
+                                                        .data[index].expireDate
+                                                        .isAfter(DateTime.now())
+                                                    ? SecondaryTextWidget(
+                                                        text:
+                                                            'Expires in ${state.couponsData.first.data[index].expireDate.toString().substring(0, 11)}')
+                                                    : SecondaryTextWidget(
+                                                        text:
+                                                            '${state.couponsData.first.data[index].expireDate.toString().substring(0, 11)}',
+                                                        fontColor: AppColors
+                                                            .appRedColor,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                PrimaryTextWidget(
+                                                    text:
+                                                        '${state.couponsData.first.data[index].code}'),
                                               ],
                                             ),
                                           ],

@@ -32,10 +32,12 @@ class _CartScreenState extends State<CartScreen> {
   final TextEditingController _promocode = TextEditingController();
   late GetCartCubit controller;
   double? totalPrice;
-  int? discountPrice;
+  double? discountPrice;
   double? finalPrice;
   int? tax;
   int? shippingCost;
+  double? caldiscount;
+  double? discountedValue;
 
   initCubit() {
     controller = context.read<GetCartCubit>();
@@ -65,8 +67,12 @@ class _CartScreenState extends State<CartScreen> {
         } else if (state is GetCartDeleted) {
           controller.getCart();
         } else if (state is GetCartCouponSelected) {
-          _promocode.text = controller.couponsData!.code;
-          controller.getCart();
+          if (controller.couponsData != null) {
+            _promocode.text = controller.couponsData!.code;
+            controller.getCart();
+          } else {
+            controller.getCart();
+          }
         }
       },
       child: Scaffold(
@@ -87,21 +93,23 @@ class _CartScreenState extends State<CartScreen> {
               tax = 0;
               finalPrice = 0;
               shippingCost = 0;
+              caldiscount = 0.0;
+              discountedValue = 0.0;
 
               if (controller.couponsData == null) {
                 for (var i = 0; i < state.cartData.first.data.length; i++) {
-                  if (state.cartData.first.data[i].shippingType ==
-                      "product_wise") {
-                    shippingCost = shippingCost! +
-                        int.parse(state.cartData.first.data[i].quantity
-                                .toString()) *
-                            int.parse(state.cartData.first.data[i].shippingCost
-                                .toString());
-                  } else {
-                    shippingCost = shippingCost! +
-                        int.parse(state.cartData.first.data[i].shippingCost
-                            .toString());
-                  }
+                  // if (state.cartData.first.data[i].shippingType ==
+                  //     "product_wise") {
+                  //   shippingCost = shippingCost! +
+                  //       int.parse(state.cartData.first.data[i].quantity
+                  //               .toString()) *
+                  //           int.parse(state.cartData.first.data[i].shippingCost
+                  //               .toString());
+                  // } else {
+                  shippingCost = shippingCost! +
+                      int.parse(
+                          state.cartData.first.data[i].shippingCost.toString());
+                  //}
 
                   totalPrice = totalPrice! +
                       ((int.parse(state.cartData.first.data[i].price
@@ -120,7 +128,9 @@ class _CartScreenState extends State<CartScreen> {
                               .toString()));
 
                   tax = (tax! +
-                      int.parse(state.cartData.first.data[i].tax.toString()));
+                      int.parse(state.cartData.first.data[i].tax.toString()) *
+                          int.parse(state.cartData.first.data[i].quantity
+                              .toString()));
 
                   finalPrice =
                       (totalPrice! - discountPrice!) + shippingCost! + tax!;
@@ -129,19 +139,19 @@ class _CartScreenState extends State<CartScreen> {
                 if (controller.couponsData!.discountType == "amount") {
                   print("AMOUNT ONE");
                   for (var i = 0; i < state.cartData.first.data.length; i++) {
-                    if (state.cartData.first.data[i].shippingType ==
-                        "product_wise") {
-                      shippingCost = shippingCost! +
-                          int.parse(state.cartData.first.data[i].quantity
-                                  .toString()) *
-                              int.parse(state
-                                  .cartData.first.data[i].shippingCost
-                                  .toString());
-                    } else {
-                      shippingCost = shippingCost! +
-                          int.parse(state.cartData.first.data[i].shippingCost
-                              .toString());
-                    }
+                    // if (state.cartData.first.data[i].shippingType ==
+                    //     "product_wise") {
+                    //   shippingCost = shippingCost! +
+                    //       int.parse(state.cartData.first.data[i].quantity
+                    //               .toString()) *
+                    //           int.parse(state
+                    //               .cartData.first.data[i].shippingCost
+                    //               .toString());
+                    // } else {
+                    shippingCost = shippingCost! +
+                        int.parse(state.cartData.first.data[i].shippingCost
+                            .toString());
+                    // }
 
                     totalPrice = totalPrice! +
                         ((int.parse(state.cartData.first.data[i].price
@@ -160,22 +170,95 @@ class _CartScreenState extends State<CartScreen> {
                                 .toString()));
 
                     tax = (tax! +
-                        int.parse(state.cartData.first.data[i].tax.toString()));
+                        int.parse(state.cartData.first.data[i].tax.toString()) *
+                            int.parse(state.cartData.first.data[i].quantity
+                                .toString()));
 
                     finalPrice =
                         (totalPrice! - discountPrice!) + shippingCost! + tax!;
-                  }
+                    print(finalPrice);
 
-                  if (finalPrice! >=
-                      double.parse(controller.couponsData!.minPurchase)) {
-                    print(controller.couponsData!.discount);
-                    finalPrice = finalPrice! -
-                        double.parse(controller.couponsData!.discount);
-                    // }else if(finalPrice! >
-                    //     double.parse(controller.couponsData!,)){
+                    if (finalPrice! >=
+                        double.parse(controller.couponsData!.minPurchase)) {
+                      caldiscount = finalPrice! -
+                          double.parse(controller.couponsData!.discount);
+                      print("caldiscount ${caldiscount}");
+
+                      if (caldiscount! >
+                          double.parse(controller.couponsData!.maxDiscount)) {
+                        finalPrice = finalPrice! -
+                            double.parse(controller.couponsData!.maxDiscount);
+                        discountedValue = discountedValue! +
+                            double.parse(controller.couponsData!.maxDiscount);
+                      } else {
+                        finalPrice = finalPrice! -
+                            double.parse(controller.couponsData!.discount);
+                        discountedValue = discountedValue! +
+                            double.parse(controller.couponsData!.discount);
+                      }
+                    }
                   }
                 } else {
                   print("PERCENTAGE ONE");
+                  for (var i = 0; i < state.cartData.first.data.length; i++) {
+                    // if (state.cartData.first.data[i].shippingType ==
+                    //     "product_wise") {
+                    //   shippingCost = shippingCost! +
+                    //       int.parse(state.cartData.first.data[i].quantity
+                    //               .toString()) *
+                    //           int.parse(state
+                    //               .cartData.first.data[i].shippingCost
+                    //               .toString());
+                    // } else {
+                    shippingCost = shippingCost! +
+                        int.parse(state.cartData.first.data[i].shippingCost
+                            .toString());
+                    // }
+
+                    totalPrice = totalPrice! +
+                        ((int.parse(state.cartData.first.data[i].price
+                                    .toString()) *
+                                int.parse(state.cartData.first.data[i].quantity
+                                    .toString())) -
+                            (int.parse(state.cartData.first.data[i].discount
+                                    .toString()) *
+                                int.parse(state.cartData.first.data[i].quantity
+                                    .toString())));
+
+                    discountPrice = (discountPrice! +
+                        int.parse(state.cartData.first.data[i].discount
+                                .toString()) *
+                            int.parse(state.cartData.first.data[i].quantity
+                                .toString()));
+
+                    tax = (tax! +
+                        int.parse(state.cartData.first.data[i].tax.toString()) *
+                            int.parse(state.cartData.first.data[i].quantity
+                                .toString()));
+
+                    finalPrice =
+                        (totalPrice! - discountPrice!) + shippingCost! + tax!;
+
+                    if (finalPrice! >=
+                        double.parse(controller.couponsData!.minPurchase)) {
+                      double discountedValue = 0.0;
+
+                      discountedValue =
+                          (double.parse(controller.couponsData!.discount) /
+                                  100) *
+                              finalPrice!;
+
+                      caldiscount = finalPrice! - discountedValue;
+                      if (caldiscount! >
+                          double.parse(controller.couponsData!.maxDiscount)) {
+                        finalPrice = finalPrice! -
+                            double.parse(controller.couponsData!.maxDiscount);
+                      } else {
+                        finalPrice = finalPrice! -
+                            double.parse(controller.couponsData!.discount);
+                      }
+                    }
+                  }
                 }
               }
               return getCartWidget(state, context);
@@ -344,7 +427,7 @@ class _CartScreenState extends State<CartScreen> {
                   Padding(
                     padding: EdgeInsets.only(left: 10.w, right: 20.w),
                     child: SecondaryTextWidget(
-                      text: 'Delivery',
+                      text: 'Shipping',
                       fontSize: 16,
                       fontFamily: AppFonts.robotoLight,
                     ),
@@ -387,33 +470,32 @@ class _CartScreenState extends State<CartScreen> {
               SizedBox(
                 height: 10.h,
               ),
-              // controller.couponsData != null
-              //     ? Row(
-              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //         children: [
-              //           Padding(
-              //             padding: EdgeInsets.only(left: 10.w, right: 20.w),
-              //             child: SecondaryTextWidget(
-              //               text: 'Coupon discount',
-              //               fontSize: 16,
-              //               fontFamily: AppFonts.robotoBold,
-              //             ),
-              //           ),
-              //           Padding(
-              //             padding: EdgeInsets.only(left: 10.w, right: 20.w),
-              //             child: PrimaryTextWidget(
-              //               text: '- ${controller.couponsData!.maxDiscount} \$',
-              //               fontSize: 16,
-              //               fontFamily: AppFonts.robotoBold,
-              //               fontColor: Colors.black,
-              //             ),
-              //           ),
-              //         ],
-              //       )
-              //     : SizedBox(),
-              // SizedBox(
-              //   height: 10.h,
-              // ),
+              controller.couponsData != null
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 10.w, right: 20.w),
+                          child: SecondaryTextWidget(
+                            text: 'Coupon discount',
+                            fontSize: 16,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10.w, right: 20.w),
+                          child: PrimaryTextWidget(
+                            text: '- ${discountedValue} \$',
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    )
+                  : SizedBox(),
+              controller.couponsData != null
+                  ? SizedBox(
+                      height: 10.h,
+                    )
+                  : SizedBox(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
