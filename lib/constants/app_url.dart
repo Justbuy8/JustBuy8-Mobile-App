@@ -55,6 +55,9 @@ class ProductsUrl {
 
   static const String getProductReviews =
       "${AppUrl.baseUrl}/product/get-product-reviews";
+
+  static const String searchProducts =
+      "${AppUrl.baseUrl}/product/search-products";
 }
 
 class CategoriesUrl {

@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/blocs/categories/filter_categories/filter_categories_bloc.dart';
 import 'package:justbuyeight/constants/app_config.dart';
 import 'package:justbuyeight/widgets/components/buttons/border_text_button.dart';
-import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 
 class FilterCategoriesWidget extends StatefulWidget {
   const FilterCategoriesWidget({Key? key}) : super(key: key);
@@ -40,7 +40,7 @@ class _FilterCategoriesWidgetState extends State<FilterCategoriesWidget> {
             categoryMap['All'] = true;
           }
         },
-        builder: (bloccontext, state) {
+        builder: (ctx, state) {
           if (state is FilterCategoriesDataState) {
             return SizedBox(
               height: 40.h,
@@ -66,7 +66,26 @@ class _FilterCategoriesWidgetState extends State<FilterCategoriesWidget> {
               ),
             );
           }
-          return const AppCircularSpinner();
+          return Shimmer(
+            child: SizedBox(
+              height: 40.h,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    height: 40.h,
+                    width: 100.w,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  );
+                },
+              ),
+            ),
+          );
         },
       ),
     );

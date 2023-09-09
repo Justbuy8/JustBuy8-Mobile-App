@@ -14,6 +14,9 @@ class TextFieldWidget extends StatefulWidget {
     this.validator,
     this.readOnly,
     this.maxLine,
+    this.onFieldSubmitted,
+    this.onSaved,
+    this.onEditingComplete,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -24,6 +27,11 @@ class TextFieldWidget extends StatefulWidget {
   final TextInputType? keyboardType;
   final bool? readOnly;
   final String? Function(String?)? validator;
+  final Function(String)? onFieldSubmitted;
+  final Function(String?)? onSaved;
+  // on editing complete
+  final Function()? onEditingComplete;
+
   final int? maxLine;
 
   @override
@@ -38,6 +46,9 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
       readOnly: widget.readOnly ?? false,
       controller: widget.controller,
       style: const TextStyle(fontSize: 18),
+      onFieldSubmitted: (value) => widget.onFieldSubmitted ?? (value) => null,
+      onSaved: widget.onSaved ?? (value) => null,
+      onEditingComplete: widget.onEditingComplete ?? () => null,
       textInputAction: widget.textInputAction ?? TextInputAction.done,
       keyboardType: widget.keyboardType ?? TextInputType.text,
       validator: widget.validator ?? (value) => null,
