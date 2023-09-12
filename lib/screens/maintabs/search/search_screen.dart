@@ -10,7 +10,6 @@ import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
 import 'package:justbuyeight/screens/maintabs/search/widgets/rating_filter_widget.dart';
-import 'package:justbuyeight/screens/maintabs/search/widgets/toggle_buttons_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/border_text_button.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
@@ -19,6 +18,12 @@ import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.da
 import 'package:nb_utils/nb_utils.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:velocity_x/velocity_x.dart';
+
+// Some global variables
+String selectedToggle = AppText.saleText;
+String? selectedCategory;
+String? selectedPriceRange;
+String? selectedRating;
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -104,75 +109,11 @@ class _SearchScreenState extends State<SearchScreen> {
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                         const SizedBox(height: 20),
-                        BlocConsumer<FilterCategoriesBloc,
-                            FilterCategoriesState>(
-                          bloc: filterCategoriesBloc,
-                          listener: (context, state) {
-                            if (state is FilterCategoriesDataState) {
-                              categoryMap.addEntries(
-                                state.filterCategories.map(
-                                  (e) => MapEntry(e.catName.toString(), false),
-                                ),
-                              );
-                              categoryMap['All'] = true;
-                            }
-                          },
-                          builder: (ctx, state) {
-                            if (state is FilterCategoriesDataState) {
-                              return SizedBox(
-                                height: 40.h,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: state.filterCategories.length,
-                                  itemBuilder: (context, index) {
-                                    return BorderTextButton(
-                                      text: state
-                                          .filterCategories[index].catName
-                                          .toString(),
-                                      onPressed: () {
-                                        // make map true for this category and false for others
-                                        categoryMap
-                                            .updateAll((key, value) => false);
-                                        categoryMap.update(
-                                          state.filterCategories[index].catName
-                                              .toString(),
-                                          (value) => true,
-                                        );
-                                        // Assign current category to selectedCategory
-                                        selectedCategory = state
-                                            .filterCategories[index].catName
-                                            .toString();
-                                        print(selectedCategory);
-                                        setState(() {});
-                                      },
-                                      isClicked: categoryMap[state
-                                          .filterCategories[index].catName]!,
-                                    );
-                                  },
-                                ),
-                              );
-                            }
-                            return Shimmer(
-                              child: SizedBox(
-                                height: 40.h,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: 10,
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                      margin: const EdgeInsets.only(right: 10),
-                                      height: 40.h,
-                                      width: 100.w,
-                                      decoration: BoxDecoration(
-                                        color: AppColors.appGreyColor,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            );
-                          },
+
+                        // Categories
+                        CategoriesWidget(
+                          filterCategoriesBloc: filterCategoriesBloc,
+                          categoryMap: categoryMap,
                         ),
                         const SizedBox(height: 20),
                         Text(
@@ -323,6 +264,168 @@ class _SearchScreenState extends State<SearchScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ToggleButtonsWidget extends StatefulWidget {
+  final List<String> searchTypes;
+  const ToggleButtonsWidget({Key? key, required this.searchTypes})
+      : super(key: key);
+
+  @override
+  State<ToggleButtonsWidget> createState() => _ToggleButtonsWidgetState();
+}
+
+class _ToggleButtonsWidgetState extends State<ToggleButtonsWidget> {
+  int _selectedButtonIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(3.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: AppColors.secondaryColor),
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Row(
+        children: List.generate(
+          widget.searchTypes.length,
+          (index) => Expanded(
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _selectedButtonIndex = index;
+                  selectedToggle = widget.searchTypes[index];
+                  print(selectedToggle);
+                });
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: _selectedButtonIndex == index
+                      ? AppColors.primaryColor
+                      : AppColors.transparentColor,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                child: Center(
+                  child: Text(
+                    widget.searchTypes[index],
+                    style: TextStyle(
+                      color: _selectedButtonIndex == index
+                          ? AppColors.appWhiteColor
+                          : AppColors.primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CategoriesWidget extends StatefulWidget {
+  final FilterCategoriesBloc filterCategoriesBloc;
+  final Map<String, bool> categoryMap;
+  CategoriesWidget(
+      {Key? key, required this.filterCategoriesBloc, required this.categoryMap})
+      : super(key: key);
+
+  @override
+  _CategoriesWidgetState createState() => _CategoriesWidgetState();
+}
+
+class _CategoriesWidgetState extends State<CategoriesWidget> {
+  @override
+  void initState() {
+    // make all the categories false and first category true
+    widget.categoryMap.updateAll((key, value) => false);
+    widget.categoryMap['All'] = true;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<FilterCategoriesBloc, FilterCategoriesState>(
+      bloc: widget.filterCategoriesBloc,
+      listener: (context, state) {
+        if (state is FilterCategoriesDataState) {
+          widget.categoryMap.addEntries(
+            state.filterCategories.map(
+              (e) => MapEntry(e.catName.toString(), false),
+            ),
+          );
+          widget.categoryMap['All'] = true;
+        }
+      },
+      builder: (ctx, state) {
+        if (state is FilterCategoriesDataState) {
+          return SizedBox(
+            height: 40.h,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: state.filterCategories.length,
+              itemBuilder: (context, index) {
+                return BorderTextButton(
+                  text: state.filterCategories[index].catName.toString(),
+                  onPressed: () {
+                    setState(() {
+                      // make all the categories false
+                      widget.categoryMap.updateAll(
+                        (key, value) => false,
+                      );
+
+                      // make map true for this category and false for others
+                      widget.categoryMap.updateAll(
+                        (key, value) =>
+                            key ==
+                            state.filterCategories[index].catName.toString(),
+                      );
+
+                      // assign the selected category to the global variable
+                      selectedCategory =
+                          state.filterCategories[index].catName.toString();
+
+                      // make the selected category true
+                      widget.categoryMap[state.filterCategories[index].catName
+                          .toString()] = true;
+                      print(selectedCategory);
+                    });
+                    setState(() {});
+                  },
+                  isClicked:
+                      widget.categoryMap[state.filterCategories[index].catName],
+                );
+              },
+            ),
+          );
+        }
+        return Shimmer(
+          child: SizedBox(
+            height: 40.h,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: const EdgeInsets.only(right: 10),
+                  height: 40.h,
+                  width: 100.w,
+                  decoration: BoxDecoration(
+                    color: AppColors.appGreyColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 }
