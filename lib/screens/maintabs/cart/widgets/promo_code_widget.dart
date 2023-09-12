@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justbuyeight/blocs/cart/get_cart/get_cart_cubit.dart';
-import 'package:justbuyeight/blocs/coupons_cubit/coupons_cubit.dart';
 import 'package:justbuyeight/constants/app_fonts.dart';
 import 'package:justbuyeight/screens/maintabs/my_account/promocode/promocode_screen.dart';
 import 'package:justbuyeight/widgets/components/text/primary_text_widget.dart';
