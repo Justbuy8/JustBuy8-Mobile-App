@@ -1,29 +1,34 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:justbuyeight/blocs/categories/filter_categories/filter_categories_bloc.dart';
+import 'package:justbuyeight/blocs/rating/rating_filter_bloc.dart';
 import 'package:justbuyeight/blocs/search/search_products_bloc.dart';
 import 'package:justbuyeight/constants/app_colors.dart';
 import 'package:justbuyeight/constants/app_config.dart';
+import 'package:justbuyeight/constants/app_images.dart';
 import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/models/products/ProductModel.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/product_widget.dart';
-import 'package:justbuyeight/screens/maintabs/search/widgets/rating_filter_widget.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/buttons/border_text_button.dart';
 import 'package:justbuyeight/widgets/components/buttons/primary_button_widget.dart';
 import 'package:justbuyeight/widgets/components/loading_widget/app_circular_spinner.dart';
 import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 // Some global variables
-String selectedToggle = AppText.saleText;
+String selectedMethod = AppText.saleText;
 String? selectedCategory;
-String? selectedPriceRange;
+RangeValues _currentRangeValues = const RangeValues(1, 1000);
 String? selectedRating;
+int _selectedButtonIndex = 0;
+final Map<String, bool> ratingMap = {};
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -50,10 +55,7 @@ class _SearchScreenState extends State<SearchScreen> {
     AppText.newText,
   ];
 
-  String? selectedCategory;
   final Map<String, bool> categoryMap = {};
-
-  RangeValues _currentRangeValues = const RangeValues(1, 200);
 
   late List<bool> isSelected;
 
@@ -68,7 +70,11 @@ class _SearchScreenState extends State<SearchScreen> {
           random: true,
         ),
       );
+
     isSelected = List.generate(searchTypes.length, (index) => false);
+    // make all the categories false and first category true
+    categoryMap.updateAll((key, value) => false);
+    categoryMap['All'] = true;
   }
 
   void filterBottomSheet(BuildContext context) {
@@ -77,6 +83,7 @@ class _SearchScreenState extends State<SearchScreen> {
     and will contain the filter options, such as categories, price range, rating, etc.
     Based on the user's selection, the products will be filtered.
     */
+
     showModalBottomSheet(
       context: context,
       showDragHandle: true,
@@ -120,21 +127,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           AppText.priceText,
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
-                        RangeSlider(
-                          values: _currentRangeValues,
-                          onChanged: (RangeValues values) {
-                            setState(() {
-                              _currentRangeValues = values;
-                            });
-                          },
-                          min: 1,
-                          max: 200,
-                          divisions: 200,
-                          labels: RangeLabels(
-                            "€${_currentRangeValues.start.round()}",
-                            "€${_currentRangeValues.end.round()}",
-                          ),
-                        ),
+                        SliderWidget(),
                         const SizedBox(height: 20),
                         Text(
                           AppText.ratingText,
@@ -151,7 +144,16 @@ class _SearchScreenState extends State<SearchScreen> {
               PrimaryButtonWidget(
                 caption: AppText.filterText,
                 onPressed: () {
-                  // TODO: Close modal and apply filters
+                  searchProductsBloc.add(
+                    SearchProductsOnSearchEvent(
+                      searchQuery: searchController.text.trim(),
+                      method: selectedMethod,
+                      category: selectedCategory,
+                      startingPrice: _currentRangeValues.start.round(),
+                      endingPrice: _currentRangeValues.end.round(),
+                      totalRatings: selectedRating,
+                    ),
+                  );
                   context.pop();
                 },
               ),
@@ -196,6 +198,11 @@ class _SearchScreenState extends State<SearchScreen> {
                           searchProductsBloc.add(
                             SearchProductsOnSearchEvent(
                               searchQuery: searchController.text,
+                              method: null,
+                              category: null,
+                              startingPrice: null,
+                              endingPrice: null,
+                              totalRatings: null,
                             ),
                           );
                         });
@@ -236,8 +243,23 @@ class _SearchScreenState extends State<SearchScreen> {
                   return Center(child: Text(state.error));
                 } else
                   return noProductsSearched == true
-                      ? Center(
-                          child: Text("Search for products"),
+                      ? Container(
+                          height: MediaQuery.of(context).size.height / 1.5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Lottie.asset(
+                                LottieAssets.emptyproducts,
+                                repeat: false,
+                                height: 300.h,
+                                width: 300.w,
+                              ),
+                              Text(
+                                "No products searched yet",
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            ],
+                          ),
                         )
                       : GridView.builder(
                           gridDelegate:
@@ -251,6 +273,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               ProductWidget(product: searchedProducts[index]),
                           itemCount: searchedProducts.length,
                           shrinkWrap: true,
+                          physics: BouncingScrollPhysics(),
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                         );
               },
@@ -278,8 +301,6 @@ class ToggleButtonsWidget extends StatefulWidget {
 }
 
 class _ToggleButtonsWidgetState extends State<ToggleButtonsWidget> {
-  int _selectedButtonIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -297,8 +318,8 @@ class _ToggleButtonsWidgetState extends State<ToggleButtonsWidget> {
               onTap: () {
                 setState(() {
                   _selectedButtonIndex = index;
-                  selectedToggle = widget.searchTypes[index];
-                  print(selectedToggle);
+                  selectedMethod = widget.searchTypes[index];
+                  print(selectedMethod);
                 });
               },
               child: Container(
@@ -342,14 +363,6 @@ class CategoriesWidget extends StatefulWidget {
 
 class _CategoriesWidgetState extends State<CategoriesWidget> {
   @override
-  void initState() {
-    // make all the categories false and first category true
-    widget.categoryMap.updateAll((key, value) => false);
-    widget.categoryMap['All'] = true;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocConsumer<FilterCategoriesBloc, FilterCategoriesState>(
       bloc: widget.filterCategoriesBloc,
@@ -387,13 +400,13 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                             state.filterCategories[index].catName.toString(),
                       );
 
-                      // assign the selected category to the global variable
-                      selectedCategory =
-                          state.filterCategories[index].catName.toString();
-
                       // make the selected category true
                       widget.categoryMap[state.filterCategories[index].catName
                           .toString()] = true;
+
+                      // assign the selected category to the global variable
+                      selectedCategory =
+                          state.filterCategories[index].catName.toString();
                       print(selectedCategory);
                     });
                     setState(() {});
@@ -426,6 +439,131 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
           ),
         );
       },
+    );
+  }
+}
+
+class SliderWidget extends StatefulWidget {
+  const SliderWidget({Key? key}) : super(key: key);
+
+  @override
+  State<SliderWidget> createState() => _SliderWidgetState();
+}
+
+class _SliderWidgetState extends State<SliderWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return RangeSlider(
+      values: _currentRangeValues,
+      onChanged: (RangeValues values) {
+        setState(() {
+          _currentRangeValues = values;
+        });
+      },
+      min: 1,
+      max: 1000,
+      divisions: 1000,
+      labels: RangeLabels(
+        "€${_currentRangeValues.start.round()}",
+        "€${_currentRangeValues.end.round()}",
+      ),
+    );
+  }
+}
+
+class RatingFilterWidget extends StatefulWidget {
+  const RatingFilterWidget({Key? key}) : super(key: key);
+
+  @override
+  State<RatingFilterWidget> createState() => _RatingFilterWidgetState();
+}
+
+class _RatingFilterWidgetState extends State<RatingFilterWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => RatingFilterBloc()..add(RatingFilterLoadingEvent()),
+      child: BlocConsumer<RatingFilterBloc, RatingFilterState>(
+        listener: (context, state) {
+          if (state is RatingFilterDataState) {
+            ratingMap.addEntries(
+              state.ratings.map(
+                (e) => MapEntry(e, false),
+              ),
+            );
+            ratingMap['All'] = true;
+          }
+        },
+        builder: (bloccontext, state) {
+          if (state is RatingFilterDataState) {
+            return SizedBox(
+              height: 40.h,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: state.ratings.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        ratingMap.updateAll((key, value) => false);
+                        ratingMap.update(
+                          state.ratings[index].toString(),
+                          (value) => true,
+                        );
+                        selectedRating = state.ratings[index];
+                        print(selectedRating);
+                      });
+                    },
+                    child: Container(
+                      height: 30,
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: AppColors.primaryColor,
+                          width: 1,
+                        ),
+                        color: ratingMap[state.ratings[index]] == true
+                            ? AppColors.primaryColor
+                            : AppColors.transparentColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Center(
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: ratingMap[state.ratings[index]] == true
+                                  ? AppColors.appWhiteColor
+                                  : AppColors.primaryColor,
+                              size: 14.sp,
+                            ),
+                            const SizedBox(width: 5),
+                            AutoSizeText(
+                              state.ratings[index].toString(),
+                              style: TextStyle(
+                                color: ratingMap[state.ratings[index]] == true
+                                    ? AppColors.appWhiteColor
+                                    : AppColors.primaryColor,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              maxFontSize: 14.sp,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            );
+          }
+          return const AppCircularSpinner();
+        },
+      ),
     );
   }
 }

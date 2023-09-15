@@ -6,8 +6,18 @@ abstract class SearchProductsEvent {}
 
 class SearchProductsOnSearchEvent extends SearchProductsEvent {
   final String searchQuery;
+  final String? method, category;
+  final num? startingPrice, endingPrice;
+  final String? totalRatings;
 
-  SearchProductsOnSearchEvent({required this.searchQuery});
+  SearchProductsOnSearchEvent({
+    required this.searchQuery,
+    this.method,
+    this.category,
+    this.startingPrice,
+    this.endingPrice,
+    this.totalRatings,
+  });
 }
 
 // States

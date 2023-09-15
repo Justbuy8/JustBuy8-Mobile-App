@@ -18,8 +18,16 @@ class SearchProductsBloc
           emit(SearchProductsErrorState(error: "No Internet Connection"));
         } else {
           // business logic
-          products =
-              await SearchProductsController.getProducts(event.searchQuery);
+          print(
+              "${event.category} ${event.method} ${event.startingPrice} ${event.endingPrice} ${event.totalRatings}");
+          products = await SearchProductsController.getProducts(
+            event.searchQuery,
+            category: event.category,
+            method: event.method,
+            startingPrice: event.startingPrice,
+            endingPrice: event.endingPrice,
+            totalRatings: event.totalRatings,
+          );
           if (products.isNotEmpty) {
             emit(SearchProductsDataState(products: products));
           } else {
