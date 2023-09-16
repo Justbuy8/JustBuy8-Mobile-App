@@ -26,6 +26,8 @@ class AuthUrl {
       "${AppUrl.baseUrl}/authentication/register";
 
   static const String login = "${AppUrl.baseUrl}/authentication/login";
+  static const String notificationTokenRoute =
+      "${AppUrl.baseUrl}/notificaions/save-push-token";
 }
 
 class WishListUrl {

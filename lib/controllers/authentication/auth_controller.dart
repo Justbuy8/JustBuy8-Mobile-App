@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/constants/app_url.dart';
+import 'package:justbuyeight/utils/secure_storage.dart';
 
 class AuthenticationController {
   static resetEmail(email, password) async {
@@ -97,6 +98,24 @@ class AuthenticationController {
       AuthUrl.login,
       headers: {
         "content-type": "application/json; charset=utf-8",
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var result = jsonDecode(response.body);
+
+      return result;
+    }
+  }
+
+  static notificationTokenRegistration(body) async {
+    String? userToken = await UserSecureStorage.fetchToken();
+    Response response = await ApiManager.postRequest(
+      body,
+      AuthUrl.notificationTokenRoute,
+      headers: {
+        "content-type": "application/json; charset=utf-8",
+        'Authorization': 'Bearer ${userToken}'
       },
     );
 

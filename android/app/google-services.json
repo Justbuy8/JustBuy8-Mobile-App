@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "148173754814",
+    "project_id": "justbuy8-89f3b",
+    "storage_bucket": "justbuy8-89f3b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148173754814:android:f8075486c419bc0cc829ef",
+        "android_client_info": {
+          "package_name": "com.sat.justbuyeight"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBbiKzPukzTDq7F7UCtphMb98eP2RBOG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
