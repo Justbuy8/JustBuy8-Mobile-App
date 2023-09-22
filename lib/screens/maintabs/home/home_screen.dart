@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, use_build_context_synchronously
 
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
@@ -17,12 +20,15 @@ import 'package:justbuyeight/screens/maintabs/home/widgets/products/featured/fea
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/new_arrival/new_arrival_grid.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/products/top/top_categories_widgets.dart';
 import 'package:justbuyeight/screens/maintabs/home/widgets/title-button/title_and_button_widget.dart';
+import 'package:justbuyeight/utils/AlertDialog.dart';
 import 'package:justbuyeight/utils/Navigator.dart';
 import 'package:justbuyeight/widgets/components/appbars/secondary_appbar_widget.dart';
 import 'package:justbuyeight/widgets/components/banners/FooterBannerWidget.dart';
 import 'package:justbuyeight/widgets/components/banners/MainBannerWidget.dart';
 import 'package:justbuyeight/widgets/components/brands/brands_widget.dart';
 import 'package:justbuyeight/widgets/components/category/categories_widget.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -39,8 +45,36 @@ class _HomeScreenState extends State<HomeScreen> {
     refreshTokenCubit.refreshAuthToken();
   }
 
+  checkpermission_opencamera() async {
+    var cameraStatus = await Permission.camera.status;
+    var microphoneStatus = await Permission.microphone.status;
+
+    print(cameraStatus);
+    print(microphoneStatus);
+    //cameraStatus.isGranted == has access to application
+    //cameraStatus.isDenied == does not have access to application, you can request again for the permission.
+    //cameraStatus.isPermanentlyDenied == does not have access to application, you cannot request again for the permission.
+    //cameraStatus.isRestricted == because of security/parental control you cannot use this permission.
+    //cameraStatus.isUndetermined == permission has not asked before.
+
+    if (!cameraStatus.isGranted) await Permission.camera.request();
+
+    if (!microphoneStatus.isGranted) await Permission.microphone.request();
+
+    if (await Permission.camera.isGranted) {
+      if (await Permission.microphone.isGranted) {
+        // openCamera();
+      } else {
+        // Toast(message:"Camera needs to access your microphone, please provide permission", position: ToastPosition.bottom);
+      }
+    } else {
+      // showToast("Provide Camera permission to use camera.", position: ToastPosition.bottom);
+    }
+  }
+
   @override
   void initState() {
+    checkpermission_opencamera();
     refreshingToken();
     super.initState();
   }

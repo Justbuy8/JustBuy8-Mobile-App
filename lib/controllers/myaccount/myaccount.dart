@@ -39,6 +39,7 @@ class MyAccountController {
     request.fields['Token'] = userToken!;
 
     var res = await request.send();
+    print(res.statusCode);
 
     if (res.statusCode == 200) {
       var result = jsonDecode(await res.stream.bytesToString());
