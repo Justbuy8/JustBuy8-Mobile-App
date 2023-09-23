@@ -6,7 +6,9 @@ import 'package:justbuyeight/models/products/ProductModel.dart';
 
 class SearchProductsController {
   static Future<List<ProductModel>> getProducts(
-    String query, {
+    String query,
+    page,
+    paginateBy, {
     String? method,
     String? category,
     num? startingPrice,
@@ -19,6 +21,8 @@ class SearchProductsController {
 
     final response = await ApiManager.postRequest(
       {
+        "page": page,
+        "paginate_by": paginateBy,
         "query": query,
         "method": method,
         "category": category,

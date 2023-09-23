@@ -8,9 +8,10 @@ part 'search_products_states_events.dart';
 class SearchProductsBloc
     extends Bloc<SearchProductsEvent, SearchProductsState> {
   SearchProductsBloc() : super(SearchProductsInitialState()) {
+    List<ProductModel> products = [];
+
     // Event Handling
     on<SearchProductsOnSearchEvent>((event, emit) async {
-      List<ProductModel> products = [];
       emit(SearchProductsLoadingState());
       try {
         bool networkStatus = await isNetworkAvailable();
@@ -18,10 +19,10 @@ class SearchProductsBloc
           emit(SearchProductsErrorState(error: "No Internet Connection"));
         } else {
           // business logic
-          print(
-              "${event.category} ${event.method} ${event.startingPrice} ${event.endingPrice} ${event.totalRatings}");
           products = await SearchProductsController.getProducts(
             event.searchQuery,
+            event.page,
+            event.paginatedBy,
             category: event.category,
             method: event.method,
             startingPrice: event.startingPrice,
@@ -37,6 +38,24 @@ class SearchProductsBloc
       } catch (error) {
         emit(SearchProductsErrorState(error: error.toString()));
       }
+    });
+
+    // Get more searched products
+    on<SearchedProductsMoreDataEvent>((event, emit) async {
+      emit(SearchProductsLoadingMoreState());
+      try {
+        products = await SearchProductsController.getProducts(
+          event.searchQuery,
+          event.page,
+          event.paginatedBy,
+          category: event.category,
+          method: event.method,
+          startingPrice: event.startingPrice,
+          endingPrice: event.endingPrice,
+          totalRatings: event.totalRatings,
+        );
+        emit(SearchProductsDataState(products: products));
+      } catch (_) {}
     });
   }
 }

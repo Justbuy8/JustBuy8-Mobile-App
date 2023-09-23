@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:justbuyeight/constants/api_manager.dart';
 import 'package:justbuyeight/constants/app_url.dart';
-import 'package:http/http.dart' as http;
 import 'package:justbuyeight/utils/secure_storage.dart';
 
 class MyAccountController {

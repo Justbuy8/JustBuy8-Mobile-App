@@ -23,12 +23,14 @@ import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 // Some global variables
-String selectedMethod = AppText.saleText;
+String? selectedMethod;
 String? selectedCategory;
 RangeValues _currentRangeValues = const RangeValues(1, 1000);
+int? minRange, maxRange;
 String? selectedRating;
 int _selectedButtonIndex = 0;
 final Map<String, bool> ratingMap = {};
+bool isInitialRating = false;
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -42,18 +44,25 @@ class _SearchScreenState extends State<SearchScreen> {
   var filterCategoriesBloc = FilterCategoriesBloc();
   var searchProductsBloc = SearchProductsBloc();
 
+  // Pagination
+  int currentPage = AppConfig.PageOne;
+  int paginatedCount =
+      AppConfig.GetSearchedAndFilteredProductsByShopPagenateCount;
+  ScrollController scrollController = ScrollController();
+
   // List for storing searched products
   List<ProductModel> searchedProducts = [];
-
-  // Flag for showing no products searched yet
-  bool noProductsSearched = true;
-
-  final TextEditingController searchController = TextEditingController();
   final List<String> searchTypes = [
     AppText.saleText,
     AppText.trendingText,
     AppText.newText,
   ];
+
+  // Flag for showing no products searched yet
+  bool noProductsSearched = true;
+
+  // Text editing controllers
+  final TextEditingController searchController = TextEditingController();
 
   final Map<String, bool> categoryMap = {};
 
@@ -71,10 +80,68 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
       );
 
+    scrollController.addListener(() {
+      if (scrollController.position.maxScrollExtent -
+              scrollController.position.pixels <=
+          AppConfig.LoadOnScrollHeight) {
+        currentPage++;
+        getMoreData();
+      }
+    });
+
     isSelected = List.generate(searchTypes.length, (index) => false);
     // make all the categories false and first category true
     categoryMap.updateAll((key, value) => false);
     categoryMap['All'] = true;
+  }
+
+  getInitialData() {
+    searchProductsBloc = searchProductsBloc
+      ..add(
+        SearchProductsOnSearchEvent(
+          page: currentPage.toString(),
+          paginatedBy: paginatedCount.toString(),
+          searchQuery: searchController.text,
+          method: selectedMethod,
+          category: selectedCategory,
+          startingPrice: minRange,
+          endingPrice: maxRange,
+          totalRatings: selectedRating,
+        ),
+      );
+  }
+
+  getMoreData() {
+    searchProductsBloc = searchProductsBloc
+      ..add(
+        SearchedProductsMoreDataEvent(
+          page: currentPage.toString(),
+          paginatedBy: paginatedCount.toString(),
+          searchQuery: searchController.text,
+          method: selectedMethod,
+          category: selectedCategory,
+          startingPrice: minRange,
+          endingPrice: maxRange,
+          totalRatings: selectedRating,
+        ),
+      );
+  }
+
+  clearFilter() {
+    selectedMethod = null;
+    selectedCategory = null;
+    minRange = null;
+    maxRange = null;
+    selectedRating = null;
+    _selectedButtonIndex = 0;
+
+    categoryMap.updateAll((key, value) => false);
+    categoryMap['All'] = true;
+
+    _currentRangeValues = const RangeValues(1, 1000);
+
+    getInitialData();
+    context.pop();
   }
 
   void filterBottomSheet(BuildContext context) {
@@ -109,6 +176,30 @@ class _SearchScreenState extends State<SearchScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // clear button
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Clear",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(color: AppColors.primaryColor),
+                            ),
+                            IconButton(
+                              onPressed: clearFilter,
+                              icon: Icon(
+                                Icons.clear,
+                                color: AppColors.primaryColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        // search bar
                         ToggleButtonsWidget(searchTypes: searchTypes),
                         const SizedBox(height: 20),
                         Text(
@@ -144,16 +235,7 @@ class _SearchScreenState extends State<SearchScreen> {
               PrimaryButtonWidget(
                 caption: AppText.filterText,
                 onPressed: () {
-                  searchProductsBloc.add(
-                    SearchProductsOnSearchEvent(
-                      searchQuery: searchController.text.trim(),
-                      method: selectedMethod,
-                      category: selectedCategory,
-                      startingPrice: _currentRangeValues.start.round(),
-                      endingPrice: _currentRangeValues.end.round(),
-                      totalRatings: selectedRating,
-                    ),
-                  );
+                  getInitialData();
                   context.pop();
                 },
               ),
@@ -179,6 +261,7 @@ class _SearchScreenState extends State<SearchScreen> {
         trailingIcon: Ionicons.notifications_outline,
       ),
       body: SingleChildScrollView(
+        controller: scrollController,
         child: Column(
           children: [
             Padding(
@@ -195,16 +278,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         setState(() {
                           hideKeyboard(context);
                           // fire event to search for products
-                          searchProductsBloc.add(
-                            SearchProductsOnSearchEvent(
-                              searchQuery: searchController.text,
-                              method: null,
-                              category: null,
-                              startingPrice: null,
-                              endingPrice: null,
-                              totalRatings: null,
-                            ),
-                          );
+                          getInitialData();
                         });
                       },
                       label: 'Search Here',
@@ -261,26 +335,46 @@ class _SearchScreenState extends State<SearchScreen> {
                             ],
                           ),
                         )
-                      : GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 1,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                          ),
-                          itemBuilder: (context, index) =>
-                              ProductWidget(product: searchedProducts[index]),
-                          itemCount: searchedProducts.length,
-                          shrinkWrap: true,
-                          physics: BouncingScrollPhysics(),
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                      : Column(
+                          children: [
+                            GridView.builder(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 0.7,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                              ),
+                              itemBuilder: (context, index) => ProductWidget(
+                                  product: searchedProducts[index]),
+                              itemCount: searchedProducts.length,
+                              shrinkWrap: true,
+                              physics: BouncingScrollPhysics(),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              // controller: scrollController,
+                            ),
+                            10.height,
+                            Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    AppCircularSpinner(),
+                                    10.width,
+                                    Text("Loading more products..."),
+                                  ],
+                                ),
+                                40.height,
+                              ],
+                            ).visible(state is SearchProductsLoadingMoreState),
+                          ],
                         );
               },
               listener: (context, state) {
                 if (state is SearchProductsDataState) {
                   noProductsSearched = false;
-                  searchedProducts = state.products;
+                  searchedProducts.addAll(state.products);
                 }
               },
             ),
@@ -464,8 +558,8 @@ class _SliderWidgetState extends State<SliderWidget> {
       max: 1000,
       divisions: 1000,
       labels: RangeLabels(
-        "€${_currentRangeValues.start.round()}",
-        "€${_currentRangeValues.end.round()}",
+        "\$${_currentRangeValues.start.round()}",
+        "\$${_currentRangeValues.end.round()}",
       ),
     );
   }
@@ -486,12 +580,15 @@ class _RatingFilterWidgetState extends State<RatingFilterWidget> {
       child: BlocConsumer<RatingFilterBloc, RatingFilterState>(
         listener: (context, state) {
           if (state is RatingFilterDataState) {
-            ratingMap.addEntries(
-              state.ratings.map(
-                (e) => MapEntry(e, false),
-              ),
-            );
-            ratingMap['All'] = true;
+            if (!isInitialRating) {
+              isInitialRating = true;
+              ratingMap.addEntries(
+                state.ratings.map(
+                  (e) => MapEntry(e, false),
+                ),
+              );
+              ratingMap['All'] = true;
+            }
           }
         },
         builder: (bloccontext, state) {

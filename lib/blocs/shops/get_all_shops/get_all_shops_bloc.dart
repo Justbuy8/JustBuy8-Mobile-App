@@ -19,15 +19,10 @@ class GetAllShopsBloc extends Bloc<GetAllShopsEvent, GetAllShopsState> {
           emit(GetAllShopsFailed(message: AppText.internetError));
           return;
         }
-        shops = await ShopController.getAllShops(
-          event.page,
-          event.paginatedBy,
-        );
+        shops = await ShopController.getAllShops(event.page, event.paginatedBy);
 
         if (shops.isEmpty) {
-          emit(
-            GetAllShopsEmpty(),
-          );
+          emit(GetAllShopsEmpty());
           return;
         }
         emit(GetAllShopsSuccess(shops: shops));
@@ -45,10 +40,7 @@ class GetAllShopsBloc extends Bloc<GetAllShopsEvent, GetAllShopsState> {
     on<GetMoreShops>((event, emit) async {
       emit(GetAllShopsMoreLoading());
       try {
-        shops = await ShopController.getAllShops(
-          event.page,
-          event.paginatedBy,
-        );
+        shops = await ShopController.getAllShops(event.page, event.paginatedBy);
         emit(GetAllShopsSuccess(shops: shops));
       } catch (error) {}
     });
