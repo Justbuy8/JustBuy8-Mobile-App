@@ -33,6 +33,7 @@ class UploadImageCubit extends Cubit<UploadImageState> {
     } on TimeoutException {
       emit(UploadImageTimeout());
     } catch (e) {
+      print(e);
       emit(UploadImageFailed());
     }
   }

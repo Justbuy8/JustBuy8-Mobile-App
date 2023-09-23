@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,6 +23,7 @@ import 'package:justbuyeight/widgets/components/images/avatar_file_image_widget.
 import 'package:justbuyeight/widgets/components/images/avatar_image_widget.dart';
 import 'package:justbuyeight/widgets/components/text_fields/text_field_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class EditProfileScreen extends StatefulWidget {
   List<MyAccountModel> myAccountModel;
@@ -50,6 +52,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _phoneNumberContorller.text = widget.myAccountModel.first.data.phone;
     _lastNameController.text = widget.myAccountModel.first.data.lastName;
   }
+
+  showAlertDialog(context) => showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return confirmAlertDialog(context, 'Permission Denied',
+              'Allow access to gallery and photos', YesPressed: () {
+            openAppSettings();
+          }, NoPressed: () {
+            Navigator.of(context).pop();
+          });
+        },
+      );
 
   @override
   void initState() {
@@ -168,17 +182,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         right: 1,
                         child: GestureDetector(
                           onTap: () async {
-                            final XFile? image = await picker.pickImage(
-                                source: ImageSource.gallery);
-                            if (image != null) {
-                              file = File(image.path);
-                              setState(() {
-                                pickedImage = image.path;
-                              });
+                            var checkPermission =
+                                await Permission.storage.status;
 
-                              context
-                                  .read<UploadImageCubit>()
-                                  .uploadImage(file!.path);
+                            if (checkPermission.isDenied) {
+                              showAlertDialog(context);
+                            } else if (checkPermission.isGranted) {
+                              final XFile? image = await picker.pickImage(
+                                  source: ImageSource.gallery);
+                              if (image != null) {
+                                file = File(image.path);
+                                setState(() {
+                                  pickedImage = image.path;
+                                });
+
+                                context
+                                    .read<UploadImageCubit>()
+                                    .uploadImage(file!.path);
+                              }
                             }
                           },
                           child: ClipOval(
@@ -262,3 +283,46 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 }
+
+//  //PICK IMAGE////
+//                             final XFile? image = await picker.pickImage(
+//                                 source: ImageSource.gallery);
+//                             if (image != null) {
+//                               print(image.path);
+//                               CroppedFile? croppedFile =
+//                                   await ImageCropper().cropImage(
+//                                 sourcePath: image.path,
+//                                 aspectRatioPresets: [
+//                                   CropAspectRatioPreset.square,
+//                                   CropAspectRatioPreset.ratio3x2,
+//                                   CropAspectRatioPreset.original,
+//                                   CropAspectRatioPreset.ratio4x3,
+//                                   CropAspectRatioPreset.ratio16x9
+//                                 ],
+//                                 uiSettings: [
+//                                   AndroidUiSettings(
+//                                       toolbarTitle: 'Cropper',
+//                                       toolbarColor: AppColors.primaryColor,
+//                                       toolbarWidgetColor: Colors.white,
+//                                       initAspectRatio:
+//                                           CropAspectRatioPreset.original,
+//                                       lockAspectRatio: false),
+//                                   IOSUiSettings(
+//                                     title: 'Cropper',
+//                                   ),
+//                                   WebUiSettings(
+//                                     context: context,
+//                                   ),
+//                                 ],
+//                               );
+//                               print(croppedFile!.path);
+//                               if (croppedFile.path.isNotEmpty) {
+//                                 file = File(croppedFile.path);
+//                                 setState(() {
+//                                   pickedImage = file!.path;
+//                                 });
+
+//                                 context
+//                                     .read<UploadImageCubit>()
+//                                     .uploadImage(file!.path);
+//                               }

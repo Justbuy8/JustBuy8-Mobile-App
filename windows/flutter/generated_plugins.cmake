@@ -7,6 +7,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   firebase_core
   flutter_secure_storage_windows
   nb_utils
+  permission_handler_windows
   smart_auth
   url_launcher_windows
 )
