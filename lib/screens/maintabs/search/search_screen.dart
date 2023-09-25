@@ -128,6 +128,9 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   clearFilter() {
+    currentPage = AppConfig.PageOne;
+    paginatedCount =
+        AppConfig.GetSearchedAndFilteredProductsByShopPagenateCount;
     selectedMethod = null;
     selectedCategory = null;
     minRange = null;
