@@ -22,7 +22,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-// Some global variables
+// Some global variables that we will be needing in this page.
 String? selectedMethod;
 String? selectedCategory;
 RangeValues _currentRangeValues = const RangeValues(1, 1000);
@@ -40,11 +40,11 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  // blocs
+  // blocs used in the search screen
   var filterCategoriesBloc = FilterCategoriesBloc();
   var searchProductsBloc = SearchProductsBloc();
 
-  // Pagination
+  // Pagination variables that will help the search screen to load products after scrolling
   int currentPage = AppConfig.PageOne;
   int paginatedCount =
       AppConfig.GetSearchedAndFilteredProductsByShopPagenateCount;
@@ -71,6 +71,8 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
+
+    /// First we will grab out all the categories we have.
     filterCategoriesBloc = filterCategoriesBloc
       ..add(
         FilterCategoriesLoadingEvent(
@@ -80,6 +82,7 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
       );
 
+    /// Listening for the scroll events so we can load the data using scrolling
     scrollController.addListener(() {
       if (scrollController.position.maxScrollExtent -
               scrollController.position.pixels <=
@@ -96,6 +99,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   getInitialData() {
+    ///@The initial data that will be displayed on the screen after we search or filer.
     searchProductsBloc = searchProductsBloc
       ..add(
         SearchProductsOnSearchEvent(
@@ -112,6 +116,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   getMoreData() {
+    /// The loaded data that will appear after we scroll.
     searchProductsBloc = searchProductsBloc
       ..add(
         SearchedProductsMoreDataEvent(
@@ -128,21 +133,31 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   clearFilter() {
+    /// Clearing the filter.
+    /// Clearing filter means that we will list all the products we searced
+    /// for the very first time..
+
+    // For that first we will reinitialize the blocs
+    filterCategoriesBloc = FilterCategoriesBloc();
+    searchProductsBloc = SearchProductsBloc();
+
+    // then we will restore pagination
     currentPage = AppConfig.PageOne;
     paginatedCount =
         AppConfig.GetSearchedAndFilteredProductsByShopPagenateCount;
+
+    // and then all the filtration parameterss
     selectedMethod = null;
     selectedCategory = null;
     minRange = null;
     maxRange = null;
     selectedRating = null;
     _selectedButtonIndex = 0;
-
     categoryMap.updateAll((key, value) => false);
     categoryMap['All'] = true;
-
     _currentRangeValues = const RangeValues(1, 1000);
 
+    // at the last we will grab the initial searched data.
     getInitialData();
     context.pop();
   }
@@ -332,7 +347,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 width: 300.w,
                               ),
                               Text(
-                                "No products searched yet",
+                                AppText.noProductsSearchedYetText,
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
                             ],
@@ -365,7 +380,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   children: [
                                     AppCircularSpinner(),
                                     10.width,
-                                    Text("Loading more products..."),
+                                    Text(AppText.loadingMoreProducts),
                                   ],
                                 ),
                               ],

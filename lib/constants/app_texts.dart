@@ -31,6 +31,7 @@ class AppText {
   static const String tryAgain = "Try again";
   static const String searchHereText = "Search here";
   static const String filterText = "Filter";
+  static const String loadingMoreProducts = "Loading more products...";
 
   static const String skip = "Skip";
   static const String forgetPasswordTitle =
@@ -107,6 +108,9 @@ class AppText {
 
   // Choose Payment Screen
   static const String choosePaymentMethodText = "Choose Payment Method";
+
+  // Search screen
+  static const String noProductsSearchedYetText = "No products searched yet";
 
   // other screens
   static const String allCategoriesText = "Categories";
