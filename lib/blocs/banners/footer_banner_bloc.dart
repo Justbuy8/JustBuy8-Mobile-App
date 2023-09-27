@@ -5,7 +5,7 @@ import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/controllers/banners/BannerController.dart';
 import 'package:justbuyeight/models/banners/BannerModel.dart';
 
-// states
+// states that we will be handling in the front end
 abstract class FooterBannerState {}
 
 class FooterBannerInitial extends FooterBannerState {}
@@ -27,7 +27,7 @@ class FooterBannerErrorState extends FooterBannerState {
   FooterBannerErrorState(this.message);
 }
 
-// events
+// events that we will fire on specific events
 abstract class FooterBannerEvent {}
 
 class FooterBannerLoadingEvent extends FooterBannerEvent {}
@@ -40,14 +40,16 @@ class FooterBannerBloc extends Bloc<FooterBannerEvent, FooterBannerState> {
     on<FooterBannerLoadingEvent>((event, emit) async {
       // show loading on the screen
       emit(FooterBannerLoadingState());
-      // call the api
+      // call the api and get the data from it.
       try {
         model = await BannerController.getBanners(isMainBanner: false);
         if (model.isEmpty) {
+          // when there is data available, throw the data to the front end.
           emit(FooterBannerNoDataState(model));
         }
         emit(FooterBannerDataState(model));
       } catch (e) {
+        // Handle the error, like internet connection error etc.
         if (e is SocketException) {
           emit(FooterBannerErrorState(AppText.internetError));
         } else if (e is HttpException) {

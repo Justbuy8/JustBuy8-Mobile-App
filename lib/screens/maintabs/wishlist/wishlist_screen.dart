@@ -26,13 +26,17 @@ class WishListScreen extends StatefulWidget {
 }
 
 class _WishListScreenState extends State<WishListScreen> {
+  // Pagination variables that will help us load the data after or with scrolling.
   final ScrollController scrollController = ScrollController();
   int paginateBy = AppConfig.WishListPagenateCount;
   int page = AppConfig.PageOne;
 
+  // Bloc for handling state management
   DeleteFromWishlistBloc deleteFromWishlistBloc = DeleteFromWishlistBloc();
 
   getInitialData() {
+    // Firing the event that we will be handling.
+    // getting the initial data that we will see initially.
     context.read<WishlistBloc>().add(
           WishlistGetInitialData(
             page: page,
@@ -42,6 +46,8 @@ class _WishListScreenState extends State<WishListScreen> {
   }
 
   getMoreData() {
+    // Firing the event for loading more data on user scrolling.
+    // getting the data after we scroll the page.
     context.read<WishlistBloc>().add(
           WishlistGetMoreData(
             page: page,
@@ -57,6 +63,7 @@ class _WishListScreenState extends State<WishListScreen> {
       getInitialData();
     });
 
+    // Listening for the scrolling so we can load more data when scrolling.
     scrollController.addListener(() {
       if (scrollController.position.maxScrollExtent -
               scrollController.position.pixels <=
@@ -71,6 +78,7 @@ class _WishListScreenState extends State<WishListScreen> {
 
   @override
   void dispose() {
+    // releasing  resources
     scrollController.dispose();
     super.dispose();
   }
@@ -79,6 +87,7 @@ class _WishListScreenState extends State<WishListScreen> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () {
+        /// Let the user refresh the page..
         page = AppConfig.PageOne;
         widget.products.clear();
         getInitialData();

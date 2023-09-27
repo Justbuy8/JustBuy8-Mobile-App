@@ -20,18 +20,24 @@ class ChooseBrandsScreen extends StatefulWidget {
 }
 
 class _ChooseBrandsScreenState extends State<ChooseBrandsScreen> {
-  // scroll controller
+  // scroll controller or pagination variables that will help us load the data while scrolling
   final ScrollController _scrollController = ScrollController();
   int paginateBy = AppConfig.HomeBestChooseBrandsPagenateCount;
   int page = AppConfig.PageOne;
 
+  // Model for storing the data or how the data is inside our database.
   List<BrandsModel> brands = [];
+
+  // state manager.
   var brandBloc = BrandsBloc();
 
   @override
   void initState() {
     brandBloc = BrandsBloc()
       ..add(BrandsLoadEvent(page.toString(), paginateBy.toString(), true));
+
+    // defining listener for loading the brands based on our scroll.
+    // or handling the event fired at the time when we scroll.
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent -
               _scrollController.position.pixels <=

@@ -11,13 +11,17 @@ class BrandsBloc extends Bloc<BrandsEvent, BrandsState> {
 
   BrandsBloc() : super(BrandsInitState()) {
     on<BrandsLoadEvent>((event, emit) async {
+      // Emit the loaing state first, until we get the data from the API.
       emit(BrandsLoadingState());
       try {
+        // calling the api to get the data from the API
         final brands = await BrandsController.getBrands(
           event.page,
           event.paginateBy,
           event.random,
         );
+        // if we get the data from the API then we should emit the data
+        // otherwise we should emit the empty array or list.
         if (brands.isNotEmpty) {
           emit(BrandsGetState(brands));
         } else {
