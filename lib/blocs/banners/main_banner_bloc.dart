@@ -1,3 +1,4 @@
+// Import necessary libraries and files
 import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,7 +6,7 @@ import 'package:justbuyeight/constants/app_texts.dart';
 import 'package:justbuyeight/controllers/banners/BannerController.dart';
 import 'package:justbuyeight/models/banners/BannerModel.dart';
 
-// states
+// Define abstract states that will be handled in the frontend
 abstract class MainBannerState {}
 
 class MainBannerInitial extends MainBannerState {}
@@ -27,28 +28,34 @@ class MainBannerErrorState extends MainBannerState {
   MainBannerErrorState(this.message);
 }
 
-// events
+// Define abstract events that will be fired on specific actions
 abstract class MainBannerEvent {}
 
 class MainBannerLoadingEvent extends MainBannerEvent {}
 
-// bloc
+// Create a BLoC class for managing the main banner
 class MainBannerBloc extends Bloc<MainBannerEvent, MainBannerState> {
   MainBannerBloc() : super(MainBannerInitial()) {
     List<BannerModel> model;
 
+    // Define what happens when the MainBannerLoadingEvent is triggered
     on<MainBannerLoadingEvent>((event, emit) async {
-      // show loading on the screen
+      // Show loading on the screen
       emit(MainBannerLoadingState());
-      // call the api
+
       try {
+        // Call the API to get the main banner data
         model = await BannerController.getBanners(isMainBanner: true);
+
         if (model.isEmpty) {
+          // When there is no data available, inform the frontend
           emit(MainBannerNoDataState(model));
         } else {
+          // When data is available, provide it to the frontend
           emit(MainBannerDataState(model));
         }
       } catch (e) {
+        // Handle errors, such as internet connection issues, server errors, or others
         if (e is SocketException) {
           emit(MainBannerErrorState(AppText.internetError));
         } else if (e is HttpException) {

@@ -123,7 +123,7 @@ class AppText {
       "Looks like you haven't made your order yet";
 
   // bloc text
-  static const String noBrandsFountText = "No brands to load";
+  static const String noBrandsToLoadText = "No brands to load";
   static const String noArrivalsFound = "No arrivals found";
   static const String noProductsFound = "No Products found";
   static const String noCategoriesFoundText = "No Categories Found";
