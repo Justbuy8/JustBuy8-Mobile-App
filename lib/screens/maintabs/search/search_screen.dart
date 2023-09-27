@@ -368,9 +368,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                     Text("Loading more products..."),
                                   ],
                                 ),
-                                40.height,
                               ],
                             ).visible(state is SearchProductsLoadingMoreState),
+                            60.height,
                           ],
                         );
               },
