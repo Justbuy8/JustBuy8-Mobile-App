@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -574,10 +573,10 @@ class _SliderWidgetState extends State<SliderWidget> {
       },
       min: 1,
       max: 1000,
-      divisions: 1000,
+      divisions: 100,
       labels: RangeLabels(
-        "\$${_currentRangeValues.start.round()}",
-        "\$${_currentRangeValues.end.round()}",
+        _currentRangeValues.start.round().toString(),
+        _currentRangeValues.end.round().toString(),
       ),
     );
   }
@@ -587,98 +586,77 @@ class RatingFilterWidget extends StatefulWidget {
   const RatingFilterWidget({Key? key}) : super(key: key);
 
   @override
-  State<RatingFilterWidget> createState() => _RatingFilterWidgetState();
+  _RatingFilterWidgetState createState() => _RatingFilterWidgetState();
 }
 
 class _RatingFilterWidgetState extends State<RatingFilterWidget> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RatingFilterBloc()..add(RatingFilterLoadingEvent()),
-      child: BlocConsumer<RatingFilterBloc, RatingFilterState>(
-        listener: (context, state) {
-          if (state is RatingFilterDataState) {
-            if (!isInitialRating) {
-              isInitialRating = true;
-              ratingMap.addEntries(
-                state.ratings.map(
-                  (e) => MapEntry(e, false),
-                ),
-              );
-              ratingMap['All'] = true;
+    return BlocConsumer<RatingFilterBloc, RatingFilterState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        if (state is RatingFilterDataState) {
+          if (!isInitialRating) {
+            for (int i = 0; i < state.ratings.length; i++) {
+              ratingMap[state.ratings[i].toString()] = false;
             }
+            ratingMap['All'] = true;
+            isInitialRating = true;
           }
-        },
-        builder: (bloccontext, state) {
-          if (state is RatingFilterDataState) {
-            return SizedBox(
-              height: 40.h,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: state.ratings.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        ratingMap.updateAll((key, value) => false);
-                        ratingMap.update(
-                          state.ratings[index].toString(),
-                          (value) => true,
-                        );
-                        selectedRating = state.ratings[index];
-                        print(selectedRating);
-                      });
-                    },
-                    child: Container(
-                      height: 30,
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: AppColors.primaryColor,
-                          width: 1,
-                        ),
-                        color: ratingMap[state.ratings[index]] == true
-                            ? AppColors.primaryColor
-                            : AppColors.transparentColor,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Center(
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: ratingMap[state.ratings[index]] == true
-                                  ? AppColors.appWhiteColor
-                                  : AppColors.primaryColor,
-                              size: 14.sp,
-                            ),
-                            const SizedBox(width: 5),
-                            AutoSizeText(
-                              state.ratings[index].toString(),
-                              style: TextStyle(
-                                color: ratingMap[state.ratings[index]] == true
-                                    ? AppColors.appWhiteColor
-                                    : AppColors.primaryColor,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              maxFontSize: 14.sp,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            );
-          }
-          return const AppCircularSpinner();
-        },
-      ),
+
+          return Wrap(
+            spacing: 8.0,
+            runSpacing: 8.0,
+            children: state.ratings.map(
+              (rating) {
+                return ChoiceChip(
+                  label: Text(rating.toString()),
+                  selected: ratingMap[rating.toString()]!,
+                  onSelected: (bool selected) {
+                    setState(() {
+                      ratingMap.updateAll(
+                        (key, value) => false,
+                      );
+
+                      ratingMap[rating.toString()] = selected;
+
+                      selectedRating = rating.toString();
+                    });
+                  },
+                  selectedColor: AppColors.primaryColor,
+                  backgroundColor: AppColors.transparentColor,
+                  labelStyle: TextStyle(
+                    color: ratingMap[rating.toString()]!
+                        ? AppColors.appWhiteColor
+                        : AppColors.primaryColor,
+                  ),
+                  elevation: 2,
+                );
+              },
+            ).toList(),
+          );
+        }
+        return Shimmer(
+          child: Wrap(
+            spacing: 8.0,
+            runSpacing: 8.0,
+            children: List.generate(
+              5,
+              (index) {
+                return Container(
+                  padding: const EdgeInsets.all(5),
+                  width: 50.w,
+                  decoration: BoxDecoration(
+                    color: AppColors.appGreyColor,
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
+      },
+      bloc: RatingFilterBloc()..add(RatingFilterLoadingEvent()),
     );
   }
 }
