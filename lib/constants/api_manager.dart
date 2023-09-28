@@ -19,9 +19,6 @@ class ApiManager {
       {dynamic headers}) async {
     return await post(Uri.parse(url),
         body: jsonEncode(body),
-        headers: headers ??
-            {
-              'Content-Type': 'application/json',
-            });
+        headers: headers ?? {'Content-Type': 'application/json'});
   }
 }
