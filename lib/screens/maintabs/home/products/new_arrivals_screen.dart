@@ -61,84 +61,86 @@ class _NewArrivalsScreenState extends State<NewArrivalsScreen> {
     return Scaffold(
       appBar: const BasicAppbarWidget(title: AppText.newArrivalsText),
       body: SafeArea(
-          child: BlocConsumer<NewArrivalBloc, NewArrivalState>(
-        bloc: bloc,
-        listener: (context, state) {
-          if (state is NewArrivalGetAllState) {
-            products.addAll(state.products);
-          }
-        },
-        builder: (context, state) {
-          if (state is NewArrivalLoadingState) {
-            return RectangularShimmerGridView(itemCount: 8);
-          } else if (state is NewArrivalErrorState) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Lottie.asset(
-                    LottieAssets.error,
-                    repeat: false,
-                  ),
-                  10.height,
-                  Text(
-                    state.message,
-                    style: AppTextStyle.heading,
-                  ),
-                  // retry button
-                  20.height,
-                  ElevatedButton(
-                    onPressed: () {
-                      getInitialData();
-                    },
-                    child: Text(AppText.tryAgain),
-                  ),
-                ],
-              ),
-            );
-          } else if (state is NewArrivalEmptyState) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Lottie.asset(
-                    LottieAssets.emptyproducts,
-                    repeat: false,
-                  ),
-                  10.height,
-                  Text(
-                    state.message,
-                    style: AppTextStyle.heading,
-                  ),
-                ],
-              ),
-            );
-          }
-          return products.isEmpty
-              ? NoDataWidget()
-              : GridView.builder(
-                  controller: _scrollController,
-                  itemCount: products.length + 2,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.7,
-                    mainAxisSpacing: 20,
-                    crossAxisSpacing: 20,
-                  ),
-                  itemBuilder: (context, index) {
-                    if (index == products.length ||
-                        index == products.length + 1) {
-                      if (state is NewArrivalLoadingMoreState) {
-                        return const AppCircularSpinner();
+        child: BlocConsumer<NewArrivalBloc, NewArrivalState>(
+          bloc: bloc,
+          listener: (context, state) {
+            if (state is NewArrivalGetAllState) {
+              products.addAll(state.products);
+            }
+          },
+          builder: (context, state) {
+            if (state is NewArrivalLoadingState) {
+              return RectangularShimmerGridView(itemCount: 8);
+            } else if (state is NewArrivalErrorState) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset(
+                      LottieAssets.error,
+                      repeat: false,
+                    ),
+                    10.height,
+                    Text(
+                      state.message,
+                      style: AppTextStyle.heading,
+                    ),
+                    // retry button
+                    20.height,
+                    ElevatedButton(
+                      onPressed: () {
+                        getInitialData();
+                      },
+                      child: Text(AppText.tryAgain),
+                    ),
+                  ],
+                ),
+              );
+            } else if (state is NewArrivalEmptyState) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset(
+                      LottieAssets.emptyproducts,
+                      repeat: false,
+                    ),
+                    10.height,
+                    Text(
+                      state.message,
+                      style: AppTextStyle.heading,
+                    ),
+                  ],
+                ),
+              );
+            }
+            return products.isEmpty
+                ? NoDataWidget()
+                : GridView.builder(
+                    controller: _scrollController,
+                    itemCount: products.length + 2,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.7,
+                      mainAxisSpacing: 20,
+                      crossAxisSpacing: 20,
+                    ),
+                    itemBuilder: (context, index) {
+                      if (index == products.length ||
+                          index == products.length + 1) {
+                        if (state is NewArrivalLoadingMoreState) {
+                          return const AppCircularSpinner();
+                        } else
+                          return const SizedBox.shrink();
                       } else
-                        return const SizedBox.shrink();
-                    } else
-                      return ProductWidget(product: products[index]);
-                  },
-                  padding: const EdgeInsets.all(10.0),
-                );
-        },
-      )),
+                        return ProductWidget(product: products[index]);
+                    },
+                    padding: const EdgeInsets.all(10.0),
+                  );
+          },
+        ),
+      ),
     );
   }
 }
